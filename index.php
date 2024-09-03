@@ -1,7 +1,9 @@
-<!doctype html>
 <?php
 include 'header.php'
 ?>
+
+<!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
