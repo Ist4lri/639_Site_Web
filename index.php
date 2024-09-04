@@ -57,7 +57,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
                     </p>
                 <h3>Un serveur français Milsim</h3>
                     <p>
-                        Nous sommes une team Française <Image src="src/assets/drapeau_fr.png" alt="Drapeau Français" style={{ width: '20px', height: 'auto', verticalAlign: 'middle' }}/> pratiquant le Milsim
+                        Nous sommes une team Française <Image src="src/assets/drapeau_fr.png" alt="Drapeau Français" style="width: '20px', height: 'auto', verticalAlign: 'middle'"/> pratiquant le Milsim
                         semi-sérieux. Lors de nos opérations, nous avons toujours un temps ou nous pouvons délirer, parler, et échanger un peu, mais durant les opérations, un RP sérieux
                         est demandé.  Cependant, un fort esprit de camaraderie est présent, ce qui permettra de combattre en étant entouré d&apos;amis, et permettra de supporter les ordres
                         blasant des gradés (Ou des comissaires...). Mais tes futurs frères d&apos;armes sauront te montrer on fait pour survivre en s&apos;amusant, et en passant une bonne soirée.
