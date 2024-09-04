@@ -141,3 +141,7 @@ nav.head-nav a:hover {
     font-weight: bold; /* Texte en gras */
     letter-spacing: 1px; /* Espacement des lettres */
 }
+
+.intro_content {
+    margin-top: 300px;
+}
