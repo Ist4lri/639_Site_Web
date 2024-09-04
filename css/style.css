@@ -1,0 +1,143 @@
+/* Style global */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('../src/assets/Battle.png') no-repeat center center fixed; 
+    background-size: cover; /* Assure que l'image couvre tout l'écran */
+    color: #fff; /* Texte par défaut en blanc pour le contraste */
+}
+
+/* Style du header */
+header.head {
+    background-color: rgba(75, 75, 75, 0.26); 
+    color: white;
+    padding: 5px 5px; /* Plus de padding pour un aspect plus robuste */
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 99.3%; /* Prend toute la largeur de l'écran */
+    top: 0;
+    z-index: 1000; /* Assure que le header reste au-dessus du contenu */
+    backdrop-filter: blur(5px); /* Ajoute un effet de flou de fond */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7); /* Augmente l'ombre portée pour une meilleure séparation */
+}
+
+.head-logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.head-logo img {
+    max-width: 80px; 
+    height: auto;
+    margin-right: 10px;
+}
+
+.head-username {
+    color: #f1f1f1;
+    font-size: 1.1rem; /* Taille de police légèrement plus grande pour lisibilité */
+}
+
+.head-title {
+    flex: 1.5; /* Réduit l'espace occupé par le titre pour laisser plus de place à la navigation */
+    text-align: center;
+}
+
+.head-title h1 {
+    margin: 0;
+    font-size: 1.8rem; /* Taille de police légèrement réduite */
+    color: white;
+    letter-spacing: 1.2px; /* Espacement des lettres réduit */
+    font-weight: bold; /* Texte en gras pour une meilleure lisibilité */
+}
+
+nav.head-nav {
+    flex: 1.2; /* Augmenter la flexibilité de l'espace pour les éléments de navigation */
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Réduit l'espace entre les éléments de navigation et le titre */
+    align-items: center; 
+    white-space: nowrap; 
+}
+
+nav.head-nav a {
+    text-decoration: none;
+    color: #f1f1f1; /* Couleur des liens légèrement plus claire */
+    font-size: 1rem; /* Taille de police standard */
+    font-weight: bold; /* Les liens en gras pour un look plus affirmé */
+}
+
+nav.head-nav a:hover {
+    color: #b3b3b3; /* Couleur au survol plus douce */
+}
+
+/* Conteneur principal */
+.container {
+    padding: 100px 20px 40px; /* Ajuster le padding pour compenser le header fixe */
+    text-align: center;
+}
+
+.container h2 {
+    margin-bottom: 30px;
+    font-size: 2.5rem; /* Augmenter la taille du texte pour plus d'impact */
+    color: #c1c1c1; /* Couleur plus douce que le blanc pur */
+    text-transform: uppercase; /* Transformer en majuscules pour un effet stylé */
+    letter-spacing: 2px; /* Espacement des lettres */
+}
+
+/* Spécialités */
+.specialties {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.specialty {
+    background-color: #3a3a3a; /* Légèrement plus clair pour se démarquer du fond */
+    color: white;
+    padding: 15px 25px; /* Plus de padding pour un look plus robuste */
+    border-radius: 10px; /* Augmentation du radius pour des bords plus arrondis */
+    text-align: center;
+    min-width: 160px; /* Augmenter la largeur minimale */
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+.specialty:hover {
+    background-color: #555; /* Couleur au survol plus distincte */
+    transform: translateY(-5px); /* Légère élévation pour un effet "pop" */
+}
+
+.specialty a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.3rem; /* Augmenter légèrement la taille de la police */
+    font-weight: bold; /* Texte en gras */
+    letter-spacing: 1px; /* Espacement des lettres pour un effet stylé */
+}
+.eff {
+    background-color: #C4C4C4; /* Fond de couleur #C4C4C4 */
+    color: black; /* Couleur du texte en noir */
+    padding: 15px 25px; /* Padding pour un look plus robuste */
+    border-radius: 10px; /* Augmentation du radius pour des bords plus arrondis */
+    text-align: center; /* Texte centré */
+    max-width: 300px; /* Largeur maximale de 300px */
+    margin: 20px auto; /* Centrer l'élément horizontalement et espacer verticalement */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transitions */
+}
+
+.eff:hover {
+    background-color: #ebebeb; /* Couleur au survol légèrement plus claire */
+    transform: translateY(-5px); /* Légère élévation pour un effet "pop" */
+}
+
+.eff a {
+    text-decoration: none;
+    color: black; /* Texte en noir */
+    font-size: 1.3rem; /* Taille de la police légèrement plus grande */
+    font-weight: bold; /* Texte en gras */
+    letter-spacing: 1px; /* Espacement des lettres */
+}

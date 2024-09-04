@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user['confirmation'] == 1 && $user['banni'] == 0) {
                 $_SESSION['id_utilisateur'] = $user['id'];  
                 $_SESSION['utilisateur'] = $user['email'];
-                $_SESSION['nom_utilisateur'] = $user['nom']; // Stocker le nom de l'utilisateur dans la session
+                $_SESSION['nom_utilisateur'] = $user['nom'];
+                $_SESSION['role'] = $user['role'];
                 
                 header("Location: ../index.php");
                 exit;

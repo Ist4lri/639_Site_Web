@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 03, 2024 at 04:06 PM
+-- Generation Time: Sep 04, 2024 at 12:31 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -33,16 +33,18 @@ CREATE TABLE `utilisateurs` (
   `email` varchar(255) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
   `confirmation` tinyint(1) DEFAULT '0',
-  `grade` enum('Civil','Garde','Garde-Vétéran','Caporal','Sergent','Lieutenant','Capitaine','Commandant','Colonel','Général','Major') DEFAULT 'Civil',
-  `banni` tinyint(1) DEFAULT '0'
+  `grade` enum('Civil','Garde','Conscrit','Garde-Vétéran','Caporal','Sergent','Lieutenant','Capitaine','Commandant','Colonel','Général','Major') DEFAULT 'Civil',
+  `banni` tinyint(1) DEFAULT '0',
+  `role` enum('utilisateur','admin') DEFAULT 'utilisateur',
+  `spe_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`id`, `nom`, `email`, `mot_de_passe`, `confirmation`, `grade`, `banni`) VALUES
-(1, 'GIV-Baldwin', 'loicraoult31@gmail.com', '$2y$10$RAtmmhi4bPW9nhHmqZ7VC.tLYiiN1rYe1JfkF7iedNx4A2dfz8DMa', 1, 'Garde-Vétéran', 0);
+INSERT INTO `utilisateurs` (`id`, `nom`, `email`, `mot_de_passe`, `confirmation`, `grade`, `banni`, `role`, `spe_id`) VALUES
+(1, 'Baldwin', 'loicraoult31@gmail.com', '$2y$10$RAtmmhi4bPW9nhHmqZ7VC.tLYiiN1rYe1JfkF7iedNx4A2dfz8DMa', 1, 'Garde-Vétéran', 0, 'admin', NULL);
 
 --
 -- Indexes for dumped tables
@@ -53,7 +55,8 @@ INSERT INTO `utilisateurs` (`id`, `nom`, `email`, `mot_de_passe`, `confirmation`
 --
 ALTER TABLE `utilisateurs`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `fk_spe` (`spe_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -64,6 +67,16 @@ ALTER TABLE `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `utilisateurs`
+--
+ALTER TABLE `utilisateurs`
+  ADD CONSTRAINT `fk_spe` FOREIGN KEY (`spe_id`) REFERENCES `spe` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

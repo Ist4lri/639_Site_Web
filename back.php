@@ -1,7 +1,13 @@
 <?php
 session_start();
-
 include 'php/db.php';
+// Vérifier si l'utilisateur est un administrateur
+if (!isset($_SESSION['utilisateur']) || $_SESSION['role'] !== 'admin') {
+    header("Location: php/connection.php");
+    exit();
+}
+
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
@@ -85,6 +91,7 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration</title>
     <link rel="stylesheet" href="css/style.css">
+    <a href="gerer_demandes.php">Demandes</a>
 </head>
 <body>
     <h2>Gestion des utilisateurs</h2>

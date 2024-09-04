@@ -83,7 +83,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
 <header class="head">
     <div class="head-logo">
         <a href="index.php">
-            <img src="src/assets/Logo_639th_2.ico" alt="Logo 639">
+            <img src="../src/assets/Logo_639th_2.ico" alt="Logo 639">
         </a>
         <?php if ($isLoggedIn): ?>
             <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
@@ -94,7 +94,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
     </div>
     <nav class="head-nav">
         <?php if ($isLoggedIn): ?>
-            <a href="php/profil.php">Profil</a>
+            <a href="php/profil_utilisateur.php">Profil</a>
             <a href="php/Dec.php">Déconnexion</a>
         <?php else: ?>
             <a href="php/connection.php">Connexion</a>
