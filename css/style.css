@@ -8,7 +8,7 @@ body {
     color: #fff; /* Texte par défaut en blanc pour le contraste */
 }
 
-img {
+p img{
     width: 20px;
     height: auto;
 }
