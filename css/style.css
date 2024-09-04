@@ -145,3 +145,64 @@ nav.head-nav a:hover {
 .intro_content {
     padding-top: 100px;
 }
+
+form {
+    background-color: #4e4e4e; /* Couleur de fond douce pour le formulaire */
+    padding: 20px; /* Padding pour donner de l'espace à l'intérieur du formulaire */
+    border-radius: 10px; /* Bords arrondis */
+    max-width: 400px; /* Largeur maximale du formulaire */
+    margin: 100px auto; /* Centrer le formulaire horizontalement et espacer en haut */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre douce pour donner de la profondeur */
+}
+
+form label {
+    font-size: 1rem; /* Taille de police pour les labels */
+    color: #ffffff; /* Couleur de texte */
+    display: block; /* S'assure que le label est sur une ligne distincte */
+    margin-bottom: 8px; /* Espacement inférieur pour séparer du champ */
+}
+
+form input[type="email"],
+form input[type="password"] {
+    width: 100%; /* Prendre toute la largeur du formulaire */
+    padding: 10px; /* Ajouter du padding à l'intérieur du champ */
+    margin-bottom: 20px; /* Espacement inférieur pour séparer des autres éléments */
+    border: 1px solid #747474; /* Bordure discrète */
+    border-radius: 5px; /* Coins légèrement arrondis */
+    font-size: 1rem; /* Taille de la police dans les champs */
+    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+}
+
+form input[type="submit"] {
+    width: 100%; /* Bouton de la même largeur que les champs */
+    padding: 10px; /* Ajouter du padding au bouton */
+    background-color: #363636; /* Couleur de fond verte pour le bouton */
+    color: white; /* Texte blanc */
+    border: none; /* Enlever la bordure par défaut */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 1rem; /* Taille de la police */
+    cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
+    transition: background-color 0.3s ease; /* Transition douce au survol */
+}
+
+form input[type="submit"]:hover {
+    background-color: #000000; /* Couleur légèrement plus sombre au survol */
+}
+
+p {
+    font-size: 1rem; /* Taille de police standard pour le texte */
+    color: #f1f1f1; /* Couleur de texte plus sombre */
+    text-align: center; /* Centrer le texte */
+    margin-top: 20px; /* Ajout d'un espace au-dessus du paragraphe */
+}
+
+p a {
+    color: #c90a0a; /* Couleur du lien en vert */
+    text-decoration: none; /* Enlever le soulignement du lien */
+    font-weight: bold; /* Mettre le lien en gras */
+    transition: color 0.3s ease; /* Transition douce pour le changement de couleur */
+}
+
+p a:hover {
+    color: #800909; /* Couleur légèrement plus sombre au survol */
+}
