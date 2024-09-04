@@ -5,10 +5,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-$host = 'localhost';
+$host = '51.210.180.94';
 $dbname = '639';
 $username = 'root';
-$password = 'root';
+$password = 'regiment-cadienpwd';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
