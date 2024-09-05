@@ -15,7 +15,7 @@ $currentUser = $stmt->fetch();
 
 $gradesAutorises = ['Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
 if (!in_array($currentUser['grade'], $gradesAutorises)) {
-    header("Location: insubordination.php");
+    echo "Accès refusé. Vous n'avez pas l'autorisation pour accéder à cette page.";
     exit();
 }
 
@@ -47,7 +47,7 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Spécialités</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/tab.css">
 </head>
 <body>
     <h1>Gestion des spécialités</h1>
