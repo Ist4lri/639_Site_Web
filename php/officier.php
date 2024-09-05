@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouveauGrade = $_POST['nouveau_grade'];
     $nouvelleSpe = $_POST['nouvelle_spe'];
+    $nouvelleGerance = $_POST['nouvelle_gerance']; // Nouvelle gérance
 
     if (!empty($nouveauGrade)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET grade = :nouveau_grade WHERE id = :id");
@@ -29,6 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute(['nouvelle_spe' => $nouvelleSpe, 'id' => $userId]);
     }
 
+    if (isset($nouvelleGerance)) {
+        $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
+        $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
+    }
+
     $message = "Les informations de l'utilisateur ont été mises à jour avec succès.";
 }
 
@@ -37,7 +43,7 @@ $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
 $searchGrade = isset($_GET['search_grade']) ? $_GET['search_grade'] : '';
 $searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
 
-$sql = "SELECT u.id, u.nom, u.grade, s.nom AS specialite 
+$sql = "SELECT u.id, u.nom, u.grade, u.gerance, s.nom AS specialite 
         FROM utilisateurs u 
         LEFT JOIN spe s ON u.spe_id = s.id
         WHERE 1=1";
@@ -74,7 +80,7 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/tab.css">
 </head>
 <body>
-    <h1>Gestion des grades et des spécialités</h1>
+    <h1>Gestion des grades, spécialités et gérances</h1>
 
     <?php if (isset($message)): ?>
         <p style="color: green;"><?php echo $message; ?></p>
@@ -115,8 +121,10 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Nom</th>
                 <th>Grade actuel</th>
                 <th>Spécialité actuelle</th>
+                <th>Gérance actuelle</th>
                 <th>Nouveau grade</th>
                 <th>Nouvelle spécialité</th>
+                <th>Nouvelle gérance</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -126,6 +134,7 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td><?php echo htmlspecialchars($user['grade']); ?></td>
                     <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
+                    <td><?php echo htmlspecialchars($user['gerance'] === null ? 'Aucune' : $user['gerance']); ?></td>
                     <td>
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
@@ -148,6 +157,13 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
                         </select>
                     </td>
                     <td>
+                        <select name="nouvelle_gerance">
+                            <option value="0" <?php if ($user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
+                            <option value="1" <?php if ($user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
+                            <option value="2" <?php if ($user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
+                        </select>
+                    </td>
+                    <td>
                         <button type="submit">Mettre à jour</button>
                     </td>
                     </form>
@@ -157,4 +173,3 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 </body>
 </html>
-
