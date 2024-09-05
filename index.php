@@ -16,6 +16,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>639ème Régiment Cadien</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
     
 </head>
 <body>

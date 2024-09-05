@@ -66,8 +66,25 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Utilisateur</title>
     <link rel="stylesheet" href="../css/profil.css">
+    <link rel="stylesheet" href="css/header.css">
     
 </head>
+<header class="head">
+    <div class="head-logo">
+        <a href="index.php">
+            <img src="src/assets/Logo_639th_2.ico" alt="Logo 639">
+        </a>
+        <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
+    </div>
+    <div class="head-title">
+        <h1>639ème Régiment Cadien</h1>
+    </div>
+    <nav class="head-nav">
+        <a href="php/officier.php">Officier</a>
+        <a href="php/sous-officier.php">Sous-Officier</a>
+        <a href="php/Dec.php">Déconnexion</a>
+    </nav>
+</header>
 <body>
 
 <div class="profile-container">

@@ -13,70 +13,7 @@ p img{
     height: auto;
 }
 
-/* Style du header */
-header.head {
-    background-color: rgba(75, 75, 75, 0.26); 
-    color: white;
-    padding: 5px 5px; /* Plus de padding pour un aspect plus robuste */
-    display: flex;
-    align-items: center;
-    position: fixed;
-    width: 99.3%; /* Prend toute la largeur de l'écran */
-    top: 0;
-    z-index: 1000; /* Assure que le header reste au-dessus du contenu */
-    backdrop-filter: blur(5px); /* Ajoute un effet de flou de fond */
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7); /* Augmente l'ombre portée pour une meilleure séparation */
-}
 
-.head-logo {
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.head-logo img {
-    max-width: 80px; 
-    height: auto;
-    margin-right: 10px;
-}
-
-.head-username {
-    color: #f1f1f1;
-    font-size: 1.1rem; /* Taille de police légèrement plus grande pour lisibilité */
-}
-
-.head-title {
-    flex: 1.5; /* Réduit l'espace occupé par le titre pour laisser plus de place à la navigation */
-    text-align: center;
-}
-
-.head-title h1 {
-    margin: 0;
-    font-size: 1.8rem; /* Taille de police légèrement réduite */
-    color: white;
-    letter-spacing: 1.2px; /* Espacement des lettres réduit */
-    font-weight: bold; /* Texte en gras pour une meilleure lisibilité */
-}
-
-nav.head-nav {
-    flex: 1.2; /* Augmenter la flexibilité de l'espace pour les éléments de navigation */
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px; /* Réduit l'espace entre les éléments de navigation et le titre */
-    align-items: center; 
-    white-space: nowrap; 
-}
-
-nav.head-nav a {
-    text-decoration: none;
-    color: #f1f1f1; /* Couleur des liens légèrement plus claire */
-    font-size: 1rem; /* Taille de police standard */
-    font-weight: bold; /* Les liens en gras pour un look plus affirmé */
-}
-
-nav.head-nav a:hover {
-    color: #b3b3b3; /* Couleur au survol plus douce */
-}
 
 /* Conteneur principal */
 .explain_container {
