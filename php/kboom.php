@@ -11,28 +11,28 @@
     <div class="container">
         <h2>Introduction</h2>
         <p class="content">
-            Ce document a pour objectif  de vous transmettre toutes les connaissances dont vous aurez besoin afin de mener à bien vos missions en tant que <span class="important">Breacher</span> de l’Astra-Militarum. Il aborde tous les points théoriques de la spécialisation de Breacher. Vous y trouverez une présentation de votre équipement, des différents types de mission que vous aurez à effectuer au sein de l’Imperium. Avant de rejoindre cette spécialité, il faut bien prendre en compte que vous n’avez pas le droit à l’erreur, l’échec peut entraîner, au mieux, de lourdes blessures et au pire la perte de toutes les unités présentent sur le terrain. 
+            Ce document a pour objectif  de vous transmettre toutes les connaissances dont vous aurez besoin afin de mener à bien vos missions en tant que <span class="important">Breacher</span> de l’Astra-Militarum. Il aborde tous les points théoriques de la spécialisation de <span class="important">Breacher</span>. Vous y trouverez une présentation de votre équipement, des différents types de mission que vous aurez à effectuer au sein de l’Imperium. Avant de rejoindre cette spécialité, il faut bien prendre en compte que vous n’avez pas le droit à l’erreur, l’échec peut entraîner, au mieux, de lourdes blessures et au pire la perte de toutes les unités présentent sur le terrain. 
         </p>
         <h2>Présentation de la spécialisation</h2>
         <p class="content">
             Le <span class="important">Breacher</span> ne se résume pas à simplement à foncer tête baisser ou juste poser une bombe. Votre rôle comprend évidemment la neutralisation de cible mais englobe aussi toute la préparation annexe au combat en milieu clos, la percée de lignes ennemies et à la neutralisation d’objectif avec des moyens explosifs, comprenant le déminage/désamorçage.
-            En effet, avant de traiter un objectif il y a différentes actions à faire (cf. Protocole d’engagement). Il est important de noter qu’être une unité breacher, vous êtes à une place importante dans une escouade ou une section entière.
+            En effet, avant de traiter un objectif il y a différentes actions à faire (cf. Protocole d’engagement). Il est important de noter qu’être une unité <span class="important">Breacher</span>, vous êtes à une place importante dans une escouade ou une section entière.
             Vous assurez la sécurité de votre unité afin de progresser au milieu des lignes ennemis ainsi que la sécurisation de chaque bâtiment, par la même occasion vous vous occupez de la neutralisation d’objectif et le désamorçage, vous assurez aussi un soutien moral et physique à vos camarades sur le champ de bataille.
         </p>
         <h2>Présentation des explosifs</h2>
         <p class="content">
-            En tant que breacher vous allez rencontrer différents types de bombes. Il faut bien évidemment suivre les protocoles pour tous les types de bombes. On peut les classer en catégories :
-            </br>- les EM (Explosifs Militaires) : la charge explosive de ce type est stable et le système de mise à feu complexe. Ce type d’explosif est dangereux de par sa portée qui est estimée entre moyenne et grande. Ce type d’explosif est utilisé principalement par des groupes armés conventionnels.
-            </br>- les EID (Explosifs Industriels) : ce sont des explosifs conçus pour l’usage civil (minage, démolition, etc …). La charge explosive est stable et le système de mise à feu est facile à cerner. Sa portée est estimée entre faible et moyenne. Ce type d’explosif est principalement par des groupes rebelles.
-            </br>- les EEI (Engin Explosif Improvisé) : ce type de charge est la plus dangereuse de par son fonctionnement totalement aléatoire. La charge explosive est particulièrement instable et son système de mise à feu l’est tout autant. Sa portée est inconnue. Il faut manier ces explosifs avec énormément de précaution, voire même d’opter pour la destruction contrôlée plutôt que de tenter de les désamorcer. Ce type d’explosif est principalement utilisé par des groupes terroristes.
+            En tant que <span class="important">Breacher</span> vous allez rencontrer différents types de bombes. Il faut bien évidemment suivre les protocoles pour tous les types de bombes. On peut les classer en catégories :
+            </br>- <span class="highlight">Les EM (Explosifs Militaires) </span>: la charge explosive de ce type est stable et le système de mise à feu complexe. Ce type d’explosif est dangereux de par sa portée qui est estimée entre moyenne et grande. Ce type d’explosif est utilisé principalement par des groupes armés conventionnels.
+            </br>- <span class="highlight">Les EID (Explosifs Industriels) </span>: ce sont des explosifs conçus pour l’usage civil (minage, démolition, etc …). La charge explosive est stable et le système de mise à feu est facile à cerner. Sa portée est estimée entre faible et moyenne. Ce type d’explosif est principalement par des groupes rebelles.
+            </br>- <span class="highlight">Les EEI (Engin Explosif Improvisé) </span>: ce type de charge est la plus dangereuse de par son fonctionnement totalement aléatoire. La charge explosive est particulièrement instable et son système de mise à feu l’est tout autant. Sa portée est inconnue. Il faut manier ces explosifs avec énormément de précaution, voire même d’opter pour la destruction contrôlée plutôt que de tenter de les désamorcer. Ce type d’explosif est principalement utilisé par des groupes terroristes.
         </p>
 
         <h2>Protocole d’engagement</h2>
         <p class="content">
-            Le soldat breacher respecte la hiérarchie qu’importe la spécialisation/ affectation de son supérieur.
-            L’équipement du soldat breacher n’est porté qu’une fois affecté lors d'entraînement ou de départ sur le combat, un soldat breacher non affecté est considéré comme infanterie ou unité de garde, ainsi en combat il lui est accordé le port d’un fusil d’assaut ainsi que de son matériel.
+            Le soldat <span class="important">Breacher</span> respecte la hiérarchie qu’importe la spécialisation/ affectation de son supérieur.
+            L’équipement du soldat <span class="important">Breacher</span> n’est porté qu’une fois affecté lors d'entraînement ou de départ sur le combat, un soldat <span class="important">Breacher</span> non affecté est considéré comme infanterie ou unité de garde, ainsi en combat il lui est accordé le port d’un fusil d’assaut ainsi que de son matériel.
             Lors de l’utilisation de son matériel, l’unité doit faire attention au périmètre qui l'entoure. L’unité doit utiliser son matériel correctement lors de l’application d’une charge explosive ou bien le désamorçage d’une mine ou d’un explosif puissant. Connaître son matériel et savoir l’utiliser au bon moment. Il doit aussi savoir sécuriser un bâtiment rapidement.
-            Ainsi, le soldat breacher doit respecter ces règles d’intervention présente dans le protocole. 
+            Ainsi, le soldat <span class="important">Breacher</span> doit respecter ces règles d’intervention présente dans le protocole. 
         </p>
 
         <h3>Protocole Global - Désamorçage de Bombes</h3>

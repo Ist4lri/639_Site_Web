@@ -26,7 +26,6 @@ p img{
     font-size: 16px; /* Taille du texte */
     line-height: 1.5;
     width: 60%; /* Largeur du conteneur */
-    margin: 0 auto; /* Centrer horizontalement */
 }
 
 .intro_content a {
