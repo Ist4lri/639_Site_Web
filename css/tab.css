@@ -1,0 +1,76 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #2e2e2e;
+    color: #f1f1f1;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #f1f1f1;
+    margin-bottom: 20px;
+}
+
+.message {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #28a745; /* Vert pour succès */
+}
+
+form {
+    display: inline-block;
+    margin: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #3a3a3a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #555;
+    text-align: center;
+}
+
+th {
+    background-color: #555;
+    color: white;
+    text-transform: uppercase;
+}
+
+td {
+    background-color: #444;
+    color: #e1e1e1;
+}
+
+select, input[type="submit"] {
+    background-color: #bdbdbd;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #28a745;
+}
+
+select {
+    background-color: #555;
+}
+
+input[type="submit"].danger {
+    background-color: #dc3545; /* Rouge pour bannir */
+}
+
+input[type="submit"].danger:hover {
+    background-color: #b52b38;
+}
