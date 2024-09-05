@@ -50,14 +50,7 @@ ul li:before {
     line-height: 1.8;
 }
 
-/* Alterne les mots importants entre rouge et violet */
-.important:nth-of-type(odd) {
-    color: #ff0000; /* Rouge */
-}
 
-.important:nth-of-type(even) {
-    color: #8a2be2; /* Violet */
-}
 body {
     background-color: #000; /* Fond noir */
     color: #00ff00; /* Texte vert type rétro */
