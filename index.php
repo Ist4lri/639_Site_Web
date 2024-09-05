@@ -89,7 +89,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
         <div class="specialty"><a href="php/vox.php">Vox Opérateur</a></div>
         <div class="specialty"><a href="php/mark.php">Marksman</a></div>
         <div class="specialty"><a href="php/plas.php">Plasma</a></div>
-        <div class="specialty"><a href="php/brea.php">Breacher</a></div>
+        <div class="specialty"><a href="php/kboom.php">Breacher</a></div>
         <div class="specialty"><a href="php/etl.php">Equipier de Tir Lourd</a></div>
     </div>
 </div>
