@@ -8,8 +8,6 @@ if (!isset($_SESSION['utilisateur'])) {
 
 include 'db.php';
 
-$isLoggedIn = isset($_SESSION['utilisateur']);
-$userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
@@ -78,7 +76,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <a href="../index.php">
             <img src="../src/assets/Logo_639th_2.ico" alt="Logo 639">
         </a>
-        <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
+        <span class="head-username">Bonjour, <?php echo htmlspecialchars($utilisateur['nom']); ?></span>
     </div>
     <div class="head-title">
         <h1>639ème Régiment Cadien</h1>
