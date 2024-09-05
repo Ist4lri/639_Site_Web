@@ -71,15 +71,20 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td><?php echo htmlspecialchars($user['grade']); ?></td>
-                    <td><?php echo htmlspecialchars($user['specialite']); ?></td>
+                    <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
                     <td>
                         <form action="sous-officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
                             <select name="nouvelle_spe">
-                                <option value="">Sélectionnez une spécialité</option>
-                                <?php foreach ($specialites as $spe): ?>
-                                    <option value="<?php echo $spe['id']; ?>"><?php echo htmlspecialchars($spe['nom']); ?></option>
-                                <?php endforeach; ?>
+                            <option value="">Sélectionnez une spécialité</option>
+<?php if (empty($specialites)): ?>
+    <option value="">Aucune</option>
+<?php else: ?>
+    <?php foreach ($specialites as $spe): ?>
+        <option value="<?php echo $spe['id']; ?>"><?php echo htmlspecialchars($spe['nom']); ?></option>
+    <?php endforeach; ?>
+<?php endif; ?>
+
                             </select>
                     </td>
                     <td>
