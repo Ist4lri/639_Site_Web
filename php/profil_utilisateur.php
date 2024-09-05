@@ -76,7 +76,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
 <header class="head">
     <div class="head-logo">
         <a href="index.php">
-            <img src="src/assets/Logo_639th_2.ico" alt="Logo 639">
+            <img src="../src/assets/Logo_639th_2.ico" alt="Logo 639">
         </a>
         <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
     </div>
