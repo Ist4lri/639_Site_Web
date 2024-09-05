@@ -33,11 +33,11 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
     </div>
     <nav class="head-nav">
         <?php if ($isLoggedIn): ?>
-            <a href="php/profil_utilisateur.php">Profil</a>
-            <a href="php/Dec.php">Déconnexion</a>
+            <a href="profil_utilisateur.php">Profil</a>
+            <a href="Dec.php">Déconnexion</a>
         <?php else: ?>
-            <a href="php/connection.php">Connexion</a>
-            <a href="php/ins.php">Inscription</a>
+            <a href="connection.php">Connexion</a>
+            <a href="ins.php">Inscription</a>
         <?php endif; ?>
     </nav>
 </header>
