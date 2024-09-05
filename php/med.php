@@ -65,7 +65,7 @@
         include 'db.php'; // Connexion à la base de données
 
         // Requête pour récupérer le gérant et sous-gérant
-        $stmt = $pdo->prepare("SELECT nom, gerance FROM utilisateurs WHERE spe_id = 2 AND gerance IN (1, 2)");
+        $stmt = $pdo->prepare("SELECT nom, gerance FROM utilisateurs WHERE spe_id = 3 AND gerance IN (1, 2)");
         $stmt->execute();
         $managers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
