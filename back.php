@@ -174,7 +174,7 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <select name="grade">
                                 <option value="Civil" <?php if ($utilisateur['grade'] == 'Civil') echo 'selected'; ?>>Civil</option>
                                 <option value="Garde" <?php if ($utilisateur['grade'] == 'Garde') echo 'selected'; ?>>Garde</option>
-                                <option value="Garde-Vétéran" <?php if ($utilisateur['grade'] == 'Garde-Vétéran') echo 'selected'; ?>>Garde Vétéran</option>
+                                <option value="Garde-Vétéran" <?php if ($utilisateur['grade'] == 'Garde-Vétéran') echo 'selected'; ?>>Garde-V&eacute;t&eacute;ran</option>
                                 <option value="Caporal" <?php if ($utilisateur['grade'] == 'Caporal') echo 'selected'; ?>>Caporal</option>
                                 <option value="Sergent" <?php if ($utilisateur['grade'] == 'Sergent') echo 'selected'; ?>>Sergent</option>
                                 <option value="Lieutenant" <?php if ($utilisateur['grade'] == 'Lieutenant') echo 'selected'; ?>>Lieutenant</option>
