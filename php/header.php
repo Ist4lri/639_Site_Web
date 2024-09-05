@@ -15,68 +15,6 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>639</title>
-    <style>
-        body.head {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header.head {
-            background-color: #2e7d32;
-            color: white;
-            padding: 2px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .head-logo {
-            flex: 1;
-            text-align: left;
-            display: flex;
-            align-items: center;
-        }
-
-        .head-logo img {
-            max-width: 100px;
-            height: auto;
-            margin-right: 10px;
-        }
-
-        .head-username {
-            color: #d3d3d3;
-            font-size: 1rem;
-        }
-
-        .head-title {
-            flex: 2;
-            text-align: center;
-        }
-
-        .head-title h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        nav.head-nav {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-        }
-
-        nav.head-nav a {
-            text-decoration: none;
-            color: #d3d3d3;
-            font-size: 1rem;
-        }
-
-        nav.head-nav a:hover {
-            color: #b3b3b3;
-        }
-    </style>
 </head>
 <body class="head">
 
