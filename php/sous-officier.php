@@ -15,7 +15,7 @@ $currentUser = $stmt->fetch();
 
 $gradesAutorises = ['Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
 if (!in_array($currentUser['grade'], $gradesAutorises)) {
-    echo "Accès refusé. Vous n'avez pas l'autorisation pour accéder à cette page.";
+    header("Location: insubordination.php");
     exit();
 }
 
