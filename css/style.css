@@ -79,7 +79,7 @@ nav.head-nav a:hover {
 }
 
 /* Conteneur principal */
-.container {
+.explain_container {
     padding: 100px 20px 40px; /* Ajuster le padding pour compenser le header fixe */
     text-align: center;
 }
@@ -94,7 +94,7 @@ nav.head-nav a:hover {
     color: inherit;
 }
 
-.container h2 {
+.explain_container h2 {
     margin-bottom: 30px;
     font-size: 2.5rem; /* Augmenter la taille du texte pour plus d'impact */
     color: #c1c1c1; /* Couleur plus douce que le blanc pur */

@@ -34,6 +34,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
     </div>
     <nav class="head-nav">
         <?php if ($isLoggedIn): ?>
+            <a href="php/profil_utilisateur.php">Profil</a>
             <a href="php/officier.php">Officier</a>
             <a href="php/sous-officier.php">Sous-Officier</a>
             <a href="php/Dec.php">Déconnexion</a>
@@ -45,7 +46,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
 </header>
 
 <div class="intro_content">
-          <h1>Le 639th régiment : Quelques mots...</h1>
+          <h1>Le 639th régiment</h1>
                 <h3>Une communauté A l&apos;écoute et présente.</h3>
                     <p>
                         Ici, au régiment, on est environ une soixantaine a se battre pour l&apos;empereur ! Lorsque tu nous rejoindras, tu pourras trouver des personnes présentes
@@ -78,9 +79,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
     </div>
 
 <div class="explain_container">
-    <h2>Bienvenue sur le site du 639ème régiment cadien.</h2>
-
-    
+  
     <h3>Nos spécialités</h3>
     <div class="specialties">
         <div class="specialty"><a href="#">Machine Gunner</a></div>
