@@ -14,7 +14,6 @@ p img{
 }
 
 
-
 /* Conteneur principal */
 .explain_container {
     padding: 100px 20px 40px; /* Ajuster le padding pour compenser le header fixe */
@@ -25,7 +24,8 @@ p img{
     text-align: center;
     font-size: 16px; /* Taille du texte */
     line-height: 1.5;
-    width: 90%; /* Largeur du conteneur */
+    width: 60%; /* Largeur du conteneur */
+    max-width: 600px; /* Limite la largeur à 800px pour les grands écrans */
     margin: 0 auto; /* Centre le conteneur horizontalement */
     padding: 20px; /* Ajoute un peu de padding pour aérer le texte */
 }
