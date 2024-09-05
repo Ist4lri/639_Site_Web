@@ -83,14 +83,14 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
   
     <h3>Nos spécialités</h3>
     <div class="specialties">
-        <div class="specialty"><a href="#">Machine Gunner</a></div>
-        <div class="specialty"><a href="#">Anti-Tank</a></div>
-        <div class="specialty"><a href="#">Médicae</a></div>
-        <div class="specialty"><a href="#">Vox Opérateur</a></div>
-        <div class="specialty"><a href="#">Marksman</a></div>
-        <div class="specialty"><a href="#">Plasma</a></div>
-        <div class="specialty"><a href="#">Breacher</a></div>
-        <div class="specialty"><a href="#">Equipier de Tir Lourd</a></div>
+        <div class="specialty"><a href="php/mg.php">Machine Gunner</a></div>
+        <div class="specialty"><a href="php/at.php">Anti-Tank</a></div>
+        <div class="specialty"><a href="php/med.php">Médicae</a></div>
+        <div class="specialty"><a href="php/vox.php">Vox Opérateur</a></div>
+        <div class="specialty"><a href="php/mark.php">Marksman</a></div>
+        <div class="specialty"><a href="php/plas.php">Plasma</a></div>
+        <div class="specialty"><a href="php/brea.php">Breacher</a></div>
+        <div class="specialty"><a href="php/etl.php">Equipier de Tir Lourd</a></div>
     </div>
 </div>
 
