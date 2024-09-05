@@ -2,11 +2,14 @@
 session_start();
 include 'db.php';
 
-// Vérifier si l'utilisateur est autorisé à accéder à la page
+// Vérification du rôle : Seuls les admins peuvent accéder au site
+if ($currentUser['role'] !== 'admin') {
+    header("Location: insubordination.php"); // Rediriger vers une page d'insubordination
+    exit();
+}
+
+// Vérification du grade autorisé (uniquement pour les rôles admin)
 $gradesAutorises = ['Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
-$stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
-$stmt->execute(['email' => $_SESSION['utilisateur']]);
-$currentUser = $stmt->fetch();
 if (!in_array($currentUser['grade'], $gradesAutorises)) {
     header("Location: insubordination.php");
     exit();
