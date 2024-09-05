@@ -58,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $excel_file_path = "../excel/planning_utilisateurs.xlsx";
 
 ?>
-<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
