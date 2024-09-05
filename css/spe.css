@@ -1,0 +1,111 @@
+body {
+    background-color: #000; /* Fond noir pour effet ordinateur rétro */
+    color: #00ff00; /* Texte vert pour effet terminal */
+    font-family: "Courier New", Courier, monospace; /* Police type ordinateur à l'ancienne */
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: #00ff00;
+    text-transform: uppercase; /* Texte en majuscules pour les titres */
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 10px;
+}
+
+.important {
+    color: #ff0000; /* Mots importants en rouge */
+    font-weight: bold;
+}
+
+.highlight {
+    color: #8a2be2; /* Mots importants en violet */
+    font-weight: bold;
+}
+
+a {
+    color: #00ff00; /* Les liens en vert */
+    text-decoration: none; /* Supprimer le soulignement */
+}
+
+a:hover {
+    text-decoration: underline; /* Ajouter un soulignement au survol */
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li:before {
+    content: "> "; /* Ajoute un symbole > avant chaque item */
+    color: #00ff00;
+}
+
+.container {
+    border: 2px solid #00ff00;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.content {
+    line-height: 1.8;
+}
+
+/* Alterne les mots importants entre rouge et violet */
+.important:nth-of-type(odd) {
+    color: #ff0000; /* Rouge */
+}
+
+.important:nth-of-type(even) {
+    color: #8a2be2; /* Violet */
+}
+body {
+    background-color: #000; /* Fond noir */
+    color: #00ff00; /* Texte vert type rétro */
+    font-family: "Courier New", monospace; /* Police monospace */
+}
+
+h1, h2, h3 {
+    color: #00ff00;
+    text-transform: uppercase;
+    border-bottom: 1px solid #00ff00;
+}
+
+.container {
+    margin-bottom: 20px;
+}
+
+.management {
+    margin-top: 20px;
+    color: #ff0000; /* Texte rouge pour attirer l'attention */
+}
+
+.manager-box {
+    border: 2px solid #00ff00; /* Bordure verte rétro */
+    padding: 10px;
+    background-color: #111; /* Fond noir légèrement plus clair */
+    width: 300px;
+}
+
+.manager-box p {
+    margin: 5px 0;
+}
+
+.important {
+    color: #ff0000; /* Rouge pour mots importants */
+}
+
+.highlight {
+    color: #8a2be2; /* Violet pour mise en avant */
+}
+
+.yellow {
+    color: #ffff00; /* Jaune pour les termes liés à faible / 250ml */
+}
+
+.orange {
+    color: #ffa500; /* Orange pour les termes liés à moyen / 500ml */
+}
+
+.red {
+    color: #ff0000; /* Rouge pour les termes liés à intense / grande / 1000ml */
+}
