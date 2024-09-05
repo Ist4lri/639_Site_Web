@@ -49,53 +49,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gérer les demandes de grade</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .actions form {
-            display: inline-block;
-        }
-
-        input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type="submit"].reject {
-            background-color: #dc3545;
-        }
-
-        input[type="submit"]:hover {
-            opacity: 0.9;
-        }
-    </style>
+    <link rel="stylesheet" href="css/tab.css">
 </head>
 <body>
     <h2>Gérer les demandes de changement de grade</h2>
