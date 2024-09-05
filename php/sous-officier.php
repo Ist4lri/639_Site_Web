@@ -2,23 +2,17 @@
 session_start();
 include 'db.php';
 
-
-if (!isset($_SESSION['utilisateur'])) {
-    header("Location: connection.php");
-    exit();
-}
-
+// Vérifier si l'utilisateur est autorisé à accéder à la page
+$gradesAutorises = ['Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
-
-
-$gradesAutorises = ['Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
 if (!in_array($currentUser['grade'], $gradesAutorises)) {
     header("Location: insubordination.php");
     exit();
 }
 
+// Mettre à jour la spécialité
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouvelleSpe = $_POST['nouvelle_spe'];
@@ -26,17 +20,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($nouvelleSpe)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = :nouvelle_spe WHERE id = :id");
         $stmt->execute(['nouvelle_spe' => $nouvelleSpe, 'id' => $userId]);
+        $message = "Les informations de l'utilisateur ont été mises à jour avec succès.";
     }
-
-    $message = "Les informations de l'utilisateur ont été mises à jour avec succès.";
 }
 
+// Rechercher par nom ou spécialité
+$searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
+$searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
 
-$usersStmt = $pdo->query("SELECT u.id, u.nom, u.grade, s.nom AS specialite 
-                          FROM utilisateurs u 
-                          LEFT JOIN spe s ON u.spe_id = s.id "); 
-$users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
+$sql = "SELECT u.id, u.nom, u.grade, s.nom AS specialite 
+        FROM utilisateurs u 
+        LEFT JOIN spe s ON u.spe_id = s.id
+        WHERE 1=1";
 
+$params = [];
+if (!empty($searchNom)) {
+    $sql .= " AND u.nom LIKE :nom";
+    $params[':nom'] = "%$searchNom%";
+}
+if (!empty($searchSpe)) {
+    $sql .= " AND s.nom = :spe";
+    $params[':spe'] = $searchSpe;
+}
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer les spécialités
 $specialitesStmt = $pdo->query("SELECT id, nom FROM spe");
 $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -55,6 +66,24 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
     <?php if (isset($message)): ?>
         <p style="color: green;"><?php echo $message; ?></p>
     <?php endif; ?>
+
+    <!-- Formulaire de recherche -->
+    <form method="get" action="sous-officier.php">
+        <label for="search_nom">Nom:</label>
+        <input type="text" id="search_nom" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+
+        <label for="search_spe">Spécialité:</label>
+        <select id="search_spe" name="search_spe">
+            <option value="">Toutes les spécialités</option>
+            <?php foreach ($specialites as $spe): ?>
+                <option value="<?php echo htmlspecialchars($spe['nom']); ?>" <?php if ($searchSpe == $spe['nom']) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($spe['nom']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <input type="submit" value="Rechercher">
+    </form>
 
     <table border="1">
         <thead>
@@ -76,21 +105,16 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
                         <form action="sous-officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
                             <select name="nouvelle_spe">
-                            <option value="">Sélectionnez une spécialité</option>
-<?php if (empty($specialites)): ?>
-    <option value="">Aucune</option>
-<?php else: ?>
-    <?php foreach ($specialites as $spe): ?>
-        <option value="<?php echo $spe['id']; ?>"><?php echo htmlspecialchars($spe['nom']); ?></option>
-    <?php endforeach; ?>
-<?php endif; ?>
-
+                                <option value="">Sélectionnez une spécialité</option>
+                                <?php foreach ($specialites as $spe): ?>
+                                    <option value="<?php echo htmlspecialchars($spe['id']); ?>"><?php echo htmlspecialchars($spe['nom']); ?></option>
+                                <?php endforeach; ?>
                             </select>
                     </td>
                     <td>
-                            <button type="submit">Mettre à jour</button>
-                        </form>
+                        <button type="submit">Mettre à jour</button>
                     </td>
+                        </form>
                 </tr>
             <?php endforeach; ?>
         </tbody>
