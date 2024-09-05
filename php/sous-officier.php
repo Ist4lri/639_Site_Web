@@ -4,7 +4,7 @@ include 'db.php';
 
 
 if (!isset($_SESSION['utilisateur'])) {
-    header("Location: connection.php");
+    header("Location: insubordination.php");
     exit();
 }
 
