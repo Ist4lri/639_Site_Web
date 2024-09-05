@@ -69,6 +69,8 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <link rel="stylesheet" href="css/header.css">
     
 </head>
+<body>
+
 <header class="head">
     <div class="head-logo">
         <a href="index.php">
@@ -85,7 +87,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <a href="php/Dec.php">Déconnexion</a>
     </nav>
 </header>
-<body>
 
 <div class="profile-container">
     <!-- Informations actuelles -->
