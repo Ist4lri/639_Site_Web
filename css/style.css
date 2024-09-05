@@ -25,8 +25,7 @@ p img{
     text-align: center;
     font-size: 16px; /* Taille du texte */
     line-height: 1.5;
-    width: 60%; /* Largeur du conteneur */
-    max-width: 800px; /* Limite la largeur à 800px pour les grands écrans */
+    width: 90%; /* Largeur du conteneur */
     margin: 0 auto; /* Centre le conteneur horizontalement */
     padding: 20px; /* Ajoute un peu de padding pour aérer le texte */
 }
