@@ -21,9 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $pdo->prepare($sql);
 
         if ($stmt->execute([$nom, $email, $mot_de_passe_hash])) {
-            $_SESSION['utilisateur'] = $email;
-            header("Location: index.php");
-            exit;
+            // Message de confirmation
+            $success_message = "Votre inscription a bien été prise en compte. Patientez, votre validation est effectuée tous les jours.";
         } else {
             $error_message = "Une erreur est survenue lors de l'inscription.";
         }
@@ -55,20 +54,25 @@ if (isset($_SESSION['utilisateur'])) {
         <div class="error-message"><?php echo htmlspecialchars($error_message); ?></div>
     <?php endif; ?>
     
-    <form action="ins.php" method="post">
-        <label for="nom">Matricule CIV-Num Nom :</label>
-        <input type="text" id="nom" name="nom" required>
+    <?php if (isset($success_message)): ?>
+        <div class="success-message"><?php echo htmlspecialchars($success_message); ?></div>
+        <p>Veuillez patienter, votre compte sera validé sous peu.</p>
+    <?php else: ?>
+        <form action="ins.php" method="post">
+            <label for="nom">Matricule CIV-Num Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+            
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+            
+            <input type="submit" value="S'inscrire">
+        </form>
         
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required>
-        
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
-        
-        <input type="submit" value="S'inscrire">
-    </form>
-    
-    <p>Vous avez déjà un compte ? <a href="connection.php">Connectez-vous ici</a></p>
+        <p>Vous avez déjà un compte ? <a href="connection.php">Connectez-vous ici</a></p>
+    <?php endif; ?>
 </div>
 
 </body>
