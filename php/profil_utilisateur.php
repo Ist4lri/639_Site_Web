@@ -8,6 +8,7 @@ if (!isset($_SESSION['utilisateur'])) {
 
 include 'db.php';
 
+$isLoggedIn = isset($_SESSION['utilisateur']);
 $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
