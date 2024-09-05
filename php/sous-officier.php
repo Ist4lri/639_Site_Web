@@ -2,21 +2,12 @@
 session_start();
 include 'db.php';
 
-// Vérification du rôle : Seuls les admins peuvent accéder au site
-if ($currentUser['role'] !== 'admin') {
-    header("Location: insubordination.php"); // Rediriger vers une page d'insubordination
-    exit();
-}
 
-// Vérification du rôle : Seuls les admins peuvent accéder au site
-if ($currentUser['role'] !== 'admin') {
-    header("Location: insubordination.php"); // Rediriger vers une page d'insubordination
-    exit();
-}
+
 
 // Vérification du grade autorisé (uniquement pour les rôles admin)
 $gradesAutorises = ['Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
-if (!in_array($currentUser['grade'], $gradesAutorises)) {
+if (!in_array($currentUser['grade'], $gradesAutorises) || ($currentUser['role'] !=='admin')) {
     header("Location: insubordination.php");
     exit();
 }
