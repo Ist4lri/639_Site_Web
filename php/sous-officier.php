@@ -7,7 +7,7 @@ $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 // Vérification du grade autorisé ou admin
 $gradesAutorises = ['Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
-if (!in_array($currentUser['grade'], $gradesAutorises) || ($currentUser['role'] !=='admin')) {
+if (!in_array($currentUser['grade'], $gradesAutorises)) {
     header("Location: insubordination.php");
     exit();
 }
