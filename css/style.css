@@ -84,6 +84,16 @@ nav.head-nav a:hover {
     text-align: center;
 }
 
+.intro_content {
+    text-align: center;
+    font-size: 16px; /* Taille du texte */
+    line-height: 1.5;
+}
+
+.intro_content a {
+    color: inherit;
+}
+
 .container h2 {
     margin-bottom: 30px;
     font-size: 2.5rem; /* Augmenter la taille du texte pour plus d'impact */
