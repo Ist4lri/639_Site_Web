@@ -4,7 +4,7 @@ include 'db.php';
 
 
 if (!isset($_SESSION['utilisateur'])) {
-    header("Location: insubordination.php");
+    header("Location: connection.php");
     exit();
 }
 
@@ -15,7 +15,7 @@ $currentUser = $stmt->fetch();
 
 $gradesAutorises = ['Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
 if (!in_array($currentUser['grade'], $gradesAutorises)) {
-    echo "Accès refusé. Vous n'avez pas l'autorisation pour accéder à cette page.";
+    header("Location: insubordination.php");
     exit();
 }
 
