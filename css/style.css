@@ -39,7 +39,7 @@ h2 {
 }
 
 .explain_container h2 {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     font-size: 2.5rem; /* Augmenter la taille du texte pour plus d'impact */
     color: #c1c1c1; /* Couleur plus douce que le blanc pur */
     text-transform: uppercase; /* Transformer en majuscules pour un effet stylé */
@@ -152,7 +152,7 @@ p {
     font-size: 1rem; /* Taille de police standard pour le texte */
     color: #f1f1f1; /* Couleur de texte plus sombre */
     text-align: center; /* Centrer le texte */
-    margin-top: 20px; /* Ajout d'un espace au-dessus du paragraphe */
+    margin-top: 5px; /* Ajout d'un espace au-dessus du paragraphe */
 }
 
 p a {
