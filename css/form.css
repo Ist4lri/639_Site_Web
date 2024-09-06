@@ -1,0 +1,93 @@
+/* Global settings */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('../src/assets/Battle.png') no-repeat center center fixed; 
+    background-size: cover; /* Assure que l'image couvre tout l'écran */
+    color: #fff; /* Texte par défaut en blanc pour le contraste */
+}
+
+.container {
+    max-width: 600px;
+    margin: 100px auto; /* Centrage vertical avec un padding-top de 100px */
+    background-color: #333; /* Conteneur gris plus foncé */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Ombre pour un effet de profondeur */
+}
+
+h2 {
+    text-align: center;
+    color: #ff4b5c; /* Titre en rouge */
+    padding-top: 50px; /* Espace au-dessus du titre */
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px 0;
+    color: #f5f5f5; /* Couleur du texte des labels en gris clair */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #444; /* Bordure gris foncé */
+    border-radius: 5px;
+    background-color: #2c2c2c; /* Arrière-plan des champs en gris foncé */
+    color: #f5f5f5; /* Couleur du texte des champs en gris clair */
+}
+
+input[type="submit"] {
+    background-color: #ff4b5c; /* Rouge pour le bouton */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transition sur hover */
+    width: 100%;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #d43b4a; /* Couleur du bouton au survol */
+}
+
+/* Messages d'erreur et de succès */
+.error-message {
+    background-color: #ff4b5c; /* Rouge pour les messages d'erreur */
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.success-message {
+    background-color: #28a745; /* Vert pour les messages de succès */
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+a {
+    color: #ff4b5c; /* Liens en rouge */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+}
+
+/* Centrer le texte des messages de confirmation */
+p {
+    text-align: center;
+    color: #f5f5f5; /* Couleur gris clair */
+}
