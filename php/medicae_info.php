@@ -16,7 +16,7 @@ $stmt = $pdo->prepare("SELECT id, spe_id FROM utilisateurs WHERE email = :email"
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
-if ($currentUser['spe_id'] != 2) {
+if ($currentUser['spe_id'] != 3) {
     header("Location: insubordination.php");
     exit();
 }
