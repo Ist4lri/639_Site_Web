@@ -200,7 +200,7 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     </td>
                     <td>
                         <select name="nouvelle_formation">
-                            <option value="">Sélectionnez une formation</option>
+                            <option value="">formation</option>
                             <?php foreach ($formationOptions as $formation): ?>
                                 <option value="<?php echo htmlspecialchars($formation); ?>"><?php echo htmlspecialchars($formation); ?></option>
                             <?php endforeach; ?>
@@ -208,7 +208,7 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     </td>
                     <td>
                         <select name="nouvelle_formation_hierarchique">
-                            <option value="">Sélectionnez une formation hiérarchique</option>
+                            <option value="">formation hiérarchique</option>
                             <?php foreach ($formationHierarchiqueOptions as $formationHierarchique): ?>
                                 <option value="<?php echo htmlspecialchars($formationHierarchique); ?>"><?php echo htmlspecialchars($formationHierarchique); ?></option>
                             <?php endforeach; ?>
