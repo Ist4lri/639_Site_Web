@@ -67,9 +67,9 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <h1>639ème Régiment Cadien</h1>
     </div>
     <nav class="head-nav">
-        <a href="php/officier.php">Officier</a>
-        <a href="php/sous-officier.php">Sous-Officier</a>
-        <a href="php/Dec.php">Déconnexion</a>
+        <a href="officier.php">Officier</a>
+        <a href="sous-officier.php">Sous-Officier</a>
+        <a href="Dec.php">Déconnexion</a>
     </nav>
 </header>
 
