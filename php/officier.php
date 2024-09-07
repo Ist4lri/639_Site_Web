@@ -31,15 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute(['nouvelle_spe' => $nouvelleSpe, 'id' => $userId]);
     }
 
-   if (isset($_POST['nouvelle_gerance'])) {
-    $nouvelleGerance = $_POST['nouvelle_gerance']; // Assign the value if it's set
-} else {
-    $nouvelleGerance = 0; // Default value if not set
-}
-$stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
-$stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
-
-
+    if (isset($nouvelleGerance)) {
+        $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
+        $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
+    }
 
     // Check if a formation record exists for the user
     $formationExistsStmt = $pdo->prepare("SELECT id FROM formation WHERE id_utilisateur = :id_utilisateur");
@@ -158,9 +153,10 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                 <th>Formation actuelle</th>
                 <th>Gérance actuelle</th>
                 <th>Nouveau grade</th>
-                <th>Changer spécialité</th>
-                <th>formation</th>
-                <th>formation hiérarchique</th>
+                <th>Nouvelle spécialité</th>
+                <th>Nouvelle gérance</th>
+                <th>Nouvelle formation</th>
+                <th>Nouvelle formation hiérarchique</th>
                 <th>Action</th>
             </tr>
         </thead>
