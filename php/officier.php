@@ -164,7 +164,19 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td><?php echo htmlspecialchars($user['grade']); ?></td>
                     <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
-                    <td>
+                <td>
+    <select name="formation">
+            <option value="">Sélectionnez une formation/hiérarchique</option>
+            <?php foreach ($formationOptions as $formation): ?>
+                <?php foreach ($formationHierarchiqueOptions as $formationHierarchique): ?>
+                    <option value="<?php echo htmlspecialchars($formation . '/' . $formationHierarchique); ?>">
+                        <?php echo htmlspecialchars($formation . '/' . $formationHierarchique); ?>
+                        </option>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>
+                        </select>
+                            </td>
+
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
                             <select name="nouveau_grade">
