@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Médicae</h1>
+    <a href="medicae_info.php">Gestion Patient</a>
     <div class="container">
         <h2>Introduction</h2>
         <p class="content">
