@@ -170,9 +170,9 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
                             <select name="nouvelle_gerance">
-                                <option value="0" <?php if ($user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
-                                <option value="1" <?php if ($user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
-                                <option value="2" <?php if ($user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
+                                <option value="0" <?php if (isset($user['gerance']) && $user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
+                                <option value="1" <?php if (isset($user['gerance']) && $user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
+                                <option value="2" <?php if (isset($user['gerance']) && $user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
                             </select>
                     </td>
                     <td>
