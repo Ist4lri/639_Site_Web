@@ -12,15 +12,13 @@ if (!in_array($currentUser['grade'], $gradesAutorises)) {
     exit();
 }
 
-// Handle updates to grade, specialty, and formation
+// Handle updates to grade, specialty, management, formation, and formation_hierarchique
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouveauGrade = $_POST['nouveau_grade'];
     $nouvelleSpe = $_POST['nouvelle_spe'];
-    
-    // Split the combined formation and formation_hierarchique values
-    $formation_combined = $_POST['formation_combined'] ?? 'Aucune/Aucune';
-    list($nouvelleFormation, $nouvelleFormationHierarchique) = explode('/', $formation_combined);
+    $nouvelleFormation = $_POST['nouvelle_formation'];
+    $nouvelleFormationHierarchique = $_POST['nouvelle_formation_hierarchique'];
 
     if (!empty($nouveauGrade)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET grade = :nouveau_grade WHERE id = :id");
@@ -63,9 +61,10 @@ $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
 $searchGrade = isset($_GET['search_grade']) ? $_GET['search_grade'] : '';
 $searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
 
-$sql = "SELECT u.id, u.nom, u.grade, s.nom AS specialite 
+$sql = "SELECT u.id, u.nom, u.grade, s.nom AS specialite, f.formation, f.formation_hierarchique 
         FROM utilisateurs u 
         LEFT JOIN spe s ON u.spe_id = s.id
+        LEFT JOIN formation f ON u.id = f.id_utilisateur
         WHERE 1=1";
 
 $params = [];
@@ -145,9 +144,11 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                 <th>Nom</th>
                 <th>Grade actuel</th>
                 <th>Spécialité actuelle</th>
+                <th>Formation actuelle</th>
                 <th>Nouveau grade</th>
                 <th>Nouvelle spécialité</th>
-                <th>Nouvelle formation/formation hiérarchique</th>
+                <th>Nouvelle formation</th>
+                <th>Nouvelle formation hiérarchique</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -157,6 +158,7 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td><?php echo htmlspecialchars($user['grade']); ?></td>
                     <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
+                    <td><?php echo htmlspecialchars(($user['formation'] ?? 'Aucune') . '/' . ($user['formation_hierarchique'] ?? 'Aucune')); ?></td>
                     <td>
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
@@ -179,14 +181,18 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                         </select>
                     </td>
                     <td>
-                        <select name="formation_combined">
-                            <option value="">Sélectionnez formation/hiérarchique</option>
+                        <select name="nouvelle_formation">
+                            <option value="">Sélectionnez une formation</option>
                             <?php foreach ($formationOptions as $formation): ?>
-                                <?php foreach ($formationHierarchiqueOptions as $formationHierarchique): ?>
-                                    <option value="<?php echo htmlspecialchars($formation . '/' . $formationHierarchique); ?>">
-                                        <?php echo htmlspecialchars($formation . '/' . $formationHierarchique); ?>
-                                    </option>
-                                <?php endforeach; ?>
+                                <option value="<?php echo htmlspecialchars($formation); ?>"><?php echo htmlspecialchars($formation); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="nouvelle_formation_hierarchique">
+                            <option value="">Sélectionnez une formation hiérarchique</option>
+                            <?php foreach ($formationHierarchiqueOptions as $formationHierarchique): ?>
+                                <option value="<?php echo htmlspecialchars($formationHierarchique); ?>"><?php echo htmlspecialchars($formationHierarchique); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>
