@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Vox Operator</h1>
+    <a href="formation.php">Gestion Spécialité</a>
     <div class="container">
         <h2>Introduction</h2>
         <p class="content">
