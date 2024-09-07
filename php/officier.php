@@ -20,6 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nouvelleFormation = $_POST['nouvelle_formation'] ?? 'Aucune';
     $nouvelleFormationHierarchique = $_POST['nouvelle_formation_hierarchique'] ?? 'Aucune';
 
+    // Debugging output: Confirm the formation_hierarchique value
+    error_log("Nouvelle formation hierarchique: " . $nouvelleFormationHierarchique);
+
     if (!empty($nouveauGrade)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET grade = :nouveau_grade WHERE id = :id");
         $stmt->execute(['nouveau_grade' => $nouveauGrade, 'id' => $userId]);
