@@ -5,7 +5,6 @@ include 'db.php';
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
-// Vérification du grade autorisé ou admin
 $gradesAutorises = ['Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
 if (!in_array($currentUser['grade'], $gradesAutorises)) {
     header("Location: insubordination.php");
@@ -13,12 +12,11 @@ if (!in_array($currentUser['grade'], $gradesAutorises)) {
 }
 
 
-// Mettre à jour l'utilisateur
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouveauGrade = $_POST['nouveau_grade'];
     $nouvelleSpe = $_POST['nouvelle_spe'];
-    $nouvelleGerance = $_POST['nouvelle_gerance']; // Nouvelle gérance
+    $nouvelleGerance = $_POST['nouvelle_gerance']; 
 
     if (!empty($nouveauGrade)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET grade = :nouveau_grade WHERE id = :id");
@@ -38,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = "Les informations de l'utilisateur ont été mises à jour avec succès.";
 }
 
-// Rechercher par nom, grade et spécialité
 $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
 $searchGrade = isset($_GET['search_grade']) ? $_GET['search_grade'] : '';
 $searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
@@ -77,6 +74,7 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Officiers</title>
+    <a href=demande.php>Demande Spécial</a>
     <link rel="stylesheet" href="../css/tab.css">
 </head>
 <body>
