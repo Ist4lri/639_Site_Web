@@ -15,9 +15,9 @@ $stmt = $pdo->prepare("SELECT id, grade FROM utilisateurs WHERE email = :email")
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
-$allowedRanks = ['Lieutenant', 'Capitaine', 'Major', 'Colonel', 'General'];
+$GradeAutorise = ['Lieutenant', 'Capitaine', 'Major', 'Colonel', 'General'];
 
-if (!in_array($currentUser['grade'], $allowedRanks)) {
+if (!in_array($currentUser['grade'], $GradeAutorise)) {
     header("Location: unauthorized.php");
     exit();
 }
