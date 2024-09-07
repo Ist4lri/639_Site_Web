@@ -17,9 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouveauGrade = $_POST['nouveau_grade'];
     $nouvelleSpe = $_POST['nouvelle_spe'];
-    $nouvelleGerance = $_POST['nouvelle_gerance'];
     $nouvelleFormation = $_POST['nouvelle_formation'];
     $nouvelleFormationHierarchique = $_POST['nouvelle_formation_hierarchique'];
+
+    // Check if nouvelle_gerance exists before using it
+    if (isset($_POST['nouvelle_gerance'])) {
+        $nouvelleGerance = $_POST['nouvelle_gerance'];
+        $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
+        $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
+    }
 
     if (!empty($nouveauGrade)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET grade = :nouveau_grade WHERE id = :id");
@@ -29,11 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($nouvelleSpe)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = :nouvelle_spe WHERE id = :id");
         $stmt->execute(['nouvelle_spe' => $nouvelleSpe, 'id' => $userId]);
-    }
-
-    if (isset($nouvelleGerance)) {
-        $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
-        $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
     }
 
     // Check if a formation record exists for the user
@@ -109,7 +110,7 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
     <link rel="stylesheet" href="../css/tab.css">
 </head>
 <body>
-    <h1>Gestion des grades, spécialités, gérances et formations</h1>
+    <h1>Gestion des grades, spécialités et formations</h1>
 
     <?php if (isset($message)): ?>
         <p style="color: green;"><?php echo $message; ?></p>
@@ -167,24 +168,24 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
                     <td><?php echo htmlspecialchars(($user['formation'] ?? 'Aucune') . '/' . ($user['formation_hierarchique'] ?? 'Aucune')); ?></td>
                     <td>
-                        <select name="nouvelle_gerance">
-                            <option value="0" <?php if (isset($user['gerance']) && $user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
-                            <option value="1" <?php if (isset($user['gerance']) && $user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
-                            <option value="2" <?php if (isset($user['gerance']) && $user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
-                        </select>
-                    </td>
-                    <td>
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
-                            <select name="nouveau_grade">
-                                <option value="">Sélectionnez un grade</option>
-                                <option value="Conscrit">Conscrit</option>
-                                <option value="Garde">Garde</option>
-                                <option value="Garde-Vétéran">Garde-Vétéran</option>
-                                <option value="Caporal">Caporal</option>
-                                <option value="Sergent">Sergent</option>
-                                <option value="Lieutenant">Lieutenant</option>
+                            <select name="nouvelle_gerance">
+                                <option value="0" <?php if (isset($user['gerance']) && $user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
+                                <option value="1" <?php if (isset($user['gerance']) && $user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
+                                <option value="2" <?php if (isset($user['gerance']) && $user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
                             </select>
+                    </td>
+                    <td>
+                        <select name="nouveau_grade">
+                            <option value="">Sélectionnez un grade</option>
+                            <option value="Conscrit">Conscrit</option>
+                            <option value="Garde">Garde</option>
+                            <option value="Garde-Vétéran">Garde-Vétéran</option>
+                            <option value="Caporal">Caporal</option>
+                            <option value="Sergent">Sergent</option>
+                            <option value="Lieutenant">Lieutenant</option>
+                        </select>
                     </td>
                     <td>
                         <select name="nouvelle_spe">
