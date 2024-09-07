@@ -153,9 +153,9 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                 <th>Formation actuelle</th>
                 <th>Gérance actuelle</th>
                 <th>Nouveau grade</th>
-                <th>Nouvelle spécialité</th>
-                <th>Nouvelle formation</th>
-                <th>Nouvelle formation hiérarchique</th>
+                <th>Changer spécialité</th>
+                <th>formation</th>
+                <th>formation hiérarchique</th>
                 <th>Action</th>
             </tr>
         </thead>
