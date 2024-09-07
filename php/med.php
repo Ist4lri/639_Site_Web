@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Médicae</h1>
-    <a href="medicae_info.php">Gestion Patient</a>
+    <a href="medicae_info.php">Gestion Patient</a><br>
     <a href="formation.php">Gestion Spécialité</a>
     <div class="container">
         <h2>Introduction</h2>
