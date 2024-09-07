@@ -80,8 +80,8 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php if ($demande['status'] !== 'Accepted' && $demande['status'] !== 'Rejected'): ?>
                     <form action="demande.php" method="post" style="display:inline;">
                         <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
-                        <button type="submit" name="action" value="accept" class="btn btn-success">Accepter</button>
-                        <button type="submit" name="action" value="reject" class="btn btn-danger">Rejeter</button>
+                        <button type="submit" name="action" value="acceptée" class="btn btn-success">Accepter</button>
+                        <button type="submit" name="action" value="rejetée" class="btn btn-danger">Rejeter</button>
                     </form>
                     <?php else: ?>
                         <?php echo htmlspecialchars($demande['status']); ?>
