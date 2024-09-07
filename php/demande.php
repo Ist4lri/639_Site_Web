@@ -26,16 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
     $id_demande = $_POST['id_demande'];
     $action = $_POST['action'];
 
-    if ($action == "accept") {
+    if ($action == "acceptée") {
         $stmt = $pdo->prepare("UPDATE demande SET status = 'acceptée' WHERE id = ?");
         $stmt->execute([$id_demande]);
         $message = "Demande acceptée avec succès.";
-    } elseif ($action == "reject") {
+    } elseif ($action == "rejetée") {
         $stmt = $pdo->prepare("UPDATE demande SET status = 'rejetée' WHERE id = ?");
         $stmt->execute([$id_demande]);
         $message = "Demande rejetée avec succès.";
     }
 }
+
 
 $stmt = $pdo->query("SELECT d.id, u.nom AS utilisateur, d.demande, d.status 
                      FROM demande d 
