@@ -68,13 +68,15 @@ $specialitesStmt = $pdo->query("SELECT id, nom FROM spe");
 $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Officiers</title>
+    <a href="../index.php">
+            <img src="../src/assets/Logo_639th_2.ico" alt="Logo 639">
+        </a>
     <a href=demande.php>Demande Spécial</a>
     <link rel="stylesheet" href="../css/tab.css">
 </head>
