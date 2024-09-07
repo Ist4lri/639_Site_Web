@@ -8,10 +8,11 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// Récupérer tous les utilisateurs par grade (du conscrit au major) avec leur spécialité
-$sql = "SELECT u.nom, u.grade, s.nom AS specialite
+// Récupérer tous les utilisateurs par grade (du conscrit au major) avec leur spécialité et formations
+$sql = "SELECT u.nom, u.grade, s.nom AS specialite, f.formation, f.formation_hierarchique
         FROM utilisateurs u
         LEFT JOIN spe s ON u.spe_id = s.id
+        LEFT JOIN formation f ON u.id = f.id_utilisateur
         WHERE u.grade IN ('Conscrit', 'Garde', 'Garde-Vétéran', 'Caporal', 'Sergent', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major')
         ORDER BY u.grade";
 $stmt = $pdo->query($sql);
@@ -101,7 +102,7 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <a data-grade="Caporal" onclick="showGrade('Caporal')">Caporal</a>
     <a data-grade="Sergent" onclick="showGrade('Sergent')">Sergent</a>
     <a data-grade="Lieutenant" onclick="showGrade('Lieutenant')">Lieutenant</a>
-    <!-- <a data-grade="Capitaine" onclick="showGrade('Capitaine')">Capitaine</a> -->
+    <a data-grade="Capitaine" onclick="showGrade('Capitaine')">Capitaine</a>
     <!-- <a data-grade="Commandant" onclick="showGrade('Commandant')">Commandant</a> -->
     <!-- <a data-grade="Colonel" onclick="showGrade('Colonel')">Colonel</a> -->
     <!-- <a data-grade="Général" onclick="showGrade('Général')">Général</a> -->
@@ -110,13 +111,13 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 // Regrouper les utilisateurs par grade et afficher dans des tableaux séparés
-$grades = ['Conscrit', 'Garde', 'Garde-Vétéran', 'Caporal', 'Sergent', 'Lieutenant', 'Major'];
+$grades = ['Conscrit', 'Garde', 'Garde-Vétéran', 'Caporal', 'Sergent', 'Lieutenant','capitaine', 'Major'];
 
 foreach ($grades as $grade) {
     echo "<div class='grade-tab' data-grade='$grade'>";
     echo "<h2>$grade</h2>";
     echo "<table>";
-    echo "<thead><tr><th>Nom</th><th>Spécialité</th></tr></thead>";
+    echo "<thead><tr><th>Nom</th><th>Spécialité</th><th>Formation</th></tr></thead>";
     echo "<tbody>";
 
     foreach ($utilisateurs as $utilisateur) {
@@ -124,6 +125,12 @@ foreach ($grades as $grade) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($utilisateur['nom']) . "</td>";
             echo "<td>" . htmlspecialchars($utilisateur['specialite'] ?? 'Pégu') . "</td>";
+
+            // Combiner la formation et la formation hiérarchique dans la même cellule
+            $formation = $utilisateur['formation'] ?? 'Aucune';
+            $formationHierarchique = $utilisateur['formation_hierarchique'] ?? 'Aucune';
+            echo "<td>" . htmlspecialchars($formation . '/' . $formationHierarchique) . "</td>";
+            
             echo "</tr>";
         }
     }
