@@ -17,7 +17,7 @@ $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
 if ($currentUser['spe_id'] != 2) {
-    header("Location: unauthorized.php");
+    header("Location: insubordination.php");
     exit();
 }
 
