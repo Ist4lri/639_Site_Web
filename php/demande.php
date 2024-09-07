@@ -30,11 +30,11 @@ if (!in_array($utilisateur['grade'], $GradeAutorise)) {
 
 $message = '';
 
+// Handle form submission for accepting or rejecting demands
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
     $id_demande = $_POST['id_demande'];
     $action = $_POST['action'];
 
-    // Set status based on action ('accepter' or 'rejeter')
     if ($action == "accepter") {
         $stmt = $pdo->prepare("UPDATE demande SET status = 'accepter' WHERE id = ?");
         $stmt->execute([$id_demande]);
@@ -46,10 +46,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
     }
 }
 
-// Fetch all demands
-$stmt = $pdo->query("SELECT d.id, u.nom AS utilisateur, d.demande, d.status 
-                     FROM demande d 
-                     JOIN utilisateurs u ON d.id_utilisateurs = u.id");
+// Fetch all pending demands
+$pendingStmt = $pdo->query("SELECT d.id, u.nom AS utilisateur, d.demande, d.status 
+                            FROM demande d 
+                            JOIN utilisateurs u ON d.id_utilisateurs = u.id
+                            WHERE d.status = 'en attente'");
+$pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Handle search by status
+$statusFilter = isset($_GET['status']) ? $_GET['status'] : '';
+$statusCondition = !empty($statusFilter) ? "WHERE d.status = :status" : '';
+
+// Fetch all demands based on the filter
+$query = "SELECT d.id, u.nom AS utilisateur, d.demande, d.status 
+          FROM demande d 
+          JOIN utilisateurs u ON d.id_utilisateurs = u.id 
+          $statusCondition";
+
+$stmt = $pdo->prepare($query);
+if (!empty($statusFilter)) {
+    $stmt->execute(['status' => $statusFilter]);
+} else {
+    $stmt->execute();
+}
 $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -70,6 +89,49 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
     <?php endif; ?>
 
+    <!-- Display pending demands at the top -->
+    <h3>Demandes en attente</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Demande</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($pendingDemandes as $demande): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
+                <td><?php echo htmlspecialchars($demande['demande']); ?></td>
+                <td><?php echo htmlspecialchars($demande['status'] ?? 'en attente'); ?></td>
+                <td>
+                    <form action="demande.php" method="post" style="display:inline;">
+                        <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
+                        <button type="submit" name="action" value="accepter" class="btn btn-success">Accepter</button>
+                        <button type="submit" name="action" value="rejeter" class="btn btn-danger">Rejeter</button>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <!-- Search form for filtering demands by status -->
+    <form method="GET" action="demande.php">
+        <label for="status">Rechercher par statut :</label>
+        <select name="status" id="status">
+            <option value="">Tous les statuts</option>
+            <option value="en attente" <?php if ($statusFilter == 'en attente') echo 'selected'; ?>>En attente</option>
+            <option value="accepter" <?php if ($statusFilter == 'accepter') echo 'selected'; ?>>Acceptée</option>
+            <option value="rejeter" <?php if ($statusFilter == 'rejeter') echo 'selected'; ?>>Rejetée</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
+    <!-- Display all demands based on the search filter -->
+    <h3>Toutes les Demandes</h3>
     <table class="table table-bordered">
         <thead>
             <tr>
