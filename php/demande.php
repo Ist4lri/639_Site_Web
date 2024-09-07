@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
     $id_demande = $_POST['id_demande'];
     $action = $_POST['action'];
 
+    // Ensure that 'acceptée' or 'rejetée' are valid values for the 'status' column
     if ($action == "acceptée") {
         $stmt = $pdo->prepare("UPDATE demande SET status = 'acceptée' WHERE id = ?");
         $stmt->execute([$id_demande]);
