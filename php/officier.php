@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouveauGrade = $_POST['nouveau_grade'];
     $nouvelleSpe = $_POST['nouvelle_spe'];
+    $nouvelleGerance = $_POST['nouvelle_gerance']; 
     $nouvelleFormation = $_POST['nouvelle_formation'];
     $nouvelleFormationHierarchique = $_POST['nouvelle_formation_hierarchique'];
 
@@ -28,6 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($nouvelleSpe)) {
         $stmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = :nouvelle_spe WHERE id = :id");
         $stmt->execute(['nouvelle_spe' => $nouvelleSpe, 'id' => $userId]);
+    }
+
+    if (isset($nouvelleGerance)) {
+        $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
+        $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
     }
 
     // Check if a formation record exists for the user
@@ -61,7 +67,7 @@ $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
 $searchGrade = isset($_GET['search_grade']) ? $_GET['search_grade'] : '';
 $searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
 
-$sql = "SELECT u.id, u.nom, u.grade, s.nom AS specialite, f.formation, f.formation_hierarchique 
+$sql = "SELECT u.id, u.nom, u.grade, u.gerance, s.nom AS specialite, f.formation, f.formation_hierarchique 
         FROM utilisateurs u 
         LEFT JOIN spe s ON u.spe_id = s.id
         LEFT JOIN formation f ON u.id = f.id_utilisateur
@@ -103,7 +109,7 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
     <link rel="stylesheet" href="../css/tab.css">
 </head>
 <body>
-    <h1>Gestion des grades, spécialités et formations</h1>
+    <h1>Gestion des grades, spécialités, gérances et formations</h1>
 
     <?php if (isset($message)): ?>
         <p style="color: green;"><?php echo $message; ?></p>
@@ -145,8 +151,10 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                 <th>Grade actuel</th>
                 <th>Spécialité actuelle</th>
                 <th>Formation actuelle</th>
+                <th>Gérance actuelle</th>
                 <th>Nouveau grade</th>
                 <th>Nouvelle spécialité</th>
+                <th>Nouvelle gérance</th>
                 <th>Nouvelle formation</th>
                 <th>Nouvelle formation hiérarchique</th>
                 <th>Action</th>
@@ -159,6 +167,13 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     <td><?php echo htmlspecialchars($user['grade']); ?></td>
                     <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
                     <td><?php echo htmlspecialchars(($user['formation'] ?? 'Aucune') . '/' . ($user['formation_hierarchique'] ?? 'Aucune')); ?></td>
+                    <td>
+                        <select name="nouvelle_gerance">
+                            <option value="0" <?php if ($user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
+                            <option value="1" <?php if ($user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
+                            <option value="2" <?php if ($user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
+                        </select>
+                    </td>
                     <td>
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
@@ -182,18 +197,26 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     </td>
                     <td>
                         <select name="nouvelle_formation">
-                            <option value="">Sélectionnez une formation</option>
-                            <?php foreach ($formationOptions as $formation): ?>
-                                <option value="<?php echo htmlspecialchars($formation); ?>"><?php echo htmlspecialchars($formation); ?></option>
-                            <?php endforeach; ?>
+                            <option value="Aucune" <?php if ($user['formation'] == 'Aucune') echo 'selected'; ?>> Aucune</option>
+                            <option value="FB" <?php if ($user['formation'] == 'FB') echo 'selected'; ?>>FB</option>
+                            <option value="FS" <?php if ($user['formation'] == 'FS') echo 'selected'; ?>>FS</option>
                         </select>
                     </td>
                     <td>
                         <select name="nouvelle_formation_hierarchique">
-                            <option value="">Sélectionnez une formation hiérarchique</option>
-                            <?php foreach ($formationHierarchiqueOptions as $formationHierarchique): ?>
-                                <option value="<?php echo htmlspecialchars($formationHierarchique); ?>"><?php echo htmlspecialchars($formationHierarchique); ?></option>
-                            <?php endforeach; ?>
+                            <option value="Aucune" <?php if ($user['formation_hierarchique'] == 'Aucune') echo 'selected'; ?>> Aucune</option>
+                            <option value="FH1" <?php if ($user['formation_hierarchique'] == 'FH1') echo 'selected'; ?>>FH1</option>
+                            <option value="FH1T" <?php if ($user['formation_hierarchique'] == 'FH1T') echo 'selected'; ?>>FH1T</option>
+                            <option value="FH2" <?php if ($user['formation_hierarchique'] == 'FH2') echo 'selected'; ?>>FH2</option>
+                            <option value="FH2T" <?php if ($user['formation_hierarchique'] == 'FH2T') echo 'selected'; ?>>FH2T</option>
+                            <option value="FH3" <?php if ($user['formation_hierarchique'] == 'FH3') echo 'selected'; ?>>FH3</option>
+                            <option value="FH3T" <?php if ($user['formation_hierarchique'] == 'FH3T') echo 'selected'; ?>>FH3T</option>
+                            <option value="FH4" <?php if ($user['formation_hierarchique'] == 'FH4') echo 'selected'; ?>>FH4</option>
+                            <option value="FH4T" <?php if ($user['formation_hierarchique'] == 'FH4T') echo 'selected'; ?>>FH4T</option>
+                            <option value="FH5" <?php if ($user['formation_hierarchique'] == 'FH5') echo 'selected'; ?>>FH5</option>
+                            <option value="FH5T" <?php if ($user['formation_hierarchique'] == 'FH5T') echo 'selected'; ?>>FH5T</option>
+                            <option value="FH6" <?php if ($user['formation_hierarchique'] == 'FH6') echo 'selected'; ?>>FH6</option>
+                            <option value="FH6T" <?php if ($user['formation_hierarchique'] == 'FH6T') echo 'selected'; ?>>FH6T</option>
                         </select>
                     </td>
                     <td>
