@@ -1,12 +1,15 @@
 <?php
 session_start();
+include 'db.php';
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
 }
-
-include 'db.php';
 
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
@@ -76,7 +79,7 @@ $pendingStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id 
 $pendingStmt->execute(['id' => $utilisateur['id']]);
 $demandesEnAttente = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'acceptée'");
+$acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'accepter'");
 $acceptedStmt->execute(['id' => $utilisateur['id']]);
 $demandesAcceptees = $acceptedStmt->fetchAll(PDO::FETCH_ASSOC);
 
