@@ -31,10 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute(['nouvelle_spe' => $nouvelleSpe, 'id' => $userId]);
     }
 
-    if (isset($nouvelleGerance)) {
-        $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
-        $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
-    }
+    if (isset($_POST['nouvelle_gerance'])) {
+    $nouvelleGerance = $_POST['nouvelle_gerance'];
+    $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
+    $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
+}
+
 
     // Check if a formation record exists for the user
     $formationExistsStmt = $pdo->prepare("SELECT id FROM formation WHERE id_utilisateur = :id_utilisateur");
