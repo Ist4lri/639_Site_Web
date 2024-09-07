@@ -67,7 +67,7 @@ $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
 $searchGrade = isset($_GET['search_grade']) ? $_GET['search_grade'] : '';
 $searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
 
-$sql = "SELECT u.id, u.nom, u.grade, u.gerance, s.nom AS specialite, f.formation, f.formation_hierarchique 
+$sql = "SELECT u.id, u.nom, u.grade, s.nom AS specialite, f.formation, f.formation_hierarchique 
         FROM utilisateurs u 
         LEFT JOIN spe s ON u.spe_id = s.id
         LEFT JOIN formation f ON u.id = f.id_utilisateur
@@ -109,7 +109,7 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
     <link rel="stylesheet" href="../css/tab.css">
 </head>
 <body>
-    <h1>Gestion des grades, spécialités, gérances et formations</h1>
+    <h1>Gestion des grades, spécialités et formations</h1>
 
     <?php if (isset($message)): ?>
         <p style="color: green;"><?php echo $message; ?></p>
@@ -151,10 +151,9 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                 <th>Grade actuel</th>
                 <th>Spécialité actuelle</th>
                 <th>Formation actuelle</th>
-                <th>Gérance actuelle</th>
+                <th>Nouvelle gérance</th>
                 <th>Nouveau grade</th>
                 <th>Nouvelle spécialité</th>
-                <th>Nouvelle gérance</th>
                 <th>Nouvelle formation</th>
                 <th>Nouvelle formation hiérarchique</th>
                 <th>Action</th>
@@ -168,24 +167,24 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
                     <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
                     <td><?php echo htmlspecialchars(($user['formation'] ?? 'Aucune') . '/' . ($user['formation_hierarchique'] ?? 'Aucune')); ?></td>
                     <td>
-                        <select name="nouvelle_gerance">
-                            <option value="0" <?php if ($user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
-                            <option value="1" <?php if ($user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
-                            <option value="2" <?php if ($user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
-                        </select>
-                    </td>
-                    <td>
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
-                            <select name="nouveau_grade">
-                                <option value="">Sélectionnez un grade</option>
-                                <option value="Conscrit">Conscrit</option>
-                                <option value="Garde">Garde</option>
-                                <option value="Garde-Vétéran">Garde-Vétéran</option>
-                                <option value="Caporal">Caporal</option>
-                                <option value="Sergent">Sergent</option>
-                                <option value="Lieutenant">Lieutenant</option>
+                            <select name="nouvelle_gerance">
+                                <option value="0" <?php if ($user['gerance'] == 0) echo 'selected'; ?>>0 - Aucun</option>
+                                <option value="1" <?php if ($user['gerance'] == 1) echo 'selected'; ?>>1 - Gérant</option>
+                                <option value="2" <?php if ($user['gerance'] == 2) echo 'selected'; ?>>2 - Sous-Gérant</option>
                             </select>
+                    </td>
+                    <td>
+                        <select name="nouveau_grade">
+                            <option value="">Sélectionnez un grade</option>
+                            <option value="Conscrit">Conscrit</option>
+                            <option value="Garde">Garde</option>
+                            <option value="Garde-Vétéran">Garde-Vétéran</option>
+                            <option value="Caporal">Caporal</option>
+                            <option value="Sergent">Sergent</option>
+                            <option value="Lieutenant">Lieutenant</option>
+                        </select>
                     </td>
                     <td>
                         <select name="nouvelle_spe">
