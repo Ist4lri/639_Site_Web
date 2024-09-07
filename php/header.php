@@ -34,6 +34,8 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
     <nav class="head-nav">
         <?php if ($isLoggedIn): ?>
             <a href="profil_utilisateur.php">Profil</a>
+            <a href="officier.php">Officier</a>
+            <a href="sous-officier.php">Sous-Officier</a>
             <a href="Dec.php">Déconnexion</a>
         <?php else: ?>
             <a href="connection.php">Connexion</a>
