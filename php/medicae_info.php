@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
 
     <!-- Formulaire de modification, affiché uniquement si le bouton "Modifier" a été cliqué -->
     <?php if ($showEditForm): ?>
-        <h3>Modifier les informations médicales de <?php echo htmlspecialchars($user['nom']); ?></h3>
+        <h3>Modifier les informations médicales</h3>
         <form action="" method="post">
             <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($id_utilisateur); ?>">
             
