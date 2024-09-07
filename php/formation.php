@@ -19,7 +19,7 @@ $currentUser = $stmt->fetch();
 
 // Vérifier si l'utilisateur a la bonne spécialité et gerance (gérance 1 ou 2)
 if (!in_array($currentUser['gerance'], [1, 2])) {
-    header("Location: unauthorized.php");
+    header("Location: insubordination.php");
     exit();
 }
 
