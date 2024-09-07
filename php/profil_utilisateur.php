@@ -163,14 +163,14 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <h3>Demandes en attente</h3>
     <ul>
         <?php foreach ($demandesEnAttente as $demande): ?>
-            <li><?php echo htmlspecialchars($demande['demande']); ?> (En attente)</li>
+            <li><?php echo htmlspecialchars($demande['demande']); ?></li>
         <?php endforeach; ?>
     </ul>
 
     <h3>Demandes acceptées</h3>
     <ul>
         <?php foreach ($demandesAcceptees as $demande): ?>
-            <li><?php echo htmlspecialchars($demande['demande']); ?> (Acceptée)</li>
+            <li><?php echo htmlspecialchars($demande['demande']); ?></li>
         <?php endforeach; ?>
     </ul>
 </div>
