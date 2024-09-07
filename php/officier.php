@@ -68,6 +68,7 @@ $specialitesStmt = $pdo->query("SELECT id, nom FROM spe");
 $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
