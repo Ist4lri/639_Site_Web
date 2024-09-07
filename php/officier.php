@@ -12,7 +12,7 @@ if (!in_array($currentUser['grade'], $gradesAutorises)) {
     exit();
 }
 
-// Mise à jour des informations de l'utilisateur
+// Handle updates to grade, specialty, management, formation, and formation_hierarchique
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouveauGrade = $_POST['nouveau_grade'];
@@ -36,22 +36,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
     }
 
-    if (!empty($nouvelleFormation) || !empty($nouvelleFormationHierarchique)) {
-        $stmt = $pdo->prepare("UPDATE formation SET formation = :nouvelle_formation, formation_hierarchique = :nouvelle_formation_hierarchique WHERE id_utilisateur = :id");
-        $stmt->execute(['nouvelle_formation' => $nouvelleFormation, 'nouvelle_formation_hierarchique' => $nouvelleFormationHierarchique, 'id' => $userId]);
+    // Check if a formation record exists for the user
+    $formationExistsStmt = $pdo->prepare("SELECT id FROM formation WHERE id_utilisateur = :id_utilisateur");
+    $formationExistsStmt->execute(['id_utilisateur' => $userId]);
+    $formationExists = $formationExistsStmt->fetch();
+
+    if ($formationExists) {
+        // Update the formation if a record exists
+        $stmt = $pdo->prepare("UPDATE formation SET formation = :nouvelle_formation, formation_hierarchique = :nouvelle_formation_hierarchique WHERE id_utilisateur = :id_utilisateur");
+        $stmt->execute([
+            'nouvelle_formation' => $nouvelleFormation,
+            'nouvelle_formation_hierarchique' => $nouvelleFormationHierarchique,
+            'id_utilisateur' => $userId
+        ]);
+    } else {
+        // Insert a new formation record if none exists
+        $stmt = $pdo->prepare("INSERT INTO formation (id_utilisateur, formation, formation_hierarchique) VALUES (:id_utilisateur, :nouvelle_formation, :nouvelle_formation_hierarchique)");
+        $stmt->execute([
+            'id_utilisateur' => $userId,
+            'nouvelle_formation' => $nouvelleFormation,
+            'nouvelle_formation_hierarchique' => $nouvelleFormationHierarchique
+        ]);
     }
 
     $message = "Les informations de l'utilisateur ont été mises à jour avec succès.";
 }
 
-// Récupérer les utilisateurs
+// Fetch users and formation data
 $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
 $searchGrade = isset($_GET['search_grade']) ? $_GET['search_grade'] : '';
 $searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
 
-$sql = "SELECT u.id, u.nom, u.grade, u.gerance, s.nom AS specialite 
+$sql = "SELECT u.id, u.nom, u.grade, u.gerance, s.nom AS specialite, f.formation, f.formation_hierarchique 
         FROM utilisateurs u 
         LEFT JOIN spe s ON u.spe_id = s.id
+        LEFT JOIN formation f ON u.id = f.id_utilisateur
         WHERE 1=1";
 
 $params = [];
@@ -72,13 +91,13 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupérer les spécialités
+// Specialties for the dropdown
 $specialitesStmt = $pdo->query("SELECT id, nom FROM spe");
 $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupérer les formations
-$formationsStmt = $pdo->query("SELECT DISTINCT formation, formation_hierarchique FROM formation");
-$formations = $formationsStmt->fetchAll(PDO::FETCH_ASSOC);
+// Formation options for the dropdowns
+$formationOptions = ['FB', 'FS', 'Aucune'];
+$formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'FH4', 'FH4T', 'FH5', 'FH5T', 'FH6', 'FH6T', 'Aucune'];
 ?>
 
 <!DOCTYPE html>
@@ -132,6 +151,8 @@ $formations = $formationsStmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Grade actuel</th>
                 <th>Spécialité actuelle</th>
                 <th>Gérance actuelle</th>
+                <th>Formation actuelle</th>
+                <th>Formation hiérarchique actuelle</th>
                 <th>Nouveau grade</th>
                 <th>Nouvelle spécialité</th>
                 <th>Nouvelle gérance</th>
@@ -147,6 +168,8 @@ $formations = $formationsStmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo htmlspecialchars($user['grade']); ?></td>
                     <td><?php echo !empty($user['specialite']) ? htmlspecialchars($user['specialite']) : 'Aucune'; ?></td>
                     <td><?php echo htmlspecialchars($user['gerance'] === null ? 'Aucune' : $user['gerance']); ?></td>
+                    <td><?php echo htmlspecialchars($user['formation'] ?? 'Aucune'); ?></td>
+                    <td><?php echo htmlspecialchars($user['formation_hierarchique'] ?? 'Aucune'); ?></td>
                     <td>
                         <form action="officier.php" method="post">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
@@ -178,16 +201,16 @@ $formations = $formationsStmt->fetchAll(PDO::FETCH_ASSOC);
                     <td>
                         <select name="nouvelle_formation">
                             <option value="">Sélectionnez une formation</option>
-                            <?php foreach ($formations as $formation): ?>
-                                <option value="<?php echo htmlspecialchars($formation['formation']); ?>"><?php echo htmlspecialchars($formation['formation']); ?></option>
+                            <?php foreach ($formationOptions as $formation): ?>
+                                <option value="<?php echo htmlspecialchars($formation); ?>"><?php echo htmlspecialchars($formation); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>
                     <td>
                         <select name="nouvelle_formation_hierarchique">
                             <option value="">Sélectionnez une formation hiérarchique</option>
-                            <?php foreach ($formations as $formation): ?>
-                                <option value="<?php echo htmlspecialchars($formation['formation_hierarchique']); ?>"><?php echo htmlspecialchars($formation['formation_hierarchique']); ?></option>
+                            <?php foreach ($formationHierarchiqueOptions as $formationHierarchique): ?>
+                                <option value="<?php echo htmlspecialchars($formationHierarchique); ?>"><?php echo htmlspecialchars($formationHierarchique); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>
@@ -199,25 +222,5 @@ $formations = $formationsStmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </tbody>
     </table>
-
-    <!-- Liste des formations -->
-    <h2>Liste des Formations</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Formation</th>
-                <th>Formation Hiérarchique</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($formations as $formation): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($formation['formation']); ?></td>
-                <td><?php echo htmlspecialchars($formation['formation_hierarchique']); ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-
 </body>
 </html>
