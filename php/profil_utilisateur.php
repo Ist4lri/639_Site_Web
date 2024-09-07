@@ -1,3 +1,50 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['utilisateur'])) {
+    header("Location: connection.php");
+    exit();
+}
+
+include 'db.php';
+
+$stmt = $pdo->prepare("SELECT u.*, s.nom AS specialite_nom FROM utilisateurs u LEFT JOIN spe s ON u.spe_id = s.id WHERE u.email = :email");
+$stmt->execute(['email' => $_SESSION['utilisateur']]);
+$utilisateur = $stmt->fetch();
+
+if (!$utilisateur) {
+    echo "Erreur: Utilisateur introuvable.";
+    exit();
+}
+
+$message = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['demande']) && !empty($_POST['demande'])) {
+        $demandeText = $_POST['demande'];
+
+        $stmt = $pdo->prepare("INSERT INTO demande (id_utilisateurs, demande, status) VALUES (:id_utilisateurs, :demande, 'en attente')");
+        $stmt->execute([
+            ':id_utilisateurs' => $utilisateur['id'],
+            ':demande' => $demandeText,
+        ]);
+
+        $message = "Votre demande a été soumise.";
+    }
+}
+
+$pendingStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'en attente'");
+$pendingStmt->execute(['id' => $utilisateur['id']]);
+$demandesEnAttente = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'acceptée'");
+$acceptedStmt->execute(['id' => $utilisateur['id']]);
+$demandesAcceptees = $acceptedStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$excel_file_path = "../excel/planning_utilisateurs.xlsx";
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
