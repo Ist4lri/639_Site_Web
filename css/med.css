@@ -1,0 +1,178 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333; /* Fond gris foncé */
+    margin: 0;
+    padding: 0;
+    color: #fff; /* Texte blanc */
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    background-color: #444; /* Fond légèrement plus clair pour le container */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    text-align: center;
+    color: #fff; /* Titre en blanc */
+    margin-bottom: 20px;
+}
+
+/* Alertes pour messages de succès et d'erreur */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.alert-danger {
+    background-color: #e74c3c;
+}
+
+.alert-success {
+    background-color: #2ecc71;
+}
+
+/* Formulaire de filtre et de recherche */
+form {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+form label {
+    margin-right: 10px;
+    color: #fff; /* Texte blanc pour les labels */
+}
+
+form select,
+form input[type="text"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #666; /* Fond plus sombre pour les inputs */
+    color: #fff; /* Texte blanc dans les inputs */
+}
+
+form button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #2980b9; /* Bleu pour les boutons */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #3498db; /* Bleu plus clair au survol */
+}
+
+/* Table style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #444; /* Fond de la table en gris foncé */
+    color: #fff; /* Texte blanc dans la table */
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #555; /* Ligne de séparation plus claire */
+}
+
+table th {
+    background-color: #555; /* En-têtes légèrement plus claires */
+    color: #fff;
+}
+
+table td {
+    background-color: #444; /* Fond des cellules en gris foncé */
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #333; /* Ligne alternée en gris plus sombre */
+}
+
+/* Boutons de la table */
+table .btn {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+table .btn-modify {
+    background-color: #e67e22; /* Orange pour modifier */
+    color: white;
+}
+
+table .btn-modify:hover {
+    background-color: #d35400; /* Orange plus foncé au survol */
+}
+
+table .btn-view-pdf {
+    background-color: #1abc9c; /* Vert pour le bouton PDF */
+    color: white;
+}
+
+table .btn-view-pdf:hover {
+    background-color: #16a085; /* Vert plus foncé au survol */
+}
+
+/* Style pour les inputs numériques */
+form input[type="number"] {
+    width: 10%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #666; /* Fond sombre */
+    color: #fff; /* Texte blanc */
+    font-size: 14px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    form {
+        flex-direction: column;
+    }
+
+    form label {
+        margin-bottom: 10px;
+    }
+
+    form input,
+    form select,
+    form button {
+        width: 30%;
+    }
+
+    form button {
+        width: auto;
+        margin-left: 0;
+    }
+}
+
+form textarea {
+    width: 150px; /* Réduire la largeur */
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #666; /* Fond sombre pour la textarea */
+    color: #fff; /* Texte blanc */
+ 
+}
