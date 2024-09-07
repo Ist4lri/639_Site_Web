@@ -18,20 +18,20 @@ $currentUser = $stmt->fetch();
 $GradeAutorise = ['Lieutenant', 'Capitaine', 'Major', 'Colonel', 'General'];
 
 if (!in_array($currentUser['grade'], $GradeAutorise)) {
-    header("Location: unauthorized.php");
+    header("Location: insubordination.php");
     exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
-    $id_demande = $_POST['id'];
+    $id_demande = $_POST['id_demande'];
     $action = $_POST['action'];
 
     if ($action == "accept") {
-        $stmt = $pdo->prepare("UPDATE demande SET status = 'Accepted' WHERE id = ?");
+        $stmt = $pdo->prepare("UPDATE demande SET status = 'acceptée' WHERE id = ?");
         $stmt->execute([$id_demande]);
         $message = "Demande acceptée avec succès.";
     } elseif ($action == "reject") {
-        $stmt = $pdo->prepare("UPDATE demande SET status = 'Rejected' WHERE id = ?");
+        $stmt = $pdo->prepare("UPDATE demande SET status = 'rejetée' WHERE id = ?");
         $stmt->execute([$id_demande]);
         $message = "Demande rejetée avec succès.";
     }
