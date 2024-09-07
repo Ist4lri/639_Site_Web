@@ -12,7 +12,6 @@ if (!in_array($currentUser['grade'], $gradesAutorises)) {
     exit();
 }
 
-// Handle updates to grade, specialty, and formation
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $nouveauGrade = $_POST['nouveau_grade'];
@@ -20,7 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nouvelleFormation = $_POST['nouvelle_formation'] ?? 'Aucune';
     $nouvelleFormationHierarchique = $_POST['nouvelle_formation_hierarchique'] ?? 'Aucune';
 
-    // Debugging output: Confirm the formation_hierarchique value
+    // Log the values being inserted for debugging purposes
+    error_log("Nouvelle formation: " . $nouvelleFormation);
     error_log("Nouvelle formation hierarchique: " . $nouvelleFormationHierarchique);
 
     if (!empty($nouveauGrade)) {
@@ -49,6 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Insert a new formation record if none exists
         $stmt = $pdo->prepare("INSERT INTO formation (id_utilisateur, formation, formation_hierarchique) VALUES (:id_utilisateur, :nouvelle_formation, :nouvelle_formation_hierarchique)");
+        
+        // Log before execution to verify the values
+        error_log("Inserting into formation: user_id = $userId, formation = $nouvelleFormation, formation_hierarchique = $nouvelleFormationHierarchique");
+
         $stmt->execute([
             'id_utilisateur' => $userId,
             'nouvelle_formation' => $nouvelleFormation,
@@ -58,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $message = "Les informations de l'utilisateur ont été mises à jour avec succès.";
 }
+
 
 // Fetch users and formation data
 $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
