@@ -23,7 +23,7 @@ if (!in_array($currentUser['grade'], $GradeAutorise)) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
-    $id_demande = $_POST['id_demande'];
+    $id_demande = $_POST['id'];
     $action = $_POST['action'];
 
     if ($action == "accept") {
