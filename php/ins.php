@@ -11,16 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = $_POST['nom'];
     $email = $_POST['email'];
     $mot_de_passe = $_POST['password'];
+    $spe_id = 9; // Setting spe_id to 9, you can modify this based on your requirements.
 
-    if (!empty($nom) && !empty($email) && !empty($mot_de_passe)) {
+    if (!empty($nom) && !empty($email) && !empty($mot_de_passe) && !empty($spe_id)) {
         // Hachage du mot de passe
         $mot_de_passe_hash = password_hash($mot_de_passe, PASSWORD_BCRYPT);
         
-        // Insertion dans la base de données
-        $sql = "INSERT INTO utilisateurs (nom, email, mot_de_passe) VALUES (?, ?, ?)";
+        // Insertion dans la base de données avec spe_id
+        $sql = "INSERT INTO utilisateurs (nom, email, mot_de_passe, spe_id) VALUES (?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
 
-        if ($stmt->execute([$nom, $email, $mot_de_passe_hash])) {
+        if ($stmt->execute([$nom, $email, $mot_de_passe_hash, $spe_id])) {
             // Message de confirmation
             $success_message = "Votre inscription a bien été prise en compte. Patientez, votre validation est effectuée tous les jours.";
         } else {
