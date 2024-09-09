@@ -10,7 +10,7 @@ header.head {
     top: 0;
     z-index: 1000; /* Assure que le header reste au-dessus du contenu */
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7); /* Augmente l'ombre portée pour une meilleure séparation */
-    background: url('src/assets/BordureHeader.png') no-repeat center center fixed; 
+    background: url('../src/assets/BordureHeader.png') no-repeat center center fixed; 
     background-size: cover; /* Assure que l'image couvre tout l'écran */
 }
 
