@@ -1,8 +1,47 @@
 /* Style du header */
-header{
-background: url('../src/assets/BordureHeader.png') no-repeat center center fixed; 
-    background-size: auto; /* Assure que l'image couvre tout l'écran */
+background: url('../src/assets/BordureHeader.png') no-repeat center center fixed;
+background-size: cover; /* Ensures the image covers the entire screen */
+
+::before,
+::after {
+    content: "";
+    position: absolute;
+    background-color: green; /* Color of the green stripes */
+    width: 5px; /* Adjust the thickness of the stripes as needed */
 }
+
+::before {
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+::after {
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Create additional stripes for top and bottom */
+.corner-stripes {
+    position: absolute;
+    width: 100%;
+    height: 5px; /* Adjust thickness */
+    background-color: green;
+}
+
+.corner-stripes.top {
+    top: 0;
+    left: 0;
+}
+
+.corner-stripes.bottom {
+    bottom: 0;
+    left: 0;
+}
+
+
+
 
 header.head {
     background-color: rgba(75, 75, 75, 0); 
