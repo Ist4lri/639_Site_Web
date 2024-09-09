@@ -27,7 +27,7 @@ header.head {
 .head-logo img {
     max-width: 80px; 
     height: auto;
-    margin-left: 20px;
+    margin-left: 25px;
 }
 
 .head-username {
@@ -51,7 +51,7 @@ header.head {
 
 nav.head-nav {
     flex: 1.2; /* Augmenter la flexibilité de l'espace pour les éléments de navigation */
-    margin-right: 20px;
+    margin-right: 35px;
     display: flex;
     justify-content: flex-end;
     gap: 10px; /* Réduit l'espace entre les éléments de navigation et le titre */
