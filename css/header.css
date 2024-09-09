@@ -40,7 +40,8 @@ header.head {
 .head-title h1 {
     margin: 0;
     font-size: 1.8rem; /* Taille de police légèrement réduite */
-    color: white;
+    color: #9ed79d;
+    box-shadow: 2px 2px 2px #3bd237;
     letter-spacing: 1.2px; /* Espacement des lettres réduit */
     font-weight: bold; /* Texte en gras pour une meilleure lisibilité */
 }
@@ -56,7 +57,8 @@ nav.head-nav {
 
 nav.head-nav a {
     text-decoration: none;
-    color: #f1f1f1; /* Couleur des liens légèrement plus claire */
+    color: #9ed79d;
+    box-shadow: 2px 2px 2px #3bd237; /* Couleur des liens légèrement plus claire */
     font-size: 1rem; /* Taille de police standard */
     font-weight: bold; /* Les liens en gras pour un look plus affirmé */
 }
