@@ -1,7 +1,7 @@
 /* Style du header */
 header.head {
-    background-color: rgba(75, 75, 75, 0.26); 
-    color: white;
+    background-color: rgba(75, 75, 75, 0); 
+    color: #9ed79d;
     padding: 5px 5px; /* Plus de padding pour un aspect plus robuste */
     display: flex;
     align-items: center;
@@ -26,7 +26,8 @@ header.head {
 }
 
 .head-username {
-    color: #f1f1f1;
+    color: #9ed79d;
+    box-shadow: 2px 2px 2px #3bd237;
     font-size: 1.1rem; /* Taille de police légèrement plus grande pour lisibilité */
 }
 
