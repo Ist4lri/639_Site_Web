@@ -6,7 +6,6 @@ header.head {
     display: flex;
     align-items: center;
     background: url('../src/assets/BordureHeader.png') no-repeat center center; /* Applies the image to the header */
-    background-size: cover; /* Ensures the image covers the entire header */
     blur: 0.5;
     position: fixed;
     width: 99.3%; /* Prend toute la largeur de l'écran */
