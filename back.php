@@ -173,7 +173,6 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <input type="hidden" name="action" value="changer_grade">
                             <select name="grade">
                                 <option value="Civil" <?php if ($utilisateur['grade'] == 'Civil') echo 'selected'; ?>>Civil</option>
-                                <option value="Conscrit" <?php if ($utilisateur['grade'] == 'Conscrit') echo 'selected'; ?>>Conscrit</option>
                                 <option value="Garde" <?php if ($utilisateur['grade'] == 'Garde') echo 'selected'; ?>>Garde</option>
                                 <option value="Garde-Vétéran" <?php if ($utilisateur['grade'] == 'Garde-Vétéran') echo 'selected'; ?>>Garde-Vétéran</option>
                                 <option value="Caporal" <?php if ($utilisateur['grade'] == 'Caporal') echo 'selected'; ?>>Caporal</option>
