@@ -10,8 +10,7 @@ header.head {
     padding: 5px 5px; /* Plus de padding pour un aspect plus robuste */
     display: flex;
     align-items: center;
-
-    blur: 0.5;
+    filter: blur(4px);
     position: fixed;
     width: 99.3%; /* Prend toute la largeur de l'écran */
     top: 0;
@@ -44,7 +43,6 @@ header.head {
     margin: 0;
     font-size: 1.8rem; /* Taille de police légèrement réduite */
     color: #9ed79d;
-    box-shadow: 2px 2px 2px #3bd237;
     letter-spacing: 1.2px; /* Espacement des lettres réduit */
     font-weight: bold; /* Texte en gras pour une meilleure lisibilité */
 }
@@ -62,7 +60,6 @@ nav.head-nav {
 nav.head-nav a {
     text-decoration: none;
     color: #9ed79d;
-    box-shadow: 2px 2px 2px #3bd237; /* Couleur des liens légèrement plus claire */
     font-size: 1rem; /* Taille de police standard */
     font-weight: bold; /* Les liens en gras pour un look plus affirmé */
 }
