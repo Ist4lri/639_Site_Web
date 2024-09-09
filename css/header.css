@@ -1,7 +1,7 @@
 /* Style du header */
 header{
 background: url('../src/assets/BordureHeader.png') no-repeat center center fixed; 
-    background-size: cover; /* Assure que l'image couvre tout l'écran */
+    background-size: auto; /* Assure que l'image couvre tout l'écran */
 }
 
 header.head {
