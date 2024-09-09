@@ -1,3 +1,7 @@
+header{
+    background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */
+    background-size: cover; /* Assure que l'image couvre tout l'écran */
+}
 
 header.head {
     background-color: rgba(75, 75, 75, 0); 
@@ -5,8 +9,7 @@ header.head {
     padding: 5px 5px; /* Plus de padding pour un aspect plus robuste */
     display: flex;
     align-items: center;
-    background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */
-    background-size: cover; /* Assure que l'image couvre tout l'écran */
+
     blur: 0.5;
     position: fixed;
     width: 99.3%; /* Prend toute la largeur de l'écran */
