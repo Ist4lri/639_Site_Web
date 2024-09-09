@@ -1,8 +1,17 @@
-/* Style du header */
-background: url('../src/assets/BordureHeader.png') no-repeat center center fixed;
-background-size: cover; /* Ensures the image covers the entire screen */
-
-
+header.head {
+    background: url('../src/assets/BordureHeader.png') no-repeat center center; /* Applies the image to the header */
+    background-size: cover; /* Ensures the image covers the entire header */
+    background-color: rgba(75, 75, 75, 0); 
+    color: #9ed79d;
+    padding: 5px 5px; /* Padding inside the header */
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 99.3%; /* Stretches header to nearly the full width */
+    top: 0;
+    z-index: 1000; /* Ensures the header is above all other content */
+    height: 92px; /* Set the height based on previous calculation */
+}
 
 
 header.head {
