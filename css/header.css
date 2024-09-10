@@ -1,6 +1,5 @@
 header{
-    background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */
-    background-size: cover; /* Assure que l'image couvre tout l'écran */
+    background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */ /* Assure que l'image couvre tout l'écran */
     width: 100%;
 }
     
@@ -25,19 +24,18 @@ header.head {
 .head-logo {
     flex: 1;
     display: flex;
-    justify-content: center; /* Centre horizontalement l'image dans son conteneur */
-    align-items: center;      /* Centre verticalement l'image dans son conteneur */
+    align-items: center;
 }
-
-img {
-    max-width: 120px;
-    height: 80px;
+.head-logo img {
+    max-width: 80px; 
+    height: autopx;
+    margin-left: 25px;
 }
 
 .head-logo img {
-    max-width: 80px;
-    height: auto;
-    margin-left: 0; /* Supprime le margin-left pour ne pas décaler l'image */
+    max-width: 180px; 
+    height: 150px;
+    margin-left: 0px;
 }
 
 
