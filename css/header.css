@@ -1,8 +1,7 @@
 header {
-    background: url('../src/assets/BordureHeader1.png') no-repeat center center;
+    background: url('../src/assets/BordureHeader1.png') repeat center center;
     background-size: cover;
     width: 70%;
-    height: 150px; /* Ajustez selon vos besoins */
 }
 
     
