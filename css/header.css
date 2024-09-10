@@ -25,17 +25,21 @@ header.head {
 .head-logo {
     flex: 1;
     display: flex;
-    align-items: center;
+    justify-content: center; /* Centre horizontalement l'image dans son conteneur */
+    align-items: center;      /* Centre verticalement l'image dans son conteneur */
 }
+
 img {
-    max-width: 120px; 
+    max-width: 120px;
     height: 80px;
 }
+
 .head-logo img {
-    max-width: 80px; 
+    max-width: 80px;
     height: auto;
-    margin-left: 25px;
+    margin-left: 0; /* Supprime le margin-left pour ne pas décaler l'image */
 }
+
 
 .head-username {
     color: #9ed79d;
