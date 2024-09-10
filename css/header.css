@@ -1,7 +1,7 @@
 header {
     background: url('../src/assets/BordureHeader1.png') no-repeat center center;
     background-size: cover;
-    width: 100%;
+    width: 90%;
     height: 150px; /* Ajustez selon vos besoins */
 }
 
