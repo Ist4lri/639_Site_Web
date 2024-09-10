@@ -1,4 +1,4 @@
-header{
+head{
     background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */
     background-size: cover; /* Assure que l'image couvre tout l'écran */
     width: 100%;
