@@ -1,4 +1,8 @@
-
+header{
+    background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */
+    background-size: cover; /* Assure que l'image couvre tout l'écran */
+    width: 100%;
+}
     
 
 
@@ -9,9 +13,7 @@ header.head {
     display: flex;
     align-items: center;
     position: fixed;
-    background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */
-    background-size: cover; /* Assure que l'image couvre tout l'écran */
-    width: 100%;
+    width: 99.8%;
     top: 0;
     z-index: 1000; /* Ensures header stays above content */
     backdrop-filter: blur(6px); /* Applies blur effect to background */
