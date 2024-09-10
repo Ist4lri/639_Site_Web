@@ -41,9 +41,9 @@ header.head {
 
 /* Style for the right-side logo */
 .head-logo2 img {
-    max-width: 180px; 
-    height: 150px;
-    margin-left: 0;
+    max-width: 220px; 
+    height: 100px;
+    margin-left: -50px;
 }
 
 
