@@ -30,7 +30,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
             <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
         <?php endif; ?>
     </div>
-    <div class="head-title">
+    <div class="head-logo">
         <img src="src/assets/TitreSite.png" alt="639 Régiment cadien"
     </div>
     <nav class="head-nav">
