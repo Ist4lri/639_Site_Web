@@ -5,17 +5,20 @@ header{
 }
 
 header.head {
-    background-color: rgba(75, 75, 75, 0); 
+    background-color: rgba(75, 75, 75, 0.3); /* Semi-transparent background */
     color: #9ed79d;
-    padding: 5px 5px; /* Plus de padding pour un aspect plus robuste */
+    padding: 5px 5px; /* Padding for robust look */
     display: flex;
     align-items: center;
-    filter: blur(4px);
     position: fixed;
-    width: 99.3%; /* Prend toute la largeur de l'écran */
+    width: 99.3%; /* Takes full screen width */
     top: 0;
-    z-index: 1000; /* Assure que le header reste au-dessus du contenu */
+    z-index: 1000; /* Ensures header stays above content */
+    backdrop-filter: blur(10px); /* Applies blur effect to background */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Optional: adds subtle border */
 }
+
 
 .head-logo {
     flex: 1;
