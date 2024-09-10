@@ -28,14 +28,22 @@ header.head {
 }
 .head-logo img {
     max-width: 80px; 
-    height: autopx;
+    height: auto;
     margin-left: 25px;
 }
 
+.head-logo2 {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align the right logo to the right */
+}
+
+/* Style for the right-side logo */
 .head-logo2 img {
     max-width: 180px; 
     height: 150px;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 
