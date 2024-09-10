@@ -83,7 +83,7 @@ $demandesAcceptees = $acceptedStmt->fetchAll(PDO::FETCH_ASSOC);
 $excel_file_path = "../excel/planning_utilisateurs.xlsx";
 
 ?>
-<?php include 'header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -92,8 +92,28 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <title>Profil Utilisateur</title>
     <link rel="stylesheet" href="../css/profil.css">
     <link rel="stylesheet" href="../css/header.css">
-
 </head>
+    <header class="head">
+    <div class="head-logo">
+        <a href="../index.php">
+            <img src="../src/assets/Logo_639th_2.ico" alt="Logo 639">
+        </a>
+        <?php if ($isLoggedIn): ?>
+            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
+        <?php endif; ?>
+    </div>
+    <div class="head-title">
+        <h1>639</h1>
+    </div>
+    <nav class="head-nav">
+            <a href="perso.php">Soummetre Personnage</a>
+            <a href="officier.php">Officier</a>
+            <a href="sous-officier.php">Sous-Officier</a>
+            <a href="Dec.php">Déconnexion</a>
+
+    </nav>
+</header>
+
 <body>
 
 <div class="profile-container">
