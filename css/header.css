@@ -1,7 +1,6 @@
 header {
     background: url('../src/assets/BordureHeader1.png') no-repeat left center; /* Position l'image à gauche */
-    background-size: 120% auto; /* Augmente la taille de l'image */
-    padding-left: 50px; /* Décale le contenu du header vers la droite pour ne pas le chevaucher */
+    background-size: 105% auto; /* Augmente la taille de l'image */
     width: 100%;
 }
 
