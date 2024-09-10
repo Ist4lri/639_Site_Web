@@ -3,7 +3,6 @@ header {
     background-size: 120% auto; /* Augmente la taille de l'image */
     padding-left: 50px; /* Décale le contenu du header vers la droite pour ne pas le chevaucher */
     width: 100%;
-    height: 150px; /* Assurez-vous que le header a une hauteur pour afficher l'image */
 }
 
     
