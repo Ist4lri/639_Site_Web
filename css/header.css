@@ -1,5 +1,5 @@
 header {
-    background: url('../src/assets/BordureHeader1.png') repeat center center;
+    background: url('../src/assets/BordureHeader1.png') repeat;
     background-size: cover;
     width: 70%;
 }
