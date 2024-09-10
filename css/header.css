@@ -1,5 +1,5 @@
 header{
-    background: url('../src/assets/BordureHeader1.png') no-repeat center center; /* Applies the image to the header */ /* Assure que l'image couvre tout l'écran */
+    background: url('../src/assets/BordureHeader1.png') no-repeat center; /* Applies the image to the header */ /* Assure que l'image couvre tout l'écran */
     width: 100%;
 }
     
