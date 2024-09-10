@@ -14,7 +14,7 @@ header.head {
     display: flex;
     align-items: center;
     position: fixed;
-    width: 99.8%;
+    width: 99.6%;
     top: 0;
     z-index: 1000; /* Ensures header stays above content */
     backdrop-filter: blur(6px); /* Applies blur effect to background */
@@ -44,7 +44,7 @@ header.head {
 /* Style for the right-side logo */
 .head-logo2 img {
     max-width: 220px; 
-    height: 100px;
+    height: 80px;
     margin-left: -100px;
 }
 
