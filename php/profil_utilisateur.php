@@ -29,8 +29,7 @@ $message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['demande']) && !empty($_POST['demande'])) {
         $demandeText = $_POST['demande'];
-        
-        // Insertion de la demande dans la table demande
+
         $stmt = $pdo->prepare("INSERT INTO demande (id_utilisateurs, demande, status) VALUES (:id_utilisateurs, :demande, 'en attente')");
         $stmt->execute([
             ':id_utilisateurs' => $utilisateur['id'],
@@ -38,8 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
         
         $message = "Votre demande a été soumise.";
-        
-        // Redirect to the same page to avoid form resubmission
+ 
         header("Location: profil_utilisateur.php");
         exit();
     }
@@ -52,8 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':id' => $utilisateur['id']
         ]);
         $message = "Votre nom a été mis à jour.";
-        
-        // Redirect to the same page to avoid form resubmission
+
         header("Location: profil_utilisateur.php");
         exit();
     }
@@ -68,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['utilisateur'] = $nouvelEmail; // Mettre à jour l'email dans la session
         $message = "Votre email a été mis à jour.";
         
-        // Redirect to the same page to avoid form resubmission
+        
         header("Location: profil_utilisateur.php");
         exit();
     }
@@ -109,7 +106,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <p><strong>Spécialité :</strong> <?php echo htmlspecialchars($utilisateur['specialite_nom']); ?></p>
     </div>
 
-    <!-- Formulaire de mise à jour -->
+    
     <div class="update-form">
         <h3>Soumettre une demande</h3>
         <?php if ($message): ?>
@@ -126,7 +123,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
             </div>
         </form>
 
-        <!-- Formulaire de changement de nom -->
+       
         <form action="profil_utilisateur.php" method="post">
             <div>
                 <label for="nouveau_nom">Nouveau nom :</label>
@@ -137,7 +134,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
             </div>
         </form>
 
-        <!-- Formulaire de changement d'email -->
         <form action="profil_utilisateur.php" method="post">
             <div>
                 <label for="nouvel_email">Nouvel email :</label>
@@ -150,7 +146,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     </div>
 </div>
 
-<!-- Lien pour télécharger le fichier Excel -->
+
 <div class="excel-download">
     <?php if (file_exists($excel_file_path)): ?>
         <p><a href="<?php echo $excel_file_path; ?>" download>Télécharger le planning des utilisateurs (Excel)</a></p>
