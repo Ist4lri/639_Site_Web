@@ -58,12 +58,15 @@ $stmtRejected->execute(['faction' => $faction]);
 $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Personnages</title>
+    <title>Inscription</title>
+    <link rel="stylesheet" href="../css/form.css">
+</head>
     <style>
         body { font-family: Arial, sans-serif; }
         h2 { color: #4CAF50; }
