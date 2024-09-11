@@ -17,6 +17,9 @@ if (!$utilisateur) {
     exit();
 }
 
+$isLoggedIn = isset($_SESSION['utilisateur']);
+$userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
+
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
