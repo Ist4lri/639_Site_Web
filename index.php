@@ -156,7 +156,7 @@ th {
                 </tr>
                 <?php foreach ($gradedUsers as $user): ?>
                     <tr>
-                        <td><?= htmlspecialchars($user['nom']) '{' htmlspecialchars($user['grade']) '}' ?></td>
+                        <td><?= htmlspecialchars($user['nom']) . ' {' . htmlspecialchars($user['grade']) . '}' ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -189,7 +189,7 @@ th {
                 </tr>
                 <?php foreach ($instructors as $instructor): ?>
                     <tr>
-                    <td><?= htmlspecialchars($instructor['utilisateur_nom']) '{' htmlspecialchars($instructor['specialite_nom']) '}'  ?></td>
+                    <td><?= htmlspecialchars($instructor['utilisateur_nom']). '{' .htmlspecialchars($instructor['specialite_nom']). '}'  ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
