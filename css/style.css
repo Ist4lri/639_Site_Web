@@ -112,29 +112,18 @@ h2 {
 }
 
 
-.eff {
-    background-color: #C4C4C4; /* Fond de couleur #C4C4C4 */
-    color: black; /* Couleur du texte en noir */
-    padding: 15px 25px; /* Padding pour un look plus robuste */
-    border-radius: 10px; /* Augmentation du radius pour des bords plus arrondis */
-    text-align: center; /* Texte centré */
-    max-width: 300px; /* Largeur maximale de 300px */
-    margin: 20px auto; /* Centrer l'élément horizontalement et espacer verticalement */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transitions */
+.eff img {
+    transition: all 0.8s ease; /* Optionnel : pour une transition douce */
+    width: 45%; 
+    height: 45%;
 }
 
-.eff:hover {
-    background-color: #ebebeb; /* Couleur au survol légèrement plus claire */
-    transform: translateY(-5px); /* Légère élévation pour un effet "pop" */
+.eff img:hover {
+    content: url('../src/assets/BoutonNosEffectifs1.png');
+    transition: all 0.8s ease;
 }
 
-.eff a {
-    text-decoration: none;
-    color: black; /* Texte en noir */
-    font-size: 1.3rem; /* Taille de la police légèrement plus grande */
-    font-weight: bold; /* Texte en gras */
-    letter-spacing: 1px; /* Espacement des lettres */
-}
+
 
 .intro_content {
     padding-top: 100px;
