@@ -21,7 +21,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
 
 <header class="head">
     <div class="head-logo">
-        <a href="index.php">
+        <a href="../index.php">
             <img src="../src/assets/Logo.png" alt="Logo 639">
         </a>
         <?php if ($isLoggedIn): ?>
