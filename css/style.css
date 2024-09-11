@@ -65,8 +65,8 @@ h2 {
 }
 
 .specialty img {
-    width: 110%; 
-    height: 105%;
+    width: 95%; 
+    height: 90%;
     transition: transform 0.2s ease;
 }
 
