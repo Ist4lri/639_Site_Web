@@ -79,7 +79,7 @@ h2 {
     transform: scale(1.05); /* Optionnel : effet de zoom léger */
 }
 
-.specialty img[[src*="BoutonMGunner0.png"]:hover {
+.specialty img[[src="../src/assets/BoutonMGunner0.png"]:hover {
     content: url('../src/assets/BoutonMGunner1.png');
 }
 
