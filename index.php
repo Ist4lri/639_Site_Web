@@ -86,7 +86,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 }
 
 .table-section h3 {
-    color: #00FF00; /* Titre en vert fluo */
+    color: #9ed79d; /* Titre en vert fluo */
     margin-bottom: 3px;
     font-size: 1.5em; /* Taille du titre */
 }
@@ -98,10 +98,9 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 }
 
 table, th, td {
-    border: 2px solid #00FF00; /* Bordure verte fluo */
+    border: 2px solid #9ed79d; /* Bordure verte fluo */
     padding: 10px;
-    color: #00FF00; /* Texte vert fluo */
-    background-color: black; /* Fond noir */
+    color: #9ed79d; /* Texte vert fluo */
 }
 
 th {
@@ -170,14 +169,17 @@ th {
                     <th>Spécialité</th>
                     <th>Places restantes</th>
                 </tr>
-                <?php 
-                foreach ($specialties as $specialty):
-                    ?>
-                    <tr>
-                        <td><?= htmlspecialchars($specialty['nom']) ?></td>
-                        <td><?=($specialty['places_occupees']) . '/' . $specialty['total'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
+               <?php 
+foreach ($specialties as $specialty):
+    if ($specialty['nom'] === 'Fusilier' || $specialty['nom'] === 'Commandement') {
+        continue; // Sauter cette spécialité
+    }
+    ?>
+    <tr>
+        <td><?= htmlspecialchars($specialty['nom']) ?></td>
+        <td><?= ($specialty['places_occupees']) . '/' . $specialty['total'] ?></td>
+    </tr>
+<?php endforeach; ?>
             </table>
         </div>
 
