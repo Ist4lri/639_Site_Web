@@ -77,22 +77,31 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <style>
-        .table-section h3 {
-            cursor: pointer;
-            color: #4CAF50;
-        }
+        .table-section {
+    position: absolute; /* Permet de positionner l'élément en absolu */
+    top: 10px; /* Distance du haut de la page */
+    left: 10px; /* Distance de la gauche de la page */
+    z-index: 1000; /* Assurez que le tableau soit au-dessus d'autres éléments */
+}
 
-        .table-section table {
-            width: 60%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+.table-section h3 {
+    cursor: pointer;
+    color: #4CAF50;
+}
 
-        table, th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
+.table-section table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #f0f0f0; /* Fond gris clair */
+    padding: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
     </style>
 </head>
 <body>
