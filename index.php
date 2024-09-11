@@ -81,7 +81,9 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     padding: 15px; /* Espacement interne */
     background-color: rgba(240, 240, 240, 0.9); /* Fond gris clair avec transparence */
     border-radius: 8px; /* Coins arrondis */
-    width: 60%; /* Limitation de la largeur pour qu'il ne prenne pas tout l'écran */
+    width: 60%; 
+    top: 150px;
+    z-index: 900;
     position: absolute; /* Pour positionner chaque section absolument */
 }
 
