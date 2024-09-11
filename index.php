@@ -108,6 +108,29 @@ th {
     background-color: #222; /* Fond plus foncé pour l'en-tête */
     font-weight: bold;
 }
+
+  .servo-mortis {
+            position: absolute;
+            right: 10px;
+            top: 150px;
+            width: 150px; /* Ajuster la taille de l'image */
+            height: auto;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite; /* Animation de flottement */
+        }
+
+        /* Animation qui fait monter et descendre l'image */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px); /* Ajuster selon l'amplitude souhaitée */
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -199,6 +222,12 @@ foreach ($specialties as $specialty):
         </div>
 
     <?php else: ?>
+
+    <!-- Image de Servo Mortis -->
+    <img src="/src/assets/ServoMortis.png" alt="Servo Mortis" class="servo-mortis" onclick="playAudio()">
+
+    <!-- Balise audio pour jouer le fichier mp3 -->
+    <audio id="servo-mortis-audio" src="/src/assets/ServoMortis.mp3"></audio>
         <h1>Le 639th régiment</h1>
         <h3>Une communauté A l&apos;écoute et présente.</h3>
             <p>
@@ -258,6 +287,13 @@ function toggleTable(tableId) {
     table.style.display = table.style.display === "none" ? "table" : "none";
 }
 </script>
+
+<script>
+        function playAudio() {
+            var audio = document.getElementById('servo-mortis-audio');
+            audio.play();
+        }
+    </script>
 
 </body>
 </html>
