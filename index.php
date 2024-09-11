@@ -226,7 +226,7 @@ foreach ($specialties as $specialty):
                 la volonté de servir l&apos;empereur.
             </p>
         <h4>Alors ? prêt à nous rejoindre ?</h4>
-        <h5><a href="https://discord.gg/HUwHpEZBZx" target="_blank" rel="noopener noreferrer">Enrole toi aujourd&apos;hui !</a></h5>
+       <div class="Discord"><a href="php/mark.php"><img src="../src/assets/BoutonDiscord0.png" alt="Marksman"></a></div>
     <?php endif; ?>
 </div>
 
@@ -236,16 +236,16 @@ foreach ($specialties as $specialty):
     <h3>Nos spécialités</h3>
 <div class="specialties">
     <div class="row">
-        <div class="specialty"><a href="php/mg.php"><img src="../src/assets/BoutonMGunner.png" alt="Machine Gunner"></a></div>
-        <div class="specialty"><a href="php/at.php"><img src="../src/assets/BoutonATank.png" alt="Anti-Tank"></a></div>
-        <div class="specialty"><a href="php/med.php"><img src="../src/assets/BoutonMedicae.png" alt="Médicae"></a></div>
-        <div class="specialty"><a href="php/vox.php"><img src="../src/assets/BoutonVOperateur.png" alt="Vox Opérateur"></a></div>
+        <div class="specialty"><a href="php/mg.php"><img src="../src/assets/BoutonMGunner0.png" alt="Machine Gunner"></a></div>
+        <div class="specialty"><a href="php/at.php"><img src="../src/assets/BoutonATank0.png" alt="Anti-Tank"></a></div>
+        <div class="specialty"><a href="php/med.php"><img src="../src/assets/BoutonMedicae0.png" alt="Médicae"></a></div>
+        <div class="specialty"><a href="php/vox.php"><img src="../src/assets/BoutonVOperateur0.png" alt="Vox Opérateur"></a></div>
     </div>
     <div class="row">
-        <div class="specialty"><a href="php/mark.php"><img src="../src/assets/BoutonMarksman.png" alt="Marksman"></a></div>
-        <div class="specialty"><a href="php/plas.php"><img src="../src/assets/BoutonPlasma.png" alt="Plasma"></a></div>
-        <div class="specialty"><a href="php/kboom.php"><img src="../src/assets/BoutonBreacher.png" alt="Breacher"></a></div>
-        <div class="specialty"><a href="php/etl.php"><img src="../src/assets/BoutonETLourd.png" alt="Equipier de Tir Lourd"></a></div>
+        <div class="specialty"><a href="php/mark.php"><img src="../src/assets/BoutonMarksman0.png" alt="Marksman"></a></div>
+        <div class="specialty"><a href="php/plas.php"><img src="../src/assets/BoutonPlasma0.png" alt="Plasma"></a></div>
+        <div class="specialty"><a href="php/kboom.php"><img src="../src/assets/BoutonBreacher0.png" alt="Breacher"></a></div>
+        <div class="specialty"><a href="php/etl.php"><img src="../src/assets/BoutonETLourd0.png" alt="Equipier de Tir Lourd"></a></div>
     </div>
 </div>
 
