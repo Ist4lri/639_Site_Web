@@ -1,22 +1,20 @@
 <?php
-// Démarrer la session si elle n'est pas déjà démarrée
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Activer l'affichage des erreurs pour déboguer
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 try {
-    // Connexion à la base de données
     include 'php/db.php';
 } catch (PDOException $e) {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-// Récupérer les spécialités avec les places occupées
 try {
     $sqlSpecialties = "
         SELECT 
@@ -35,7 +33,6 @@ try {
     die("Erreur SQL spécialités : " . $e->getMessage());
 }
 
-// Récupérer les instructeurs (gérants)
 try {
     $sqlInstructors = "
         SELECT 
@@ -51,7 +48,6 @@ try {
     die("Erreur SQL instructeurs : " . $e->getMessage());
 }
 
-// Requête pour récupérer les utilisateurs gradés (à partir du grade de Sergent)
 $sqlGradedUsers = "
     SELECT nom, grade 
     FROM utilisateurs 
@@ -65,7 +61,6 @@ $isLoggedIn = isset($_SESSION['utilisateur']);
 $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 ?>
 
-<!-- HTML rest of the code follows -->
 
 
 <!DOCTYPE html>
@@ -79,33 +74,33 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <style>
         .table-section {
     padding: 5px;
-    width: 40%; /* Largeur du tableau */
-    margin: 3px auto; /* Centrer les tableaux avec un espacement au-dessus et en dessous */
-    color: #9ed79d; /* Texte vert fluo */
-    text-align: center; /* Centrer le texte dans la section */
+    width: 40%; 
+    margin: 3px auto; 
+    color: #9ed79d; 
+    text-align: center;
 }
 
 .table-section h3 {
-    color: #9ed79d; /* Titre en vert fluo */
+    color: #9ed79d; 
     margin-bottom: 3px;
-    font-size: 1.5em; /* Taille du titre */
+    font-size: 1.5em; 
 }
 
 .table-section table {
-    width: 100%; /* Le tableau prend toute la largeur de la section */
+    width: 100%; 
     border-collapse: collapse;
-    margin: 0 auto; /* Centre le tableau dans la section */
+    margin: 0 auto; 
 }
 
 table, th, td {
-    border: 2px solid #9ed79d; /* Bordure verte fluo */
+    border: 2px solid #9ed79d; 
     padding: 10px;
-    color: #9ed79d; /* Texte vert fluo */
+    color: #9ed79d; 
     background-color: #211;
 }
 
 th {
-    background-color: #222; /* Fond plus foncé pour l'en-tête */
+    background-color: #222; 
     font-weight: bold;
 }
 
@@ -113,19 +108,18 @@ th {
             position: absolute;
             right: 10px;
             top: 150px;
-            width: 150px; /* Ajuster la taille de l'image */
+            width: 150px; 
             height: auto;
             cursor: pointer;
-            animation: float 3s ease-in-out infinite; /* Animation de flottement */
+            animation: float 3s ease-in-out infinite; 
         }
 
-        /* Animation qui fait monter et descendre l'image */
         @keyframes float {
             0% {
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-20px); /* Ajuster selon l'amplitude souhaitée */
+                transform: translateY(-20px); 
             }
             100% {
                 transform: translateY(0);
@@ -169,9 +163,9 @@ th {
             habitués à résister aux forces chaotiques depuis leur plus jeune âge.</p>
         <p>Faites honneur à vos familles et à la mémoire de Cadia. Montrez à l'Imperium que Cadia tient toujours, à travers vous.</p>
         <h1> Pour l'Empereur, pour Cadia ! </h1>
-        <!-- Tableaux interactifs pour les utilisateurs connectés -->
         <div class="table-section">
-            <!-- Tableau des gradés -->
+            
+            <!-- gradés -->
             <h3 onclick="toggleTable('graded-users')">Nos gradés</h3>
             <table id="graded-users" style="display:none;">
                 <tr>
@@ -186,7 +180,7 @@ th {
         </div>
 
         <div class="table-section">
-            <!-- Tableau des places restantes dans les spécialités -->
+            <!-- spécialités -->
             <h3 onclick="toggleTable('remaining-places')">Spécialités Disponible</h3>
             <table id="remaining-places" style="display:none;">
                 <tr>
@@ -196,7 +190,7 @@ th {
                <?php 
 foreach ($specialties as $specialty):
     if ($specialty['nom'] === 'Fusilier' || $specialty['nom'] === 'Commandement') {
-        continue; // Sauter cette spécialité
+        continue; 
     }
     ?>
     <tr>
@@ -223,10 +217,7 @@ foreach ($specialties as $specialty):
 
     <?php else: ?>
 
-    <!-- Image de Servo Mortis -->
     <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis" onclick="playAudio()">
-
-    <!-- Balise audio pour jouer le fichier mp3 -->
     <audio id="servo-mortis-audio" src="/src/assets/ServoMortis.mp3"></audio>
         <h1>Le 639th régiment</h1>
         <h3>Une communauté A l&apos;écoute et présente.</h3>
@@ -291,6 +282,7 @@ function toggleTable(tableId) {
 <script>
         function playAudio() {
             var audio = document.getElementById('servo-mortis-audio');
+            audio.volume=0.7;
             audio.play();
         }
     </script>
