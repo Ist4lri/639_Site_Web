@@ -81,6 +81,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 }
 
 .table-section h3 {
+    cursor: pointer;
     color: #9ed79d; 
     margin-bottom: 3px;
     font-size: 1.5em; 
