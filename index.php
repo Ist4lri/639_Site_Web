@@ -78,16 +78,16 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <link rel="stylesheet" href="css/header.css">
     <style>
         .table-section {
-    padding: 15px;
+    padding: 5px;
     width: 40%; /* Largeur du tableau */
-    margin: 20px auto; /* Centrer les tableaux avec un espacement au-dessus et en dessous */
+    margin: 3px auto; /* Centrer les tableaux avec un espacement au-dessus et en dessous */
     color: #9ed79d; /* Texte vert fluo */
     text-align: center; /* Centrer le texte dans la section */
 }
 
 .table-section h3 {
     color: #00FF00; /* Titre en vert fluo */
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     font-size: 1.5em; /* Taille du titre */
 }
 
@@ -152,13 +152,11 @@ th {
             <h3 onclick="toggleTable('graded-users')">Nos gradés</h3>
             <table id="graded-users" style="display:none;">
                 <tr>
-                    <th>Nom</th>
-                    <th>Grade</th>
+                    <th> Nos Gradés </th>
                 </tr>
                 <?php foreach ($gradedUsers as $user): ?>
                     <tr>
-                        <td><?= htmlspecialchars($user['nom']) ?></td>
-                        <td><?= htmlspecialchars($user['grade']) ?></td>
+                        <td><?= htmlspecialchars($user['nom']) ?> '{' <?= htmlspecialchars($user['grade']) '}' ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -173,10 +171,9 @@ th {
                     <th>Places restantes</th>
                 </tr>
                 <?php 
-                foreach ($specialties as $specialty): ?>
-                    <?php
+                foreach ($specialties as $specialty):
                 if (isset($specialty['id']) && $specialty['id'] > 8) {
-                    $specialty['id'] = 8; // Cap the value to 8
+                    $specialty['id'] = 1; // Cap the value to 8
                 }
                     ?>
                     <tr>
@@ -191,13 +188,11 @@ th {
             <h3 onclick="toggleTable('instructors')">Les instructeurs</h3>
             <table id="instructors" style="display:none;">
                 <tr>
-                    <th>Nom</th>
-                    <th>Spécialité</th>
+                    <th>Les Gérants</th>
                 </tr>
                 <?php foreach ($instructors as $instructor): ?>
                     <tr>
-                    <td><?= htmlspecialchars($instructor['utilisateur_nom']) ?></td>
-                        <td><?= htmlspecialchars($instructor['specialite_nom']) ?></td>
+                    <td><?= htmlspecialchars($instructor['utilisateur_nom']) '{' <?= htmlspecialchars($instructor['specialite_nom']) '}'  ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
