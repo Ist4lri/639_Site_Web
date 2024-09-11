@@ -81,25 +81,24 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     padding: 15px; /* Espacement interne */
     background-color: rgba(240, 240, 240, 0.9); /* Fond gris clair avec transparence */
     border-radius: 8px; /* Coins arrondis */
-    width: 60%; 
-    top: 150px;
+    width: 200px; /* Limitation de la largeur pour que chaque texte reste à gauche */
     z-index: 900;
     position: absolute; /* Pour positionner chaque section absolument */
 }
 
 .table-section-1 {
-    top: 150px; /* Place la première section à 150px du haut */
-    left: 0; /* Aligné à gauche */
+    top: 20px; /* Place la première section près du haut */
+    left: 20px; /* Aligné à gauche */
 }
 
 .table-section-2 {
-    top: 160px; /* Place la deuxième section à 160px du haut */
-    left: 0; /* Aligné à gauche */
+    top: 80px; /* Place la deuxième section en dessous de la première */
+    left: 20px; /* Aligné à gauche */
 }
 
 .table-section-3 {
-    top: 170px; /* Place la troisième section à 170px du haut */
-    left: 0; /* Aligné à gauche */
+    top: 140px; /* Place la troisième section en dessous de la deuxième */
+    left: 20px; /* Aligné à gauche */
 }
 
 .table-section h3 {
@@ -111,8 +110,8 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 .table-section table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px; /* Ajout
-
+    margin-bottom: 20px; /* Ajout d'espace sous chaque tableau */
+}
 
     </style>
 </head>
