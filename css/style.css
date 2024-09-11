@@ -45,6 +45,15 @@ h2 {
     text-transform: uppercase; /* Transformer en majuscules pour un effet stylé */
     letter-spacing: 2px; /* Espacement des lettres */
 }
+.Discord img {
+    transition: all 0.3s ease; /* Optionnel : pour une transition douce */
+    width: 90%; 
+    height: 90%;
+}
+
+.Discord img:hover {
+    content: url('../src/assets/BoutonDiscord1.png'); /* Change l'image au survol */
+}
 
 .specialties {
     display: flex;
