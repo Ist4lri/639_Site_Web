@@ -78,41 +78,38 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <link rel="stylesheet" href="css/header.css">
     <style>
         .table-section {
-    padding: 15px; /* Espacement interne */
-    background-color: rgba(240, 240, 240, 0.9); /* Fond gris clair avec transparence */
+    padding: 15px;
+    background-color: black; /* Fond noir */
     border-radius: 8px; /* Coins arrondis */
-    width: 200px; /* Limitation de la largeur pour que chaque texte reste à gauche */
-    z-index: 900;
-    position: absolute; /* Pour positionner chaque section absolument */
-}
-
-.table-section-1 {
-    top: 20px; /* Place la première section près du haut */
-    left: 20px; /* Aligné à gauche */
-}
-
-.table-section-2 {
-    top: 80px; /* Place la deuxième section en dessous de la première */
-    left: 20px; /* Aligné à gauche */
-}
-
-.table-section-3 {
-    top: 140px; /* Place la troisième section en dessous de la deuxième */
-    left: 20px; /* Aligné à gauche */
+    width: 40%; /* Largeur du tableau */
+    margin: 20px auto; /* Centrer les tableaux avec un espacement au-dessus et en dessous */
+    color: #00FF00; /* Texte vert fluo */
+    text-align: center; /* Centrer le texte dans la section */
 }
 
 .table-section h3 {
-    cursor: pointer;
-    color: #000; /* Couleur du texte */
-    margin-bottom: 10px; /* Ajout d'espace entre le titre et le tableau */
+    color: #00FF00; /* Titre en vert fluo */
+    margin-bottom: 10px;
+    font-size: 1.5em; /* Taille du titre */
 }
 
 .table-section table {
-    width: 100%;
+    width: 100%; /* Le tableau prend toute la largeur de la section */
     border-collapse: collapse;
-    margin-bottom: 20px; /* Ajout d'espace sous chaque tableau */
+    margin: 0 auto; /* Centre le tableau dans la section */
 }
 
+table, th, td {
+    border: 2px solid #00FF00; /* Bordure verte fluo */
+    padding: 10px;
+    color: #00FF00; /* Texte vert fluo */
+    background-color: black; /* Fond noir */
+}
+
+th {
+    background-color: #222; /* Fond plus foncé pour l'en-tête */
+    font-weight: bold;
+}
     </style>
 </head>
 <body>
@@ -152,7 +149,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
         <p>Faites honneur à vos familles et à la mémoire de Cadia. Montrez à l'Imperium que Cadia tient toujours, à travers vous.</p>
         <h1> Pour l'Empereur, pour Cadia ! </h1>
         <!-- Tableaux interactifs pour les utilisateurs connectés -->
-        <div class="table-section-1">
+        <div class="table-section">
             <!-- Tableau des gradés -->
             <h3 onclick="toggleTable('graded-users')">Nos gradés</h3>
             <table id="graded-users" style="display:none;">
@@ -169,7 +166,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
             </table>
         </div>
 
-        <div class="table-section-2">
+        <div class="table-section">
             <!-- Tableau des places restantes dans les spécialités -->
             <h3 onclick="toggleTable('remaining-places')">Spécialités Disponible</h3>
             <table id="remaining-places" style="display:none;">
@@ -192,7 +189,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
             </table>
         </div>
 
-        <div class="table-section-3">
+        <div class="table-section">
             <h3 onclick="toggleTable('instructors')">Les instructeurs</h3>
             <table id="instructors" style="display:none;">
                 <tr>
