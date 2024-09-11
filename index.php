@@ -242,5 +242,13 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 
 <div class="eff"><a href="php/effectif.php">Nos Effectif</a></div>
 
+        <script>
+function toggleTable(tableId) {
+    const table = document.getElementById(tableId);
+    table.style.display = table.style.display === "none" ? "table" : "none";
+}
+</script>
+
+
 </body>
 </html>
