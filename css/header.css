@@ -38,14 +38,14 @@ header.head {
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Align the right logo to the right */
+    justify-content: flex-end;
 }
 
-/* Style for the right-side logo */
+
 .head-logo2 img {
     max-width: 220px; 
     height: 80px;
-    margin-left: -100px;
+    margin-left: -200px;
 }
 
 
