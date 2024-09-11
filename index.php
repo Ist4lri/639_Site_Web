@@ -224,7 +224,7 @@ foreach ($specialties as $specialty):
     <?php else: ?>
 
     <!-- Image de Servo Mortis -->
-    <img src="/src/assets/ServoMortis.png" alt="Servo Mortis" class="servo-mortis" onclick="playAudio()">
+    <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis" onclick="playAudio()">
 
     <!-- Balise audio pour jouer le fichier mp3 -->
     <audio id="servo-mortis-audio" src="/src/assets/ServoMortis.mp3"></audio>
