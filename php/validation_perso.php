@@ -68,6 +68,7 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/tab.css">
 </head>
     <style>
+        h2 { padding-top: 200px;}
         button { padding: 8px 12px; margin-right: 10px; }
         .pdf-btn { background-color: #4CAF50; color: white; }
         .accept-btn { background-color: #28a745; color: white; }
