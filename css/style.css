@@ -65,13 +65,13 @@ h2 {
 }
 
 .specialty img {
-    width: 95%; 
-    height: 93%;
+    width: 85%; 
+    height: 83%;
     transition: transform 0.2s ease;
 }
 
 .specialty img:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 
