@@ -101,6 +101,7 @@ table, th, td {
     border: 2px solid #9ed79d; /* Bordure verte fluo */
     padding: 10px;
     color: #9ed79d; /* Texte vert fluo */
+    background-color: #211;
 }
 
 th {
