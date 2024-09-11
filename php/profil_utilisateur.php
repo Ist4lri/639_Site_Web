@@ -92,9 +92,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <a href="index.php">
             <img src="../src/assets/Logo.png" alt="Logo 639">
         </a>
-        <?php if ($isLoggedIn): ?>
-            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
-        <?php endif; ?>
+    <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
     </div>
     <div class="head-logo2">
         <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien"
