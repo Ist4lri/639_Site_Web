@@ -79,11 +79,9 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <style>
         .table-section {
     padding: 15px;
-    background-color: black; /* Fond noir */
-    border-radius: 8px; /* Coins arrondis */
     width: 40%; /* Largeur du tableau */
     margin: 20px auto; /* Centrer les tableaux avec un espacement au-dessus et en dessous */
-    color: #00FF00; /* Texte vert fluo */
+    color: #9ed79d; /* Texte vert fluo */
     text-align: center; /* Centrer le texte dans la section */
 }
 
