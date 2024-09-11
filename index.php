@@ -218,6 +218,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
             </p>
         <h4>Alors ? prêt à nous rejoindre ?</h4>
         <h5><a href="https://discord.gg/HUwHpEZBZx" target="_blank" rel="noopener noreferrer">Enrole toi aujourd&apos;hui !</a></h5>
+    <?php endif; ?>
 </div>
 
 
