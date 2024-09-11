@@ -8,31 +8,54 @@ if (!isset($_SESSION['id_utilisateur'])) {
 
 $id_utilisateur = $_SESSION['id_utilisateur'];
 
+//gerance = 1
 $sqlLeader = "SELECT faction FROM personnages WHERE id_utilisateur = :id_utilisateur AND gerance = 1 LIMIT 1";
 $stmtLeader = $pdo->prepare($sqlLeader);
 $stmtLeader->execute(['id_utilisateur' => $id_utilisateur]);
 $factionLeader = $stmtLeader->fetch(PDO::FETCH_ASSOC);
 
-if ($factionLeader) {
-    $faction = $factionLeader['faction'];
-    $sqlPending = "SELECT * FROM personnages WHERE validation = 'Attente' AND faction = :faction ORDER BY id DESC";
-    $stmtPending = $pdo->prepare($sqlPending);
-    $stmtPending->execute(['faction' => $faction]);
-    $pendingCharacters = $stmtPending->fetchAll(PDO::FETCH_ASSOC);
-
-    $sqlAccepted = "SELECT * FROM personnages WHERE validation = 'Accepter' AND faction = :faction ORDER BY id DESC";
-    $stmtAccepted = $pdo->prepare($sqlAccepted);
-    $stmtAccepted->execute(['faction' => $faction]);
-    $acceptedCharacters = $stmtAccepted->fetchAll(PDO::FETCH_ASSOC);
-
-    $sqlRejected = "SELECT * FROM personnages WHERE validation = 'Rejeter' AND faction = :faction ORDER BY id DESC";
-    $stmtRejected = $pdo->prepare($sqlRejected);
-    $stmtRejected->execute(['faction' => $faction]);
-    $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
-} else {
+if (!$factionLeader) {
     die('Vous n\'êtes pas autorisé à voir ces informations.');
 }
 
+$faction = $factionLeader['faction'];
+
+//acceptation et de rejet
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'], $_POST['action'])) {
+    $id = $_POST['id'];
+    $action = $_POST['action'];
+
+    if ($action == 'Accepter') {
+        $sql = "UPDATE personnages SET validation = 'Accepter' WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+    } elseif ($action == 'Rejeter' && isset($_POST['raison'])) {
+        $raison = $_POST['raison'];
+        $sql = "UPDATE personnages SET validation = 'Rejeter', raison = :raison WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $id, 'raison' => $raison]);
+    }
+
+    header('Location: validation_perso.php');
+    exit;
+}
+
+// en attente
+$sqlPending = "SELECT * FROM personnages WHERE validation = 'Attente' AND faction = :faction ORDER BY id DESC";
+$stmtPending = $pdo->prepare($sqlPending);
+$stmtPending->execute(['faction' => $faction]);
+$pendingCharacters = $stmtPending->fetchAll(PDO::FETCH_ASSOC);
+
+$sqlAccepted = "SELECT * FROM personnages WHERE validation = 'Accepter' AND faction = :faction ORDER BY id DESC";
+$stmtAccepted = $pdo->prepare($sqlAccepted);
+$stmtAccepted->execute(['faction' => $faction]);
+$acceptedCharacters = $stmtAccepted->fetchAll(PDO::FETCH_ASSOC);
+
+$sqlRejected = "SELECT * FROM personnages WHERE validation = 'Rejeter' AND faction = :faction ORDER BY id DESC";
+$stmtRejected = $pdo->prepare($sqlRejected);
+$stmtRejected->execute(['faction' => $faction]);
+$rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +63,7 @@ if ($factionLeader) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Personnages</title>
+    <title>Gestion des Personnages</title>
     <style>
         body { font-family: Arial, sans-serif; }
         h2 { color: #4CAF50; }
@@ -54,16 +77,8 @@ if ($factionLeader) {
 </head>
 <body>
 
-<h1>Liste des Personnages de la Faction <?= htmlspecialchars($faction); ?></h1>
+<h1>Gestion des Personnages de la Faction <?= htmlspecialchars($faction); ?></h1>
 
-<?php if (isset($showReasonForm) && $showReasonForm && $characterIdForReason): ?>
-    <h2>Raison pour rejeter le personnage</h2>
-    <form action="validation_perso.php" method="POST">
-        <input type="hidden" name="id" value="<?= $characterIdForReason; ?>">
-        <textarea name="raison" rows="4" cols="50" placeholder="Entrez la raison pour rejeter ce personnage..." required></textarea><br><br>
-        <button type="submit" name="reject_with_reason" class="reject-btn">Envoyer la Raison et Rejeter</button>
-    </form>
-<?php endif; ?>
 
 <h2>Personnages en Attente</h2>
 <?php if (count($pendingCharacters) > 0): ?>
@@ -80,7 +95,7 @@ if ($factionLeader) {
                 <td><?= htmlspecialchars($character['faction']); ?></td>
                 <td><?= htmlspecialchars(substr($character['histoire'], 0, 50)); ?>...</td>
                 <td>
-                    <!-- PDF Button -->
+                    <!--PDF-->
                     <a href="affiche_perso.php?id=<?= $character['id']; ?>" target="_blank">
                         <button class="pdf-btn">PDF</button>
                     </a>
@@ -92,6 +107,7 @@ if ($factionLeader) {
                     <form action="validation_perso.php" method="POST" style="display:inline;">
                         <input type="hidden" name="id" value="<?= $character['id']; ?>">
                         <input type="hidden" name="action" value="Rejeter">
+                        <textarea name="raison" rows="2" cols="30" placeholder="Raison du rejet" required></textarea>
                         <button type="submit" class="reject-btn">Rejeter</button>
                     </form>
                 </td>
