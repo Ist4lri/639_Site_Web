@@ -46,9 +46,9 @@ h2 {
     letter-spacing: 2px; /* Espacement des lettres */
 }
 .Discord img {
-    transition: all 0.3s ease; /* Optionnel : pour une transition douce */
-    width: 20%; 
-    height: 20%;
+    transition: all 0.8s ease; /* Optionnel : pour une transition douce */
+    width: 45%; 
+    height: 45%;
 }
 
 .Discord img:hover {
@@ -78,36 +78,36 @@ h2 {
     transform: scale(1.05); /* Optionnel : effet de zoom léger */
 }
 
-.specialty img[src="src/assets/BoutonMGunner0.png"]:hover {
+.specialty img[src="../src/assets/BoutonMGunner0.png"]:hover {
     content: url('../src/assets/BoutonMGunner1.png');
 }
 
 .specialty img[src="src/assets/BoutonATank0.png"]:hover {
-    content: url('src/assets/BoutonATank1.png');
+    content: url('../src/assets/BoutonATank1.png');
 }
 
 .specialty img[src*="BoutonMedicae0.png"]:hover {
-    content: url('src/assets/BoutonMedicae1.png');
+    content: url('../src/assets/BoutonMedicae1.png');
 }
 
 .specialty img[src*="BoutonVOperateur0.png"]:hover {
-    content: url('src/assets/BoutonVOperateur1.png');
+    content: url('../src/assets/BoutonVOperateur1.png');
 }
 
 .specialty img[src*="BoutonMarksman0.png"]:hover {
-    content: url('src/assets/BoutonMarksman1.png');
+    content: url('../src/assets/BoutonMarksman1.png');
 }
 
 .specialty img[src*="BoutonPlasma0.png"]:hover {
-    content: url('src/assets/BoutonPlasma1.png');
+    content: url('../src/assets/BoutonPlasma1.png');
 }
 
 .specialty img[src*="BoutonBreacher0.png"]:hover {
-    content: url('src/assets/BoutonBreacher1.png');
+    content: url('../src/assets/BoutonBreacher1.png');
 }
 
 .specialty img[src*="BoutonETLourd0.png"]:hover {
-    content: url('src/assets/BoutonETLourd1.png');
+    content: url('../src/assets/BoutonETLourd1.png');
 }
 
 
