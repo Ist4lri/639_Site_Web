@@ -1,19 +1,12 @@
 <?php
 session_start();
-include 'db.php';
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
 }
 
-$stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
-$stmt->execute(['email' => $_SESSION['utilisateur']]);
-$utilisateur = $stmt->fetch();
+include 'db.php';
 
 $stmt = $pdo->prepare("SELECT u.*, s.nom AS specialite_nom FROM utilisateurs u LEFT JOIN spe s ON u.spe_id = s.id WHERE u.email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
@@ -29,7 +22,7 @@ $message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['demande']) && !empty($_POST['demande'])) {
         $demandeText = $_POST['demande'];
-
+        
         $stmt = $pdo->prepare("INSERT INTO demande (id_utilisateurs, demande, status) VALUES (:id_utilisateurs, :demande, 'en attente')");
         $stmt->execute([
             ':id_utilisateurs' => $utilisateur['id'],
@@ -37,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
         
         $message = "Votre demande a été soumise.";
- 
         header("Location: profil_utilisateur.php");
         exit();
     }
@@ -50,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':id' => $utilisateur['id']
         ]);
         $message = "Votre nom a été mis à jour.";
-
         header("Location: profil_utilisateur.php");
         exit();
     }
@@ -62,26 +53,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':nouvel_email' => $nouvelEmail,
             ':id' => $utilisateur['id']
         ]);
-        $_SESSION['utilisateur'] = $nouvelEmail; // Mettre à jour l'email dans la session
+        $_SESSION['utilisateur'] = $nouvelEmail;
         $message = "Votre email a été mis à jour.";
-        
-        
         header("Location: profil_utilisateur.php");
         exit();
     }
 }
 
-// Récupérer les demandes de l'utilisateur en attente et acceptées
 $pendingStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'en attente'");
 $pendingStmt->execute(['id' => $utilisateur['id']]);
 $demandesEnAttente = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'accepter'");
+$acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'acceptée'");
 $acceptedStmt->execute(['id' => $utilisateur['id']]);
 $demandesAcceptees = $acceptedStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$excel_file_path = "../excel/planning_utilisateurs.xlsx";
+$personnagesStmt = $pdo->prepare("SELECT id, nom FROM personnages WHERE id_utilisateur = :id_utilisateur");
+$personnagesStmt->execute(['id_utilisateur' => $utilisateur['id']]);
+$personnages = $personnagesStmt->fetchAll(PDO::FETCH_ASSOC);
 
+$excel_file_path = "../excel/planning_utilisateurs.xlsx";
 ?>
 
 <!DOCTYPE html>
@@ -90,34 +81,12 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Utilisateur</title>
-    <link rel="stylesheet" href="../css/profil.css">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
-    <header class="head">
-    <div class="head-logo">
-        <a href="../index.php">
-            <img src="../src/assets/Logo_639th_2.ico" alt="Logo 639">
-        </a>
-        <?php if ($isLoggedIn): ?>
-            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
-        <?php endif; ?>
-    </div>
-    <div class="head-title">
-        <h1>639</h1>
-    </div>
-    <nav class="head-nav">
-            <a href="perso.php">Soummetre Personnage</a>
-            <a href="officier.php">Officier</a>
-            <a href="sous-officier.php">Sous-Officier</a>
-            <a href="Dec.php">Déconnexion</a>
-
-    </nav>
-</header>
-
 <body>
 
 <div class="profile-container">
-    <!-- Informations actuelles -->
     <div class="current-info">
         <h3>Informations actuelles</h3>
         <p><strong>Nom :</strong> <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
@@ -126,7 +95,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <p><strong>Spécialité :</strong> <?php echo htmlspecialchars($utilisateur['specialite_nom']); ?></p>
     </div>
 
-    
     <div class="update-form">
         <h3>Soumettre une demande</h3>
         <?php if ($message): ?>
@@ -143,7 +111,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
             </div>
         </form>
 
-       
         <form action="profil_utilisateur.php" method="post">
             <div>
                 <label for="nouveau_nom">Nouveau nom :</label>
@@ -166,7 +133,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     </div>
 </div>
 
-
 <div class="excel-download">
     <?php if (file_exists($excel_file_path)): ?>
         <p><a href="<?php echo $excel_file_path; ?>" download>Télécharger le planning des utilisateurs (Excel)</a></p>
@@ -175,18 +141,33 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <?php endif; ?>
 </div>
 
+<!-- Afficher les personnages de l'utilisateur -->
+<div class="personnages-section">
+    <h3>Vos personnages</h3>
+    <ul>
+        <?php foreach ($personnages as $perso): ?>
+            <li>
+                <?php echo htmlspecialchars($perso['nom']); ?>
+                <a href="affiche_perso.php?id=<?= $perso['id']; ?>" target="_blank">
+                    <button class="btn">Afficher</button>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
 <div class="demandes-section">
     <h3>Demandes en attente</h3>
     <ul>
         <?php foreach ($demandesEnAttente as $demande): ?>
-            <li><?php echo htmlspecialchars($demande['demande']); ?></li>
+            <li><?php echo htmlspecialchars($demande['demande']); ?> (En attente)</li>
         <?php endforeach; ?>
     </ul>
 
     <h3>Demandes acceptées</h3>
     <ul>
         <?php foreach ($demandesAcceptees as $demande): ?>
-            <li><?php echo htmlspecialchars($demande['demande']); ?></li>
+            <li><?php echo htmlspecialchars($demande['demande']); ?> (Acceptée)</li>
         <?php endforeach; ?>
     </ul>
 </div>
