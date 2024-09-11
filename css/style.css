@@ -56,7 +56,7 @@ h2 {
 .row {
     display: flex;
     justify-content: space-around; 
-    width: 80%; 
+    width: 85%; 
 }
 
 .specialty {
@@ -66,12 +66,12 @@ h2 {
 
 .specialty img {
     width: 95%; 
-    height: 90%;
+    height: 93%;
     transition: transform 0.2s ease;
 }
 
 .specialty img:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 
