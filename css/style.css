@@ -48,25 +48,27 @@ h2 {
 
 .specialties {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permet aux images de passer à la ligne si elles atteignent la fin de la page */
     justify-content: space-around;
-    gap: 20px;
+    gap: 10px; /* Espacement entre les images */
 }
 
 .specialty {
-    flex: 1 1 150px;
+    flex: 1 1 150px; /* Les éléments peuvent s'étendre à 150px minimum */
     text-align: center;
+    margin-bottom: 20px; /* Ajouter de l'espace sous chaque image */
 }
 
 .specialty img {
-    width: 110%; /* Taille de l'image à 10% de la largeur du conteneur */
+    width: 110%; /* Définit la largeur de chaque image à 110% */
     height: auto;
     transition: transform 0.2s ease;
 }
 
 .specialty img:hover {
-    transform: scale(1.1); /* Agrandir légèrement les images au survol */
+    transform: scale(1.1); /* Agrandit légèrement les images au survol */
 }
+
 .eff {
     background-color: #C4C4C4; /* Fond de couleur #C4C4C4 */
     color: black; /* Couleur du texte en noir */
