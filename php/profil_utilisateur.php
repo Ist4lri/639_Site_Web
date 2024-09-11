@@ -85,6 +85,33 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <link rel="stylesheet" href="../css/style.css">
 
 </head>
+</head>
+<body class="head">
+
+<header class="head">
+    <div class="head-logo">
+        <a href="index.php">
+            <img src="src/assets/Logo.png" alt="Logo 639">
+        </a>
+        <?php if ($isLoggedIn): ?>
+            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
+        <?php endif; ?>
+    </div>
+    <div class="head-logo2">
+        <img src="src/assets/TitreSite.png" alt="639 Régiment cadien"
+    </div>
+    <nav class="head-nav">
+        <?php if ($isLoggedIn): ?>
+            <a href="profil_utilisateur.php">Profil</a>
+            <a href="officier.php">Officier</a>
+            <a href="sous-officier.php">Sous-Officier</a>
+            <a href="Dec.php">Déconnexion</a>
+        <?php else: ?>
+            <a href="connection.php">Connexion</a>
+            <a href="ins.php">Inscription</a>
+        <?php endif; ?>
+    </nav>
+</header>
 <body>
 
 <div class="profile-container">
