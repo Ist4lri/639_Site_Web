@@ -172,9 +172,6 @@ th {
                 </tr>
                 <?php 
                 foreach ($specialties as $specialty):
-                if (isset($specialty['id']) && $specialty['id'] > 8) {
-                    $specialty['id'] = 1; // Cap the value to 8
-                }
                     ?>
                     <tr>
                         <td><?= htmlspecialchars($specialty['nom']) ?></td>
