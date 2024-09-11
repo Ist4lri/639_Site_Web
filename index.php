@@ -122,7 +122,7 @@ th {
         <?php endif; ?>
     </div>
     <div class="head-logo2">
-        <img src="src/assets/TitreSite.png" alt="639 Régiment cadien">
+        <img src="src/assets/TitreSite.png" alt="639 Régiment cadien"
     </div>
     <nav class="head-nav">
         <?php if ($isLoggedIn): ?>
