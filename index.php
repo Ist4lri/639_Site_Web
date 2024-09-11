@@ -55,7 +55,7 @@ try {
 $sqlGradedUsers = "
     SELECT nom, grade 
     FROM utilisateurs 
-    WHERE grade IN ('Sergent', 'Adjudant', 'Lieutenant', 'Capitaine', 'Commandant', 'Colonel') 
+    WHERE grade IN ('Sergent', 'Adjudant', 'Lieutenant', 'Major', 'Colonel') 
     ORDER BY grade DESC";
 $stmtGradedUsers = $pdo->query($sqlGradedUsers);
 $gradedUsers = $stmtGradedUsers->fetchAll(PDO::FETCH_ASSOC);
@@ -83,7 +83,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
         }
 
         .table-section table {
-            width: 30%;
+            width: 60%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
@@ -134,7 +134,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
         <!-- Tableaux interactifs pour les utilisateurs connectés -->
         <div class="table-section">
             <!-- Tableau des gradés -->
-            <h3 onclick="toggleTable('graded-users')">Afficher les gradés</h3>
+            <h3 onclick="toggleTable('graded-users')">Nos gradés</h3>
             <table id="graded-users" style="display:none;">
                 <tr>
                     <th>Nom</th>
@@ -151,7 +151,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 
         <div class="table-section">
             <!-- Tableau des places restantes dans les spécialités -->
-            <h3 onclick="toggleTable('remaining-places')">Afficher les places restantes dans les spécialités</h3>
+            <h3 onclick="toggleTable('remaining-places')">Spécialités Disponible</h3>
             <table id="remaining-places" style="display:none;">
                 <tr>
                     <th>Spécialité</th>
@@ -173,8 +173,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
         </div>
 
         <div class="table-section">
-            <!-- Tableau des instructeurs (gérants) -->
-            <h3 onclick="toggleTable('instructors')">Afficher les instructeurs</h3>
+            <h3 onclick="toggleTable('instructors')">Les instructeurs</h3>
             <table id="instructors" style="display:none;">
                 <tr>
                     <th>Nom</th>
