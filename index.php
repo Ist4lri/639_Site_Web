@@ -78,31 +78,39 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <link rel="stylesheet" href="css/header.css">
     <style>
         .table-section {
-    margin-bottom: 20px; /* Espacement entre les sections */
     padding: 15px; /* Espacement interne */
     background-color: rgba(240, 240, 240, 0.9); /* Fond gris clair avec transparence */
     border-radius: 8px; /* Coins arrondis */
     width: 60%; /* Limitation de la largeur pour qu'il ne prenne pas tout l'écran */
+    position: absolute; /* Pour positionner chaque section absolument */
+}
+
+.table-section-1 {
+    top: 150px; /* Place la première section à 150px du haut */
+    left: 0; /* Aligné à gauche */
+}
+
+.table-section-2 {
+    top: 160px; /* Place la deuxième section à 160px du haut */
+    left: 0; /* Aligné à gauche */
+}
+
+.table-section-3 {
+    top: 170px; /* Place la troisième section à 170px du haut */
+    left: 0; /* Aligné à gauche */
 }
 
 .table-section h3 {
     cursor: pointer;
-    color: #00000;
+    color: #000; /* Couleur du texte */
     margin-bottom: 10px; /* Ajout d'espace entre le titre et le tableau */
 }
 
 .table-section table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px; /* Ajout d'espace sous chaque tableau */
-}
+    margin-bottom: 20px; /* Ajout
 
-table, th, td {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
-    background-color: #f0f0f0; /* Fond gris pour le tableau */
-}
 
     </style>
 </head>
@@ -143,7 +151,7 @@ table, th, td {
         <p>Faites honneur à vos familles et à la mémoire de Cadia. Montrez à l'Imperium que Cadia tient toujours, à travers vous.</p>
         <h1> Pour l'Empereur, pour Cadia ! </h1>
         <!-- Tableaux interactifs pour les utilisateurs connectés -->
-        <div class="table-section">
+        <div class="table-section-1">
             <!-- Tableau des gradés -->
             <h3 onclick="toggleTable('graded-users')">Nos gradés</h3>
             <table id="graded-users" style="display:none;">
@@ -160,7 +168,7 @@ table, th, td {
             </table>
         </div>
 
-        <div class="table-section">
+        <div class="table-section-2">
             <!-- Tableau des places restantes dans les spécialités -->
             <h3 onclick="toggleTable('remaining-places')">Spécialités Disponible</h3>
             <table id="remaining-places" style="display:none;">
@@ -183,7 +191,7 @@ table, th, td {
             </table>
         </div>
 
-        <div class="table-section">
+        <div class="table-section-3">
             <h3 onclick="toggleTable('instructors')">Les instructeurs</h3>
             <table id="instructors" style="display:none;">
                 <tr>
