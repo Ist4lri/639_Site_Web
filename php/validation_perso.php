@@ -80,8 +80,6 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<h1>Gestion des Personnages de la Faction <?= htmlspecialchars($faction); ?></h1>
-
 
 <h2>Personnages en Attente</h2>
 <?php if (count($pendingCharacters) > 0): ?>
