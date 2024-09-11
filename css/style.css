@@ -52,7 +52,8 @@ h2 {
 }
 
 .Discord img:hover {
-    content: url('../src/assets/BoutonDiscord1.png'); /* Change l'image au survol */
+    content: url('../src/assets/BoutonDiscord1.png');
+    transition: all 0.8s ease;
 }
 
 .specialties {
@@ -71,7 +72,7 @@ h2 {
 .specialty img {
     width: 90%; 
     height: 90%;
-    transition: transform 0.2s ease, content 0.2s ease;
+    transition: transform 0.2s ease, content 0.5s ease;
 }
 
 .specialty img:hover {
@@ -82,7 +83,7 @@ h2 {
     content: url('../src/assets/BoutonMGunner1.png');
 }
 
-.specialty img[src="src/assets/BoutonATank0.png"]:hover {
+.specialty img[src="../src/assets/BoutonATank0.png"]:hover {
     content: url('../src/assets/BoutonATank1.png');
 }
 
