@@ -85,7 +85,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <link rel="stylesheet" href="../css/profil.css">
 
 </head>
-</head>
 <body class="head">
 
 <header class="head">
@@ -101,7 +100,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien"
     </div>
     <nav class="head-nav">
-        <?php if ($isLoggedIn): ?>
             <a href="perso.php">Proposer vos personnages</a>
             <a href="officier.php">Officier</a>
             <a href="sous-officier.php">Sous-Officier</a>
