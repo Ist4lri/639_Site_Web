@@ -68,19 +68,46 @@ h2 {
     width: 90%; 
 }
 
-.specialty {
-    flex: 1;
-    text-align: center;
-}
-
 .specialty img {
     width: 90%; 
     height: 90%;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, content 0.2s ease;
 }
 
 .specialty img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05); /* Optionnel : effet de zoom léger */
+}
+
+.specialty img[src*="BoutonMGunner0.png"]:hover {
+    content: url('../src/assets/BoutonMGunner1.png');
+}
+
+.specialty img[src*="BoutonATank0.png"]:hover {
+    content: url('../src/assets/BoutonATank1.png');
+}
+
+.specialty img[src*="BoutonMedicae0.png"]:hover {
+    content: url('../src/assets/BoutonMedicae1.png');
+}
+
+.specialty img[src*="BoutonVOperateur0.png"]:hover {
+    content: url('../src/assets/BoutonVOperateur1.png');
+}
+
+.specialty img[src*="BoutonMarksman0.png"]:hover {
+    content: url('../src/assets/BoutonMarksman1.png');
+}
+
+.specialty img[src*="BoutonPlasma0.png"]:hover {
+    content: url('../src/assets/BoutonPlasma1.png');
+}
+
+.specialty img[src*="BoutonBreacher0.png"]:hover {
+    content: url('../src/assets/BoutonBreacher1.png');
+}
+
+.specialty img[src*="BoutonETLourd0.png"]:hover {
+    content: url('../src/assets/BoutonETLourd1.png');
 }
 
 
