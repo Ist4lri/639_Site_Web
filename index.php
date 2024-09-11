@@ -79,9 +79,9 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <style>
         .table-section {
     position: absolute; /* Permet de positionner l'élément en absolu */
-    top: 10px; /* Distance du haut de la page */
+    top: 300px; /* Distance du haut de la page */
     left: 10px; /* Distance de la gauche de la page */
-    z-index: 1000; /* Assurez que le tableau soit au-dessus d'autres éléments */
+    z-index: 900; /* Assurez que le tableau soit au-dessus d'autres éléments */
 }
 
 .table-section h3 {
