@@ -114,8 +114,8 @@ h2 {
 
 .eff img {
     transition: all 0.8s ease; /* Optionnel : pour une transition douce */
-    width: 45%; 
-    height: 45%;
+    width: 35%; 
+    height: 35%;
 }
 
 .eff img:hover {
