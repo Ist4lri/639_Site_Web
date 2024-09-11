@@ -81,46 +81,18 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
 <div class="explain_container">
   
     <h3>Nos spécialités</h3>
-    <div class="specialties">
-    <div class="specialty">
-        <a href="php/mg.php">
-            <img src="src/assets/BoutonMGunner.png" alt="Machine Gunner">
-        </a>
+<div class="specialties">
+    <div class="row">
+        <div class="specialty"><a href="php/mg.php"><img src="../src/assets/BoutonMGunner.png" alt="Machine Gunner"></a></div>
+        <div class="specialty"><a href="php/at.php"><img src="../src/assets/BoutonATank.png" alt="Anti-Tank"></a></div>
+        <div class="specialty"><a href="php/med.php"><img src="../src/assets/BoutonMedicae.png" alt="Médicae"></a></div>
+        <div class="specialty"><a href="php/vox.php"><img src="../src/assets/BoutonVOperateur.png" alt="Vox Opérateur"></a></div>
     </div>
-    <div class="specialty">
-        <a href="php/at.php">
-            <img src="src/assets/BoutonATank.png" alt="Anti-Tank">
-        </a>
-    </div>
-    <div class="specialty">
-        <a href="php/med.php">
-            <img src="src/assets/BoutonMedicae.png" alt="Médicae">
-        </a>
-    </div>
-    <div class="specialty">
-        <a href="php/vox.php">
-            <img src="src/assets/BoutonVOperateur.png" alt="Vox Opérateur">
-        </a>
-    </div>
-    <div class="specialty">
-        <a href="php/mark.php">
-            <img src="src/assets/BoutonMarksman.png" alt="Marksman">
-        </a>
-    </div>
-    <div class="specialty">
-        <a href="php/plas.php">
-            <img src="src/assets/BoutonPlasma.png" alt="Plasma">
-        </a>
-    </div>
-    <div class="specialty">
-        <a href="php/kboom.php">
-            <img src="src/assets/BoutonBreacher.png" alt="Breacher">
-        </a>
-    </div>
-    <div class="specialty">
-        <a href="php/etl.php">
-            <img src="src/assets/BoutonETLourd.png" alt="Equipier de Tir Lourd">
-        </a>
+    <div class="row">
+        <div class="specialty"><a href="php/mark.php"><img src="../src/assets/BoutonMarksman.png" alt="Marksman"></a></div>
+        <div class="specialty"><a href="php/plas.php"><img src="../src/assets/BoutonPlasma.png" alt="Plasma"></a></div>
+        <div class="specialty"><a href="php/kboom.php"><img src="../src/assets/BoutonBreacher.png" alt="Breacher"></a></div>
+        <div class="specialty"><a href="php/etl.php"><img src="../src/assets/BoutonETLourd.png" alt="Equipier de Tir Lourd"></a></div>
     </div>
 </div>
 
