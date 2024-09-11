@@ -65,13 +65,9 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
-    <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="../css/tab.css">
 </head>
     <style>
-        body { font-family: Arial, sans-serif; }
-        h2 { color: #4CAF50; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        table, th, td { border: 1px solid black; padding: 10px; text-align: center; }
         button { padding: 8px 12px; margin-right: 10px; }
         .pdf-btn { background-color: #4CAF50; color: white; }
         .accept-btn { background-color: #28a745; color: white; }
