@@ -18,6 +18,7 @@ p img{
 		right: 25px;
             top: 150px;
 		color: #9ed79d;
+	position: absolute;
 }
 
 @-webkit-keyframes heartbeat {
