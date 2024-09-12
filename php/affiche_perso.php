@@ -34,7 +34,7 @@ $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Nom: '. $perso['nom'], 0, 0);
 
 
-$pdf->Ln(5); 
+$pdf->Ln(8); 
 
 $pdf->SetX(25);
 
@@ -53,7 +53,7 @@ $pdf->SetX(25);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Histoire:', 0, 1);
 $pdf->SetFont('Arial', '', 12);
-$pdf->MultiCell(150, 10, $perso['histoire']);
+$pdf->MultiCell(40, 10, $perso['histoire']);
 
 $pdf->SetX(25);
 
@@ -61,7 +61,7 @@ $raison = !empty($perso['raison']) ? $perso['raison'] : 'Aucune raison spÃ©cifiÃ
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Raison:', 0, 1);
 $pdf->SetFont('Arial', '', 12);
-$pdf->MultiCell(150, 10, $raison);
+$pdf->MultiCell(40, 10, $raison, 0, 1);
 
 if ($perso['validation'] === 'Accepter') {
     $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 2, 240, 40);
