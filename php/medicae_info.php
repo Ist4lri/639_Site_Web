@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
             <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($id_utilisateur); ?>">
             
             <label for="age">Age:</label>
-            <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($user['age'] ?? ''); ?>" required>
+            <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($userInfo['age'] ?? ''); ?>" required>
             
             <label for="taille">Taille (cm):</label>
             <input type="number" id="taille" name="taille" value="<?php echo htmlspecialchars($userInfo['taille'] ?? ''); ?>" required>
