@@ -32,14 +32,14 @@ $searchQuery = isset($_POST['search_query']) ? trim($_POST['search_query']) : ''
 $selectedGrade = isset($_POST['selected_grade']) ? $_POST['selected_grade'] : '';
 
 if (!empty($searchQuery)) {
-    $usersStmt = $pdo->prepare("SELECT u.id, u.nom, u.grade, s.nom AS specialite, im.id AS info_id, im.taille, im.poids, im.problemes_medicaux 
+    $usersStmt = $pdo->prepare("SELECT u.id, u.nom, u.grade, s.nom AS specialite, im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
                                 FROM utilisateurs u 
                                 LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur
                                 LEFT JOIN spe s ON u.spe_id = s.id
                                 WHERE u.nom LIKE ?");
     $usersStmt->execute(['%' . $searchQuery . '%']);
 } elseif (!empty($selectedGrade)) {
-    $usersStmt = $pdo->prepare("SELECT u.id, u.nom, u.grade, s.nom AS specialite, im.id AS info_id, im.taille, im.poids, im.problemes_medicaux 
+    $usersStmt = $pdo->prepare("SELECT u.id, u.nom, u.grade, s.nom AS specialite, im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
                                 FROM utilisateurs u 
                                 LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur
                                 LEFT JOIN spe s ON u.spe_id = s.id
@@ -47,7 +47,7 @@ if (!empty($searchQuery)) {
     $usersStmt->execute([$selectedGrade]);
 } else {
     // Par défaut, récupérer tous les utilisateurs
-    $usersStmt = $pdo->query("SELECT u.id, u.nom, u.grade, s.nom AS specialite, im.id AS info_id, im.taille, im.poids, im.problemes_medicaux 
+    $usersStmt = $pdo->query("SELECT u.id, u.nom, u.grade, s.nom AS specialite, im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
                               FROM utilisateurs u 
                               LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur
                               LEFT JOIN spe s ON u.spe_id = s.id");
@@ -58,11 +58,12 @@ $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
 // Traitement de la modification ou création des informations médicales
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
     $id_utilisateur = $_POST['id_utilisateur'];
+    $age = $_POST['age'];
     $taille = $_POST['taille'];
     $poids = $_POST['poids'];
     $problemes_medicaux = $_POST['problemes_medicaux'];
 
-    if (!empty($id_utilisateur) && !empty($taille) && !empty($poids) && !empty($problemes_medicaux)) {
+    if (!empty($id_utilisateur) && !empty($age) && !empty($taille) && !empty($poids) && !empty($problemes_medicaux)) {
         // Vérifier si des informations médicales existent déjà pour cet utilisateur
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM informations_medicales WHERE id_utilisateur = ?");
         $stmt->execute([$id_utilisateur]);
@@ -71,14 +72,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
         if ($infoExists) {
             // Si des informations existent, mise à jour
             $stmt = $pdo->prepare("UPDATE informations_medicales 
-                                   SET taille = ?, poids = ?, problemes_medicaux = ? 
+                                   SET age = ?, taille = ?, poids = ?, problemes_medicaux = ? 
                                    WHERE id_utilisateur = ?");
             $stmt->execute([$taille, $poids, $problemes_medicaux, $id_utilisateur]);
             $success_message = "Les informations médicales ont été mises à jour avec succès.";
         } else {
-            // Si aucune information n'existe, création d'un nouvel enregistrement
-            $stmt = $pdo->prepare("INSERT INTO informations_medicales (id_utilisateur, taille, poids, problemes_medicaux) 
-                                   VALUES (?, ?, ?, ?)");
+        
+            $stmt = $pdo->prepare("INSERT INTO informations_medicales (id_utilisateur, age, taille, poids, problemes_medicaux) 
+                                   VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$id_utilisateur, $taille, $poids, $problemes_medicaux]);
             $success_message = "Les informations médicales ont été créées avec succès.";
         }
@@ -149,6 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
                 <th>Nom</th>
                 <th>Grade</th>
                 <th>Spécialité</th>
+                <th>Age</th>
                 <th>Taille (cm)</th>
                 <th>Poids (kg)</th>
                 <th>Problèmes Médicaux</th>
@@ -161,6 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
                 <td><?php echo htmlspecialchars($user['nom']); ?></td>
                 <td><?php echo htmlspecialchars($user['grade']); ?></td>
                 <td><?php echo htmlspecialchars($user['specialite']); ?></td>
+                <td><?php echo htmlspecialchars($user['age'] ?? 'N/A'); ?></td>
                 <td><?php echo htmlspecialchars($user['taille'] ?? 'N/A'); ?></td>
                 <td><?php echo htmlspecialchars($user['poids'] ?? 'N/A'); ?></td>
                 <td><?php echo htmlspecialchars($user['problemes_medicaux'] ?? 'N/A'); ?></td>
@@ -187,6 +190,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
         <h3>Modifier les informations médicales</h3>
         <form action="" method="post">
             <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($id_utilisateur); ?>">
+            
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($user['age'] ?? ''); ?>" required>
             
             <label for="taille">Taille (cm):</label>
             <input type="number" id="taille" name="taille" value="<?php echo htmlspecialchars($userInfo['taille'] ?? ''); ?>" required>
