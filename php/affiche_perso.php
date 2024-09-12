@@ -55,13 +55,15 @@ $pdf->Cell(40, 10, 'Histoire:', 0, 1);
 
 $pdf->SetX(25);
 $pdf->SetFont('Arial', '', 12);
-$pdf->MultiCell(40, 10, $perso['histoire']);
+$pdf->MultiCell(150, 10, $perso['histoire']);
 
 $pdf->SetX(25);
 
 $raison = !empty($perso['raison']) ? $perso['raison'] : 'Aucune raison spécifiée';
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Raison:'. $raison, 0, 1);
+$pdf->Cell(40, 10, 'Raison:', 0);
+$pdf->SetFont('Arial', '', 12);
+$pdf->Cell(40, 10, $raison, 0);
 
 
 if ($perso['validation'] === 'Accepter') {
