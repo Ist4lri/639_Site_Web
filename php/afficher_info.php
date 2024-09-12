@@ -28,7 +28,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
 $pdf->Image('../src/assets/medicae.png', 2, 146, 20); // largeur=20
-$pdf->Image('../src/assets/medicae.png', 192, 146, 20); 
+$pdf->Image('../src/assets/medicae.png', 189, 146, 20); 
 
 
 $pdf->Cell(0, 10, 'Informations Medicales', 0, 1, 'C');
