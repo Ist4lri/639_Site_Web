@@ -47,19 +47,19 @@ body {
     overflow: hidden;
     border-right: 2px solid #0BC602;
     white-space: nowrap; 
-    animation: typing 8s steps(25, end), cursor .75s step-end infinite;
+    animation: typing 8s steps(25, end) forwards, cursor 0.75s step-end 8s; 
+    animation-fill-mode: forwards;
 }
 
 @keyframes typing {
     from { width: 0; }
-    to { width: 60%; }
+    to { width: 40%; }
 }
 
 @keyframes cursor {
     50% { border-color: transparent; }
-    100% { border-color: #0BC602; }
+    100% { border-color: transparent; }
 }
-
 
 /* Forms */
 .update-form label {
