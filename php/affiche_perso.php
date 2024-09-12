@@ -43,7 +43,7 @@ $pdf->SetX(25);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Nom: ', 0, 0);
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, $perso['nom'], 0, 1); 
+$pdf->Cell(0, 0, $perso['nom'], 0, 1); 
 
 
 $pdf->SetX(25);
@@ -52,7 +52,7 @@ $pdf->SetX(25);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Faction: ', 0, 0);
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, $perso['faction'], 0, 1);
+$pdf->Cell(-20, 10, $perso['faction'], 0, 1);
 
 
 if ($perso['faction'] === 'Adeptus Mechanicus') {
@@ -79,7 +79,7 @@ $raison = !empty($perso['raison']) ? $perso['raison'] : 'Aucune raison spÃ©cifiÃ
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Raison: ', 0, 1);
 $pdf->SetFont('Arial', '', 12);
-$pdf->MultiCell(150, 10, $raison); 
+$pdf->MultiCell(400, 10, $raison); 
 
 
 if ($perso['validation'] === 'Accepter') {
