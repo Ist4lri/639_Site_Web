@@ -71,6 +71,7 @@ h2 {
 .specialty-image {
     height: 60%;
     width: 70%;
+    margin-left: -10px;
 }
 
 .specialty img {
