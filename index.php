@@ -117,7 +117,7 @@ th {
 
 .Tooltip {
     position: absolute;
-    right: 95px; 
+    right: 105px; 
     top: 120px;
     background-color: #222222;
     color: #00F529;
