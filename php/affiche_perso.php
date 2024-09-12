@@ -65,7 +65,7 @@ $pdf->Cell(40, 10, $raison, 0);
 
 
 if ($perso['validation'] === 'Accepter') {
-    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 2, 240, 40);
+    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 1, 240, 40);
 }
 
 $pdf->Output("I", "Validation_Personnage_{$perso['nom']}.pdf");
