@@ -15,7 +15,7 @@ $stmtLeader->execute(['id_utilisateur' => $id_utilisateur]);
 $factionLeader = $stmtLeader->fetch(PDO::FETCH_ASSOC);
 
 if (!$factionLeader) {
-    die('Vous n\'êtes pas autorisé à voir ces informations.');
+    die('insubordination.php');
 }
 
 $faction = $factionLeader['faction'];
