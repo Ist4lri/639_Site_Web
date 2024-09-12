@@ -17,14 +17,15 @@ header.head {
     background-color: rgba(0, 0, 0, 0.5);
     color: #9ed79d;
     position: fixed;
-    width: 100%;
+    width: 99.3%;
     top: 0;
     z-index: 1000;
 }
 
 .head-logo img {
     max-width: 80px;
-    height: auto;
+    height:  80px;
+    margin-left: -20px;
 }
 
 .head-logo2 img {
@@ -34,7 +35,7 @@ header.head {
 
 .head-nav a {
     color: #9ed79d;
-    margin-left: 20px;
+    margin-left: 5px;
     text-decoration: none;
     font-weight: bold;
 }
@@ -78,12 +79,13 @@ header.head {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+    width: 94%
 }
 
 .update-form input[type="text"],
 .update-form input[type="email"],
 .update-form textarea {
-    width: 100%;
+    width: 94%;
     padding: 10px;
     border: 1px solid #9ed79d;
     border-radius: 4px;
