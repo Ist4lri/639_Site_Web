@@ -11,7 +11,7 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 // Fetch the character from the database
-$sql = "SELECT nom, raison, faction, histoire, FROM personnages WHERE id = :id LIMIT 1";
+$sql = "SELECT nom, raison, faction, histoire FROM personnages WHERE id = :id LIMIT 1";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => $id]);
 $perso = $stmt->fetch(PDO::FETCH_ASSOC);
