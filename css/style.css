@@ -17,6 +17,7 @@ p img{
 	        animation: heartbeat 1.5s ease-in-out 20ms infinite alternate forwards;
 		right: 25px;
             top: 150px;
+		color: #9ed79d;
 }
 
 @-webkit-keyframes heartbeat {
