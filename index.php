@@ -117,14 +117,14 @@ th {
 
 .Tooltip {
     position: absolute;
-    right: 25px; 
+    right: 30px; 
     top: 120px;
     background-color: #222222;
     color: #00F529;
     padding: 0px;
     border-radius: 8px;
     font-size: 14px;
-    border: 4px solid #00F529; 
+    border: 0.5px solid #00F529; 
     opacity: 0;
     font-weight: bold;
     transition: opacity 0.3s ease;
@@ -232,7 +232,7 @@ foreach ($specialties as $specialty):
         </div>
 
     <?php else: ?>
-    <p class="Tooltip">Bonjour je suis Servo-Mortis cliqué moi pour que je vous présente les pages</p>
+    <p class="Tooltip">Bonjour je suis Servo-Mortis, <br>cliquez-moi pour que je vous présente les pages</p>
     <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis" onclick="playAudio()">
     <audio id="servo-mortis-audio" src="/src/assets/ServoMortis.mp3"></audio>
         <h1>Le 639th régiment</h1>
