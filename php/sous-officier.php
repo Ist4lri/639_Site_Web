@@ -51,6 +51,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Récupérer les spécialités
 $specialitesStmt = $pdo->query("SELECT id, nom FROM spe");
 $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$isLoggedIn = isset($_SESSION['utilisateur']);
+$userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 ?>
 
 <?php include 'header.php'; ?>
