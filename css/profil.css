@@ -45,7 +45,6 @@ body {
     font-size: 1.1rem;
     padding-top: 10px;
     overflow: hidden;
-    display: inline-block;
     border-right: 2px solid #0BC602;
     white-space: nowrap; 
     animation: typing 4s steps(25, end), cursor .75s step-end infinite;
@@ -53,7 +52,7 @@ body {
 
 @keyframes typing {
     from { width: 0; }
-    to { width: 100%; }
+    to { width: 80%; }
 }
 
 @keyframes cursor {
