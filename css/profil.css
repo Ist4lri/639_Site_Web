@@ -8,47 +8,6 @@ body {
     line-height: 1.6;
 }
 
-/* Header styles */
-header.head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 50px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #9ed79d;
-    position: fixed;
-    width: 99.3%;
-    top: 0;
-    z-index: 1000;
-}
-
-.head-logo img {
-    max-width: 60px;
-    max-height:  60px;
-    margin-left: -30px;
-    
-}
-
-.head-logo2 img {
-    max-width: 120px;
-    height: auto;
-    margin-left: -110px;
-}
-
-.head-nav a {
-    color: #9ed79d;
-    margin-left: 5px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.head-nav{
-       margin-right: 86px;
-}
-
-.head-nav a:hover {
-    color: #fff;
-}
 
 /* Profile container */
 .profile-container {
