@@ -170,7 +170,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <ul>
         <?php foreach ($personnages as $perso): ?>
             <li>
-                <?php echo htmlspecialchars($perso['nom']); ?>
+                <?php echo htmlspecialchars($perso['nom']).'{'.echo htmlspecialchars($perso['nom']).'}' ; ?>
                 <a href="affiche_perso.php?id=<?= $perso['id']; ?>" target="_blank">
                     <button class="btn">Afficher</button>
                 </a>
