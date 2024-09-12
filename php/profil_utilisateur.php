@@ -103,7 +103,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien"
     </div>
     <nav class="head-nav">
-            <a href="perso.php">Proposer vos personnages</a>
+            <a href="perso.php">Créé vos personnages</a>
             <a href="officier.php">Officier</a>
             <a href="sous-officier.php">Sous-Officier</a>
             <a href="Dec.php">Déconnexion</a>
