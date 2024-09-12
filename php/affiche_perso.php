@@ -83,7 +83,7 @@ $pdf->MultiCell(150, 10, $raison);
 
 
 if ($perso['validation'] === 'Accepter') {
-    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 5, 240, 40); 
+    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 2, 240, 40); 
 }
 
 // Output the PDF to the browser
