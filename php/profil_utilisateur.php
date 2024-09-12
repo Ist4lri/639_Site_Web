@@ -67,7 +67,7 @@ $pendingStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id 
 $pendingStmt->execute(['id' => $utilisateur['id']]);
 $demandesEnAttente = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'acceptée'");
+$acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'accepter'");
 $acceptedStmt->execute(['id' => $utilisateur['id']]);
 $demandesAcceptees = $acceptedStmt->fetchAll(PDO::FETCH_ASSOC);
 
