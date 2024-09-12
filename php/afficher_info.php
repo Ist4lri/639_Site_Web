@@ -37,6 +37,7 @@ $pdf->SetFont('Arial', '', 12);
 // Affichage des informations médicales
 foreach ($informations as $info) {
     $pdf->Cell(0, 10, 'Utilisateur: ' . $info['nom_utilisateur'], 0, 1);
+    $pdf->Cell(0, 10, 'Age: ' . $info['age']);
     $pdf->Cell(0, 10, 'Taille: ' . $info['taille'] . ' cm', 0, 1);
     $pdf->Cell(0, 10, 'Poids: ' . $info['poids'] . ' kg', 0, 1);
     $pdf->MultiCell(0, 10, 'Problemes medicaux: ' . $info['problemes_medicaux']);
