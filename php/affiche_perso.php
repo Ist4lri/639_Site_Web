@@ -61,7 +61,7 @@ $pdf->SetX(25);
 
 $raison = !empty($perso['raison']) ? $perso['raison'] : 'Aucune raison spécifiée';
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Raison:'$raison, 0, 1);
+$pdf->Cell(40, 10, 'Raison:'. $raison, 0, 1);
 
 
 if ($perso['validation'] === 'Accepter') {
