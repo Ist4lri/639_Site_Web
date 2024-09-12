@@ -106,26 +106,39 @@ th {
 }
 
   .servo-mortis {
-            position: absolute;
-            right: 10px;
-            top: 150px;
-            width: 150px; 
-            height: auto;
-            cursor: pointer;
-            animation: float 3s ease-in-out infinite; 
-        }
+    position: absolute;
+    right: 10px;
+    top: 150px;
+    width: 150px;
+    height: auto;
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+}
 
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px); 
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
+.Tooltip {
+    position: absolute;
+    right: 175px; 
+    top: 120px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
     </style>
 </head>
 <body>
@@ -286,6 +299,20 @@ function toggleTable(tableId) {
             audio.play();
         }
     </script>
+
+<script>
+    function showTooltip() {
+        const tooltip = document.querySelector('.Tooltip');
+        tooltip.style.opacity = 1;
+
+        setTimeout(() => {
+            tooltip.style.opacity = 0;
+        }, 20000); 
+    }
+
+    
+    setInterval(showTooltip, 5000);
+</script>
 
 </body>
 </html>
