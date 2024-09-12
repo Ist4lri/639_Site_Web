@@ -59,10 +59,8 @@ $pdf->MultiCell(150, 10, $perso['histoire']);
 
 $pdf->SetX(25);
 
-$raison = !empty($perso['raison']) ? $perso['raison'] : 'Aucune raison spécifiée';
+$raison = !empty($perso['raison']) ? $perso['raison'] : '';
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Raison:', 0);
-$pdf->SetFont('Arial', '', 12);
 $pdf->Cell(40, 10, $raison, 0);
 
 
