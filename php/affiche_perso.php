@@ -31,16 +31,13 @@ $pdf->Ln(10);
 $pdf->SetX(25);
 
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Nom:', 0, 0);
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, $perso['nom'], 0, 1);
+$pdf->Cell(40, 10, 'Nom:'.$perso['nom'], 0, 0);
 
 $pdf->SetX(25);
 
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Faction:', 0, 0);
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, $perso['faction'], 0, 1);
+$pdf->Cell(40, 10, 'Faction:'.$perso['faction'], 0, 0);
+
 
 if ($perso['faction'] === 'Adeptus Mechanicus') {
     $pdf->Image('../src/assets/mechanicus.png', 75, 20, 50);
