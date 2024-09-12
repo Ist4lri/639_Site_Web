@@ -217,7 +217,7 @@ foreach ($specialties as $specialty):
         </div>
 
     <?php else: ?>
-    <p class="heartbeat">Cliquez le Servo-crâne</p>
+    <p class="Tooltip">Bonjour je suis Servo-Mortis cliqué moi pour que je vous présente les pages</p>
     <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis" onclick="playAudio()">
     <audio id="servo-mortis-audio" src="/src/assets/ServoMortis.mp3"></audio>
         <h1>Le 639th régiment</h1>
