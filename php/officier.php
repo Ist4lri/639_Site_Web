@@ -99,9 +99,12 @@ $specialites = $specialitesStmt->fetchAll(PDO::FETCH_ASSOC);
 // Formation options for the dropdowns
 $formationOptions = ['FB', 'FS', 'Aucune'];
 $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'FH4', 'FH4T', 'FH5', 'FH5T', 'FH6', 'FH6T', 'Aucune'];
+
+$isLoggedIn = isset($_SESSION['utilisateur']);
+$userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 ?>
 
-<?php include 'header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
