@@ -117,14 +117,16 @@ th {
 
 .Tooltip {
     position: absolute;
-    right: 165px; 
+    right: 25px; 
     top: 120px;
-    background-color: #333;
+    background-color: #222222;
     color: #00F529;
-    padding: 10px;
+    padding: 0px;
     border-radius: 8px;
     font-size: 14px;
+    border: 4px solid #00F529; 
     opacity: 0;
+    font-weight: bold;
     transition: opacity 0.3s ease;
 }
 
