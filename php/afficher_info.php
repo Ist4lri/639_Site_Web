@@ -28,8 +28,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
 
-$pdf->Image('../src/assets/mediace.png', 10, 146, 20); // largeur=20
-$pdf->Image('../src/assets/mediace.png', 170, 146, 20); 
+
 // Titre du PDF
 $pdf->Cell(0, 10, 'Informations Medicales', 0, 1, 'C');
 $pdf->Ln(10);
