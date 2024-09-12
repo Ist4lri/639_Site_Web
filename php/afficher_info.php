@@ -28,10 +28,8 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
 
-// Calculer la position Y du milieu
-$page_height = $pdf->GetPageHeight();
-$y_milieu = $page_height / 2; // Calcul du milieu vertical de la page
-
+$pdf->Image('../src/assets/mediace.png', 10, 146, 20); // largeur=20
+$pdf->Image('../src/assets/mediace.png', 170, 146, 20); 
 // Titre du PDF
 $pdf->Cell(0, 10, 'Informations Medicales', 0, 1, 'C');
 $pdf->Ln(10);
@@ -54,7 +52,6 @@ foreach ($informations as $info){
     $pdf->MultiCell(150, 10, 'Problemes medicaux: ' . $info['problemes_medicaux']);
     $pdf->Ln(10);
 }
-    $pdf->Image('../src/assets/mediace.png', 10, $y_milieu, 20); // largeur=20
-    $pdf->Image('../src/assets/mediace.png', 170, $y_milieu, 20); 
+
 $pdf->Output('I', 'informations_medicales.pdf');
 ?>
