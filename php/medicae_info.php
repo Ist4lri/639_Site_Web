@@ -74,13 +74,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
             $stmt = $pdo->prepare("UPDATE informations_medicales 
                                    SET age = ?, taille = ?, poids = ?, problemes_medicaux = ? 
                                    WHERE id_utilisateur = ?");
-            $stmt->execute([$taille, $poids, $problemes_medicaux, $id_utilisateur]);
+            $stmt->execute([$age, $taille, $poids, $problemes_medicaux, $id_utilisateur]);
             $success_message = "Les informations médicales ont été mises à jour avec succès.";
         } else {
         
             $stmt = $pdo->prepare("INSERT INTO informations_medicales (id_utilisateur, age, taille, poids, problemes_medicaux) 
                                    VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([$id_utilisateur, $taille, $poids, $problemes_medicaux]);
+            $stmt->execute([$id_utilisateur, $age, $taille, $poids, $problemes_medicaux]);
             $success_message = "Les informations médicales ont été créées avec succès.";
         }
 
