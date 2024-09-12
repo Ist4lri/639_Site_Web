@@ -47,7 +47,7 @@ body {
     overflow: hidden;
     white-space: nowrap;
     border-right: 2px solid #0BC602;
-    animation: typing 2s steps(2, end), cursor .2s steps(4, end) infinite;
+    animation: typing 4s steps(25, end), cursor .4s steps(25, end) infinite;
 }
 
 @keyframes typing {
