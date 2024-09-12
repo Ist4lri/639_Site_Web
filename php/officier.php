@@ -108,7 +108,28 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Officiers</title>
     <link rel="stylesheet" href="../css/tab.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
+
+<header class="head">
+    <div class="head-logo">
+        <a href="../index.php">
+            <img src="../src/assets/Logo.png" alt="Logo 639">
+        </a>
+        <?php if ($isLoggedIn): ?>
+            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
+        <?php endif; ?>
+    </div>
+    <div class="head-logo2">
+        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien"
+    </div>
+    <nav class="head-nav">
+            <a href="profil_utilisateur.php">Profil</a>
+            <a href="officier.php">Officier</a>
+            <a href="sous-officier.php">Sous-Officier</a>
+            <a href="Dec.php">Déconnexion</a>
+    </nav>
+</header>
 <body>
     <h1>Gestion des grades, spécialités et formations</h1>
 
