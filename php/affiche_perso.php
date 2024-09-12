@@ -31,12 +31,15 @@ $pdf->Ln(10);
 $pdf->SetX(25);
 
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Nom:'.$perso['nom'], 0, 0);
+$pdf->Cell(40, 10, 'Nom: '. $perso['nom'], 0, 0);
+
+
+$pdf->Ln(5); 
 
 $pdf->SetX(25);
 
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Faction:'.$perso['faction'], 0, 0);
+$pdf->Cell(40, 10, 'Faction: '. $perso['faction'], 0, 0);
 
 
 if ($perso['faction'] === 'Adeptus Mechanicus') {
