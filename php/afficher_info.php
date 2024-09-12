@@ -35,20 +35,20 @@ $pdf->Ln(10);
 // Définir la police pour le contenu
 $pdf->SetFont('Arial', '', 12);
 
-
+foreach ($informations as $info){
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Utilisateur: ' . $informations['nom_utilisateur'], 0, 1);
+    $pdf->Cell(0, 10, 'Utilisateur: ' . $info['nom_utilisateur'], 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Age: ' . $informations['age'], 0, 1);
+    $pdf->Cell(0, 10, 'Age: ' . $info['age'], 0, 1);
     $pdf->SetX(25);    
-    $pdf->Cell(0, 10, 'Taille: ' . $informations['taille'] . ' cm', 0, 1);
+    $pdf->Cell(0, 10, 'Taille: ' . $info['taille'] . ' cm', 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Poids: ' . $informations['poids'] . ' kg', 0, 1);
+    $pdf->Cell(0, 10, 'Poids: ' . $info['poids'] . ' kg', 0, 1);
     $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, 'Problemes medicaux: ' . $informations['problemes_medicaux']);
+    $pdf->MultiCell(150, 10, 'Problemes medicaux: ' . $info['problemes_medicaux']);
     $pdf->Ln(10); 
 
-
+}
 
 $pdf->Output('I', 'informations_medicales.pdf');
 ?>
