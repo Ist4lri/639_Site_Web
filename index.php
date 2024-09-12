@@ -309,11 +309,11 @@ function toggleTable(tableId) {
 
         setTimeout(() => {
             tooltip.style.opacity = 0;
-        }, 11000); 
+        }, 8000); 
     }
 
     
-    setInterval(showTooltip, 4000);
+    setInterval(showTooltip, 6000);
 </script>
 
 </body>
