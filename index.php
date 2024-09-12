@@ -247,7 +247,7 @@ foreach ($specialties as $specialty):
                 la volonté de servir l&apos;empereur.
             </p>
         <h4>Alors ? prêt à nous rejoindre ?</h4>
-       <div class="Discord"><a href="php/mark.php"><img src="../src/assets/BoutonDiscord0.png" alt="Marksman"></a></div>
+       <div class="Discord"><a href="https://discord.gg/HUwHpEZBZx"><img src="../src/assets/BoutonDiscord0.png" alt="Marksman"></a></div>
     <?php endif; ?>
 </div>
 
