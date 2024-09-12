@@ -54,7 +54,7 @@ $pdf->SetFont('Arial', '', 12);
 $pdf->MultiCell(0, 10, $perso['histoire']);
 
 
-$raison = !empty($perso['raison']) ? $perso['raison'] : 'Blank';  // Vérification de la raison
+$raison = !empty($perso['raison']) ? $perso['raison'] : '';  // Vérification de la raison
 $pdf->MultiCell(0, 10, $raison);
 
 
