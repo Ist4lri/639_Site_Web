@@ -53,6 +53,11 @@ $pdf->Cell(40, 10, 'Histoire: ', 0, 1);
 $pdf->SetFont('Arial', '', 12);
 $pdf->MultiCell(0, 10, $perso['histoire']);
 
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(40, 10, 'Histoire: ', 0, 1);
+$pdf->SetFont('Arial', '', 12);
+$pdf->MultiCell(0, 10, $perso['raison']);
+
 // Output the PDF to the browser
 $pdf->Output("I", "Validation_Personnage_{$perso['nom']}.pdf");
 
