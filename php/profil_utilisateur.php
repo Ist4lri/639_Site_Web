@@ -71,11 +71,13 @@ $acceptedStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id
 $acceptedStmt->execute(['id' => $utilisateur['id']]);
 $demandesAcceptees = $acceptedStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$personnagesStmt = $pdo->prepare("SELECT id, nom FROM personnages WHERE id_utilisateur = :id_utilisateur");
+$personnagesStmt = $pdo->prepare("SELECT id, nom, validation FROM personnages WHERE id_utilisateur = :id_utilisateur");
 $personnagesStmt->execute(['id_utilisateur' => $utilisateur['id']]);
 $personnages = $personnagesStmt->fetchAll(PDO::FETCH_ASSOC);
 
 $excel_file_path = "../excel/planning_utilisateurs.xlsx";
+
+
 ?>
 
 <!DOCTYPE html>
