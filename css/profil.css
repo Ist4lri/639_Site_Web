@@ -40,22 +40,27 @@ body {
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
-.current-info p{
+.current-info p {
     color: #0BC602;
     font-size: 1.1rem;
     padding-top: 10px;
     overflow: hidden;
-    white-space: nowrap;
+    display: inline-block;
     border-right: 2px solid #0BC602;
-    animation: typing 4s steps(25, end), cursor .4s steps(25, end) infinite;
+    white-space: nowrap; 
+    animation: typing 4s steps(25, end), cursor .75s step-end infinite;
 }
 
 @keyframes typing {
-    from { width: 0 }
+    from { width: 0; }
+    to { width: 100%; }
 }
+
 @keyframes cursor {
-    50% { border-color: transparent }
+    50% { border-color: transparent; }
+    100% { border-color: #0BC602; }
 }
+
 
 /* Forms */
 .update-form label {
