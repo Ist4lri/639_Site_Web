@@ -26,6 +26,7 @@ require('../vendor/setasign/fpdf/fpdf.php'); // Assurez-vous que ce chemin est v
 $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
+$pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
 
 // Titre du PDF
 $pdf->Cell(0, 10, 'Informations Medicales', 0, 1, 'C');
@@ -34,16 +35,20 @@ $pdf->Ln(10);
 // Définir la police pour le contenu
 $pdf->SetFont('Arial', '', 12);
 
-// Affichage des informations médicales
-foreach ($informations as $info) {
-    $pdf->Cell(0, 10, 'Utilisateur: ' . $info['nom_utilisateur'], 0, 1);
-    $pdf->Cell(0, 10, 'Age: ' . $info['age'], 0, 1);
-    $pdf->Cell(0, 10, 'Taille: ' . $info['taille'] . ' cm', 0, 1);
-    $pdf->Cell(0, 10, 'Poids: ' . $info['poids'] . ' kg', 0, 1);
-    $pdf->MultiCell(0, 10, 'Problemes medicaux: ' . $info['problemes_medicaux']);
-    $pdf->Ln(10); // Saut de ligne entre les enregistrements
-}
 
-// Afficher le PDF dans le navigateur sans téléchargement
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, 'Utilisateur: ' . $info['nom_utilisateur'], 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, 'Age: ' . $info['age'], 0, 1);
+    $pdf->SetX(25);    
+    $pdf->Cell(0, 10, 'Taille: ' . $info['taille'] . ' cm', 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, 'Poids: ' . $info['poids'] . ' kg', 0, 1);
+    $pdf->SetX(25);
+    $pdf->MultiCell(150, 10, 'Problemes medicaux: ' . $info['problemes_medicaux']);
+    $pdf->Ln(10); 
+
+
+
 $pdf->Output('I', 'informations_medicales.pdf');
 ?>
