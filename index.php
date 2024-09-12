@@ -254,7 +254,7 @@ foreach ($specialties as $specialty):
 
 <div class="explain_container">
   
-    <h3>Nos spécialités</h3>
+    <div class="specialty"><img src="src/assets/NosSpécialités.png" alt="Nos spécialités"></div>
 <div class="specialties">
     <div class="row">
         <div class="specialty"><a href="php/mg.php"><img src="src/assets/BoutonMGunner0.png" alt="Machine Gunner"></a></div>
