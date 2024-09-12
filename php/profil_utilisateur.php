@@ -170,7 +170,11 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
     <ul>
         <?php foreach ($personnages as $perso): ?>
             <li>
-                <?php echo htmlspecialchars($perso['nom']).' {'.htmlspecialchars($perso['validation']).'}'; ?>
+                <?php 
+            $nom = htmlspecialchars($perso['nom'] ?? 'Nom non disponible'); 
+            $validation = htmlspecialchars($perso['validation'] ?? 'Non validé');
+            echo "$nom {$validation}";
+        ?>
                 <a href="affiche_perso.php?id=<?= $perso['id']; ?>" target="_blank">
                     <button class="btn">Afficher</button>
                 </a>
