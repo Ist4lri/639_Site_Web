@@ -21,12 +21,11 @@ if (!$perso) {
     die('Character not found.');
 }
 
-
 $pdf = new FPDF();
-$pdf->AddPage();  
+$pdf->AddPage();
 
 
-$pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);  
+$pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297); // Background image at full A4 size (210mm x 297mm)
 
 
 $pdf->SetFont('Arial', 'B', 16);
@@ -44,7 +43,7 @@ $pdf->SetX(25);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Nom: ', 0, 0);
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(70, 10, $perso['nom'], 0, 1);
+$pdf->Cell(0, 10, $perso['nom'], 0, 1); 
 
 
 $pdf->SetX(25);
@@ -53,10 +52,11 @@ $pdf->SetX(25);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Faction: ', 0, 0);
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(60, 10, $perso['faction'], 0, 1);
+$pdf->Cell(0, 10, $perso['faction'], 0, 1);
+
 
 if ($perso['faction'] === 'Adeptus Mechanicus') {
-    $pdf->Image('../src/assets/mechanicus.png', 75, 20, 50);  // Adjusted position to center horizontally
+    $pdf->Image('../src/assets/mechanicus.png', 75, 20, 50);
 }
 
 
@@ -69,7 +69,7 @@ $pdf->SetX(25);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Histoire: ', 0, 1);
 $pdf->SetFont('Arial', '', 12);
-$pdf->MultiCell(40, 10, $perso['histoire']);
+$pdf->MultiCell(150, 10, $perso['histoire']);
 
 
 $pdf->SetX(25);
@@ -79,11 +79,11 @@ $raison = !empty($perso['raison']) ? $perso['raison'] : 'Aucune raison spÃ©cifiÃ
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(40, 10, 'Raison: ', 0, 1);
 $pdf->SetFont('Arial', '', 12);
-$pdf->MultiCell(40, 10, $raison);
+$pdf->MultiCell(150, 10, $raison); 
 
 
 if ($perso['validation'] === 'Accepter') {
-    $pdf->Image('../src/assets/sceau.png', ($pdf->GetPageWidth() - 40) / 2, 240, 40); 
+    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 5, 240, 40); 
 }
 
 // Output the PDF to the browser
