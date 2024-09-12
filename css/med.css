@@ -4,12 +4,13 @@ body {
     background-color: #333; /* Fond gris foncé */
     margin: 0;
     padding: 0;
-    color: #fff; /* Texte blanc */
+    color: #9ed79d; /* Texte vert clair */
 }
 
 .container {
     width: 80%;
     margin: 50px auto;
+    margin-top: 60px;
     background-color: #444; /* Fond légèrement plus clair pour le container */
     padding: 20px;
     border-radius: 8px;
@@ -18,7 +19,7 @@ body {
 
 h2 {
     text-align: center;
-    color: #fff; /* Titre en blanc */
+    color: #3bd237; /* Titre en vert vif */
     margin-bottom: 20px;
 }
 
@@ -47,30 +48,30 @@ form {
 
 form label {
     margin-right: 10px;
-    color: #fff; /* Texte blanc pour les labels */
+    color: #9ed79d; /* Texte vert clair pour les labels */
 }
 
 form select,
 form input[type="text"] {
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #9ed79d;
     background-color: #666; /* Fond plus sombre pour les inputs */
-    color: #fff; /* Texte blanc dans les inputs */
+    color: #3bd237; /* Texte vert vif dans les inputs */
 }
 
 form button {
     padding: 8px 15px;
     border: none;
     border-radius: 4px;
-    background-color: #2980b9; /* Bleu pour les boutons */
+    background-color: #3bd237; /* Vert vif pour les boutons */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 form button:hover {
-    background-color: #3498db; /* Bleu plus clair au survol */
+    background-color: #85c78d; /* Vert plus clair au survol */
 }
 
 /* Table style */
@@ -79,7 +80,7 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     background-color: #444; /* Fond de la table en gris foncé */
-    color: #fff; /* Texte blanc dans la table */
+    color: #9ed79d; /* Texte vert clair dans la table */
 }
 
 table th,
@@ -91,7 +92,7 @@ table td {
 
 table th {
     background-color: #555; /* En-têtes légèrement plus claires */
-    color: #fff;
+    color: #9ed79d;
 }
 
 table td {
@@ -113,21 +114,21 @@ table .btn {
 }
 
 table .btn-modify {
-    background-color: #e67e22; /* Orange pour modifier */
+    background-color: #F08E00; /* Vert clair pour modifier */
     color: white;
 }
 
 table .btn-modify:hover {
-    background-color: #d35400; /* Orange plus foncé au survol */
+    background-color: #D37D00; /* Vert plus clair au survol */
 }
 
 table .btn-view-pdf {
-    background-color: #1abc9c; /* Vert pour le bouton PDF */
+    background-color: #00F5F5; /* Vert vif pour le bouton PDF */
     color: white;
 }
 
 table .btn-view-pdf:hover {
-    background-color: #16a085; /* Vert plus foncé au survol */
+    background-color: #00C2C2; /* Vert plus foncé au survol */
 }
 
 /* Style pour les inputs numériques */
@@ -135,9 +136,9 @@ form input[type="number"] {
     width: 10%;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #9ed79d;
     background-color: #666; /* Fond sombre */
-    color: #fff; /* Texte blanc */
+    color: #3bd237; /* Texte vert vif */
     font-size: 14px;
 }
 
@@ -171,8 +172,7 @@ form textarea {
     width: 150px; /* Réduire la largeur */
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #9ed79d;
     background-color: #666; /* Fond sombre pour la textarea */
-    color: #fff; /* Texte blanc */
- 
+    color: #3bd237; /* Texte vert vif */
 }
