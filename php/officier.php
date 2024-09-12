@@ -126,7 +126,7 @@ $formationHierarchiqueOptions = ['FH1', 'FH1T', 'FH2', 'FH2T', 'FH3', 'FH3T', 'F
     </div>
     <nav class="head-nav">
             <a href="profil_utilisateur.php">Profil</a>
-            <a href="officier.php">Officier</a>
+            <a href="demande.php">Demandes</a>
             <a href="sous-officier.php">Sous-Officier</a>
             <a href="Dec.php">Déconnexion</a>
     </nav>
