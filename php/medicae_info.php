@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
     <link rel="stylesheet" href="../css/med.css">
 
 </head>
+<?php include 'header.php'; ?>
 <body>
 
 <div class="container">
