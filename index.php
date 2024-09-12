@@ -117,7 +117,7 @@ th {
 
 .Tooltip {
     position: absolute;
-    right: 105px; 
+    right: 125px; 
     top: 120px;
     background-color: #222222;
     color: #00F529;
@@ -309,11 +309,11 @@ function toggleTable(tableId) {
 
         setTimeout(() => {
             tooltip.style.opacity = 0;
-        }, 8000); 
+        }, 11000); 
     }
 
     
-    setInterval(showTooltip, 2000);
+    setInterval(showTooltip, 4000);
 </script>
 
 </body>
