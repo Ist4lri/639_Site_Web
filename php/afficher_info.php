@@ -27,8 +27,8 @@ $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
-$pdf->Image('../src/assets/medicae.png', 10, 146, 20); // largeur=20
-$pdf->Image('../src/assets/medicae.png', 170, 146, 20); 
+$pdf->Image('../src/assets/medicae.png', 2, 146, 20); // largeur=20
+$pdf->Image('../src/assets/medicae.png', 202, 146, 20); 
 
 
 $pdf->Cell(0, 10, 'Informations Medicales', 0, 1, 'C');
@@ -49,7 +49,9 @@ foreach ($informations as $info){
     $pdf->SetX(25);
     $pdf->Cell(0, 10, 'Poids: ' . $info['poids'] . ' kg', 0, 1);
     $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, 'Problemes medicaux: ' . $info['problemes_medicaux']);
+    $pdf->Cell(0, 10, 'Problemes medicaux: ', 0, 1);
+    $pdf->SetX(25);
+    $pdf->MultiCell(150, 10, $info['problemes_medicaux']);
     $pdf->Ln(10);
 }
 
