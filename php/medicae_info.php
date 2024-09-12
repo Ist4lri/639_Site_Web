@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
                 <td><?php echo htmlspecialchars($user['age'] ?? 'N/A'); ?></td>
                 <td><?php echo htmlspecialchars($user['taille'] ?? 'N/A'); ?></td>
                 <td><?php echo htmlspecialchars($user['poids'] ?? 'N/A'); ?></td>
-                <td><?php echo htmlspecialchars($user['problemes_medicaux'] ?? 'N/A'); ?></td>
+                <td><?php echo htmlspecialchars($user['problemes_medicaux'] ?? 'N/A', 0, 50); ?>...</td>
                 <td>
                     <!-- Bouton pour afficher le formulaire de modification -->
                     <form action="" method="post" style="display:inline;">
