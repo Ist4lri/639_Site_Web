@@ -1,3 +1,4 @@
+<?php
 session_start();
 require 'db.php';
 require('../vendor/setasign/fpdf/fpdf.php');
@@ -87,3 +88,4 @@ if ($perso['validation'] === 'Accepter') {
 
 // Output the PDF to the browser
 $pdf->Output("I", "Validation_Personnage_{$perso['nom']}.pdf");
+?>
