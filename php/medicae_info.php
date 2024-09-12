@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
                     </form>
 
                     <!-- Bouton pour afficher le PDF -->
-                    <form action="afficher_info.php" method="post" style="display:inline;">
+                    <form action="afficher_info.php" method="post" style="display:inline" target="_blank";>
                         <input type="hidden" name="id_utilisateur" value="<?php echo $user['id']; ?>">
                         <button type="submit" name="view_pdf" class="btn btn-view-pdf">PDF</button>
                     </form>
