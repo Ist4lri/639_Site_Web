@@ -53,7 +53,7 @@ body {
 
 @keyframes typing {
     from { width: 0; }
-    to { width: 40%; }
+    to { width: 70%; }
 }
 
 @keyframes cursor {
