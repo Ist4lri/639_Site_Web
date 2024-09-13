@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $stmt = $pdo->prepare("
     SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
            im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
