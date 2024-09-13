@@ -2,7 +2,7 @@
 body {
     background-color: #1e1e1e; /* Fond gris foncé */
     color: #f5f5f5; /* Texte gris clair */
-    background: url('../src/assets/Battle.png') no-repeat center center fixed;
+    background: url('../src/assets/Background.png') no-repeat center center fixed;
     background-size: cover;
     font-family: Arial, sans-serif;
     margin: 0;
