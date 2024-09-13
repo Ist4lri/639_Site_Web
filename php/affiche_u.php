@@ -41,11 +41,11 @@ if ($utilisateur) {
     // Informations médicales
     $pdf->SetFont('Arial', '', 12);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Age: ' . $utilisateur['age'], 0, 1);
+    $pdf->Cell(0, 10, 'Age: ' . $utilisateur['age'] ?: 'Nonspécifié' , 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Taille: ' . $utilisateur['taille'] . ' cm', 0, 1);
+    $pdf->Cell(0, 10, 'Taille: ' . $utilisateur['taille'] ?: 'Nonspécifié' . ' cm', 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Poids: ' . $utilisateur['poids'] . ' kg', 0, 1);
+    $pdf->Cell(0, 10, 'Poids: ' . $utilisateur['poids'] ?: 'Nonspécifié'  . ' kg', 0, 1);
     $pdf->SetX(25);
     $pdf->Cell(0, 10, 'Problemes medicaux: ', 0, 1);
     $pdf->SetX(25);
