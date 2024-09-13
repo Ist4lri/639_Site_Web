@@ -118,6 +118,16 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <p><strong>Email :</strong> <?php echo htmlspecialchars($utilisateur['email']); ?></p>
         <p><strong>Grade :</strong> <?php echo htmlspecialchars($utilisateur['grade']); ?></p>
         <p><strong>Spécialité :</strong> <?php echo htmlspecialchars($utilisateur['specialite_nom']); ?></p>
+        <button class="btn" onclick="toggleHistoireForm()">Modifier Histoire</button>
+        <a href="affiche_u.php?id=<?php echo $utilisateur['id']; ?>" target="_blank"><button class="btn">PDF</button></a>
+        <div id="histoire-form" style="display:none; margin-top: 20px;">
+        <form action="profil_utilisateur.php" method="post">
+            <label for="histoire">Modifier votre histoire :</label>
+            <textarea id="histoire" name="histoire" rows="4" style="width: 100%;" required><?php echo htmlspecialchars($utilisateur['histoire'] ?? ''); ?></textarea>
+            <br>
+            <input type="submit" value="Mettre à jour l'histoire" class="btn">
+        </form>
+    </div>
     </div>
 
     <div class="update-form">
@@ -200,6 +210,19 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <?php endforeach; ?>
     </ul>
 </div>
+
+    <script>
+    function toggleHistoireForm() {
+        var form = document.getElementById("histoire-form");
+        if (form.style.display === "none" || form.style.display === "") {
+            form.style.display = "block"; // Affiche le formulaire
+        } else {
+            form.style.display = "none"; // Masque le formulaire
+        }
+    }
+</script>
+
+    
 
 </body>
 </html>
