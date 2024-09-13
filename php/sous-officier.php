@@ -77,12 +77,13 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
         <?php endif; ?>
     </div>
     <div class="head-logo2">
-        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien"
+        <a href="../index.php">
+        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
+        </a>
     </div>
     <nav class="head-nav">
             <a href="profil_utilisateur.php">Profil</a>
             <a href="officier.php">Officier</a>
-            <a href="sous-officier.php">Sous-Officier</a>
             <a href="Dec.php">Déconnexion</a>
     </nav>
 </header>
