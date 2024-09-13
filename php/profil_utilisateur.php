@@ -148,9 +148,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
 <div id="histoire-form" style="display:none; margin-top: 20px;">
     <form action="profil_utilisateur.php" method="post">
         <label for="histoire">Modifier votre histoire :</label>
-        <textarea id="histoire" name="histoire" rows="4" style="width: 100%;" required>
-            <?php echo htmlspecialchars($utilisateur['histoire'] ?? ''); ?>
-        </textarea>
+        <textarea id="histoire" name="histoire" rows="4" style="width: 100%;" required><?php echo htmlspecialchars($utilisateur['histoire'] ?? ''); ?></textarea>
         <br>
         <input type="hidden" name="action" value="update_histoire">
         <input type="submit" value="Mettre à jour l'histoire" class="btn">
