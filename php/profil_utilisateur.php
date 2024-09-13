@@ -139,7 +139,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <p><strong>Nom :</strong> <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
         <p><strong>Email :</strong> <?php echo htmlspecialchars($utilisateur['email']); ?></p>
         <p><strong>Grade :</strong> <?php echo htmlspecialchars($utilisateur['grade']); ?></p>
-        <p><strong>Grade :</strong> <?php echo htmlspecialchars($utilisateur['specialite']); ?></p>
+        <p><strong>Grade :</strong> <?php echo htmlspecialchars($utilisateur['specialite_nom']); ?></p>
         <button class="btn" onclick="toggleHistoireForm()">Modifier Histoire</button>
 <a href="affiche_u.php?id=<?php echo $utilisateur['id']; ?>" target="_blank">
     <button class="btn">PDF</button>
