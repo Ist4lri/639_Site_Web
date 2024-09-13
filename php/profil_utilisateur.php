@@ -63,6 +63,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'update_histoire') {
+    if (!empty($_POST['histoire'])) {
+        $nouvelleHistoire = $_POST['histoire'];
+
+        // Mettre à jour l'histoire dans la base de données
+        $stmt = $pdo->prepare("UPDATE utilisateurs SET histoire = :histoire WHERE id = :id");
+        $stmt->execute([
+            ':histoire' => $nouvelleHistoire,
+            ':id' => $utilisateur['id']
+        ]);
+
+        // Message de succès
+        $message = "Votre histoire a été mise à jour avec succès.";
+
+        // Redirection pour éviter le resoumission du formulaire
+        header("Location: profil_utilisateur.php");
+        exit();
+    } else {
+        $message = "L'histoire ne peut pas être vide.";
+    }
+}
+
 $pendingStmt = $pdo->prepare("SELECT * FROM demande WHERE id_utilisateurs = :id AND status = 'en attente'");
 $pendingStmt->execute(['id' => $utilisateur['id']]);
 $demandesEnAttente = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -117,17 +139,22 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <p><strong>Nom :</strong> <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
         <p><strong>Email :</strong> <?php echo htmlspecialchars($utilisateur['email']); ?></p>
         <p><strong>Grade :</strong> <?php echo htmlspecialchars($utilisateur['grade']); ?></p>
-        <p><strong>Spécialité :</strong> <?php echo htmlspecialchars($utilisateur['specialite_nom']); ?></p>
         <button class="btn" onclick="toggleHistoireForm()">Modifier Histoire</button>
-        <a href="affiche_u.php?id=<?php echo $utilisateur['id']; ?>" target="_blank"><button class="btn">PDF</button></a>
-        <div id="histoire-form" style="display:none; margin-top: 20px;">
-        <form action="profil_utilisateur.php" method="post">
-            <label for="histoire">Modifier votre histoire :</label>
-            <textarea id="histoire" name="histoire" rows="4" style="width: 100%;" required><?php echo htmlspecialchars($utilisateur['histoire'] ?? ''); ?></textarea>
-            <br>
-            <input type="submit" value="Mettre à jour l'histoire" class="btn">
-        </form>
-    </div>
+<a href="affiche_u.php?id=<?php echo $utilisateur['id']; ?>" target="_blank">
+    <button class="btn">PDF</button>
+</a>
+
+<div id="histoire-form" style="display:none; margin-top: 20px;">
+    <form action="profil_utilisateur.php" method="post">
+        <label for="histoire">Modifier votre histoire :</label>
+        <textarea id="histoire" name="histoire" rows="4" style="width: 100%;" required>
+            <?php echo htmlspecialchars($utilisateur['histoire'] ?? ''); ?>
+        </textarea>
+        <br>
+        <input type="hidden" name="action" value="update_histoire">
+        <input type="submit" value="Mettre à jour l'histoire" class="btn">
+    </form>
+</div>
     </div>
 
     <div class="update-form">
