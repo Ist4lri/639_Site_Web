@@ -3,7 +3,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: url('../src/assets/Battle.png') no-repeat center center fixed; 
+    background: url('../src/assets/Background.png') no-repeat center center fixed; 
     background-size: cover; /* Assure que l'image couvre tout l'écran */
     color: #fff; /* Texte par défaut en blanc pour le contraste */
 }
