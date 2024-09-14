@@ -30,33 +30,40 @@ $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_utilisateur = $_POST['id_utilisateur'];
+    if (isset($_POST['id_utilisateur']) && !empty($_POST['id_utilisateur'])) {
+        $id_utilisateur = $_POST['id_utilisateur'];
 
-    // Si "valider" est cliqué, la formation est FS, sinon si "rejeter" est cliqué, elle devient FB
-    if (isset($_POST['valider'])) {
-        $formation = 'FS'; // La formation validée
-    } elseif (isset($_POST['rejeter'])) {
-        $formation = 'FB'; // La formation rejetée
-    }
+        // Si "valider" est cliqué, la formation est FS, sinon si "rejeter" est cliqué, elle devient FB
+        if (isset($_POST['valider'])) {
+            $formation = 'FS'; // La formation validée
+        } elseif (isset($_POST['rejeter'])) {
+            $formation = 'FB'; // La formation rejetée
+        }
 
-    // Vérifier si l'utilisateur a déjà une formation
-    $formationStmt = $pdo->prepare("SELECT id FROM formation WHERE id_utilisateur = ?");
-    $formationStmt->execute([$id_utilisateur]);
-    $formationExists = $formationStmt->fetch();
+        if (isset($formation)) {
+            // Vérifier si l'utilisateur a déjà une formation
+            $formationStmt = $pdo->prepare("SELECT id FROM formation WHERE id_utilisateur = ?");
+            $formationStmt->execute([$id_utilisateur]);
+            $formationExists = $formationStmt->fetch();
 
-    if ($formationExists) {
-        // Si une formation existe, la mettre à jour
-        $updateStmt = $pdo->prepare("UPDATE formation SET formation = ? WHERE id_utilisateur = ?");
-        $updateStmt->execute([$formation, $id_utilisateur]);
-        $message = $formation == 'FS' ? "Formation validée avec succès." : "Formation rejetée (FB).";
+            if ($formationExists) {
+                // Si une formation existe, la mettre à jour
+                $updateStmt = $pdo->prepare("UPDATE formation SET formation = ? WHERE id_utilisateur = ?");
+                $updateStmt->execute([$formation, $id_utilisateur]);
+                $message = $formation == 'FS' ? "Formation validée avec succès." : "Formation rejetée (FB).";
+            } else {
+                // Si aucune formation n'existe, en créer une nouvelle
+                $insertStmt = $pdo->prepare("INSERT INTO formation (id_utilisateur, formation) VALUES (?, ?)");
+                $insertStmt->execute([$id_utilisateur, $formation]);
+                $message = $formation == 'FS' ? "Formation validée avec succès." : "Formation rejetée (FB).";
+            }
+        }
     } else {
-        // Si aucune formation n'existe, en créer une nouvelle
-        $insertStmt = $pdo->prepare("INSERT INTO formation (id_utilisateur, formation) VALUES (?, ?)");
-        $insertStmt->execute([$id_utilisateur, $formation]);
-        $message = $formation == 'FS' ? "Formation validée avec succès." : "Formation rejetée (FB).";
+        $message = "Erreur : utilisateur non sélectionné.";
     }
 }
 
+// Récupérer les demandes de spécialité en attente
 $stmt = $pdo->prepare("
     SELECT ds.id, u.nom as utilisateur_nom, s.nom as spe_nom
     FROM demande_spe ds
@@ -68,30 +75,28 @@ $stmt->execute();
 $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Handle form submissions for accepting requests
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['accept']) && isset($_POST['demande_id'])) {
-        $demande_id = $_POST['demande_id'];
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['accept']) && isset($_POST['demande_id'])) {
+    $demande_id = $_POST['demande_id'];
 
-        // Fetch the demande details
-        $demandeStmt = $pdo->prepare("
-            SELECT ds.spe_id, ds.utilisateur_id
-            FROM demande_spe ds
-            WHERE ds.id = :id
-        ");
-        $demandeStmt->execute(['id' => $demande_id]);
-        $demande = $demandeStmt->fetch(PDO::FETCH_ASSOC);
+    // Fetch the demande details
+    $demandeStmt = $pdo->prepare("
+        SELECT ds.spe_id, ds.utilisateur_id
+        FROM demande_spe ds
+        WHERE ds.id = :id
+    ");
+    $demandeStmt->execute(['id' => $demande_id]);
+    $demande = $demandeStmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($demande) {
-            // Update the user's spe_id
-            $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = :spe_id WHERE id = :id");
-            $updateStmt->execute(['spe_id' => $demande['spe_id'], 'id' => $demande['utilisateur_id']]);
+    if ($demande) {
+        // Update the user's spe_id
+        $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = :spe_id WHERE id = :id");
+        $updateStmt->execute(['spe_id' => $demande['spe_id'], 'id' => $demande['utilisateur_id']]);
 
-            // Mark the request as accepted
-            $updateDemandeStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = :id");
-            $updateDemandeStmt->execute(['id' => $demande_id]);
+        // Mark the request as accepted
+        $updateDemandeStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = :id");
+        $updateDemandeStmt->execute(['id' => $demande_id]);
 
-            $message = "Spécialité acceptée avec succès.";
-        }
+        $message = "Spécialité acceptée avec succès.";
     }
 }
 ?>
@@ -127,35 +132,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 </div>
 
-     <h1>Demandes de spécialités en attente</h1>
+<h1>Demandes de spécialités en attente</h1>
 
-    <?php if (isset($message)): ?>
-        <p style="color: green;"><?php echo htmlspecialchars($message); ?></p>
-    <?php endif; ?>
+<?php if (isset($message)): ?>
+    <p style="color: green;"><?php echo htmlspecialchars($message); ?></p>
+<?php endif; ?>
 
-    <table>
-        <thead>
+<table>
+    <thead>
+        <tr>
+            <th>Utilisateur</th>
+            <th>Spécialité demandée</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($demandes as $demande): ?>
             <tr>
-                <th>Utilisateur</th>
-                <th>Spécialité demandée</th>
-                <th>Action</th>
+                <td><?php echo htmlspecialchars($demande['utilisateur_nom']); ?></td>
+                <td><?php echo htmlspecialchars($demande['spe_nom']); ?></td>
+                <td>
+                    <form action="formation.php" method="post">
+                        <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
+                        <button type="submit" name="accept">Accepter</button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($demandes as $demande): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($demande['utilisateur_nom']); ?></td>
-                    <td><?php echo htmlspecialchars($demande['spe_nom']); ?></td>
-                    <td>
-                        <form action="formation.php" method="post">
-                            <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
-                            <button type="submit" name="accept">Accepter</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
 </body>
 </html>
