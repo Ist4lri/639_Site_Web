@@ -74,7 +74,7 @@ select {
     background-color: #333; /* Dark background like the rest of the page */
     color: #ffffff; /* White text color */
     padding: 10px; /* Padding for a better look */
-    border: 2px solid #39d17c; /* Green border similar to the buttons */
+    border: 2px solid #9ed79d; /* Green border similar to the buttons */
     border-radius: 5px; /* Rounded corners */
     font-size: 1rem; /* Set font size to match other elements */
     width: 94%; /* Make it take the full width of its container */
