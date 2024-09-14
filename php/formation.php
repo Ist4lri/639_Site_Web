@@ -23,47 +23,46 @@ if (!in_array($currentUser['gerance'], [1, 2])) {
     exit();
 }
 
-// Récupérer les utilisateurs de la même spécialité (spe_id)
+
 $usersStmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE spe_id = :spe_id");
 $usersStmt->execute(['spe_id' => $currentUser['spe_id']]);
 $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Si le formulaire est soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['id_utilisateur']) && !empty($_POST['id_utilisateur'])) {
-        $id_utilisateur = $_POST['id_utilisateur'];
 
-        // Si "valider" est cliqué, la formation est FS, sinon si "rejeter" est cliqué, elle devient FB
-        if (isset($_POST['valider'])) {
-            $formation = 'FS'; // La formation validée
-        } elseif (isset($_POST['rejeter'])) {
-            $formation = 'FB'; // La formation rejetée
-        }
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
+    $id_utilisateur = $_POST['id_utilisateur'];
 
-        if (isset($formation)) {
-            // Vérifier si l'utilisateur a déjà une formation
+    if (isset($_POST['valider'])) {
+        $formation = 'FS'; 
+    } elseif (isset($_POST['rejeter'])) {
+        $formation = 'FB'; 
+    } elseif (isset($_POST['virer'])) {
+        $formation = 'VIRER'; 
+    }
+
+    if (isset($formation)) {
+        if ($formation === 'VIRER') {
+            $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = 9 WHERE id = ?");
+            $updateStmt->execute([$id_utilisateur]);
+            $message = "Utilisateur viré vers Fusilier.";
+        } else {
             $formationStmt = $pdo->prepare("SELECT id FROM formation WHERE id_utilisateur = ?");
             $formationStmt->execute([$id_utilisateur]);
             $formationExists = $formationStmt->fetch();
 
             if ($formationExists) {
-                // Si une formation existe, la mettre à jour
                 $updateStmt = $pdo->prepare("UPDATE formation SET formation = ? WHERE id_utilisateur = ?");
                 $updateStmt->execute([$formation, $id_utilisateur]);
                 $message = $formation == 'FS' ? "Formation validée avec succès." : "Formation rejetée (FB).";
             } else {
-                // Si aucune formation n'existe, en créer une nouvelle
                 $insertStmt = $pdo->prepare("INSERT INTO formation (id_utilisateur, formation) VALUES (?, ?)");
                 $insertStmt->execute([$id_utilisateur, $formation]);
                 $message = $formation == 'FS' ? "Formation validée avec succès." : "Formation rejetée (FB).";
             }
         }
-    } else {
-        $message = "Erreur : utilisateur non sélectionné.";
     }
 }
 
-// Récupérer les demandes de spécialité en attente
 $stmt = $pdo->prepare("
     SELECT ds.id, u.nom as utilisateur_nom, s.nom as spe_nom
     FROM demande_spe ds
@@ -74,31 +73,6 @@ $stmt = $pdo->prepare("
 $stmt->execute();
 $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Handle form submissions for accepting requests
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['accept']) && isset($_POST['demande_id'])) {
-    $demande_id = $_POST['demande_id'];
-
-    // Fetch the demande details
-    $demandeStmt = $pdo->prepare("
-        SELECT ds.spe_id, ds.utilisateur_id
-        FROM demande_spe ds
-        WHERE ds.id = :id
-    ");
-    $demandeStmt->execute(['id' => $demande_id]);
-    $demande = $demandeStmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($demande) {
-        // Update the user's spe_id
-        $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = :spe_id WHERE id = :id");
-        $updateStmt->execute(['spe_id' => $demande['spe_id'], 'id' => $demande['utilisateur_id']]);
-
-        // Mark the request as accepted
-        $updateDemandeStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = :id");
-        $updateDemandeStmt->execute(['id' => $demande_id]);
-
-        $message = "Spécialité acceptée avec succès.";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -118,18 +92,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['accept']) && isset($_
         <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
     <?php endif; ?>
 
-    <form action="formation.php" method="post">
-        <label for="id_utilisateur">Choisir un utilisateur :</label>
-        <select name="id_utilisateur" id="id_utilisateur" required>
-            <option value="">Sélectionnez un utilisateur</option>
-            <?php foreach ($users as $user): ?>
-                <option value="<?php echo $user['id']; ?>"><?php echo htmlspecialchars($user['nom']); ?></option>
-            <?php endforeach; ?>
-        </select>
 
-        <button type="submit" name="valider" class="btn btn-primary">Valider la Formation Spécialisée (FS)</button>
-        <button type="submit" name="rejeter" class="btn btn-danger">Rejeter la Formation (FB)</button>
-    </form>
+    <h3>Utilisateurs de la même spécialité</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($user['nom']); ?></td>
+                    <td>
+                        <form action="formation.php" method="post">
+                            <input type="hidden" name="id_utilisateur" value="<?php echo $user['id']; ?>">
+                            <button type="submit" name="valider" class="btn btn-primary">FS</button>
+                            <button type="submit" name="rejeter" class="btn btn-danger">FB</button>
+                            <button type="submit" name="virer" class="btn btn-warning">VIRER</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>
 
 <h1>Demandes de spécialités en attente</h1>
@@ -137,6 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['accept']) && isset($_
 <?php if (isset($message)): ?>
     <p style="color: green;"><?php echo htmlspecialchars($message); ?></p>
 <?php endif; ?>
+
 
 <table>
     <thead>
