@@ -225,11 +225,15 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <label for="specialite_id">Choisissez une spécialité :</label>
         <select name="specialite_id" id="specialite_id" required>
             <option value="">-- Sélectionnez une spécialité --</option>
-            <?php foreach ($specialites as $specialite): ?>
-                <option value="<?php echo htmlspecialchars($specialite['id']); ?>">
-                    <?php echo htmlspecialchars($specialite['nom']); ?>
-                </option>
-            <?php endforeach; ?>
+            <option value="1">Machine Gunner</option>
+            <option value="2">Anti-Tank</option>
+            <option value="3">Medicae</option>
+            <option value="4">Vox Operator</option>
+            <option value="5">Marksman</option>
+            <option value="6">Plasma</option>
+            <option value="7">Breacher</option>
+            <option value="8">ETL</option>
+            <option value="9">Fusilier</option>
         </select>
         <input type="hidden" name="action" value="demande_spe">
         <div style="margin-top: 20px;">
@@ -237,6 +241,7 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         </div>
     </form>
 </div>
+
 </div>
 </div>
 
