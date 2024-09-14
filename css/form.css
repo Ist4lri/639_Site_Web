@@ -20,7 +20,7 @@ body {
 
 h2 {
     text-align: center;
-    color: #d9d9d9; /* Titre en rouge */
+    color: #9ed79d; /* Titre en rouge */
     padding-top: 10px; /* Espace au-dessus du titre */
     margin-bottom: 10px;
 }
@@ -44,7 +44,7 @@ input[type="password"] {
 }
 
 input[type="submit"] {
-    background-color: #d9d9d9; /* Rouge pour le bouton */
+    background-color: #9ed79d; /* Rouge pour le bouton */
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -56,7 +56,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #d43b4a; /* Couleur du bouton au survol */
+    background-color: #3bd237; /* Couleur du bouton au survol */
 }
 
 /* Messages d'erreur et de succès */
@@ -79,7 +79,7 @@ input[type="submit"]:hover {
 }
 
 a {
-    color: #d9d9d9; /* Liens en rouge */
+    color: #3bd237; /* Liens en rouge */
     text-decoration: none;
 }
 
