@@ -5,7 +5,7 @@ body {
     padding: 0;
     background: url('../src/assets/Background.png') no-repeat center center fixed; 
     background-size: cover; /* Assure que l'image couvre tout l'écran */
-    color: #1DB60E; 
+    color: #000000; 
 }
 
 p img{
@@ -181,7 +181,7 @@ form input[type="submit"]:hover {
 
 p {
     font-size: 1rem; /* Taille de police standard pour le texte */
-    color: #f1f1f1; /* Couleur de texte plus sombre */
+    color: #000000; /* Couleur de texte plus sombre */
     text-align: center; /* Centrer le texte */
     margin-top: 5px; /* Ajout d'un espace au-dessus du paragraphe */
 }
