@@ -29,7 +29,9 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // Récupérer le n
         <?php endif; ?>
     </div>
     <div class="head-logo2">
-        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien"
+         <a href="../index.php">
+        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
+        </a>
     </div>
     <nav class="head-nav">
         <?php if ($isLoggedIn): ?>
