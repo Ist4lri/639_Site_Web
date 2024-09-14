@@ -216,7 +216,6 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
             </div>
         </form>
         <div class="specialite-request-form">
-    <h3>Demander une spécialité</h3>
     <?php if ($message): ?>
         <div class="message"><?php echo htmlspecialchars($message); ?></div>
     <?php endif; ?>
