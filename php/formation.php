@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <td><?php echo htmlspecialchars($demande['utilisateur_nom']); ?></td>
                     <td><?php echo htmlspecialchars($demande['spe_nom']); ?></td>
                     <td>
-                        <form action="gestion_demandes.php" method="post">
+                        <form action="formation.php" method="post">
                             <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
                             <button type="submit" name="accept">Accepter</button>
                         </form>
