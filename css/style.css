@@ -182,6 +182,7 @@ form input[type="submit"]:hover {
 p {
     font-size: 1rem; /* Taille de police standard pour le texte */
     color: #00B619; /* Couleur de texte plus sombre */
+    padding: 2px;
     text-align: center; /* Centrer le texte */
     background-color: #424242;
     border-radius: 6px;
