@@ -36,6 +36,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: profil_utilisateur.php");
         exit();
     }
+
+$speStmt = $pdo->prepare("SELECT id, nom FROM spe WHERE total IS NOT NULL");
+$speStmt->execute();
+$specialites = $speStmt->fetchAll(PDO::FETCH_ASSOC);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] === 'demande_spe') {
+    if (isset($_POST['specialite_id']) && !empty($_POST['specialite_id'])) {
+        $specialite_id = $_POST['specialite_id'];
+
+        $stmt = $pdo->prepare("INSERT INTO demande_spe (spe_id, utilisateur_id, demande) VALUES (:spe_id, :utilisateur_id, 'Attente')");
+        $stmt->execute([
+            ':spe_id' => $specialite_id,
+            ':utilisateur_id' => $utilisateur['id'],
+        ]);
+
+        $message = "Votre demande de spécialité a été soumise avec succès.";
+        header("Location: profil_utilisateur.php");
+        exit();
+    } else {
+        $message = "Veuillez sélectionner une spécialité.";
+    }
+}
+
+
     
     if (isset($_POST['nouveau_nom']) && !empty($_POST['nouveau_nom'])) {
         $nouveauNom = $_POST['nouveau_nom'];
@@ -191,7 +215,29 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
                 <input type="submit" value="Mettre à jour l'email">
             </div>
         </form>
-    </div>
+        <div class="specialite-request-form">
+    <h3>Demander une spécialité</h3>
+    <?php if ($message): ?>
+        <div class="message"><?php echo htmlspecialchars($message); ?></div>
+    <?php endif; ?>
+
+    <form action="profil_utilisateur.php" method="post">
+        <label for="specialite_id">Choisissez une spécialité :</label>
+        <select name="specialite_id" id="specialite_id" required>
+            <option value="">-- Sélectionnez une spécialité --</option>
+            <?php foreach ($specialites as $specialite): ?>
+                <option value="<?php echo htmlspecialchars($specialite['id']); ?>">
+                    <?php echo htmlspecialchars($specialite['nom']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <input type="hidden" name="action" value="demande_spe">
+        <div style="margin-top: 20px;">
+            <input type="submit" value="Soumettre la demande" class="btn">
+        </div>
+    </form>
+</div>
+</div>
 </div>
 
 <div class="excel-download">
