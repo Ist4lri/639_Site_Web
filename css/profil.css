@@ -69,6 +69,28 @@ body {
     width: 94%
 }
 
+
+select {
+    background-color: #333; /* Dark background like the rest of the page */
+    color: #ffffff; /* White text color */
+    padding: 10px; /* Padding for a better look */
+    border: 2px solid #39d17c; /* Green border similar to the buttons */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Set font size to match other elements */
+    width: 94%; /* Make it take the full width of its container */
+    box-sizing: border-box; /* Ensure padding doesn't affect total width */
+}
+
+select:focus {
+    outline: none;
+    border-color: #28a45d; 
+}
+
+option {
+    background-color: #444; 
+    color: #fff; 
+}
+
 .update-form input[type="text"],
 .update-form input[type="email"],
 .update-form textarea {
