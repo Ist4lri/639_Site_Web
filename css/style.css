@@ -5,7 +5,7 @@ body {
     padding: 0;
     background: url('../src/assets/Background.png') no-repeat center center fixed; 
     background-size: cover; /* Assure que l'image couvre tout l'écran */
-    color: #fff; /* Texte par défaut en blanc pour le contraste */
+    color: #3E3E3E; 
 }
 
 p img{
