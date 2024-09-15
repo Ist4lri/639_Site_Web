@@ -147,7 +147,7 @@ th {
         transform: translateY(0);
     }
 }
-.Tooltip2 {
+.tooltip2 {
     position: absolute;
     right: 125px; 
     top: 120px;
@@ -194,7 +194,7 @@ th {
 
 <div class="intro_content">
     <?php if ($isLoggedIn): ?>
-    <p class="Tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
+    <p class="tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
     <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">
     <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis">
     </a>
@@ -346,8 +346,8 @@ function toggleTable(tableId) {
 
 
   <script>
-    function showTooltip2() {
-        const tooltip2 = document.querySelector('.Tooltip2');
+    function showtooltip2() {
+        const tooltip2 = document.querySelector('.tooltip2');
         tooltip2.style.opacity = 1;
 
         setTimeout(() => {
@@ -356,7 +356,7 @@ function toggleTable(tableId) {
     }
 
     
-    setInterval(showTooltip2, 7000);
+    setInterval(showtooltip2, 7000);
 </script>
 </body>
 </html>
