@@ -183,8 +183,7 @@ th {
             border-radius: 5px;
             text-align: center;
         }
-        p.modal{
-            background-color: #000000;
+
         }
         .close {
             color: red;
@@ -225,6 +224,14 @@ th {
 
 <div class="intro_content">
     <?php if ($isLoggedIn): ?>
+
+    <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>N'oubliez pas d'aller voter ! <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">Cliquez ici pour voter</a></p>
+    </div>
+</div>
+    
     <p class="tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
     <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">
     <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis">
@@ -344,12 +351,7 @@ foreach ($specialties as $specialty):
     <div class="eff"><a href="php/effectif.php"><img src="src/assets/BoutonNosEffectifs0.png" alt="Effectif"></a></div>
 </div>
 
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>N'oubliez pas d'aller voter ! <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">Cliquez ici pour voter</a></p>
-    </div>
-</div>
+
 
 <script>
     function showModal() {
