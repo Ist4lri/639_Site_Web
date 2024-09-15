@@ -140,6 +140,9 @@ foreach ($grades as $grade) {
 
 
 ?>
-<img class="Krieg" href="krieg.php" src="../src/assets/DK.png" alt="Image">
+<a href="krieg.php">
+    <img class="Krieg" src="../src/assets/DK.png" alt="Image">
+</a>
+
 </body>
 </html>
