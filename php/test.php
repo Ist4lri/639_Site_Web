@@ -71,7 +71,7 @@
         var now = Date.now();
 
         // Si la modale n'a jamais été affichée ou si 3 heures sont écoulées
-        if (!lastShown || (now - lastShown) >= 10800000) {
+        if (!lastShown || (now - lastShown) >= 5000) {
             showModal();
         }
     }
@@ -81,7 +81,7 @@
         checkModal();
 
         // Répéter toutes les 3 heures
-        setInterval(checkModal, 10800000);
+        setInterval(checkModal, 5000);
     };
 </script>
 
