@@ -349,30 +349,33 @@ foreach ($specialties as $specialty):
 </div>
 
 <script>
-    window.onload = function() {
+    function showPopup() {
         var modal = document.getElementById("myModal");
         var closeBtn = document.getElementsByClassName("close")[0];
 
-
         modal.style.display = "flex";
-
 
         closeBtn.onclick = function() {
             modal.style.display = "none";
+            localStorage.setItem('lastPopupTime', new Date().getTime());
         };
 
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                localStorage.setItem('lastPopupTime', new Date().getTime());
             }
-            window.onload = function() {
-        const now = new Date().getTime();
-        const lastPopupTime = localStorage.getItem('lastPopupTime');
-
-        if (!lastPopupTime || now - lastPopupTime >= 2 * 1000) {
-            showPopup();
-        }
         };
+    }
+    window.onload = function() {
+        setInterval(function() {
+            const now = new Date().getTime();
+            const lastPopupTime = localStorage.getItem('lastPopupTime');
+
+            if (!lastPopupTime || now - lastPopupTime >= 2 * 1000) {
+                showPopup();
+            }
+        }, 2000);
     };
 </script>
 
