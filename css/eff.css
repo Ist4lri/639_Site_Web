@@ -102,3 +102,10 @@ h2 {
     padding-bottom: 10px;
     background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent pour le titre */
 }
+
+
+img.Krieg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
