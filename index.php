@@ -147,6 +147,53 @@ th {
         transform: translateY(0);
     }
 }
+
+         .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #424242;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content a {
+            color: #9ed79d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .modal-content a:hover {
+            text-decoration: underline;
+        }
+
+        .close {
+            color: #3bd237;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
     </style>
 </head>
 <body>
@@ -293,6 +340,36 @@ foreach ($specialties as $specialty):
     <div class="eff"><a href="php/effectif.php"><img src="src/assets/BoutonNosEffectifs0.png" alt="Effectif"></a></div>
 </div>
 
+
+        <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">ici</a>.</p>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        var modal = document.getElementById("myModal");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+
+        modal.style.display = "flex";
+
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    };
+</script>
+
+        
 <script>
 function toggleTable(tableId) {
     const table = document.getElementById(tableId);
@@ -327,14 +404,6 @@ function toggleTable(tableId) {
         localStorage.setItem('lastPopupTime', new Date().getTime());
     }
 
-    window.onload = function() {
-        const now = new Date().getTime();
-        const lastPopupTime = localStorage.getItem('lastPopupTime');
-
-        if (!lastPopupTime || now - lastPopupTime >= 6 * 60 * 60 * 1000) {
-            showPopup();
-        }
-    };
 </script>
 
 </body>
