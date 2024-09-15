@@ -222,13 +222,7 @@ th {
     </nav>
 </header>
 
-         <?php if ($isLoggedIn): ?>
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>N'oubliez pas d'aller voter ! <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">Cliquez ici pour voter</a></p>
-    </div>
-    <?php endif; ?>
+        
 
 <div class="intro_content">
     <?php if ($isLoggedIn): ?>
