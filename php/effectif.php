@@ -18,7 +18,7 @@ $sql = "SELECT u.nom, u.grade, s.nom AS specialite, f.formation, f.formation_hie
 $stmt = $pdo->query($sql);
 $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<?php include 'header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
