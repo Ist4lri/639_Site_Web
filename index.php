@@ -165,8 +165,8 @@ th {
             display: none;
             position: fixed;
             z-index: 1;
-            left: 41%;
-            top: 43%;
+            left: 38%;
+            top: 42%;
             width: 20%;
             height: 20%;
             background-color: #424242;
