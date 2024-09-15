@@ -157,7 +157,7 @@ th {
     border-radius: 8px;
     font-size: 14px;
     border: 0.5px solid #00F529; 
-    opacity: 0;
+    opacity: 1;
     font-weight: bold;
     transition: opacity 0.3s ease;
 }
