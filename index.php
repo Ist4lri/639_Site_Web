@@ -365,6 +365,13 @@ foreach ($specialties as $specialty):
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+            window.onload = function() {
+        const now = new Date().getTime();
+        const lastPopupTime = localStorage.getItem('lastPopupTime');
+
+        if (!lastPopupTime || now - lastPopupTime >= 6 * 60 * 60 * 1000) {
+            showPopup();
+        }
         };
     };
 </script>
