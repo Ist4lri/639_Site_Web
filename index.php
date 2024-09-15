@@ -157,7 +157,7 @@ th {
     border-radius: 8px;
     font-size: 14px;
     border: 0.5px solid #00F529; 
-    opacity: 1;
+    opacity: 0;
     font-weight: bold;
     transition: opacity 0.3s ease;
 }
@@ -348,12 +348,14 @@ function toggleTable(tableId) {
         <script>
     function showTooltip() {
         const tooltip = document.querySelector('.Tooltip2');
-        tooltip.style.opacity = 1;
+        tooltip2.style.opacity = 1;
 
         setTimeout(() => {
             tooltip.style.opacity = 0;
         }, 7000); 
     }
+             setInterval(showTooltip, 7000);
+</script>
             
 </body>
 </html>
