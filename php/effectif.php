@@ -137,6 +137,8 @@ foreach ($grades as $grade) {
 
     echo "</tbody></table></div>";
 }
+
+<img href="krieg.php" src="../src/assets/DK.png" alt="Image">
 ?>
 
 </body>
