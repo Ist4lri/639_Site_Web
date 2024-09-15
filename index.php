@@ -378,10 +378,11 @@ foreach ($specialties as $specialty):
             const now = new Date().getTime();
             const lastPopupTime = localStorage.getItem('lastPopupTime');
 
-            if (!lastPopupTime || now - lastPopupTime >= 10 * 1000) { // 3 heures en millisecondes
+            // Affiche la modale si elle n'a pas été affichée ou si 10 secondes se sont écoulées
+            if (!lastPopupTime || now - lastPopupTime >= 10 * 1000) { // 10 secondes en millisecondes
                 showPopup();
             }
-        }
+        }, 10000); // Délai de 10 secondes avant d'exécuter la fonction
     };
 </script>
 
