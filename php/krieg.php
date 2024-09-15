@@ -13,7 +13,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-image: url('../src/assets/battle.png');
+            background-image: url('../src/assets/Battle.png');
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
@@ -30,7 +30,7 @@
         }
 
         video {
-            width: 80%;
+            width: 60%;
             height: auto;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             z-index: 2;
