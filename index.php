@@ -232,9 +232,6 @@ th {
 
 <div class="intro_content">
     <?php if ($isLoggedIn): ?>
-
-    
-</div>
     
     <p class="tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
     <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">
