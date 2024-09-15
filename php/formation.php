@@ -17,18 +17,18 @@ $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email 
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
-// Vérifier si l'utilisateur a la bonne spécialité et gerance (gérance 1 ou 2)
+// Vérifier si l'utilisateur a la bonne spécialité et gérance (gérance 1 ou 2)
 if (!in_array($currentUser['gerance'], [1, 2])) {
     header("Location: insubordination.php");
     exit();
 }
 
-
+// Récupérer les utilisateurs ayant la même spécialité
 $usersStmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE spe_id = :spe_id");
 $usersStmt->execute(['spe_id' => $currentUser['spe_id']]);
 $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
 
-
+// Si une demande est soumise (formation ou rejet)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
     $id_utilisateur = $_POST['id_utilisateur'];
 
@@ -63,14 +63,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
     }
 }
 
+// Si le bouton "Accepter" est pressé pour une demande de spécialité
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
+    $demande_id = $_POST['demande_id'];
+
+    // Mettre à jour la demande pour indiquer qu'elle est acceptée
+    $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Acceptée' WHERE id = ?");
+    $updateDemandStmt->execute([$demande_id]);
+    $message = "Demande acceptée avec succès.";
+}
+
+// Récupérer les demandes de spécialité de la même spécialité que l'utilisateur
 $stmt = $pdo->prepare("
     SELECT ds.id, u.nom as utilisateur_nom, s.nom as spe_nom
     FROM demande_spe ds
     JOIN utilisateurs u ON ds.utilisateur_id = u.id
     JOIN spe s ON ds.spe_id = s.id
-    WHERE ds.demande = 'Attente'
+    WHERE ds.demande = 'Attente' AND ds.spe_id = :spe_id
 ");
-$stmt->execute();
+$stmt->execute(['spe_id' => $currentUser['spe_id']]);
 $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -82,7 +93,6 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validation de Formation</title>
     <link rel="stylesheet" href="../css/med.css">
-    
 </head>
 <body>
 
@@ -122,11 +132,6 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h1>Demandes de spécialités en attente</h1>
 
-<?php if (isset($message)): ?>
-    <p style="color: green;"><?php echo htmlspecialchars($message); ?></p>
-<?php endif; ?>
-
-
 <table>
     <thead>
         <tr>
@@ -143,7 +148,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td>
                     <form action="formation.php" method="post">
                         <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
-                        <button type="submit" name="accept">Accepter</button>
+                        <button type="submit" name="accept" class="btn btn-success">Accepter</button>
                     </form>
                 </td>
             </tr>
