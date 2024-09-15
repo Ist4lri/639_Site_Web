@@ -91,7 +91,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <nav class="head-nav">
             <a href="profil_utilisateur.php">Profil</a>
-            <a href="demande.php">Demandes</a>
+            <a href="officier.php">Officier</a>
             <a href="Dec.php">Déconnexion</a>
     </nav>
 </header>
