@@ -187,7 +187,7 @@ th {
 
         .close {
             position: absolute;
-            top: -15px;
+            top: -25px;
             right: 10px;
             color: red;
             font-size: 28px;
@@ -357,7 +357,7 @@ foreach ($specialties as $specialty):
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>N'oubliez pas d'aller voter ! <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">Cliquez ici pour voter</a></p>
+        <p>N'oubliez pas d'aller voter pour le serveur ! <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank"><br>Cliquez Moi pour voter</a></p>
     </div>
     <?php endif; ?>
 
