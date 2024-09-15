@@ -165,7 +165,7 @@ th {
             display: none;
             position: fixed;
             z-index: 1;
-            left: 38%;
+            left: 40%;
             top: 42%;
             width: 20%;
             height: 20%;
