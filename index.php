@@ -147,53 +147,22 @@ th {
         transform: translateY(0);
     }
 }
+.Tooltip2 {
+    position: absolute;
+    right: 125px; 
+    top: 120px;
+    background-color: #222222;
+    color: #00F529;
+    padding: 0px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 0.5px solid #00F529; 
+    opacity: 0;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
 
-         .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #424242;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-content a {
-            color: #9ed79d;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .modal-content a:hover {
-            text-decoration: underline;
-        }
-
-        .close {
-            color: #3bd237;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: red;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
+  
     </style>
 </head>
 <body>
@@ -225,6 +194,8 @@ th {
 
 <div class="intro_content">
     <?php if ($isLoggedIn): ?>
+    <p class="Tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
+    <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis">
         <h1>Bienvenue dans la Garde Impériale, soldat du 639ème Régiment Cadien.</h1>
         <p>Nous espérons de vous une efficacité et une assiduité exemplaire. 
             Les Cadiens, originaires de Cadia, sont parmi les régiments les plus disciplinés et les plus redoutables de l'Imperium. 
@@ -341,68 +312,6 @@ foreach ($specialties as $specialty):
 </div>
 
 
-      </style>
-</head>
-<body>
-
-
-</style>
-</head>
-<body>
-
-<!-- Contenu de la fenêtre modale -->
-<!-- Contenu de la fenêtre modale -->
-<div id="myModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">Cliquez MOI!!</a></p>
-    </div>
-</div>
-
-<script>
-    // Fonction pour afficher la modale
-    function showModal() {
-        var modal = document.getElementById("myModal");
-        var closeBtn = document.getElementsByClassName("close")[0];
-
-        modal.style.display = "flex";
-
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-            localStorage.setItem('modalShown', 'true'); // Sauvegarder dans le localStorage que la modale a été fermée
-        };
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-                localStorage.setItem('modalShown', 'true'); // Sauvegarder dans le localStorage que la modale a été fermée
-            }
-        };
-    }
-
-    // Vérifier si la modale a déjà été affichée
-    function checkModal() {
-        if (!localStorage.getItem('modalShown')) {
-            showModal(); // Affiche la modale si elle n'a pas encore été affichée
-        }
-    }
-
-    // Démarrer un timer pour afficher la modale après 30 secondes si elle n'a pas déjà été affichée
-    window.onload = function() {
-        setTimeout(checkModal, 5000); // Vérifie après 30 secondes 
-    };
-</script>
-
-
-
-</body>
-</html>
-
-
-
-</body>
-</html>
-
         
 <script>
 function toggleTable(tableId) {
@@ -431,13 +340,6 @@ function toggleTable(tableId) {
 
     
     setInterval(showTooltip, 7000);
-</script>
-        <script>
-    function showPopup() {
-        alert("N'oubliez pas d'aller voter https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian");
-        localStorage.setItem('lastPopupTime', new Date().getTime());
-    }
-
 </script>
 
 </body>
