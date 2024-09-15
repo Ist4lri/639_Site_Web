@@ -173,7 +173,7 @@ th {
             justify-content: center;
             align-items: center;
             border-radius: 10px;
-            border: 0.5px solid #3bd237;
+            border: 2px solid #3bd237;
         }
 
         .modal-content {
@@ -376,7 +376,7 @@ foreach ($specialties as $specialty):
         var lastShown = localStorage.getItem('lastShown');
         var now = Date.now();
 
-        if (!lastShown || (now - lastShown) >= 5000) {
+        if (!lastShown || (now - lastShown) >= 10800000) {
             showModal();
         }
     }
@@ -384,7 +384,7 @@ foreach ($specialties as $specialty):
     window.onload = function() {
         checkModal();
 
-        setInterval(checkModal, 5000);
+        setInterval(checkModal, 10800000);
     };
 </script>
         
