@@ -375,7 +375,7 @@ foreach ($specialties as $specialty):
         // Utilise setInterval pour afficher la modale toutes les 10 secondes
         setInterval(function() {
             showPopup();
-        }
+        }, 100);
     };
 </script>
 
