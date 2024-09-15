@@ -342,5 +342,16 @@ function toggleTable(tableId) {
     setInterval(showTooltip, 7000);
 </script>
 
+
+        <script>
+    function showTooltip() {
+        const tooltip = document.querySelector('.Tooltip2');
+        tooltip.style.opacity = 1;
+
+        setTimeout(() => {
+            tooltip.style.opacity = 0;
+        }, 7000); 
+    }
+            
 </body>
 </html>
