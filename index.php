@@ -185,7 +185,7 @@ th {
         }
 
         }
-        .close {
+        span.close {
             color: red;
             float: right;
             font-size: 28px;
