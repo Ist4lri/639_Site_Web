@@ -74,7 +74,7 @@ $stmt->execute();
 $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -82,6 +82,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validation de Formation</title>
     <link rel="stylesheet" href="../css/med.css">
+    
 </head>
 <body>
 
