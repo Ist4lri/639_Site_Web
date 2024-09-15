@@ -341,10 +341,10 @@ foreach ($specialties as $specialty):
 </div>
 
 
-        <div id="myModal" class="modal">
+      <div id="myModal" class="modal" style="display:none;">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank"> <br>Cliquer Moi!!</a></p>
+        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank"><br>Cliquer Moi!!</a></p>
     </div>
 </div>
 
@@ -367,6 +367,7 @@ foreach ($specialties as $specialty):
             }
         };
     }
+
     window.onload = function() {
         setInterval(function() {
             const now = new Date().getTime();
@@ -375,10 +376,9 @@ foreach ($specialties as $specialty):
             if (!lastPopupTime || now - lastPopupTime >= 60 * 1000) {
                 showPopup();
             }
-        }, 60000);
+        }, 60000); // Répète toutes les 60 secondes
     };
 </script>
-
         
 <script>
 function toggleTable(tableId) {
