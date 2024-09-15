@@ -166,12 +166,13 @@ th {
             position: fixed;
             z-index: 1;
             left: 40%;
-            top: 42%;
+            top: 35%;
             width: 20%;
             height: 20%;
             background-color: #424242;
             justify-content: center;
             align-items: center;
+            border-radius: 10px;
         }
 
         .modal-content {
