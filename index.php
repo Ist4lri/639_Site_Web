@@ -346,6 +346,11 @@ foreach ($specialties as $specialty):
 <body>
 
 
+</style>
+</head>
+<body>
+
+<!-- Contenu de la fenêtre modale -->
 <div id="myModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -354,30 +359,33 @@ foreach ($specialties as $specialty):
 </div>
 
 <script>
-    function showPopup() {
-        var modal = document.getElementById("myModal");
-        var closeBtn = document.getElementsByClassName("close")[0];
-
-        modal.style.display = "flex";
-
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        };
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-    }
-
+    // Afficher la fenêtre modale après un délai de 2 secondes lors du chargement de la page
     window.onload = function() {
-        // Utilise setInterval pour afficher la modale toutes les 10 secondes
-        setInterval(function() {
-            showPopup();
-        }, 100);
+        setTimeout(function() {
+            var modal = document.getElementById("myModal");
+            var closeBtn = document.getElementsByClassName("close")[0];
+
+
+            modal.style.display = "flex";
+
+
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            };
+
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        }, 2000);
     };
 </script>
+
+</body>
+</html>
+
 
 
 </body>
