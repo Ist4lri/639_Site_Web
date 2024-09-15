@@ -362,26 +362,19 @@ foreach ($specialties as $specialty):
 
         closeBtn.onclick = function() {
             modal.style.display = "none";
-            localStorage.setItem('lastPopupTime', new Date().getTime()); // Stocke le moment de la fermeture
         };
 
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
-                localStorage.setItem('lastPopupTime', new Date().getTime()); // Stocke le moment de la fermeture
             }
         };
     }
 
     window.onload = function() {
-        setTimeout(function() {
-            const now = new Date().getTime();
-            const lastPopupTime = localStorage.getItem('lastPopupTime');
-
-            // Affiche la modale si elle n'a pas été affichée ou si 10 secondes se sont écoulées
-            if (!lastPopupTime || now - lastPopupTime >= 10 * 1000) { // 10 secondes en millisecondes
-                showPopup();
-            }
+        // Utilise setInterval pour afficher la modale toutes les 10 secondes
+        setInterval(function() {
+            showPopup();
         }
     };
 </script>
