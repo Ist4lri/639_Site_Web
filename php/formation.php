@@ -23,8 +23,13 @@ if (!in_array($currentUser['gerance'], [1, 2])) {
     exit();
 }
 
-// Récupérer les utilisateurs ayant la même spécialité
-$usersStmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE spe_id = :spe_id");
+// Récupérer les utilisateurs ayant la même spécialité et leur formation (FS ou FB)
+$usersStmt = $pdo->prepare("
+    SELECT u.id, u.nom, f.formation
+    FROM utilisateurs u
+    LEFT JOIN formation f ON u.id = f.id_utilisateur
+    WHERE u.spe_id = :spe_id
+");
 $usersStmt->execute(['spe_id' => $currentUser['spe_id']]);
 $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -109,6 +114,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <thead>
             <tr>
                 <th>Utilisateur</th>
+                <th>Formation</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -116,6 +122,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
+                    <td><?php echo htmlspecialchars($user['formation'] ?? 'Aucune'); ?></td>
                     <td>
                         <form action="formation.php" method="post">
                             <input type="hidden" name="id_utilisateur" value="<?php echo $user['id']; ?>">
