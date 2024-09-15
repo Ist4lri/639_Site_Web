@@ -56,7 +56,7 @@ $isLoggedIn = isset($_SESSION['utilisateur']);
 $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 ?>
 
-<?php include 'header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
