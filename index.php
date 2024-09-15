@@ -356,7 +356,7 @@ function toggleTable(tableId) {
     }
 
     
-    setInterval(showtooltip2, 7000);
+    setInterval(showtooltip2, 3000);
 </script>
 </body>
 </html>
