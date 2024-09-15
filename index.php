@@ -378,7 +378,7 @@ foreach ($specialties as $specialty):
             const now = new Date().getTime();
             const lastPopupTime = localStorage.getItem('lastPopupTime');
 
-            if (!lastPopupTime || now - lastPopupTime >= 3 * 60 * 60 * 1000) { // 3 heures en millisecondes
+            if (!lastPopupTime || now - lastPopupTime >= 10 * 1000) { // 3 heures en millisecondes
                 showPopup();
             }
         }
