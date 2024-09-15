@@ -169,14 +169,15 @@ th {
             top: 35%;
             width: 20%;
             height: 20%;
-            background-color: #000000;
+            background-color: #424242;
             justify-content: center;
             align-items: center;
             border-radius: 10px;
+            border: #3bd237;
         }
 
         .modal-content {
-            background-color: #000000;
+            background-color: #424242;
             color: #9ed79d;
             padding: 20px;
             border-radius: 5px;
