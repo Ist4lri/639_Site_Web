@@ -161,6 +161,33 @@ th {
     font-weight: bold;
     transition: opacity 0.3s ease;
 }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #424242;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #424242;
+            color: #9ed79d;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .close {
+            color: red;
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
 
   
     </style>
@@ -313,7 +340,49 @@ foreach ($specialties as $specialty):
     <div class="eff"><a href="php/effectif.php"><img src="src/assets/BoutonNosEffectifs0.png" alt="Effectif"></a></div>
 </div>
 
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>N'oubliez pas d'aller voter ! <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">Cliquez ici pour voter</a></p>
+    </div>
+</div>
 
+<script>
+    function showModal() {
+        var modal = document.getElementById("myModal");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        modal.style.display = "flex";
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            localStorage.setItem('lastShown', Date.now()); 
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                localStorage.setItem('lastShown', Date.now()); 
+            }
+        };
+    }
+
+
+    function checkModal() {
+        var lastShown = localStorage.getItem('lastShown');
+        var now = Date.now();
+
+        if (!lastShown || (now - lastShown) >= 10800000) {
+            showModal();
+        }
+    }
+
+    window.onload = function() {
+        checkModal();
+
+        setInterval(checkModal, 10800000);
+    };
+</script>
         
 <script>
 function toggleTable(tableId) {
