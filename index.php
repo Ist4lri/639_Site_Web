@@ -195,7 +195,7 @@ th {
 <div class="intro_content">
     <?php if ($isLoggedIn): ?>
     <p class="Tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
-    <img src="/src/assets/ServosMortis.png" alt="Servo Mortis" class="servo-mortis">
+    <img src="/src/assets/ServosMortis.png" href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" alt="Servo Mortis" class="servo-mortis">
         <h1>Bienvenue dans la Garde Impériale, soldat du 639ème Régiment Cadien.</h1>
         <p>Nous espérons de vous une efficacité et une assiduité exemplaire. 
             Les Cadiens, originaires de Cadia, sont parmi les régiments les plus disciplinés et les plus redoutables de l'Imperium. 
