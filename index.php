@@ -341,44 +341,46 @@ foreach ($specialties as $specialty):
 </div>
 
 
-      <div id="myModal" class="modal" style="display:none;">
+      </style>
+</head>
+<body>
+
+<!-- Contenu de la fenêtre modale -->
+<div id="myModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank"><br>Cliquer Moi!!</a></p>
+        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">ici</a>.</p>
     </div>
 </div>
 
 <script>
-    function showPopup() {
-        var modal = document.getElementById("myModal");
-        var closeBtn = document.getElementsByClassName("close")[0];
-
-        modal.style.display = "flex";
-
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-            localStorage.setItem('lastPopupTime', new Date().getTime());
-        };
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-                localStorage.setItem('lastPopupTime', new Date().getTime());
-            }
-        };
-    }
-
+    // Afficher la fenêtre modale après un délai de 2 secondes lors du chargement de la page
     window.onload = function() {
-        setInterval(function() {
-            const now = new Date().getTime();
-            const lastPopupTime = localStorage.getItem('lastPopupTime');
+        setTimeout(function() {
+            var modal = document.getElementById("myModal");
+            var closeBtn = document.getElementsByClassName("close")[0];
 
-            if (!lastPopupTime || now - lastPopupTime >= 2 * 1000) {
-                showPopup();
-            }
-        }, 2000); // Répète toutes les 60 secondes
+            // Affiche la fenêtre modale après 2 secondes
+            modal.style.display = "flex";
+
+            // Fermer la fenêtre modale quand on clique sur le "X"
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            };
+
+            // Fermer la fenêtre modale si on clique en dehors du contenu
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        }, 2000); // 2000 millisecondes = 2 secondes
     };
 </script>
+
+</body>
+</html>
+
         
 <script>
 function toggleTable(tableId) {
