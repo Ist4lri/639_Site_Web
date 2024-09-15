@@ -24,7 +24,7 @@ header.head {
 
 /* Style du menu */
 .menu {
-    margin: 20px 0;
+    margin-top: 140px 0;
     display: flex;
     justify-content: center;
     gap: 15px;
