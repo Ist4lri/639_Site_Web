@@ -351,6 +351,7 @@ foreach ($specialties as $specialty):
 <body>
 
 <!-- Contenu de la fenêtre modale -->
+<!-- Contenu de la fenêtre modale -->
 <div id="myModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -368,23 +369,30 @@ foreach ($specialties as $specialty):
 
         closeBtn.onclick = function() {
             modal.style.display = "none";
+            localStorage.setItem('modalShown', 'true'); // Sauvegarder dans le localStorage que la modale a été fermée
         };
 
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                localStorage.setItem('modalShown', 'true'); // Sauvegarder dans le localStorage que la modale a été fermée
             }
         };
     }
 
-    // Afficher la fenêtre modale après un délai de 2 secondes lors du chargement de la page
-    window.onload = function() {
-        setTimeout(showModal, 2000); // Affiche après 2 secondes
+    // Vérifier si la modale a déjà été affichée
+    function checkModal() {
+        if (!localStorage.getItem('modalShown')) {
+            showModal(); // Affiche la modale si elle n'a pas encore été affichée
+        }
+    }
 
-        // Répéter toutes les 10 secondes après la première apparition
-        setInterval(showModal, 10000);
+    // Démarrer un timer pour afficher la modale après 30 secondes si elle n'a pas déjà été affichée
+    window.onload = function() {
+        setTimeout(checkModal, 5000); // Vérifie après 30 secondes 
     };
 </script>
+
 
 
 </body>
