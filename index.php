@@ -372,7 +372,7 @@ foreach ($specialties as $specialty):
         var lastShown = localStorage.getItem('lastShown');
         var now = Date.now();
 
-        if (!lastShown || (now - lastShown) >= 10800000) {
+        if (!lastShown || (now - lastShown) >= 5000) {
             showModal();
         }
     }
@@ -380,7 +380,7 @@ foreach ($specialties as $specialty):
     window.onload = function() {
         checkModal();
 
-        setInterval(checkModal, 10800000);
+        setInterval(checkModal, 5000);
     };
 </script>
         
