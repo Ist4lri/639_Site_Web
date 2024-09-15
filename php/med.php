@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/spe.css"> <!-- Lien vers le fichier CSS -->
 </head>
 <body>
+    <a href="../index.php.php">Acceuil</a>
     <h1>Médicae</h1>
     <a href="medicae_info.php">Gestion Patient</a><br>
     <a href="formation.php">Gestion Spécialité</a>
