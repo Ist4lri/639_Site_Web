@@ -359,29 +359,33 @@ foreach ($specialties as $specialty):
 </div>
 
 <script>
+    // Fonction pour afficher la modale
+    function showModal() {
+        var modal = document.getElementById("myModal");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        modal.style.display = "flex";
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    }
+
     // Afficher la fenêtre modale après un délai de 2 secondes lors du chargement de la page
     window.onload = function() {
-        setTimeout(function() {
-            var modal = document.getElementById("myModal");
-            var closeBtn = document.getElementsByClassName("close")[0];
+        setTimeout(showModal, 2000); // Affiche après 2 secondes
 
-
-            modal.style.display = "flex";
-
-
-            closeBtn.onclick = function() {
-                modal.style.display = "none";
-            };
-
-
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
-        }, 2000);
+        // Répéter toutes les 10 secondes après la première apparition
+        setInterval(showModal, 10000);
     };
 </script>
+
 
 </body>
 </html>
