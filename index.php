@@ -345,38 +345,46 @@ foreach ($specialties as $specialty):
 </head>
 <body>
 
-<!-- Contenu de la fenêtre modale -->
+
 <div id="myModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">ici</a>.</p>
+        <p>N'oubliez pas d'aller voter <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">Cliquez MOI!!</a></p>
     </div>
 </div>
 
 <script>
-    // Afficher la fenêtre modale après un délai de 2 secondes lors du chargement de la page
+    function showPopup() {
+        var modal = document.getElementById("myModal");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        modal.style.display = "flex";
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            localStorage.setItem('lastPopupTime', new Date().getTime()); // Stocke le moment de la fermeture
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                localStorage.setItem('lastPopupTime', new Date().getTime()); // Stocke le moment de la fermeture
+            }
+        };
+    }
+
     window.onload = function() {
         setTimeout(function() {
-            var modal = document.getElementById("myModal");
-            var closeBtn = document.getElementsByClassName("close")[0];
+            const now = new Date().getTime();
+            const lastPopupTime = localStorage.getItem('lastPopupTime');
 
-            // Affiche la fenêtre modale après 2 secondes
-            modal.style.display = "flex";
-
-            // Fermer la fenêtre modale quand on clique sur le "X"
-            closeBtn.onclick = function() {
-                modal.style.display = "none";
-            };
-
-            // Fermer la fenêtre modale si on clique en dehors du contenu
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
-        }, 2000); // 2000 millisecondes = 2 secondes
+            if (!lastPopupTime || now - lastPopupTime >= 3 * 60 * 60 * 1000) { // 3 heures en millisecondes
+                showPopup();
+            }
+        }
     };
 </script>
+
 
 </body>
 </html>
