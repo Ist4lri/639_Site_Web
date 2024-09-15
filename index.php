@@ -166,7 +166,7 @@ th {
             position: fixed;
             z-index: 1;
             left: 50%;
-            top: 50%;
+            top: 40%;
             width: 20%;
             height: 20%;
             background-color: #424242;
