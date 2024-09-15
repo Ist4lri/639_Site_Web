@@ -132,7 +132,6 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
-                <th>Email</th>
                 <th>Confirmation</th>
                 <th>Banni</th>
                 <th>Grade</th>
@@ -145,7 +144,6 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <td><?php echo htmlspecialchars($utilisateur['id']); ?></td>
                     <td><?php echo htmlspecialchars($utilisateur['nom']); ?></td>
-                    <td><?php echo htmlspecialchars($utilisateur['email']); ?></td>
                     <td><?php echo $utilisateur['confirmation'] ? 'Oui' : 'Non'; ?></td>
                     <td><?php echo $utilisateur['banni'] ? 'Oui' : 'Non'; ?></td>
                     <td><?php echo htmlspecialchars($utilisateur['grade']); ?></td>
