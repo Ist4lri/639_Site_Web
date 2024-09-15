@@ -182,7 +182,9 @@ th {
             border-radius: 5px;
             text-align: center;
         }
-
+        p.modal{
+            background-color: #000000;
+        }
         .close {
             color: red;
             float: right;
