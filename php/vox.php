@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/spe.css"> <!-- Inclusion du fichier CSS -->
 </head>
 <body>
+    <a href="../index.php.php">Acceuil</a>
     <h1>Vox Operator</h1>
     <a href="formation.php">Gestion Spécialité</a>
     <div class="container">
