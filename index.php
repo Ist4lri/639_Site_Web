@@ -187,7 +187,7 @@ th {
 
         .close {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 10px;
             color: red;
             font-size: 28px;
