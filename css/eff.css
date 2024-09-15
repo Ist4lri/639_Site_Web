@@ -105,9 +105,9 @@ h2 {
 
 
 img.Krieg {
-  position: relative;
+  position: absolute;
   bottom: 0;
-  right: 0;
+  right: 80;
 width: 2%;
   height: auto;
 }
