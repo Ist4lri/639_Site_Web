@@ -177,7 +177,7 @@ th {
         }
 
         .modal-content {
-            position: relative; /* Nécessaire pour placer la croix correctement */
+            position: relative; 
             background-color: #424242;
             color: #9ed79d;
             padding: 20px;
@@ -187,7 +187,7 @@ th {
 
         .close {
             position: absolute;
-            top: 15px;
+            top: 2px;
             right: 10px;
             color: red;
             font-size: 28px;
