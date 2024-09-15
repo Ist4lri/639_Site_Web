@@ -177,6 +177,7 @@ th {
         }
 
         .modal-content {
+            position: relative; /* Nécessaire pour placer la croix correctement */
             background-color: #424242;
             color: #9ed79d;
             padding: 20px;
@@ -184,12 +185,18 @@ th {
             text-align: center;
         }
 
-        }
-        span.close {
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             color: red;
-            float: right;
             font-size: 28px;
+            font-weight: bold;
             cursor: pointer;
+        }
+
+        .close:hover {
+            color: darkred;
         }
 
   
