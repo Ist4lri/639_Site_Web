@@ -382,7 +382,7 @@ foreach ($specialties as $specialty):
             if (!lastPopupTime || now - lastPopupTime >= 10 * 1000) { // 10 secondes en millisecondes
                 showPopup();
             }
-        }, 10000); // Délai de 10 secondes avant d'exécuter la fonction
+        }
     };
 </script>
 
