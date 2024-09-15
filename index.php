@@ -345,17 +345,18 @@ function toggleTable(tableId) {
 </script>
 
 
-        <script>
-    function showTooltip() {
-        const tooltip = document.querySelector('.Tooltip2');
+  <script>
+    function showTooltip2() {
+        const tooltip2 = document.querySelector('.Tooltip2');
         tooltip2.style.opacity = 1;
 
         setTimeout(() => {
-            tooltip.style.opacity = 0;
-        }, 7000); 
+            tooltip2.style.opacity = 0;
+        }, 8000); 
     }
-             setInterval(showTooltip, 7000);
+
+    
+    setInterval(showTooltip2, 7000);
 </script>
-            
 </body>
 </html>
