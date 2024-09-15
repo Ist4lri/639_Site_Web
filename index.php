@@ -173,7 +173,7 @@ th {
             justify-content: center;
             align-items: center;
             border-radius: 10px;
-            border: #3bd237;
+            border: 0.5px solid #3bd237;
         }
 
         .modal-content {
