@@ -373,10 +373,10 @@ foreach ($specialties as $specialty):
             const now = new Date().getTime();
             const lastPopupTime = localStorage.getItem('lastPopupTime');
 
-            if (!lastPopupTime || now - lastPopupTime >= 60 * 1000) {
+            if (!lastPopupTime || now - lastPopupTime >= 2 * 1000) {
                 showPopup();
             }
-        }, 60000); // Répète toutes les 60 secondes
+        }, 2000); // Répète toutes les 60 secondes
     };
 </script>
         
