@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/spe.css"> <!-- Lien vers le fichier CSS -->
 </head>
 <body>
-    <a href="../index.php.php">Acceuil</a>
+    <a href="../index.php">Acceuil</a>
     <h1>Marksman</h1>
     <a href="formation.php">Gestion Spécialité</a>
     <div class="container">
