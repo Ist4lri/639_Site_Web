@@ -321,6 +321,21 @@ function toggleTable(tableId) {
     
     setInterval(showTooltip, 7000);
 </script>
+        <script>
+    function showPopup() {
+        alert("N'oubliez pas d'aller voter https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian");
+        localStorage.setItem('lastPopupTime', new Date().getTime());
+    }
+
+    window.onload = function() {
+        const now = new Date().getTime();
+        const lastPopupTime = localStorage.getItem('lastPopupTime');
+
+        if (!lastPopupTime || now - lastPopupTime >= 6 * 60 * 60 * 1000) {
+            showPopup();
+        }
+    };
+</script>
 
 </body>
 </html>
