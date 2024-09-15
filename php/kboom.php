@@ -99,6 +99,24 @@
         } else {
             echo "<p>Aucun gérant/sous-gérant disponible.</p>";
         }
+
+$stmt = $pdo->prepare("SELECT nom FROM utilisateurs WHERE spe_id = 7 AND gerance NOT IN (1, 2)");
+$stmt->execute();
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+if (!empty($users)) {
+    echo "<div class='users-box'>";
+    echo "<h3>Membres de la spécialité :</h3>";
+    echo "<ul>";
+    foreach ($users as $user) {
+        echo "<li>" . htmlspecialchars($user['nom']) . "</li>";
+    }
+    echo "</ul>";
+    echo "</div>";
+} else {
+    echo "<p>Aucun utilisateur trouvé pour cette spécialité.</p>";
+}
         ?>
     </div>
 </body>
