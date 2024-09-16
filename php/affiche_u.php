@@ -85,8 +85,9 @@ $pdf->SetTextColor(0, 0, 0);
     $pdf->Ln(10);
 
     // Gestion des pages et contenu plus long
-    if ($pdf->GetY() + 50 > 270) {  // Si on est trop bas sur la page, ajoute une nouvelle page
+   if ($pdf->GetY() + 50 > 267) {
         $pdf->AddPage();
+        $pdf->SetY(50);  // Ajuste la position du texte sur la nouvelle page
     }
 
     // Histoire
@@ -102,10 +103,7 @@ $pdf->SetTextColor(0, 0, 0);
     $pdf->MultiCell(150, 10, mb_convert_encoding($histoire, 'ISO-8859-1', 'UTF-8'));
     
     // Ajouter un saut de page si nécessaire pour le contenu restant
-    if ($pdf->GetY() + 50 > 267) {
-        $pdf->AddPage();
-        $pdf->SetY(50);  // Ajuste la position du texte sur la nouvelle page
-    }
+    
 
     // Générer le PDF
     $pdf->Output('I', 'Info-perso.pdf');
