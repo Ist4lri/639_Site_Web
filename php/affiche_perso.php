@@ -1,7 +1,6 @@
 <?php
 session_start();
 require 'db.php';
-require('../vendor/setasign/fpdf/fpdf.php');
 
 if (!isset($_GET['id'])) {
     die('No character ID provided.');
@@ -19,7 +18,7 @@ if (!$perso) {
     die('Personnage non existant');
 }
 
-// Classe PDF avec Header et Footer
+require('../vendor/setasign/fpdf/fpdf.php');
 class PDF extends FPDF
 {
     function Header()
