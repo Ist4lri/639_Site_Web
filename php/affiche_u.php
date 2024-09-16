@@ -102,9 +102,9 @@ $pdf->SetTextColor(0, 0, 0);
     $pdf->MultiCell(150, 10, mb_convert_encoding($histoire, 'ISO-8859-1', 'UTF-8'));
     
     // Ajouter un saut de page si nécessaire pour le contenu restant
-    if ($pdf->GetY() + 50 > 270) {
+    if ($pdf->GetY() + 50 > 267) {
         $pdf->AddPage();
-        $pdf->SetY(44);  // Ajuste la position du texte sur la nouvelle page
+        $pdf->SetY(50);  // Ajuste la position du texte sur la nouvelle page
     }
 
     // Générer le PDF
