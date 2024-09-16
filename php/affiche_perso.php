@@ -29,7 +29,7 @@ class PDF extends FPDF
         // Ajout du sceau si validation
         global $perso;
         if ($perso['validation'] === 'Accepter') {
-            $this->Image('../src/assets/sceau.png', (($this->GetPageWidth() - 40) / 2) - 1, 240, 40);
+            $this->Image('../src/assets/sceau.png', (($this->GetPageWidth() - 60) / 2) - 1, 240, 40);
         }
     }
 
@@ -96,10 +96,6 @@ $pdf->SetX(25);
 $pdf->SetFont('DejaVu', 'B', 12);
 $pdf->Cell(40, 10, mb_convert_encoding($raison, 'ISO-8859-1', 'UTF-8'), 0);
 
-// Afficher le sceau si le personnage est validé
-if ($perso['validation'] === 'Accepter') {
-    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 1, 240, 40);
-}
 
 // Générer le PDF
 $pdf->Output("I", "Validation_Personnage_{$perso['nom']}.pdf");
