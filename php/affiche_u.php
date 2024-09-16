@@ -1,21 +1,4 @@
 <?php
-include 'db.php';
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Préparer la requête pour obtenir les données de l'utilisateur
-$stmt = $pdo->prepare("
-    SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
-           im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
-    FROM utilisateurs u 
-    LEFT JOIN spe s ON u.spe_id = s.id 
-    LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
-    WHERE u.id = :id
-");
-$stmt->execute(['id' => $_GET['id']]);
-$utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
-
 require('../vendor/setasign/fpdf/fpdf.php');
 
 class PDF extends FPDF
@@ -30,7 +13,11 @@ if ($utilisateur) {
     $pdf = new PDF();
     $pdf->AddPage();
 
+    // Ajouter la police régulière
     $pdf->AddFont('DejaVu','','DejaVuSansCondensed.php');
+    // Ajouter la police bold
+    $pdf->AddFont('DejaVu','B','DejaVuSansCondensed-Bold.php');
+    
     $pdf->SetFont('DejaVu','',12);
 
     $pdf->Cell(0, 10, 'Informations Médicales', 0, 1, 'C');
@@ -60,6 +47,8 @@ if ($utilisateur) {
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', 'B', 12);
     $pdf->Cell(40, 10, 'Histoire: ', 0, 1);
+
+ 
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', '', 12);
     $pdf->MultiCell(150, 10, $utilisateur['histoire'] ?: 'Histoire non disponible');
