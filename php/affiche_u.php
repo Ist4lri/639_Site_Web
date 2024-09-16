@@ -33,7 +33,7 @@ class PDF extends FPDF
     function Footer()
     {
         // Positionnement à 1,5 cm du bas
-        $this->SetY(-15);
+        $this->SetY(-19);
         // Police Arial italique 8
         $this->SetFont('Arial', 'I', 8);
         // Texte centré de pied de page
@@ -56,7 +56,7 @@ if ($utilisateur) {
 
     // Titre de la page
     $pdf->Cell(0, 10, mb_convert_encoding('Informations Médicales', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-    $pdf->Ln(15);
+    $pdf->Ln(0);
 
     // Informations sur l'utilisateur
     $pdf->SetX(25);
@@ -65,7 +65,7 @@ if ($utilisateur) {
     $pdf->Cell(0, 10, mb_convert_encoding('Grade: ' . $utilisateur['grade'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
     $pdf->Cell(0, 10, mb_convert_encoding('Spécialité: ' . $utilisateur['spe'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->Ln(10);
+    $pdf->Ln(5);
 
     // Informations médicales
     $pdf->SetX(25);
