@@ -100,4 +100,9 @@ $pdf->Cell(40, 10, mb_convert_encoding($raison, 'ISO-8859-1', 'UTF-8'), 0);
 // Générer le PDF
 $pdf->Output("I", "Validation_Personnage_{$perso['nom']}.pdf");
 
+ if ($pdf->GetY() + 50 > 270) {
+        $pdf->AddPage();
+        $pdf->SetY(44);  // Ajuste la position du texte sur la nouvelle page
+    }
+
 ?>
