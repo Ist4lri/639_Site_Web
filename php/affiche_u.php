@@ -25,24 +25,31 @@ class PDF extends FPDF
 {
     function Header()
     {
+        // Utiliser une image de fond pour le header
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
+        // Ajuster la marge haute
+        $this->SetY(15);
     }
 }
 
 if ($utilisateur) {
     $pdf = new PDF();
+    
+    // Définir les marges
+    $pdf->SetMargins(15, 20, 15); // marges gauche, haut, droite
     $pdf->AddPage();
 
-    // Ajouter la police UTF-8 compatible
+    // Ajouter les polices UTF-8 compatibles
     $pdf->AddFont('DejaVu','','DejaVuSansCondensed.php');
     $pdf->AddFont('DejaVu','B','DejaVuSansCondensed-Bold.php');
     
     $pdf->SetFont('DejaVu','',12);
 
-    // Utiliser mb_convert_encoding pour convertir les chaînes en ISO-8859-1 avant de les passer à FPDF
+    // Titre de la page
     $pdf->Cell(0, 10, mb_convert_encoding('Informations Médicales', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Ln(15);
 
+    // Informations sur l'utilisateur
     $pdf->SetX(25);
     $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $utilisateur['nom'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
@@ -51,6 +58,7 @@ if ($utilisateur) {
     $pdf->Cell(0, 10, mb_convert_encoding('Spécialité: ' . $utilisateur['spe'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->Ln(10);
 
+    // Informations médicales
     $pdf->SetX(25);
     $pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . ($utilisateur['age'] ?: 'Non spécifié'), 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
@@ -63,14 +71,28 @@ if ($utilisateur) {
     $pdf->MultiCell(150, 10, mb_convert_encoding($utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié', 'ISO-8859-1', 'UTF-8'));
     $pdf->Ln(10);
 
+    // Gestion des pages et contenu plus long
+    if ($pdf->GetY() + 50 > 270) {  // Si on est trop bas sur la page, ajoute une nouvelle page
+        $pdf->AddPage();
+    }
+
+    // Histoire
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', 'B', 12);
     $pdf->Cell(40, 10, mb_convert_encoding('Histoire: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', '', 12);
-    $pdf->MultiCell(150, 10, mb_convert_encoding($utilisateur['histoire'] ?: 'Histoire non disponible', 'ISO-8859-1', 'UTF-8'));
-    $pdf->Ln(10);
+    
+    // Limiter la taille du bloc de texte pour qu'il s'adapte à la page actuelle et aux marges
+    $histoire = $utilisateur['histoire'] ?: 'Histoire non disponible';
+    $pdf->MultiCell(150, 10, mb_convert_encoding($histoire, 'ISO-8859-1', 'UTF-8'));
+    
+    // Ajouter un saut de page si nécessaire pour le contenu restant
+    if ($pdf->GetY() + 50 > 270) {
+        $pdf->AddPage();
+        $pdf->SetY(30);  // Ajuste la position du texte sur la nouvelle page
+    }
 
     // Générer le PDF
     $pdf->Output('I', 'Info-perso.pdf');
