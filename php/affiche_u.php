@@ -58,7 +58,7 @@ if ($utilisateur) {
     $pdf->Cell(40, 10, 'Histoire: ', 0, 1);
     $pdf->SetX(25);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 10, $utilisateur['histoire'] ?: 'Histoire non disponible'); // Si null, affiche "Histoire non disponible"
+    $pdf->MultiCell(150, 10, $utilisateur['histoire'] ?: 'Histoire non disponible'); // Si null, affiche "Histoire non disponible"
     $pdf->Ln(10); 
 }
 
