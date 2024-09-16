@@ -100,7 +100,7 @@ if ($utilisateur) {
     // Ajouter un saut de page si nécessaire pour le contenu restant
     if ($pdf->GetY() + 50 > 270) {
         $pdf->AddPage();
-        $pdf->SetY(30);  // Ajuste la position du texte sur la nouvelle page
+        $pdf->SetY(40);  // Ajuste la position du texte sur la nouvelle page
     }
 
     // Générer le PDF
