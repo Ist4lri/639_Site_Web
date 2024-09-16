@@ -32,6 +32,7 @@ class PDF extends FPDF
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
         $this->Image('../src/assets/medicae.png', 2, 146, 20); // largeur=20
         $this->Image('../src/assets/medicae.png', 189, 146, 20);
+        $this->SetY(32);
     }
 
     function Footer()
