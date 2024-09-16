@@ -14,8 +14,28 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => $id]);
 $perso = $stmt->fetch(PDO::FETCH_ASSOC);
 
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+class PDF extends FPDF
+{
+    function Header()
+    {
+        $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
+        if ($perso['validation'] === 'Accepter') {
+    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 1, 240, 40);
+        }
+    }
+}
+
+
+
 if (!$perso) {
-    die('Character not found.');
+    die('Non Existant');
 }
 
 $pdf = new FPDF();
