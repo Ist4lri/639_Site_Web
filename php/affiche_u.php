@@ -54,10 +54,12 @@ if ($utilisateur) {
     
   
 
-    // Titre de la page
-    $pdf->SetFont('DejaVu', 'B', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding('Informations Personnelles', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-    $pdf->Ln(0);
+
+   $pdf->SetTextColor(139, 0, 0); 
+$pdf->SetFont('DejaVu', 'B', 12);
+$pdf->Cell(0, 10, mb_convert_encoding('Informations Personnelles', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+$pdf->Ln(0);
+
 
       $pdf->SetFont('DejaVu','',12);
     // Informations sur l'utilisateur
