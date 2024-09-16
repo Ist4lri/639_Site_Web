@@ -85,7 +85,11 @@ if ($informations) {
         $pdf->MultiCell(150, 10, mb_convert_encoding($info['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
         $pdf->Ln(10);
     }
-
+    if ($pdf->GetY() + 50 > 264) {
+        $pdf->AddPage();
+        $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
+    }
+    
     // Générer le PDF
     $pdf->Output('I', 'informations_medicales.pdf');
 }
