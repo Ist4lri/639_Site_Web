@@ -22,7 +22,6 @@ class PDF extends FPDF
 {
     function Header()
     {
-        // Ajout de l'image de fond
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
     }
 }
@@ -30,41 +29,44 @@ class PDF extends FPDF
 if ($utilisateur) {
     $pdf = new PDF();
     $pdf->AddPage();
-    $pdf->SetFont('Arial', 'B', 16);
 
-    $pdf->Cell(0, 10, utf8_decode('Informations Personnelles'), 0, 1, 'C');
+    $pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true); 
+    $pdf->SetFont('DejaVu','',12);
+
+    $pdf->Cell(0, 10, 'Informations Médicales', 0, 1, 'C');
     $pdf->Ln(15);
 
-    $pdf->SetFont('Arial', '', 12);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, utf8_decode('Utilisateur: ') . utf8_decode($utilisateur['nom']), 0, 1);
+    $pdf->Cell(0, 10, 'Utilisateur: ' . $utilisateur['nom'], 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, utf8_decode('Grade: ') . utf8_decode($utilisateur['grade']), 0, 1);
+    $pdf->Cell(0, 10, 'Grade: ' . $utilisateur['grade'], 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, utf8_decode('Spécialité: ') . utf8_decode($utilisateur['spe']), 0, 1);
-    $pdf->Ln(10);
-
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, utf8_decode('Âge: ') . ($utilisateur['age'] ?: 'Non spécifié'), 0, 1);
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, utf8_decode('Taille: ') . ($utilisateur['taille'] ?: 'Non spécifié') . ' cm', 0, 1);
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, utf8_decode('Poids: ') . ($utilisateur['poids'] ?: 'Non spécifié') . ' kg', 0, 1);
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, utf8_decode('Problèmes médicaux: '), 0, 1);
-    $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, utf8_decode($utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié'));
+    $pdf->Cell(0, 10, 'Spécialité: ' . $utilisateur['spe'], 0, 1);
     $pdf->Ln(10);
 
     $pdf->SetX(25);
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(40, 10, utf8_decode('Histoire: '), 0, 1);
+    $pdf->Cell(0, 10, 'Âge: ' . ($utilisateur['age'] ?: 'Non spécifié'), 0, 1);
     $pdf->SetX(25);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(150, 10, utf8_decode($utilisateur['histoire'] ?: 'Histoire non disponible'));
+    $pdf->Cell(0, 10, 'Taille: ' . ($utilisateur['taille'] ?: 'Non spécifié') . ' cm', 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, 'Poids: ' . ($utilisateur['poids'] ?: 'Non spécifié') . ' kg', 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, 'Problèmes médicaux: ', 0, 1);
+    $pdf->SetX(25);
+    $pdf->MultiCell(150, 10, $utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié');
     $pdf->Ln(10);
+
+
+    $pdf->SetX(25);
+    $pdf->SetFont('DejaVu', 'B', 12);
+    $pdf->Cell(40, 10, 'Histoire: ', 0, 1);
+    $pdf->SetX(25);
+    $pdf->SetFont('DejaVu', '', 12);
+    $pdf->MultiCell(150, 10, $utilisateur['histoire'] ?: 'Histoire non disponible');
+    $pdf->Ln(10);
+
+
+    ob_clean(); 
+    $pdf->Output('I', 'Info-perso.pdf');
 }
-
-$pdf->Output('I', 'Info-perso.pdf');
 ?>
