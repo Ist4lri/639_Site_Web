@@ -39,40 +39,37 @@ if ($utilisateur) {
     
     $pdf->SetFont('DejaVu','',12);
 
-    // Titre de la page
-    $pdf->Cell(0, 10, 'Informations Médicales', 0, 1, 'C');
+    // Utiliser mb_convert_encoding pour convertir les chaînes en ISO-8859-1 avant de les passer à FPDF
+    $pdf->Cell(0, 10, mb_convert_encoding('Informations Médicales', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Ln(15);
 
-    // Informations sur l'utilisateur
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Utilisateur: ' . $utilisateur['nom'], 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $utilisateur['nom'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Grade: ' . $utilisateur['grade'], 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Grade: ' . $utilisateur['grade'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Spécialité: ' . $utilisateur['spe'], 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Spécialité: ' . $utilisateur['spe'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->Ln(10);
 
-    // Informations médicales
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Âge: ' . ($utilisateur['age'] ?: 'Non spécifié'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . ($utilisateur['age'] ?: 'Non spécifié'), 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Taille: ' . ($utilisateur['taille'] ?: 'Non spécifié') . ' cm', 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . ($utilisateur['taille'] ?: 'Non spécifié') . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Poids: ' . ($utilisateur['poids'] ?: 'Non spécifié') . ' kg', 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . ($utilisateur['poids'] ?: 'Non spécifié') . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Problèmes médicaux: ', 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, $utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié');
+    $pdf->MultiCell(150, 10, mb_convert_encoding($utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié', 'ISO-8859-1', 'UTF-8'));
     $pdf->Ln(10);
 
-    // Histoire
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', 'B', 12);
-    $pdf->Cell(40, 10, 'Histoire: ', 0, 1);
+    $pdf->Cell(40, 10, mb_convert_encoding('Histoire: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', '', 12);
-    $pdf->MultiCell(150, 10, $utilisateur['histoire'] ?: 'Histoire non disponible');
+    $pdf->MultiCell(150, 10, mb_convert_encoding($utilisateur['histoire'] ?: 'Histoire non disponible', 'ISO-8859-1', 'UTF-8'));
     $pdf->Ln(10);
 
     // Générer le PDF
