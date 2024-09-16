@@ -55,7 +55,7 @@ if ($utilisateur) {
     $pdf->Ln(10);
 
 
-    ob_clean(); 
+    // ob_clean(); 
     $pdf->Output('I', 'Info-perso.pdf');
 }
 ?>
