@@ -30,7 +30,7 @@ if ($utilisateur) {
     $pdf = new PDF();
     $pdf->AddPage();
 
-    $pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true); 
+    $pdf->AddFont('DejaVu','','DejaVuSansCondensed.php',true); 
     $pdf->SetFont('DejaVu','',12);
 
     $pdf->Cell(0, 10, 'Informations Médicales', 0, 1, 'C');
