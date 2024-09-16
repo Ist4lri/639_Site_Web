@@ -29,7 +29,7 @@ class PDF extends FPDF
         // Ajout du sceau si validation
         global $perso;
         if ($perso['validation'] === 'Accepter') {
-            $this->Image('../src/assets/sceau.png', (($this->GetPageWidth() - 60) / 2) - 1, 240, 40);
+            $this->Image('../src/assets/sceau.png', (($this->GetPageWidth() - 42) / 2) - 1, 260, 40);
         }
     }
 
