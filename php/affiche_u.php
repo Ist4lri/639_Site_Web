@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Préparer la requête pour obtenir les données de l'utilisateur
 $stmt = $pdo->prepare("
     SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
            im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
@@ -14,71 +15,56 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute(['id' => $_GET['id']]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php
-    require('../vendor/setasign/fpdf/fpdf.php');
 
+require('../vendor/setasign/fpdf/fpdf.php');
 
 class PDF extends FPDF
 {
     function Header()
     {
+        // Ajout de l'image de fond
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
     }
 }
 
 if ($utilisateur) {
-
-
-    // Créer une instance de FPDF
-    $pdf = new FPDF();
+    $pdf = new PDF();
     $pdf->AddPage();
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
 
-
-    $pdf->Cell(0, 10, 'Informations Medicales', 0, 1, 'C');
+    $pdf->Cell(0, 10, utf8_decode('Informations Personnelles'), 0, 1, 'C');
     $pdf->Ln(15);
 
-    // Informations sur l'utilisateur
     $pdf->SetFont('Arial', '', 12);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Utilisateur: ' . $utilisateur['nom'], 0, 1);
+    $pdf->Cell(0, 10, utf8_decode('Utilisateur: ') . utf8_decode($utilisateur['nom']), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Grade: ' . $utilisateur['grade'], 0, 1);
+    $pdf->Cell(0, 10, utf8_decode('Grade: ') . utf8_decode($utilisateur['grade']), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Specialite: ' . $utilisateur['spe'], 0, 1); // Spécialité sous le nom
-    $pdf->Ln(10); 
+    $pdf->Cell(0, 10, utf8_decode('Spécialité: ') . utf8_decode($utilisateur['spe']), 0, 1);
+    $pdf->Ln(10);
 
-    // Informations médicales
     $pdf->SetFont('Arial', '', 12);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Age: ' . $utilisateur['age'] ?: 'Nonspécifié' , 0, 1);
+    $pdf->Cell(0, 10, utf8_decode('Âge: ') . ($utilisateur['age'] ?: 'Non spécifié'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Taille: ' . $utilisateur['taille'] ?: 'Nonspécifié' . ' cm', 0, 1);
+    $pdf->Cell(0, 10, utf8_decode('Taille: ') . ($utilisateur['taille'] ?: 'Non spécifié') . ' cm', 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Poids: ' . $utilisateur['poids'] ?: 'Nonspécifié'  . ' kg', 0, 1);
+    $pdf->Cell(0, 10, utf8_decode('Poids: ') . ($utilisateur['poids'] ?: 'Non spécifié') . ' kg', 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, 'Problemes medicaux: ', 0, 1);
+    $pdf->Cell(0, 10, utf8_decode('Problèmes médicaux: '), 0, 1);
     $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, $utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié'); // Si null, affiche "Aucun problème médical spécifié"
-    $pdf->Ln(10); 
+    $pdf->MultiCell(150, 10, utf8_decode($utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié'));
+    $pdf->Ln(10);
 
-    // Histoire
     $pdf->SetX(25);
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(40, 10, 'Histoire: ', 0, 1);
+    $pdf->Cell(40, 10, utf8_decode('Histoire: '), 0, 1);
     $pdf->SetX(25);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(150, 10, $utilisateur['histoire'] ?: 'Histoire non disponible'); // Si null, affiche "Histoire non disponible"
-    $pdf->Ln(10); 
+    $pdf->MultiCell(150, 10, utf8_decode($utilisateur['histoire'] ?: 'Histoire non disponible'));
+    $pdf->Ln(10);
 }
-
 
 $pdf->Output('I', 'Info-perso.pdf');
 ?>
