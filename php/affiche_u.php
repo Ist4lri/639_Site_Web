@@ -1,5 +1,22 @@
 <?php
 
+nclude 'db.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Préparer la requête pour obtenir les données de l'utilisateur
+$stmt = $pdo->prepare("
+    SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
+           im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
+    FROM utilisateurs u 
+    LEFT JOIN spe s ON u.spe_id = s.id 
+    LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
+    WHERE u.id = :id
+");
+$stmt->execute(['id' => $_GET['id']]);
+$utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
