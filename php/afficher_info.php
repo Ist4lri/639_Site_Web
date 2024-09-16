@@ -19,6 +19,24 @@ $sql = "SELECT im.*, u.nom AS nom_utilisateur FROM informations_medicales im
 $stmt = $pdo->query($sql);
 $informations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+class PDF extends FPDF
+{
+    function Header()
+    {
+        $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
+    }
+}
+
+if ($utilisateur) {
+    require('../vendor/setasign/fpdf/fpdf.php');
+
 // Charger FPDF
 require('../vendor/setasign/fpdf/fpdf.php');
 
