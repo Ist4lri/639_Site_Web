@@ -21,6 +21,8 @@ $perso = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php
+
+require('../vendor/setasign/fpdf/fpdf.php');
 class PDF extends FPDF
 {
     function Header()
