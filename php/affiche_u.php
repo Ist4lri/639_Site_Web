@@ -27,7 +27,7 @@ class PDF extends FPDF
     {
         // Utiliser une image de fond pour le header
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
-        $this->SetY(35);
+        $this->SetY(32);
     }
 
     function Footer()
@@ -85,9 +85,9 @@ $pdf->SetTextColor(0, 0, 0);
     $pdf->Ln(10);
 
     // Gestion des pages et contenu plus long
-   if ($pdf->GetY() + 50 > 267) {
+   if ($pdf->GetY() + 50 > 264) {
         $pdf->AddPage();
-        $pdf->SetY(50);  // Ajuste la position du texte sur la nouvelle page
+        $pdf->SetY(35);  // Ajuste la position du texte sur la nouvelle page
     }
 
     // Histoire
