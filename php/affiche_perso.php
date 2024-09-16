@@ -25,8 +25,7 @@ class PDF extends FPDF
     {
         // Image de fond
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
-
-        // Ajout du sceau si validation
+        $this->SetY(32);
         global $perso;
         if ($perso['validation'] === 'Accepter') {
             $this->Image('../src/assets/sceau.png', (($this->GetPageWidth() - 42) / 2) - 1, 260, 40);
@@ -100,9 +99,9 @@ $pdf->Cell(40, 10, mb_convert_encoding($raison, 'ISO-8859-1', 'UTF-8'), 0);
 // Générer le PDF
 $pdf->Output("I", "Validation_Personnage_{$perso['nom']}.pdf");
 
- if ($pdf->GetY() + 50 > 270) {
+ if ($pdf->GetY() + 50 > 264) {
         $pdf->AddPage();
-        $pdf->SetY(44);  // Ajuste la position du texte sur la nouvelle page
+        $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
     }
 
 ?>
