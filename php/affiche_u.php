@@ -15,6 +15,14 @@ $stmt = $pdo->prepare("
 $stmt->execute(['id' => $_GET['id']]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
+class PDF extends FPDF
+{
+    function Header()
+    {
+        $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
+    }
+}
+
 if ($utilisateur) {
     require('../vendor/setasign/fpdf/fpdf.php');
 
