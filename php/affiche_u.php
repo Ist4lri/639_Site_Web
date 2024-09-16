@@ -27,7 +27,7 @@ class PDF extends FPDF
     {
         // Utiliser une image de fond pour le header
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
-        $this->SetY(15);
+        $this->SetY(35);
     }
 
     function Footer()
