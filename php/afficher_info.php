@@ -31,6 +31,8 @@ class PDF extends FPDF
     function Header()
     {
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
+        $pdf->Image('../src/assets/medicae.png', 2, 146, 20); // largeur=20
+        $pdf->Image('../src/assets/medicae.png', 189, 146, 20); 
     }
 }
 
