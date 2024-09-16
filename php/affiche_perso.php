@@ -9,86 +9,100 @@ if (!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
+// Récupérer les informations du personnage
 $sql = "SELECT nom, raison, faction, histoire, validation FROM personnages WHERE id = :id LIMIT 1";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => $id]);
 $perso = $stmt->fetch(PDO::FETCH_ASSOC);
 
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php
+if (!$perso) {
+    die('Personnage non existant');
+}
 
-require('../vendor/setasign/fpdf/fpdf.php');
+// Classe PDF avec Header et Footer
 class PDF extends FPDF
 {
     function Header()
     {
+        // Image de fond
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
+
+        // Ajout du sceau si validation
+        global $perso;
         if ($perso['validation'] === 'Accepter') {
-    $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 1, 240, 40);
+            $this->Image('../src/assets/sceau.png', (($this->GetPageWidth() - 40) / 2) - 1, 240, 40);
         }
+    }
+
+    function Footer()
+    {
+        // Positionnement à 1,5 cm du bas
+        $this->SetY(-19);
+        // Police Arial italique 8
+        $this->SetFont('Arial', 'I', 8);
+        // Texte centré de pied de page
+        $this->Cell(0, 10, 'Page ' . $this->PageNo(), 0, 0, 'C');
     }
 }
 
-
-
-if (!$perso) {
-    die('Non Existant');
-}
-
-$pdf = new FPDF();
+// Créer une instance de la classe PDF
+$pdf = new PDF();
+$pdf->SetMargins(15, 20, 15); // marges gauche, haut, droite
 $pdf->AddPage();
 
-$pdf->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
+// Ajouter les polices UTF-8 compatibles
+$pdf->AddFont('DejaVu','','DejaVuSansCondensed.php');
+$pdf->AddFont('DejaVu','B','DejaVuSansCondensed-Bold.php');
 
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Cell(0, 10, 'Validation du Personnage', 0, 1, 'C');
-
+// Titre en rouge foncé
+$pdf->SetTextColor(139, 0, 0); // Rouge foncé
+$pdf->SetFont('DejaVu', 'B', 16);
+$pdf->Cell(0, 10, mb_convert_encoding('Validation du Personnage', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 $pdf->Ln(10);
 
+// Remettre le texte en noir
+$pdf->SetTextColor(0, 0, 0);
+
+// Informations du personnage
 $pdf->SetX(25);
-
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Nom: '. $perso['nom'], 0, 0);
-
-
-$pdf->Ln(8); 
+$pdf->SetFont('DejaVu', 'B', 12);
+$pdf->Cell(40, 10, mb_convert_encoding('Nom: ' . $perso['nom'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+$pdf->Ln(8);
 
 $pdf->SetX(25);
+$pdf->SetFont('DejaVu', 'B', 12);
+$pdf->Cell(40, 10, mb_convert_encoding('Faction: ' . $perso['faction'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Faction: '. $perso['faction'], 0, 0);
-
-
+// Afficher l'image pour la faction 'Adeptus Mechanicus'
 if ($perso['faction'] === 'Adeptus Mechanicus') {
     $pdf->Image('../src/assets/mechanicus.png', 75, 20, 50);
 }
 
 $pdf->Ln(10);
 
+// Histoire du personnage
 $pdf->SetX(25);
-
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, 'Histoire:', 0, 1);
-
-$pdf->SetX(25);
-$pdf->SetFont('Arial', '', 12);
-$pdf->MultiCell(150, 10, $perso['histoire']);
+$pdf->SetFont('DejaVu', 'B', 12);
+$pdf->Cell(40, 10, mb_convert_encoding('Histoire:', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
 $pdf->SetX(25);
+$pdf->SetFont('DejaVu', '', 12);
+$pdf->MultiCell(150, 10, mb_convert_encoding($perso['histoire'], 'ISO-8859-1', 'UTF-8'));
 
+$pdf->Ln(10);
+
+// Raison si elle existe
 $raison = !empty($perso['raison']) ? $perso['raison'] : '';
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(40, 10, $raison, 0);
+$pdf->SetX(25);
+$pdf->SetFont('DejaVu', 'B', 12);
+$pdf->Cell(40, 10, mb_convert_encoding($raison, 'ISO-8859-1', 'UTF-8'), 0);
 
-
+// Afficher le sceau si le personnage est validé
 if ($perso['validation'] === 'Accepter') {
     $pdf->Image('../src/assets/sceau.png', (($pdf->GetPageWidth() - 40) / 2) - 1, 240, 40);
 }
 
+// Générer le PDF
 $pdf->Output("I", "Validation_Personnage_{$perso['nom']}.pdf");
+
 ?>
