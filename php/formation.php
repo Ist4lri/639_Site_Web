@@ -92,15 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
     }
 }
 
-// Si le bouton "Accepter" est pressé pour une demande de spécialité
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
-    $demande_id = $_POST['demande_id'];
-
-    // Mettre à jour la demande pour indiquer qu'elle est acceptée
-    $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
-    $updateDemandStmt->execute([$demande_id]);
-    $message = "Demande acceptée avec succès.";
-}
 
 // Récupérer les demandes de spécialité de la même spécialité que l'utilisateur
 $stmt = $pdo->prepare("
