@@ -33,7 +33,7 @@ $stmt->execute([$id_utilisateur]);
 $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-if (empty($informations)) {
+if (empty($userInfo)) {
     die('Aucune information médicale trouvée pour cet utilisateur.');
 }
 
