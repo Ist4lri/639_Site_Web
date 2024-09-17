@@ -16,10 +16,16 @@ if (!isset($_SESSION['utilisateur'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     $demande_id = $_POST['demande_id'];
 
-    // Récupérer l'ID de l'utilisateur de la demande
-    $getUserStmt = $pdo->prepare("SELECT utilisateur_id FROM demande_spe WHERE id = ?");
-    $getUserStmt->execute([$demande_id]);
-    $userFromDemand = $getUserStmt->fetch();
+    // Récupérer l'utilisateur actuel
+$stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
+$stmt->execute(['email' => $_SESSION['utilisateur']]);
+$currentUser = $stmt->fetch();
+
+if (!$currentUser) {
+    echo "Erreur : utilisateur non trouvé.";
+    exit();
+}
+
 
     if ($userFromDemand) {
         // Mettre à jour la demande pour indiquer qu'elle est acceptée
