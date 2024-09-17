@@ -18,7 +18,7 @@ $sql = "SELECT im.*, u.nom AS nom_utilisateur FROM informations_medicales im
         JOIN utilisateurs u ON im.id_utilisateur = u.id
         WHERE u.id = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$_SESSION['utilisateur_id']]);
+$stmt->execute([$_SESSION['id_utilisateur']]);
 
 header('Content-Type: text/html; charset=utf-8'); // Assurez-vous que l'encodage est en UTF-8
 
