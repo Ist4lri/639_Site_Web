@@ -15,7 +15,8 @@ if (!isset($_SESSION['utilisateur'])) {
 
 // Récupérer toutes les informations médicales de la base de données
 $sql = "SELECT im.*, u.nom AS nom_utilisateur FROM informations_medicales im 
-        JOIN utilisateurs u ON im.id_utilisateur = u.id";
+        JOIN utilisateurs u ON im.id_utilisateur = u.id
+        WHERE u.id = ?";
 $stmt = $pdo->query($sql);
 $informations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
