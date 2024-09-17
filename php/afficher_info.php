@@ -70,7 +70,7 @@ if ($informations) {
     $pdf->SetFont('DejaVu','',12);
 
     // Parcourir les informations et les afficher dans le PDF
-    foreach ($informations as $info){
+    foreach ($informations as $info) {
         $pdf->SetX(25);
         $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $info['nom_utilisateur'], 'ISO-8859-1', 'UTF-8'), 0, 1);
         $pdf->SetX(25);
@@ -84,12 +84,14 @@ if ($informations) {
         $pdf->SetX(25);
         $pdf->MultiCell(150, 10, mb_convert_encoding($info['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
         $pdf->Ln(10);
+
+        // Vérifier si un saut de page est nécessaire
+        if ($pdf->GetY() + 50 > 264) {
+            $pdf->AddPage();
+            $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
+        }
     }
-    if ($pdf->GetY() + 50 > 264) {
-        $pdf->AddPage();
-        $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
-    }
-    
+
     // Générer le PDF
     $pdf->Output('I', 'informations_medicales.pdf');
 }
