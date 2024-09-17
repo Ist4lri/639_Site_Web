@@ -17,14 +17,21 @@ if (!isset($_SESSION['id_utilisateur'])) {
     die('Erreur: L\'ID utilisateur n\'est pas défini dans la session.');
 }
 
-// Récupérer toutes les informations médicales de la base de données
-$sql = "SELECT im.*, u.nom AS nom_utilisateur FROM informations_medicales im 
-        JOIN utilisateurs u ON im.id_utilisateur = u.id
-        WHERE u.id = ?";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$_SESSION['id_utilisateur']]);
+if (!isset($_POST['id_utilisateur'])) {
+    die("Erreur: aucun utilisateur spécifié.");
+}
 
-$informations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Récupérer l'ID utilisateur
+$id_utilisateur = $_POST['id_utilisateur'];
+
+// Récupérer les informations médicales de l'utilisateur
+$stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux 
+                       FROM utilisateurs u 
+                       LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
+                       WHERE u.id = ?");
+$stmt->execute([$id_utilisateur]);
+$userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 if (empty($informations)) {
     die('Aucune information médicale trouvée pour cet utilisateur.');
@@ -81,17 +88,17 @@ $pdf->SetFont('DejaVu','',12);
 // Parcourir les informations et les afficher dans le PDF
 foreach ($informations as $info) {
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $info['nom_utilisateur'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $userInfo['nom_utilisateur'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . $info['age'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . $userInfo['age'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);    
-    $pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . $info['taille'] . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . $userInfo['taille'] . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . $info['poids'] . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . $userInfo['poids'] . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
     $pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, mb_convert_encoding($info['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
+    $pdf->MultiCell(150, 10, mb_convert_encoding($userInfo['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
     $pdf->Ln(10);
 
     // Vérifier si un saut de page est nécessaire
