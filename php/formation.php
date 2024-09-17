@@ -12,6 +12,30 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
+// Si le bouton "Accepter" est pressé pour une demande de spécialité
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
+    $demande_id = $_POST['demande_id'];
+
+    // Récupérer l'ID de l'utilisateur de la demande
+    $getUserStmt = $pdo->prepare("SELECT utilisateur_id FROM demande_spe WHERE id = ?");
+    $getUserStmt->execute([$demande_id]);
+    $userFromDemand = $getUserStmt->fetch();
+
+    if ($userFromDemand) {
+        // Mettre à jour la demande pour indiquer qu'elle est acceptée
+        $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
+        $updateDemandStmt->execute([$demande_id]);
+
+        // Mettre à jour l'utilisateur pour changer la spécialité
+        $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = ? WHERE id = ?");
+        $updateUserSpeStmt->execute([$currentUser['spe_id'], $userFromDemand['utilisateur_id']]);
+
+        $message = "Demande acceptée avec succès et spécialité mise à jour.";
+    } else {
+        $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
+    }
+}
+
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
