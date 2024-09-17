@@ -86,7 +86,7 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('DejaVu','',12);
 
 // Parcourir les informations et les afficher dans le PDF
-foreach ($informations as $info) {
+
     $pdf->SetX(25);
     $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $userInfo['nom_utilisateur'], 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
@@ -106,7 +106,6 @@ foreach ($informations as $info) {
         $pdf->AddPage();
         $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
     }
-}
 
 // Générer le PDF
 $pdf->Output('I', 'informations_medicales.pdf');
