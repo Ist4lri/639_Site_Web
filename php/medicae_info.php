@@ -6,7 +6,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
@@ -17,7 +16,6 @@ $stmt = $pdo->prepare("SELECT id, spe_id FROM utilisateurs WHERE email = :email"
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
-// Vérifier si l'utilisateur a la bonne spécialité
 if ($currentUser['spe_id'] != 3) {
     header("Location: insubordination.php");
     exit();
@@ -101,11 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
     $stmt = $pdo->prepare("SELECT * FROM informations_medicales WHERE id_utilisateur = ?");
     $stmt->execute([$id_utilisateur]);
     $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($userInfo) {
-        $showEditForm = true;
-    } else {
-        $error_message = "Aucune information médicale trouvée pour cet utilisateur.";
-    }
+    $showEditForm = true;
 }
 ?>
 
@@ -116,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informations Médicales</title>
     <link rel="stylesheet" href="../css/med.css">
+
 </head>
 <?php include 'header.php'; ?>
 <body>
@@ -181,29 +176,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
                     </form>
 
                     <!-- Bouton pour afficher le PDF -->
-                    <form action="afficher_info.php" method="post" style="display:inline" target="_blank"> 
-                        <input type="hidden" name="id_utilisateur" value="
-    <?php echo $user['id']; ?>"> <button type="submit" name="view_pdf" class="btn btn-view-pdf">PDF</button> </form> </td> </tr> <?php endforeach; ?> </tbody> </table>
+<form action="afficher_info.php" method="post" style="display:inline;" target="_blank">
+    <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($user['id']); ?>">
+    <button type="submit" name="view_pdf" class="btn btn-view-pdf">PDF</button>
+</form>
+
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
     <!-- Formulaire de modification, affiché uniquement si le bouton "Modifier" a été cliqué -->
-<?php if ($showEditForm): ?>
-    <h3>Modifier les informations médicales</h3>
-    <form action="" method="post">
-        <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($id_utilisateur); ?>">
-        
-        <label for="age">Âge :</label>
-        <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($userInfo['age'] ?? ''); ?>" required>
-        
-        <label for="taille">Taille (cm) :</label>
-        <input type="number" id="taille" name="taille" value="<?php echo htmlspecialchars($userInfo['taille'] ?? ''); ?>" required>
+    <?php if ($showEditForm): ?>
+        <h3>Modifier les informations médicales</h3>
+        <form action="" method="post">
+            <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($id_utilisateur); ?>">
+            
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($userInfo['age'] ?? ''); ?>" required>
+            
+            <label for="taille">Taille (cm):</label>
+            <input type="number" id="taille" name="taille" value="<?php echo htmlspecialchars($userInfo['taille'] ?? ''); ?>" required>
 
-        <label for="poids">Poids (kg) :</label>
-        <input type="number" id="poids" name="poids" value="<?php echo htmlspecialchars($userInfo['poids'] ?? ''); ?>" required>
+            <label for="poids">Poids (kg):</label>
+            <input type="number" id="poids" name="poids" value="<?php echo htmlspecialchars($userInfo['poids'] ?? ''); ?>" required>
 
-        <label for="problemes_medicaux">Problèmes médicaux :</label>
-        <textarea id="problemes_medicaux" name="problemes_medicaux" rows="4" required><?php echo htmlspecialchars($userInfo['problemes_medicaux'] ?? ''); ?></textarea>
+            <label for="problemes_medicaux">Problèmes médicaux:</label>
+            <textarea id="problemes_medicaux" name="problemes_medicaux" rows="4" required><?php echo htmlspecialchars($userInfo['problemes_medicaux'] ?? ''); ?></textarea>
 
-        <button type="submit" name="update_info" class="btn btn-success">Confirmer</button>
-    </form>
-<?php endif; ?>
+            <button type="submit" name="update_info" class="btn btn-success">Confirmer</button>
+        </form>
+    <?php endif; ?>
+</div>
 
+</body>
+</html>
