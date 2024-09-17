@@ -20,6 +20,8 @@ $sql = "SELECT im.*, u.nom AS nom_utilisateur FROM informations_medicales im
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_SESSION['id_utilisateur']]);
 
+$informations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 header('Content-Type: text/html; charset=utf-8'); // Assurez-vous que l'encodage est en UTF-8
 
 require('../vendor/setasign/fpdf/fpdf.php');
