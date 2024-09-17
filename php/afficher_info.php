@@ -32,7 +32,6 @@ $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_m
 $stmt->execute([$id_utilisateur]);
 $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 if (empty($userInfo)) {
     die('Aucune information médicale trouvée pour cet utilisateur.');
 }
@@ -87,25 +86,25 @@ $pdf->SetFont('DejaVu','',12);
 
 // Parcourir les informations et les afficher dans le PDF
 
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $userInfo['nom_utilisateur'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . $userInfo['age'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetX(25);    
-    $pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . $userInfo['taille'] . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . $userInfo['poids'] . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, mb_convert_encoding($userInfo['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
-    $pdf->Ln(10);
+$pdf->SetX(25);
+$pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $userInfo['nom'], 'ISO-8859-1', 'UTF-8'), 0, 1);  // Utilisez 'nom' au lieu de 'nom_utilisateur'
+$pdf->SetX(25);
+$pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . $userInfo['age'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+$pdf->SetX(25);    
+$pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . $userInfo['taille'] . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
+$pdf->SetX(25);
+$pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . $userInfo['poids'] . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
+$pdf->SetX(25);
+$pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
+$pdf->SetX(25);
+$pdf->MultiCell(150, 10, mb_convert_encoding($userInfo['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
+$pdf->Ln(10);
 
-    // Vérifier si un saut de page est nécessaire
-    if ($pdf->GetY() + 50 > 264) {
-        $pdf->AddPage();
-        $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
-    }
+// Vérifier si un saut de page est nécessaire
+if ($pdf->GetY() + 50 > 264) {
+    $pdf->AddPage();
+    $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
+}
 
 // Générer le PDF
 $pdf->Output('I', 'informations_medicales.pdf');
