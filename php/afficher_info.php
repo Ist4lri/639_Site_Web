@@ -13,6 +13,10 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
+if (!isset($_SESSION['id_utilisateur'])) {
+    die('Erreur: L\'ID utilisateur n\'est pas défini dans la session.');
+}
+
 // Récupérer toutes les informations médicales de la base de données
 $sql = "SELECT im.*, u.nom AS nom_utilisateur FROM informations_medicales im 
         JOIN utilisateurs u ON im.id_utilisateur = u.id
@@ -21,6 +25,10 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$_SESSION['id_utilisateur']]);
 
 $informations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (empty($informations)) {
+    die('Aucune information médicale trouvée pour cet utilisateur.');
+}
 
 header('Content-Type: text/html; charset=utf-8'); // Assurez-vous que l'encodage est en UTF-8
 
@@ -49,53 +57,50 @@ class PDF extends FPDF
     }
 }
 
-if ($informations) {
+// Créer une instance de la classe PDF
+$pdf = new PDF();
 
-    // Créer une instance de la classe PDF
-    $pdf = new PDF();
-    
-    // Définir les marges
-    $pdf->SetMargins(15, 20, 15); // marges gauche, haut, droite
-    $pdf->AddPage();
+// Définir les marges
+$pdf->SetMargins(15, 20, 15); // marges gauche, haut, droite
+$pdf->AddPage();
 
-    // Ajouter les polices UTF-8 compatibles
-    $pdf->AddFont('DejaVu','','DejaVuSansCondensed.php');
-    $pdf->AddFont('DejaVu','B','DejaVuSansCondensed-Bold.php');
-    
-    // Titre en rouge foncé
-    $pdf->SetTextColor(139, 0, 0); // Rouge foncé
-    $pdf->SetFont('DejaVu', 'B', 16);
-    $pdf->Cell(0, 10, mb_convert_encoding('Informations Médicales', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+// Ajouter les polices UTF-8 compatibles
+$pdf->AddFont('DejaVu','','DejaVuSansCondensed.php');
+$pdf->AddFont('DejaVu','B','DejaVuSansCondensed-Bold.php');
+
+// Titre en rouge foncé
+$pdf->SetTextColor(139, 0, 0); // Rouge foncé
+$pdf->SetFont('DejaVu', 'B', 16);
+$pdf->Cell(0, 10, mb_convert_encoding('Informations Médicales', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+$pdf->Ln(10);
+
+// Texte en noir
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('DejaVu','',12);
+
+// Parcourir les informations et les afficher dans le PDF
+foreach ($informations as $info) {
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $info['nom_utilisateur'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . $info['age'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);    
+    $pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . $info['taille'] . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . $info['poids'] . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);
+    $pdf->MultiCell(150, 10, mb_convert_encoding($info['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
     $pdf->Ln(10);
 
-    // Texte en noir
-    $pdf->SetTextColor(0, 0, 0);
-    $pdf->SetFont('DejaVu','',12);
-
-    // Parcourir les informations et les afficher dans le PDF
-    foreach ($informations as $info) {
-        $pdf->SetX(25);
-        $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $info['nom_utilisateur'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->SetX(25);
-        $pdf->Cell(0, 10, mb_convert_encoding('Âge: ' . $info['age'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->SetX(25);    
-        $pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . $info['taille'] . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->SetX(25);
-        $pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . $info['poids'] . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->SetX(25);
-        $pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->SetX(25);
-        $pdf->MultiCell(150, 10, mb_convert_encoding($info['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
-        $pdf->Ln(10);
-
-        // Vérifier si un saut de page est nécessaire
-        if ($pdf->GetY() + 50 > 264) {
-            $pdf->AddPage();
-            $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
-        }
+    // Vérifier si un saut de page est nécessaire
+    if ($pdf->GetY() + 50 > 264) {
+        $pdf->AddPage();
+        $pdf->SetY(32);  // Ajuste la position du texte sur la nouvelle page
     }
-
-    // Générer le PDF
-    $pdf->Output('I', 'informations_medicales.pdf');
 }
+
+// Générer le PDF
+$pdf->Output('I', 'informations_medicales.pdf');
 ?>
