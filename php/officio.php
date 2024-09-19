@@ -46,6 +46,25 @@ $stmt = $pdo->prepare("SELECT plainte, status, date_creation FROM plaintes WHERE
 $stmt->execute(['id_utilisateur' => $currentUser['id']]);
 $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+ $plaintesStmt = $pdo->query("SELECT p.id, u.nom AS utilisateur, p.plainte, p.status, p.date_creation 
+                                            FROM plaintes p 
+                                            JOIN utilisateurs u ON p.id_utilisateur = u.id
+                                            WHERE p.status = 'Attente'");
+                $plaintes = $plaintesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+$pendingStmt = $pdo->query("SELECT d.id, u.nom AS utilisateur, d.demande, d.status 
+                            FROM demande d 
+                            JOIN utilisateurs u ON d.id_utilisateurs = u.id
+                            WHERE d.status = 'en attente'");
+$pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs");
+$stmt->execute();
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
