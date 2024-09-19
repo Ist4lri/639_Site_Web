@@ -9,7 +9,7 @@
 
 body {
     font-family: 'Cinzel', serif; /* Utilisez une police avec un style impérial/gothique */
-    background: url('../src/assets/warhammer_bg.jpg') no-repeat center center fixed; /* Arrière-plan sombre et métallique */
+    background: url('../src/assets/bureau.png') no-repeat center center fixed; /* Arrière-plan sombre et métallique */
     background-size: cover;
     color: #f1f1f1; /* Texte clair pour contraster avec le fond sombre */
     margin: 0;
@@ -41,6 +41,7 @@ p{
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
+    
 }
 
 /* H1, H2, et H3 avec la police Inquisitor */
