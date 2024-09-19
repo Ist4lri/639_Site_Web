@@ -115,7 +115,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo htmlspecialchars($plainte['utilisateur']); ?></td>
                     <td><?php echo htmlspecialchars($plainte['plainte']); ?></td>
                     <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
-                    <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_plainte']))); ?></td>
+                    <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_creation']))); ?></td>
                     <td>
                         <form action="officio.php" method="post" style="display:inline;">
                             <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
