@@ -1,4 +1,12 @@
-/* Corps global */
+
+
+@font-face {
+    font-family: 'Inquisitor';
+    src: url('../fonts/Inquisitor.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: 'Cinzel', serif; /* Utilisez une police avec un style impérial/gothique */
     background: url('../src/assets/warhammer_bg.jpg') no-repeat center center fixed; /* Arrière-plan sombre et métallique */
