@@ -117,7 +117,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
                     <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_plainte']))); ?></td>
                     <td>
-                        <form action="plainte.php" method="post" style="display:inline;">
+                        <form action="officio.php" method="post" style="display:inline;">
                             <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
                             <button type="submit" name="action" value="lu" class="btn btn-success">Marquer comme lu</button>
                         </form>
