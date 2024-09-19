@@ -30,7 +30,7 @@ body {
 /* Effet de flou pour h2.title */
 h2.title {
     font-family: 'Inquisitor', serif;
-    font-weight: normal;
+    font-weight: bold;
     padding: 10px;
     border-radius: 5px;
     text-align: center;;
