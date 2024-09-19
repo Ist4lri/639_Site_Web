@@ -48,10 +48,23 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Officio Prefectus</title>
+    <link rel="stylesheet" href="../css/officio.css">
+</head>
+<body>
+
 <div class="container">
-    <!-- Membres de l'Officio Prefectus -->
-    <h2 onclick="toggleSection('membersSection')" style="cursor: pointer;">MEMBRES DE L'OFFICIO PREFECTUS</h2>
-    <div id="membersSection">
+    <?php if (!empty($message)): ?>
+        <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
+    <?php endif; ?>
+
+    <?php if ($faction): ?>
+        <h2>Membres de l'Officio Prefectus</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -60,7 +73,11 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($users as $user): ?>
+                <?php
+                $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs");
+                $stmt->execute();
+                $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($users as $user): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td>
@@ -73,11 +90,9 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
 
-    <!-- Gestion des plaintes -->
-    <h2 onclick="toggleSection('plaintesSection')" style="cursor: pointer;">Gestion des Plaintes</h2>
-    <div id="plaintesSection" style="display:none;">
+        <!-- Gestion des plaintes -->
+        <h2>Gestion des Plaintes</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -89,7 +104,13 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($plaintes as $plainte): ?>
+                <?php
+                $plaintesStmt = $pdo->query("SELECT p.id, u.nom AS utilisateur, p.plainte, p.status, p.date_creation 
+                                            FROM plaintes p 
+                                            JOIN utilisateurs u ON p.id_utilisateur = u.id
+                                            WHERE p.status = 'Attente'");
+                $plaintes = $plaintesStmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($plaintes as $plainte): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($plainte['utilisateur']); ?></td>
                     <td><?php echo htmlspecialchars($plainte['plainte']); ?></td>
@@ -105,11 +126,9 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
 
-    <!-- Gestion des demandes -->
-    <h2 onclick="toggleSection('demandesSection')" style="cursor: pointer;">Gestion des Demandes</h2>
-    <div id="demandesSection" style="display:none;">
+        <!-- Gestion des demandes -->
+        <h2>Gestion des Demandes</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -120,7 +139,13 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($pendingDemandes as $demande): ?>
+                <?php
+                $pendingStmt = $pdo->query("SELECT d.id, u.nom AS utilisateur, d.demande, d.status 
+                                            FROM demande d 
+                                            JOIN utilisateurs u ON d.id_utilisateurs = u.id
+                                            WHERE d.status = 'en attente'");
+                $pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($pendingDemandes as $demande): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
                     <td><?php echo htmlspecialchars($demande['demande']); ?></td>
@@ -136,18 +161,15 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
+    <?php else: ?>
+        <!-- Si l'utilisateur n'est pas dans la faction "Officio Prefectus" -->
+        <h3>Souhaitez-vous envoyer une plainte ?</h3>
+        <form action="officio.php" method="post">
+            <textarea name="plainte" required placeholder="Votre plainte"></textarea>
+            <button type="submit" class="btn btn-primary">Envoyer la plainte</button>
+        </form>
+    <?php endif; ?>
 </div>
+
 </body>
-
-<script>
-function toggleSection(sectionId) {
-    var section = document.getElementById(sectionId);
-    if (section.style.display === "none" || section.style.display === "") {
-        section.style.display = "block";
-    } else {
-        section.style.display = "none";
-    }
-}
-</script>
-
+</html>
