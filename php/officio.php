@@ -76,7 +76,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <h1 class=title>Bienvenue, membre de l'Officio Prefectus,</h1>
-<h2>Vous avez franchi les portes de l'un des ordres les plus respectés et redoutés de l'Imperium. En rejoignant nos rangs, vous devenez une pièce essentielle de la machine de l'Empereur, une sentinelle vigilante contre le chaos et l'hérésie.<br>
+<h2 class=title>Vous avez franchi les portes de l'un des ordres les plus respectés et redoutés de l'Imperium. En rejoignant nos rangs, vous devenez une pièce essentielle de la machine de l'Empereur, une sentinelle vigilante contre le chaos et l'hérésie.<br>
 Ici, sous l'étendard de l'ordre et de la discipline, nous veillons à ce que l'autorité impériale soit respectée, à chaque instant, dans chaque secteur. Votre dévouement à la loi impériale et votre loyauté inébranlable envers le Trône d'Or seront votre guide.<br>
 Les devoirs qui vous attendent sont nombreux, les responsabilités immenses. Mais sachez ceci : vous ne marchez pas seul.<br> 
     Derrière vous, l'ombre du passé glorieux de l'Officio Prefectus et à vos côtés, vos frères et sœurs d'armes, prêts à défendre l'Imperium à tout prix.<br>
