@@ -70,6 +70,7 @@ h2 {
 /* H2 hover */
 h2:hover {
     background-color: #555;
+    cursor: pointer;
 }
 
 /* H3 */
