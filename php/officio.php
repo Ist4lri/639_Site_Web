@@ -112,7 +112,7 @@ Qu'aucune faiblesse ne ternisse votre âme et que la lumière de l'Empereur vous
                         <td>
                             <form action="afficher_info.php" method="post" style="display:inline;" target="_blank">
                                 <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($user['id']); ?>">
-                                <button type="submit" name="view_pdf" class="btn btn-view-pdf">PDF</button>
+                                <button type="submit" name="view_pdf" class="btn-view-pdf">PDF</button>
                             </form>
                         </td>
                     </tr>
@@ -144,7 +144,7 @@ Qu'aucune faiblesse ne ternisse votre âme et que la lumière de l'Empereur vous
                         <td>
                             <form action="officio.php" method="post" style="display:inline;">
                                 <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
-                                <button type="submit" name="action" value="lu" class="btn btn-success">Marquer comme lu</button>
+                                <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
                             </form>
                         </td>
                     </tr>
@@ -174,8 +174,8 @@ Qu'aucune faiblesse ne ternisse votre âme et que la lumière de l'Empereur vous
                         <td>
                             <form action="demande.php" method="post" style="display:inline;">
                                 <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
-                                <button type="submit" name="action" value="accepter" class="btn btn-success">Accepter</button>
-                                <button type="submit" name="action" value="rejeter" class="btn btn-danger">Rejeter</button>
+                                <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
+                                <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
                             </form>
                         </td>
                     </tr>
@@ -188,7 +188,7 @@ Qu'aucune faiblesse ne ternisse votre âme et que la lumière de l'Empereur vous
         <h3>Souhaitez-vous envoyer une plainte ?</h3>
         <form action="officio.php" method="post">
             <textarea name="plainte" required placeholder="Votre plainte"></textarea>
-            <button type="submit" class="btn btn-primary">Envoyer la plainte</button>
+            <button type="submit" class="btn-primary">Envoyer la plainte</button>
         </form>
     <?php endif; ?>
 </div>
