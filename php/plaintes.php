@@ -13,7 +13,7 @@ if (!isset($_SESSION['utilisateur'])) {
 }
 
 // Récupération de l'utilisateur actuel
-$stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
+$stmt = $pdo->prepare("SELECT id, nom, spe_id FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
@@ -24,26 +24,85 @@ if (!$currentUser) {
 
 $message = '';
 
-// Gestion de la soumission du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['plainte']) && !empty($_POST['plainte'])) {
     $plainteText = trim($_POST['plainte']);
 
     if (!empty($plainteText)) {
-        $stmt = $pdo->prepare("INSERT INTO plaintes (id_utilisateur, plainte, status) VALUES (?, ?, 'Attente')");
+        $stmt = $pdo->prepare("INSERT INTO plaintes (id_utilisateur, plainte, status, date_creation) VALUES (?, ?, 'Attente', NOW())");
         $stmt->execute([$currentUser['id'], $plainteText]);
         $message = "Votre plainte a été soumise avec succès.";
-        // Redirection pour éviter le renvoi de la plainte lors du rafraîchissement de la page
-        header("Location: plaintes.php");
+        header("Location: officio.php");
         exit();
     } else {
         $message = "La plainte ne peut pas être vide.";
     }
 }
 
-// Récupération des plaintes soumises par l'utilisateur
-$stmt = $pdo->prepare("SELECT plainte, status, date_creation FROM plaintes WHERE id_utilisateur = :id_utilisateur ORDER BY date_creation DESC");
-$stmt->execute(['id_utilisateur' => $currentUser['id']]);
-$plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Filtrage pour la tab "Members"
+$searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
+$userQuery = "SELECT id, nom FROM utilisateurs";
+if (!empty($searchUser)) {
+    $userQuery .= " WHERE nom LIKE ?";
+    $stmt = $pdo->prepare($userQuery);
+    $stmt->execute(['%' . $searchUser . '%']);
+} else {
+    $stmt = $pdo->query($userQuery);
+}
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Filtrage pour la tab "Plaintes"
+$searchPlainteUser = isset($_GET['search_plainte_user']) ? trim($_GET['search_plainte_user']) : '';
+$searchPlainteStatus = isset($_GET['search_plainte_status']) ? trim($_GET['search_plainte_status']) : '';
+$plainteQuery = "SELECT p.id, u.nom AS utilisateur, p.plainte, p.status, p.date_creation FROM plaintes p JOIN utilisateurs u ON p.id_utilisateur = u.id WHERE 1=1";
+$plainteParams = [];
+
+if (!empty($searchPlainteUser)) {
+    $plainteQuery .= " AND u.nom LIKE ?";
+    $plainteParams[] = '%' . $searchPlainteUser . '%';
+}
+
+if (!empty($searchPlainteStatus)) {
+    $plainteQuery .= " AND p.status = ?";
+    $plainteParams[] = $searchPlainteStatus;
+}
+
+$plaintesStmt = $pdo->prepare($plainteQuery);
+$plaintesStmt->execute($plainteParams);
+$plaintes = $plaintesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Filtrage pour la tab "Demandes"
+$searchDemandeUser = isset($_GET['search_demande_user']) ? trim($_GET['search_demande_user']) : '';
+$searchDemandeStatus = isset($_GET['search_demande_status']) ? trim($_GET['search_demande_status']) : '';
+$demandeQuery = "SELECT d.id, u.nom AS utilisateur, d.demande, d.status FROM demande d JOIN utilisateurs u ON d.id_utilisateurs = u.id WHERE 1=1";
+$demandeParams = [];
+
+if (!empty($searchDemandeUser)) {
+    $demandeQuery .= " AND u.nom LIKE ?";
+    $demandeParams[] = '%' . $searchDemandeUser . '%';
+}
+
+if (!empty($searchDemandeStatus)) {
+    $demandeQuery .= " AND d.status = ?";
+    $demandeParams[] = $searchDemandeStatus;
+}
+
+$pendingStmt = $pdo->prepare($demandeQuery);
+$pendingStmt->execute($demandeParams);
+$pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Action sur "Accepter" ou "Rejeter" les demandes
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array($_POST['action'], ['accepter', 'rejeter'])) {
+    $id_demande = $_POST['id_demande'];
+    $action = $_POST['action'] == 'accepter' ? 'Accepter' : 'Rejeter';
+
+    $updateStmt = $pdo->prepare("UPDATE demande SET status = ? WHERE id = ?");
+    $updateStmt->execute([$action, $id_demande]);
+
+    // Redirection après action pour éviter la répétition
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,51 +110,92 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Plaintes</title>
+    <title>Officio Prefectus</title>
     <link rel="stylesheet" href="../css/officio.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>Soumettre une plainte</h2>
 
+
+<div class="container">
     <?php if (!empty($message)): ?>
         <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
     <?php endif; ?>
 
-    <form action="plaintes.php" method="post">
-        <label for="plainte">Votre plainte :</label>
-        <textarea id="plainte" name="plainte" rows="4" style="width: 100%;" required></textarea>
-        <br>
-        <button type="submit" class="btn btn-primary">Envoyer la plainte</button>
-    </form>
 
-    <h3>Vos plaintes</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Plainte</th>
-                <th>Status</th>
-                <th>Date de soumission</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (empty($plaintes)): ?>
+    <h2 class="tab-title" onclick="showTabContent('plaintes')">Gestion des Plaintes</h2>
+    <h2 class="tab-title" onclick="showTabContent('demandes')">Gestion des Demandes</h2>
+
+    <!-- Plaintes Section -->
+    <div class="tab-content" id="plaintes" style="display: none;">
+        <form method="get">
+            <input type="text" name="search_plainte_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchPlainteUser); ?>">
+            <input type="text" name="search_plainte_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchPlainteStatus); ?>">
+            <button type="submit">Rechercher</button>
+        </form>
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td colspan="3">Aucune plainte soumise pour le moment.</td>
+                    <th>Utilisateur</th>
+                    <th>Plainte</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
                 </tr>
-            <?php else: ?>
+            </thead>
+            <tbody>
                 <?php foreach ($plaintes as $plainte): ?>
                 <tr>
+                    <td><?php echo htmlspecialchars($plainte['utilisateur']); ?></td>
                     <td><?php echo htmlspecialchars($plainte['plainte']); ?></td>
-                    <td><?php echo htmlspecialchars($plainte['status']); ?></td>
-                    <td><?php echo htmlspecialchars($plainte['date_creation']); ?></td>
+                    <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
+                    <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_creation']))); ?></td>
+                    <td>
+                        <form action="officio.php" method="post" style="display:inline;">
+                            <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
+                            <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
+                        </form>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
-            <?php endif; ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Demandes Section -->
+    <div class="tab-content" id="demandes" style="display: none;">
+        <form method="get">
+            <input type="text" name="search_demande_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchDemandeUser); ?>">
+            <input type="text" name="search_demande_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchDemandeStatus); ?>">
+            <button type="submit">Rechercher</button>
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Demande</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($pendingDemandes as $demande): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
+                    <td><?php echo htmlspecialchars($demande['demande']); ?></td>
+                    <td><?php echo htmlspecialchars($demande['status'] ?? 'en attente'); ?></td>
+                    <td>
+                        <form action="officio.php" method="post" style="display:inline;">
+                            <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
+                            <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
+                            <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-</body>
 </html>
