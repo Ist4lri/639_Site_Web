@@ -1,75 +1,7 @@
-<?php
-session_start();
-include 'db.php';
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Vérification si l'utilisateur est connecté
-if (!isset($_SESSION['utilisateur'])) {
-    header("Location: connection.php");
-    exit();
-}
-
-// Récupération de l'utilisateur actuel
-$stmt = $pdo->prepare("SELECT id, nom, spe_id FROM utilisateurs WHERE email = :email");
-$stmt->execute(['email' => $_SESSION['utilisateur']]);
-$currentUser = $stmt->fetch();
-
-if (!$currentUser) {
-    echo "Utilisateur non trouvé.";
-    exit();
-}
-
-$message = '';
-
-// Gestion de la soumission du formulaire de plainte
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['plainte']) && !empty($_POST['plainte'])) {
-    $plainteText = trim($_POST['plainte']);
-
-    if (!empty($plainteText)) {
-        $stmt = $pdo->prepare("INSERT INTO plaintes (id_utilisateur, plainte, status) VALUES (?, ?, 'Attente')");
-        $stmt->execute([$currentUser['id'], $plainteText]);
-        $message = "Votre plainte a été soumise avec succès.";
-        // Redirection pour éviter le renvoi de la plainte lors du rafraîchissement de la page
-        header("Location: officio.php");
-        exit();
-    } else {
-        $message = "La plainte ne peut pas être vide.";
-    }
-}
-
-// Vérifier si l'utilisateur est dans la faction "Officio Prefectus"
-$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Officio Prefectus' AND validation = 'Accepter'");
-$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
-$faction = $factionStmt->fetch();
-
-// Récupérer les plaintes soumises par l'utilisateur
-$stmt = $pdo->prepare("SELECT plainte, status, date_creation FROM plaintes WHERE id_utilisateur = :id_utilisateur ORDER BY date_creation DESC");
-$stmt->execute(['id_utilisateur' => $currentUser['id']]);
-$plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Officio Prefectus</title>
-    <link rel="stylesheet" href="../css/officio.css">
-</head>
-<body>
-
 <div class="container">
-    <?php if (!empty($message)): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
-    <?php endif; ?>
-
-    <?php if ($faction): ?>
-        <!-- Si l'utilisateur fait partie de la faction "Officio Prefectus" -->
-        <h2>Membres de l'Officio Prefectus</h2>
+    <!-- Membres de l'Officio Prefectus -->
+    <h2 onclick="toggleSection('membersSection')" style="cursor: pointer;">MEMBRES DE L'OFFICIO PREFECTUS</h2>
+    <div id="membersSection">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -78,11 +10,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs");
-                $stmt->execute();
-                $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($users as $user): ?>
+                <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td>
@@ -95,9 +23,11 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
 
-        <!-- Gestion des plaintes -->
-        <h2>Gestion des Plaintes</h2>
+    <!-- Gestion des plaintes -->
+    <h2 onclick="toggleSection('plaintesSection')" style="cursor: pointer;">Gestion des Plaintes</h2>
+    <div id="plaintesSection" style="display:none;">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -109,13 +39,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $plaintesStmt = $pdo->query("SELECT p.id, u.nom AS utilisateur, p.plainte, p.status, p.date_creation 
-                                            FROM plaintes p 
-                                            JOIN utilisateurs u ON p.id_utilisateur = u.id
-                                            WHERE p.status = 'Attente'");
-                $plaintes = $plaintesStmt->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($plaintes as $plainte): ?>
+                <?php foreach ($plaintes as $plainte): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($plainte['utilisateur']); ?></td>
                     <td><?php echo htmlspecialchars($plainte['plainte']); ?></td>
@@ -131,9 +55,11 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
 
-        <!-- Gestion des demandes -->
-        <h2>Gestion des Demandes</h2>
+    <!-- Gestion des demandes -->
+    <h2 onclick="toggleSection('demandesSection')" style="cursor: pointer;">Gestion des Demandes</h2>
+    <div id="demandesSection" style="display:none;">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -144,13 +70,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $pendingStmt = $pdo->query("SELECT d.id, u.nom AS utilisateur, d.demande, d.status 
-                                            FROM demande d 
-                                            JOIN utilisateurs u ON d.id_utilisateurs = u.id
-                                            WHERE d.status = 'en attente'");
-                $pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($pendingDemandes as $demande): ?>
+                <?php foreach ($pendingDemandes as $demande): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
                     <td><?php echo htmlspecialchars($demande['demande']); ?></td>
@@ -166,15 +86,5 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
-    <?php else: ?>
-        <!-- Si l'utilisateur n'est pas dans la faction "Officio Prefectus" -->
-        <h3>Souhaitez-vous envoyer une plainte ?</h3>
-        <form action="officio.php" method="post">
-            <textarea name="plainte" required placeholder="Votre plainte"></textarea>
-            <button type="submit" class="btn btn-primary">Envoyer la plainte</button>
-        </form>
-    <?php endif; ?>
+    </div>
 </div>
-
-</body>
-</html>
