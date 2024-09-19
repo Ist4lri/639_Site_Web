@@ -1,3 +1,53 @@
+<?php
+session_start();
+include 'db.php';
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Vérification si l'utilisateur est connecté
+if (!isset($_SESSION['utilisateur'])) {
+    header("Location: connection.php");
+    exit();
+}
+
+// Récupération de l'utilisateur actuel
+$stmt = $pdo->prepare("SELECT id, nom, spe_id FROM utilisateurs WHERE email = :email");
+$stmt->execute(['email' => $_SESSION['utilisateur']]);
+$currentUser = $stmt->fetch();
+
+if (!$currentUser) {
+    echo "Utilisateur non trouvé.";
+    exit();
+}
+
+$message = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['plainte']) && !empty($_POST['plainte'])) {
+    $plainteText = trim($_POST['plainte']);
+
+    if (!empty($plainteText)) {
+        $stmt = $pdo->prepare("INSERT INTO plaintes (id_utilisateur, plainte, status, date_creation) VALUES (?, ?, 'Attente', NOW())");
+        $stmt->execute([$currentUser['id'], $plainteText]);
+        $message = "Votre plainte a été soumise avec succès.";
+        header("Location: officio.php");
+        exit();
+    } else {
+        $message = "La plainte ne peut pas être vide.";
+    }
+}
+
+$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Officio Prefectus' AND validation = 'Accepter'");
+$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$faction = $factionStmt->fetch();
+
+$stmt = $pdo->prepare("SELECT plainte, status, date_creation FROM plaintes WHERE id_utilisateur = :id_utilisateur ORDER BY date_creation DESC");
+$stmt->execute(['id_utilisateur' => $currentUser['id']]);
+$plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <div class="container">
     <!-- Membres de l'Officio Prefectus -->
     <h2 onclick="toggleSection('membersSection')" style="cursor: pointer;">MEMBRES DE L'OFFICIO PREFECTUS</h2>
