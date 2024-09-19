@@ -1,5 +1,4 @@
-
-
+/* Chargement de la police Inquisitor */
 @font-face {
     font-family: 'Inquisitor';
     src: url('fonts/Inquisitor.otf') format('opentype');
@@ -7,9 +6,10 @@
     font-style: normal;
 }
 
+/* Fond et style global */
 body {
-    font-family: 'Cinzel', serif; /* Utilisez une police avec un style impérial/gothique */
-    background: url('../src/assets/bureau.png') no-repeat center center fixed; /* Arrière-plan sombre et métallique */
+    font-family: 'Inquisitor', serif; /* Style impérial/gothique */
+    background: url('../src/assets/bureau.png') no-repeat center center fixed; /* Arrière-plan sombre */
     background-size: cover;
     color: #f1f1f1; /* Texte clair pour contraster avec le fond sombre */
     margin: 0;
@@ -24,38 +24,30 @@ body {
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent noir */
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Effet d'ombre pour un aspect imposant */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Effet d'ombre imposant */
     border: 1px solid #444; /* Bordure fine */
 }
 
-/* Chargement de la police Inquisitor */
-@font-face {
-    font-family: 'Inquisitor';
-    src: url('fonts/Inquisitor.otf') format('opentype');
+/* Effet de flou pour h2.title */
+h2.title {
+    font-family: 'Inquisitor', serif;
     font-weight: normal;
-    font-style: normal;
-}
-p{
-    font-family: 'Inquisitor', serif;
-    color: #7B241C;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
     text-align: center;
+    letter-spacing: 2px; /* Espacement des lettres pour un effet imposant */
     text-transform: uppercase;
-    letter-spacing: 1px;
-    
+    backdrop-filter: blur(5px); /* Applique un effet de flou */
+    background-color: rgba(51, 51, 51, 0.8); /* Fond flouté avec opacité */
+    border: 1px solid #ffcc00; /* Bordure dorée */
 }
 
-/* H1, H2, et H3 avec la police Inquisitor */
-h1, h2, h3 {
+/* H1 en gras avec rouge sombre */
+h1.title {
     font-family: 'Inquisitor', serif;
-}
-
-h1.title{
-color: #A93226;
-
-}
-h1 {
-    font-weight: bold; /* H1 en gras */
-    color: #c1c1c1; /* Couleur douce pour les titres */
+    font-weight: bold;
+    color: #A93226; /* Rouge sombre */
     text-align: center;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -64,13 +56,13 @@ h1 {
 
 /* H2 */
 h2 {
-    font-weight: normal; /* H2 avec un poids normal */
+    font-weight: normal;
     background-color: #333;
     color: white;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    letter-spacing: 2px; /* Espacement des lettres pour un effet imposant */
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
@@ -81,13 +73,21 @@ h2:hover {
 
 /* H3 */
 h3 {
-    font-weight: normal; /* H3 avec un poids normal */
+    font-weight: normal;
     color: #c3c3c3;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 10px;
 }
 
+/* Paragraphe personnalisé */
+p {
+    font-family: 'Inquisitor', serif;
+    color: #7B241C; /* Rouge impérial */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
 /* Boutons */
 button {
@@ -113,6 +113,7 @@ button:hover {
 .btn-view-pdf {
     background-color: #c70000; /* Rouge sombre pour un effet de danger/autorité */
     color: white;
+    border: 1px solid #ffcc00; /* Bordure dorée */
 }
 
 .btn-view-pdf:hover {
@@ -138,22 +139,6 @@ button:hover {
     font-weight: bold;
     text-transform: uppercase;
 }
-
-.tab-title {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 18px;
-}
-
-.tab-title:hover {
-    background-color: #555;
-}
-
 
 .table tbody tr:nth-child(odd) {
     background-color: #222;
@@ -195,55 +180,6 @@ input[type="submit"]:hover, .btn:hover {
     background-color: #888;
 }
 
-/* Spécificités pour Officio Prefectus */
-.header {
-    background-color: rgba(20, 20, 20, 0.9);
-    padding: 20px;
-    border-bottom: 3px solid #444;
-    text-align: center;
-    font-family: 'Cinzel', serif;
-}
-
-.header img {
-    width: 150px;
-    margin-bottom: 10px;
-}
-
-.header h1 {
-    font-size: 3rem;
-    color: #ffcc00; /* Couleur or impérial */
-}
-
-/* Effet de hover et d'accentuation pour Officio Prefectus */
-.btn-success {
-    background-color: #28a745;
-}
-
-.btn-danger {
-    background-color: #c70000;
-}
-
-.btn-success:hover {
-    background-color: #1d7b31;
-}
-
-.btn-danger:hover {
-    background-color: #ff1a1a;
-}
-
-/* Effet sur les formulaires */
-form textarea, form input, form select {
-    background-color: #282828;
-    border: 1px solid #666;
-    color: #e6e6e6;
-}
-
-form textarea:focus, form input:focus, form select:focus {
-    background-color: #383838;
-    outline: none;
-    border-color: #c70000;
-}
-
 /* Navigation */
 .head-nav a {
     font-family: 'Cinzel', serif;
@@ -256,7 +192,7 @@ form textarea:focus, form input:focus, form select:focus {
 }
 
 .head-nav a:hover {
-    color: #ffcc00;
+    color: #ffcc00; /* Or impérial */
 }
 
 /* Pop-up style */
@@ -284,12 +220,4 @@ form textarea:focus, form input:focus, form select:focus {
 
 .popup button {
     background-color: #333;
-    color: #ffcc00;
-    border: 1px solid #ffcc00;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.popup button:hover {
-    background-color: #444;
-}
+   
