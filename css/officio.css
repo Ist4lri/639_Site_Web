@@ -68,7 +68,7 @@ h2 {
 }
 
 /* H2 hover */
-h2:hover {
+h2.table-title:hover {
     background-color: #555;
     cursor: pointer;
 }
