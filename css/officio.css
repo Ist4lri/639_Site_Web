@@ -57,7 +57,7 @@ h1.title {
 /* H2 */
 h2 {
     font-family: 'Inquisitor', serif;
-    font-weight: normal;
+    font-weight: bold;
     background-color: #333;
     color: #922B21;
     padding: 10px;
@@ -110,13 +110,13 @@ button:hover {
 
 /* Boutons spéciaux */
 .btn-view-pdf {
-    background-color: #c70000; /* Rouge sombre pour un effet de danger/autorité */
-    color: #922B21;
+    background-color: #760000; /* Rouge sombre pour un effet de danger/autorité */
+    color: #FFFFFF;
     border: 1px solid #ffcc00; /* Bordure dorée */
 }
 
 .btn-view-pdf:hover {
-    background-color: #ff0000;
+    background-color: #D80000;
 }
 
 /* Table */
