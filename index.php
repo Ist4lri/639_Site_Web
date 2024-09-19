@@ -121,6 +121,15 @@ th {
     animation: float 3s ease-in-out infinite;
 }
 
+        .officio {
+    position: absolute;
+    left: 10px;
+    top: 170px;
+    width: 150px;
+    height: auto;
+    cursor: pointer;
+}
+
 .Tooltip {
     position: absolute;
     right: 125px; 
@@ -233,6 +242,10 @@ th {
 
 <div class="intro_content">
     <?php if ($isLoggedIn): ?>
+
+    <a href="/php/officio.php">
+    <img src="/src/assets/officio.png" alt="Officio Prefectus" class="officio">
+    </a>    
     
     <p class="tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
     <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">
