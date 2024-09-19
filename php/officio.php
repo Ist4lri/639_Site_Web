@@ -57,7 +57,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/officio.css">
 </head>
 <body>
-
+<div class="tab-content" id="medical" style="display: none;">
 <div class="container">
     <?php if (!empty($message)): ?>
         <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
@@ -92,6 +92,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </table>
 
         <!-- Gestion des plaintes -->
+    <div class="tab-content" id="plaintes" style="display: none;">
         <h2>Gestion des Plaintes</h2>
         <table class="table table-bordered">
             <thead>
@@ -128,6 +129,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </table>
 
         <!-- Gestion des demandes -->
+    <div class="tab-content" id="demandes" style="display: none;">
         <h2>Gestion des Demandes</h2>
         <table class="table table-bordered">
             <thead>
@@ -173,3 +175,13 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 </body>
 </html>
+
+var tabContents = document.getElementsByClassName('tab-content');
+        for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = 'none';
+        }
+
+        // Show the selected tab content
+        document.getElementById(tabId).style.display = 'block';
+    }
+</script>
