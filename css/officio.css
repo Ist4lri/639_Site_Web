@@ -109,13 +109,13 @@ button:hover {
 }
 
 /* Boutons spéciaux */
-.btn btn-view-pdf {
+.btn-view-pdf {
     background-color: #c70000; /* Rouge sombre pour un effet de danger/autorité */
     color: #922B21;
     border: 1px solid #ffcc00; /* Bordure dorée */
 }
 
-.btn btn-view-pdf:hover {
+.btn-view-pdf:hover {
     background-color: #ff0000;
 }
 
