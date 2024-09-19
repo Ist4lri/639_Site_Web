@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'Inquisitor';
-    src: url('../fonts/Inquisitor.otf') format('opentype');
+    src: url('fonts/Inquisitor.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -28,9 +28,22 @@ body {
     border: 1px solid #444; /* Bordure fine */
 }
 
-/* Titres */
+/* Chargement de la police Inquisitor */
+@font-face {
+    font-family: 'Inquisitor';
+    src: url('fonts/Inquisitor.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* H1, H2, et H3 avec la police Inquisitor */
+h1, h2, h3 {
+    font-family: 'Inquisitor', serif;
+}
+
+/* H1 en gras */
 h1 {
-    font-family: 'Cinzel Decorative', serif;
+    font-weight: bold; /* H1 en gras */
     color: #c1c1c1; /* Couleur douce pour les titres */
     text-align: center;
     letter-spacing: 3px;
@@ -38,29 +51,36 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* H2 */
 h2 {
+    font-weight: normal; /* H2 avec un poids normal */
     background-color: #333;
     color: white;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
+    letter-spacing: 2px; /* Espacement des lettres pour un effet imposant */
+    text-transform: uppercase;
 }
 
+/* H2 hover */
 h2:hover {
     background-color: #555;
 }
 
-
+/* H3 */
 h3 {
-    font-family: 'Cinzel', serif;
+    font-weight: normal; /* H3 avec un poids normal */
     color: #c3c3c3;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 10px;
 }
 
+
 /* Boutons */
 button {
+    font-family: 'Inquisitor', serif;
     background-color: #1a1a1a; /* Noir profond */
     color: #f5f5f5;
     border: 1px solid #555;
