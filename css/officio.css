@@ -39,8 +39,8 @@ h2.title {
     letter-spacing: 1px;
     text-transform: uppercase;
     backdrop-filter: blur(5px); /* Applique un effet de flou */
-    background-color: rgba(51, 51, 51, 0.8); /* Fond flouté avec opacité */
-    border: 4px solid #ffcc00; /* Bordure dorée */
+    background-color: rgba(120, 120, 120, 0.8); /* Fond flouté avec opacité */
+    border: 4px solid #FFD700; /* Bordure dorée */
 }
 
 /* H1 en gras avec rouge sombre */
