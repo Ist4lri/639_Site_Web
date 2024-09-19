@@ -37,7 +37,7 @@ body {
 }
 p{
     font-family: 'Inquisitor', serif;
-    color: #ffff; /* Couleur douce pour les titres */
+    color: #000000;
     text-align: center;
     letter-spacing: 1px;
 }
