@@ -8,7 +8,6 @@
 
 /* Fond et style global */
 body {
-    font-family: 'Inquisitor', serif; /* Style impérial/gothique */
     background: url('../src/assets/bureau.png') no-repeat center center fixed; /* Arrière-plan sombre */
     background-size: cover;
     color: #f1f1f1; /* Texte clair pour contraster avec le fond sombre */
@@ -25,22 +24,23 @@ body {
     background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent noir */
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Effet d'ombre imposant */
-    border: 1px solid #444; /* Bordure fine */
+    border: 5px solid #444; /* Bordure fine */
 }
 
 /* Effet de flou pour h2.title */
 h2.title {
     font-family: 'Inquisitor', serif;
     font-weight: normal;
-    color: white;
     padding: 10px;
     border-radius: 5px;
+    text-align: center;;
+    color: #7B241C; /* Rouge impérial */
     text-align: center;
-    letter-spacing: 2px; /* Espacement des lettres pour un effet imposant */
+    letter-spacing: 1px;
     text-transform: uppercase;
     backdrop-filter: blur(5px); /* Applique un effet de flou */
     background-color: rgba(51, 51, 51, 0.8); /* Fond flouté avec opacité */
-    border: 1px solid #ffcc00; /* Bordure dorée */
+    border: 4px solid #ffcc00; /* Bordure dorée */
 }
 
 /* H1 en gras avec rouge sombre */
@@ -58,7 +58,7 @@ h1.title {
 h2 {
     font-weight: normal;
     background-color: #333;
-    color: white;
+    color: #922B21;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
@@ -74,7 +74,7 @@ h2:hover {
 /* H3 */
 h3 {
     font-weight: normal;
-    color: #c3c3c3;
+    color: #922B21;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 10px;
@@ -82,11 +82,7 @@ h3 {
 
 /* Paragraphe personnalisé */
 p {
-    font-family: 'Inquisitor', serif;
-    color: #7B241C; /* Rouge impérial */
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    
 }
 
 /* Boutons */
@@ -112,7 +108,7 @@ button:hover {
 /* Boutons spéciaux */
 .btn-view-pdf {
     background-color: #c70000; /* Rouge sombre pour un effet de danger/autorité */
-    color: white;
+    color: #922B21;
     border: 1px solid #ffcc00; /* Bordure dorée */
 }
 
