@@ -35,6 +35,12 @@ body {
     font-weight: normal;
     font-style: normal;
 }
+p{
+    font-family: 'Inquisitor', serif;
+    color: #0000; /* Couleur douce pour les titres */
+    text-align: center;
+    letter-spacing: 1px;
+}
 
 /* H1, H2, et H3 avec la police Inquisitor */
 h1, h2, h3 {
