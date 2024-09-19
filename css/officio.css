@@ -37,8 +37,9 @@ body {
 }
 p{
     font-family: 'Inquisitor', serif;
-    color: #000000;
+    color: #7B241C;
     text-align: center;
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
