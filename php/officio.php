@@ -79,7 +79,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </thead>
             <tbody>
                 <?php
-                $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE spe_id = 3");
+                $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs");
                 $stmt->execute();
                 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($users as $user): ?>
@@ -110,7 +110,7 @@ $plaintes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </thead>
             <tbody>
                 <?php
-                $plaintesStmt = $pdo->query("SELECT p.id, u.nom AS utilisateur, p.plainte, p.status, p.date_plainte 
+                $plaintesStmt = $pdo->query("SELECT p.id, u.nom AS utilisateur, p.plainte, p.status, p.date_creation 
                                             FROM plaintes p 
                                             JOIN utilisateurs u ON p.id_utilisateur = u.id
                                             WHERE p.status = 'Attente'");
