@@ -48,7 +48,10 @@ h1, h2, h3 {
     font-family: 'Inquisitor', serif;
 }
 
-/* H1 en gras */
+h1.title{
+color: #A93226;
+
+}
 h1 {
     font-weight: bold; /* H1 en gras */
     color: #c1c1c1; /* Couleur douce pour les titres */
