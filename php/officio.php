@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Officio Prefectus</title>
     <link rel="stylesheet" href="../css/officio.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -130,112 +131,94 @@ Qu'aucune faiblesse ne ternisse votre âme et que la lumière de l'Empereur vous
         <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
     <?php endif; ?>
 
-    <h2 class="tab-title" onclick="showTabContent('members')">Fichier de L'astra Militarum</h2>
+   <h2 class="tab-title" onclick="showTabContent('members')">Fichier de L'astra Militarum</h2>
     <h2 class="tab-title" onclick="showTabContent('plaintes')">Gestion des Plaintes</h2>
     <h2 class="tab-title" onclick="showTabContent('demandes')">Gestion des Demandes</h2>
 
     <!-- Members Section -->
     <div class="tab-content" id="members" style="display: none;">
-        <form method="get">
-            <input type="text" name="search_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchUser); ?>">
+        <form id="search-members-form">
+            <input type="text" name="search_user" placeholder="Rechercher par nom" id="search_user">
             <button type="submit">Rechercher</button>
         </form>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($user['nom']); ?></td>
-                    <td>
-                        <form action="afficher_info.php" method="post" style="display:inline;" target="_blank">
-                            <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($user['id']); ?>">
-                            <button type="submit" name="view_pdf" class="btn-view-pdf">PDF</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div id="members-table">
+            <!-- Le tableau des utilisateurs sera inséré ici -->
+        </div>
     </div>
 
     <!-- Plaintes Section -->
     <div class="tab-content" id="plaintes" style="display: none;">
-        <form method="get">
-            <input type="text" name="search_plainte_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchPlainteUser); ?>">
-            <input type="text" name="search_plainte_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchPlainteStatus); ?>">
+        <form id="search-plaintes-form">
+            <input type="text" name="search_plainte_user" placeholder="Rechercher par nom" id="search_plainte_user">
+            <input type="text" name="search_plainte_status" placeholder="Rechercher par statut" id="search_plainte_status">
             <button type="submit">Rechercher</button>
         </form>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Utilisateur</th>
-                    <th>Plainte</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($plaintes as $plainte): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($plainte['utilisateur']); ?></td>
-                    <td><?php echo htmlspecialchars($plainte['plainte']); ?></td>
-                    <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
-                    <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_creation']))); ?></td>
-                    <td>
-                        <form action="officio.php" method="post" style="display:inline;">
-                            <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
-                            <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div id="plaintes-table">
+            <!-- Le tableau des plaintes sera inséré ici -->
+        </div>
     </div>
 
     <!-- Demandes Section -->
     <div class="tab-content" id="demandes" style="display: none;">
-        <form method="get">
-            <input type="text" name="search_demande_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchDemandeUser); ?>">
-            <input type="text" name="search_demande_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchDemandeStatus); ?>">
+        <form id="search-demandes-form">
+            <input type="text" name="search_demande_user" placeholder="Rechercher par nom" id="search_demande_user">
+            <input type="text" name="search_demande_status" placeholder="Rechercher par statut" id="search_demande_status">
             <button type="submit">Rechercher</button>
         </form>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Utilisateur</th>
-                    <th>Demande</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($pendingDemandes as $demande): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
-                    <td><?php echo htmlspecialchars($demande['demande']); ?></td>
-                    <td><?php echo htmlspecialchars($demande['status'] ?? 'en attente'); ?></td>
-                    <td>
-                        <form action="officio.php" method="post" style="display:inline;">
-                            <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
-                            <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
-                            <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div id="demandes-table">
+            <!-- Le tableau des demandes sera inséré ici -->
+        </div>
     </div>
 </div>
 
 <script>
+// Gestion de la recherche pour les utilisateurs
+$('#search-members-form').on('submit', function(e) {
+    e.preventDefault(); // Empêche le rafraîchissement de la page
+    let searchUser = $('#search_user').val();
+
+    $.ajax({
+        type: 'GET',
+        url: 'search.php', // Fichier PHP qui effectuera la recherche
+        data: { search_user: searchUser, type: 'members' }, // Envoyer la recherche et le type
+        success: function(response) {
+            $('#members-table').html(response); // Insérer la réponse dans le div
+        }
+    });
+});
+
+// Gestion de la recherche pour les plaintes
+$('#search-plaintes-form').on('submit', function(e) {
+    e.preventDefault();
+    let searchUser = $('#search_plainte_user').val();
+    let searchStatus = $('#search_plainte_status').val();
+
+    $.ajax({
+        type: 'GET',
+        url: 'search.php',
+        data: { search_plainte_user: searchUser, search_plainte_status: searchStatus, type: 'plaintes' },
+        success: function(response) {
+            $('#plaintes-table').html(response);
+        }
+    });
+});
+
+// Gestion de la recherche pour les demandes
+$('#search-demandes-form').on('submit', function(e) {
+    e.preventDefault();
+    let searchUser = $('#search_demande_user').val();
+    let searchStatus = $('#search_demande_status').val();
+
+    $.ajax({
+        type: 'GET',
+        url: 'search.php',
+        data: { search_demande_user: searchUser, search_demande_status: searchStatus, type: 'demandes' },
+        success: function(response) {
+            $('#demandes-table').html(response);
+        }
+    });
+});
+
 function showTabContent(tabId) {
     var tabContents = document.getElementsByClassName('tab-content');
     for (var i = 0; i < tabContents.length; i++) {
