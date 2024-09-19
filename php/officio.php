@@ -22,6 +22,6 @@ $character = $characterStmt->fetch();
 if ($character) {
     include 'officio_prefectus_main.php';
 } else {
-    include 'officio_prefectus_plainte.php';
+    include 'plaintes.php';
 }
 ?>
