@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
     <h2 class="tab-title" onclick="showTabContent('demandes')">Gestion des Demandes</h2>
 
     <!-- Plaintes Section -->
-    <div class="tab-content" id="plaintes" style="display: none;">
+    <div class="tab-content" id="plaintes">
         <form method="get">
             <input type="text" name="search_plainte_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchPlainteUser); ?>">
             <input type="text" name="search_plainte_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchPlainteStatus); ?>">
@@ -163,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
     </div>
 
     <!-- Demandes Section -->
-    <div class="tab-content" id="demandes" style="display: none;">
+    <div class="tab-content" id="demandes" >
         <form method="get">
             <input type="text" name="search_demande_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchDemandeUser); ?>">
             <input type="text" name="search_demande_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchDemandeStatus); ?>">
