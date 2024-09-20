@@ -48,7 +48,7 @@
             color: #810000;
             text-decoration: none;
             margin-left: 20px;
-            font-size: 18px;
+            font-size: 25px;
             padding: 10px 20px;
             background-color: #252525;
             border-radius: 5px;
