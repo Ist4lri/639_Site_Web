@@ -66,10 +66,12 @@
 <!-- Header -->
 <header class="header">
     <!-- Image au centre -->
+    <a href=../index.php>
     <img src="../src/assets/Aquila.png" alt="Aquila" />
-
+    </a>
     <!-- Liens à droite -->
     <div class="nav-links">
+        <a href="officio.php">Vos Bureaux</a>
         <a href="officio_main.php">Fiche Médicales</a>
         <a href="plaintes.php">Demandes</a>
     </div>
