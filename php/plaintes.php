@@ -151,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
                     <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
                     <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_creation']))); ?></td>
                     <td>
-                        <form action="officio.php" method="post" style="display:inline;">
+                        <form action="plaintes.php" method="post" style="display:inline;">
                             <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
                             <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
                         </form>
@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
                     <td><?php echo htmlspecialchars($demande['demande']); ?></td>
                     <td><?php echo htmlspecialchars($demande['status'] ?? 'en attente'); ?></td>
                     <td>
-                        <form action="officio.php" method="post" style="display:inline;">
+                        <form action="plaintes.php" method="post" style="display:inline;">
                             <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
                             <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
                             <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
