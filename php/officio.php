@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
 }
 
 ?>
-<?php include 'headero.php'; ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -132,6 +132,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
 
 À partir de cet instant, vous êtes plus qu'un soldat, vous êtes un gardien du futur de l'humanité.</h2>
 
+
+
+ <?php if ($faction): ?>
+    <?php include 'headero.php'; ?>
+
+<?php else: ?>
+        <!-- Si l'utilisateur n'est pas dans la faction "Officio Prefectus" -->
+    <?php include 'header.php'; ?>
+        <h3>Souhaitez-vous envoyer une plainte ?</h3>
+        <form action="officio.php" method="post">
+            <textarea name="plainte" required placeholder="Votre plainte"></textarea>
+            <button type="submit" class="btn-primary">Envoyer la plainte</button>
+        </form>
+    <?php endif; ?>
+</div>
 
 </body>
 </html>
