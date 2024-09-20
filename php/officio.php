@@ -55,7 +55,9 @@ $faction = $factionStmt->fetch();
     <link rel="stylesheet" href="../css/officio.css">
 </head>
 <body>
-
+<?php if ($faction): ?>
+        <!-- Si l'utilisateur est dans la faction "Officio Prefectus" -->
+        <?php include 'headero.php'; ?>    
     <h1 class="title">Bienvenue, membre de l'Officio Prefectus,</h1>
     <h2 class="title">
         Vous avez franchi les portes de l'un des ordres les plus respectés et redoutés de l'Imperium.<br>
@@ -68,9 +70,7 @@ $faction = $factionStmt->fetch();
         À partir de cet instant, vous êtes plus qu'un soldat, vous êtes un gardien du futur de l'humanité.
     </h2>
 
-    <?php if ($faction): ?>
-        <!-- Si l'utilisateur est dans la faction "Officio Prefectus" -->
-        <?php include 'headero.php'; ?>
+    
     <?php else: ?>
         <!-- Si l'utilisateur n'est pas dans la faction "Officio Prefectus" -->
         <?php include 'header.php'; ?>
