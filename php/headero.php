@@ -41,23 +41,22 @@
         /* Lien en haut à droite */
         .header .nav-links {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            right: 40px;
         }
 
         .header .nav-links a {
-            color: #f1f1f1;
+            color: #810000;
             text-decoration: none;
             margin-left: 20px;
             font-size: 18px;
             padding: 10px 20px;
-            background-color: #333;
+            background-color: #252525;
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
         .header .nav-links a:hover {
-            background-color: #444;
+            background-color: #4F4F4F;
         }
     </style>
 </head>
