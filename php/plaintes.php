@@ -98,9 +98,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
     $updateStmt = $pdo->prepare("UPDATE demande SET status = ? WHERE id = ?");
     $updateStmt->execute([$action, $id_demande]);
 
-    // Redirection après action pour éviter la répétition
-    header("Location: " . $_SERVER['REQUEST_URI']);
-    exit();
+    // Action sur "Accepter", "Rejeter" ou "Lu"
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
+    if ($_POST['action'] === 'accepter' || $_POST['action'] === 'rejeter') {
+        $id_demande = $_POST['id_demande'];
+        $action = $_POST['action'] == 'accepter' ? 'Accepter' : 'Rejeter';
+
+        $updateStmt = $pdo->prepare("UPDATE demande SET status = ? WHERE id = ?");
+        $updateStmt->execute([$action, $id_demande]);
+
+        // Redirection après action pour éviter la répétition
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    } elseif ($_POST['action'] === 'lu') {
+        $id_plainte = $_POST['id_plainte'];
+
+        // Met à jour le statut de la plainte à "Lu"
+        $updateStmt = $pdo->prepare("UPDATE plaintes SET status = 'Lu' WHERE id = ?");
+        $updateStmt->execute([$id_plainte]);
+
+        // Redirection après action pour éviter la répétition
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    }
+}
+
 }
 
 ?>
