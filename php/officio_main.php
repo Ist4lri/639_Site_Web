@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
     <h2 class="tab-title" onclick="showTabContent('members')">Fichier de L'astra Militarum</h2>
 
     <!-- Members Section -->
-    <div class="tab-content" id="members" style="display: none;">
+    <div class="tab-content" id="members">
         <form method="get">
             <input type="text" name="search_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchUser); ?>">
             <button type="submit">Rechercher</button>
@@ -154,7 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
         </table>
     </div>
 
-    <!-- Plaintes Section -->
 
 </body>
 </html>
