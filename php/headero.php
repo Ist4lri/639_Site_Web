@@ -10,7 +10,6 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Inquisitor', serif;
             background-color: #424242;
             color: #FFD700;
         }
@@ -45,6 +44,7 @@
         }
 
         .header .nav-links a {
+            font-family: 'Inquisitor', serif;
             color: #810000;
             text-decoration: none;
             margin-left: 20px;
