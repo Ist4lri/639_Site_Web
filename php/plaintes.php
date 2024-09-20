@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
 
 
     <h2 class="tab-title" onclick="showTabContent('plaintes')">Gestion des Plaintes</h2>
-    <h2 class="tab-title" onclick="showTabContent('demandes')">Gestion des Demandes</h2>
+  
 
     <!-- Plaintes Section -->
     <div class="tab-content" id="plaintes">
@@ -162,6 +162,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
         </table>
     </div>
 
+
+      <h2 class="tab-title" onclick="showTabContent('demandes')">Gestion des Demandes</h2>
     <!-- Demandes Section -->
     <div class="tab-content" id="demandes" >
         <form method="get">
