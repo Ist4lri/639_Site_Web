@@ -71,9 +71,28 @@ select {
     color: #00ff66;
     font-size: 1.2em;
     text-align: center;
+    font-style: italic;
+    margin: 10px 0;
     width: 100%;
     animation: float 20s ease-in-out infinite;
 }
+
+.quote-1 {
+    margin-top: 20px;
+}
+
+.quote-2 {
+    margin-top: 30px;
+}
+
+.quote-3 {
+    margin-top: 40px;
+}
+
+.quote-4 {
+    margin-top: 50px;
+}
+
 
 .quote:nth-child(1) {
     top: 10%;
