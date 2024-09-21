@@ -7,10 +7,12 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
+// Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
+// Vérifier si l'utilisateur fait partie de la faction Adeptus Mechanicus
 $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
 $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
 $faction = $factionStmt->fetch();
@@ -39,8 +41,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 </head>
 <body>
 
-<?php if ($faction): ?>
-    <div class="container cogitator">
+<!-- Header avec condition Adeptus Mechanicus ou non -->
+<header>
+    <div class="head-logo2">
+        <a href="../index.php">
+            <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
+        </a>
+    </div>
+
+    <nav class="head-nav">
+        <?php if ($faction): ?>
+            <!-- Si l'utilisateur fait partie de l'Adeptus Mechanicus -->
+            <a href="demande_mechanicus.php">Demandes</a>
+            <a href="arsenal_mechanicus.php">Arsenal</a>
+            <a href="medical_mechanicus.php">Médical</a>
+        <?php else: ?>
+            <!-- Si l'utilisateur n'est pas dans l'Adeptus Mechanicus -->
+            <a href="profil_utilisateur.php">Profil</a>
+            <a href="demande_utilisateur.php">Demandes</a>
+            <a href="Dec.php">Déconnexion</a>
+        <?php endif; ?>
+    </nav>
+</header>
+
+<div class="container">
+    <?php if ($faction): ?>
         <h1>Bienvenue, membre de l'Adeptus Mechanicus</h1>
 
         <?php if ($message): ?>
@@ -53,24 +78,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
             <p class="quote quote-3">"La connaissance est le pouvoir, et le pouvoir est dangereux."</p>
             <p class="quote quote-4">"Et comme les armes bénies par l'Omnimessie vous servent, vous les servirez. Préservez-les de la honte de la défaite."</p>
         </div>
-    </div>
-<?php else: ?>
-    <div class="actions">
-        <h2>Demander un entretien spécial</h2>
-        <form action="mechanicus.php" method="post">
-            <label for="request_type">Type d'entretien :</label>
-            <select id="request_type" name="request_type" required>
-                <option value="arsenal">Arsenal</option>
-                <option value="medical">Médical</option>
-            </select>
+    <?php else: ?>
+        <div class="actions">
+            <h2>Demander un entretien spécial</h2>
+            <form action="mechanicus.php" method="post">
+                <label for="request_type">Type d'entretien :</label>
+                <select id="request_type" name="request_type" required>
+                    <option value="arsenal">Arsenal</option>
+                    <option value="medical">Médical</option>
+                </select>
 
-            <label for="request_description">Description de la demande :</label>
-            <textarea id="request_description" name="request_description" rows="5" placeholder="Veuillez décrire en détail votre demande." required></textarea>
+                <label for="request_description">Description de la demande :</label>
+                <textarea id="request_description" name="request_description" rows="5" placeholder="Veuillez décrire en détail votre demande." required></textarea>
 
-            <button type="submit" class="btn-request">Envoyer la demande</button>
-        </form>
-    </div>
-<?php endif; ?>
+                <button type="submit" class="btn-request">Envoyer la demande</button>
+            </form>
+        </div>
+    <?php endif; ?>
+</div>
 
 </body>
 </html>
