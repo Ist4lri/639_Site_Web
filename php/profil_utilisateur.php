@@ -189,8 +189,8 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <form action="profil_utilisateur.php" method="post">
             <div>
                 <label for="demande">Votre demande :</label>
-                <textarea id="demande" name="demande" rows="4" required></textarea>
-                <label>Nom de l'arme: <br> Raison:</label>
+                <textarea id="demande" name="demande" rows="4" required> Nom de l'arme: <br> Raison: </textarea>
+
             </div>
             <div>
                 <input type="submit" value="Soumettre la demande">
