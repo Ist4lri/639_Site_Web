@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 <?php else: ?>
     <div class="actions">
         <h2>Demander un entretien spécial</h2>
-        <form action="demande_mechanicus.php" method="post">
+        <form action="mechanicus.php" method="post">
             <label for="request_type">Type d'entretien :</label>
             <select id="request_type" name="request_type" required>
                 <option value="arsenal">Arsenal</option>
