@@ -133,8 +133,8 @@ th {
         .mech {
     position: absolute;
     left: 10px;
-    top: 185px;
-    width: 150px;
+    top: 190px;
+    width: 50px;
     height: auto;
     cursor: pointer;
 }
