@@ -133,3 +133,46 @@ select {
         transform: translateY(-10px);
     }
 }
+
+input[type="text"], input[type="date"], select {
+    padding: 5px;
+    margin: 0 10px;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #00897b;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #004d40;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.message {
+    color: green;
+    font-weight: bold;
+}
