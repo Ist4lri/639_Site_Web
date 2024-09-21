@@ -1,0 +1,105 @@
+/* Style de base */
+body {
+    background-color: #121212;
+    color: #00ff66;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #00ff66;
+    background: #1a1a1a;
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+    border-radius: 10px;
+}
+
+/* Cogitator Vert Style */
+h1, h2 {
+    color: #00ff66;
+    text-align: center;
+    text-shadow: 0 0 10px #00ff66;
+}
+
+.btn-request {
+    background-color: #00ff66;
+    color: #1a1a1a;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-request:hover {
+    background-color: #00e65a;
+}
+
+.actions {
+    margin-top: 30px;
+}
+
+label, select {
+    color: #00ff66;
+    margin-bottom: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+select {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #00ff66;
+    border: 1px solid #00ff66;
+}
+
+/* Citations flottantes */
+.quotes {
+    position: relative;
+    margin-top: 50px;
+}
+
+.quote {
+    position: absolute;
+    opacity: 0.8;
+    color: #00ff66;
+    font-size: 1.2em;
+    text-align: center;
+    width: 100%;
+    animation: float 20s ease-in-out infinite;
+}
+
+.quote:nth-child(1) {
+    top: 10%;
+    animation-delay: 0s;
+}
+
+.quote:nth-child(2) {
+    top: 30%;
+    animation-delay: 5s;
+}
+
+.quote:nth-child(3) {
+    top: 50%;
+    animation-delay: 10s;
+}
+
+.quote:nth-child(4) {
+    top: 70%;
+    animation-delay: 15s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
