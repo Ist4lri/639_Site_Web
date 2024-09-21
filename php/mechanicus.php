@@ -7,7 +7,6 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// Récupérer l'utilisateur et vérifier s'il est dans la faction Adeptus Mechanicus
 $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
@@ -18,11 +17,9 @@ $faction = $factionStmt->fetch();
 
 $message = '';
 
-// Traitement du formulaire de demande
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'])) {
     $requestType = $_POST['request_type'];
 
-    // Insérer la demande dans la table demande_mechanicus
     $insertStmt = $pdo->prepare("INSERT INTO demande_mechanicus (id_utilisateur, type_entretien, description) VALUES (?, ?, ?)");
     $insertStmt->execute([$currentUser['id'], $requestType, 'Demande envoyée pour entretien ' . $requestType]);
 
@@ -47,9 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'])) {
         <?php if ($message): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
         <?php endif; ?>
-        
-       
-
         <div class="quotes">
             <p class="quote">"On dit qu'il est impossible pour un homme de devenir comme la Machine. Mais seul le plus petit des esprits s'efforce de comprendre ses limites."</p>
             <p class="quote">"Seule la chair vacille, la Machine, elle, n'est jamais corrompue."</p>
