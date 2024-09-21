@@ -40,6 +40,24 @@ if (!empty($searchStatus)) {
 $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Gérer les actions Accepter et Rejeter
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_POST['demande_id'])) {
+    $action = $_POST['action'];
+    $demandeId = $_POST['demande_id'];
+
+    if ($action == 'accepter') {
+        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'Acceptée' WHERE id = ?");
+        $updateStmt->execute([$demandeId]);
+    } elseif ($action == 'rejeter') {
+        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'Rejetée' WHERE id = ?");
+        $updateStmt->execute([$demandeId]);
+    }
+
+    // Rediriger pour éviter le re-post
+    header("Location: demandes_mechanicus.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -81,12 +99,13 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Description</th>
                 <th>Statut</th>
                 <th>Date de création</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <?php if (empty($demandes)): ?>
                 <tr>
-                    <td colspan="5">Aucune demande trouvée.</td>
+                    <td colspan="6">Aucune demande trouvée.</td>
                 </tr>
             <?php else: ?>
                 <?php foreach ($demandes as $demande): ?>
@@ -96,6 +115,17 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?php echo htmlspecialchars($demande['description']); ?></td>
                         <td><?php echo htmlspecialchars($demande['status']); ?></td>
                         <td><?php echo htmlspecialchars(date('d/m/Y', strtotime($demande['date_creation']))); ?></td>
+                        <td>
+                            <?php if ($demande['status'] == 'En attente'): ?>
+                                <form method="post" action="demandes_mechanicus.php" style="display:inline;">
+                                    <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
+                                    <button type="submit" name="action" value="accepter">Accepter</button>
+                                    <button type="submit" name="action" value="rejeter" class="danger">Rejeter</button>
+                                </form>
+                            <?php else: ?>
+                                <?php echo htmlspecialchars($demande['status']); ?>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
