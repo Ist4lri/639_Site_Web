@@ -17,11 +17,13 @@ $faction = $factionStmt->fetch();
 
 $message = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
     $requestType = $_POST['request_type'];
+    $description = trim($_POST['request_description']);  // Récupérer la description
 
+    // Insérer la demande avec la description fournie par l'utilisateur
     $insertStmt = $pdo->prepare("INSERT INTO demande_mechanicus (id_utilisateur, type_entretien, description) VALUES (?, ?, ?)");
-    $insertStmt->execute([$currentUser['id'], $requestType, 'Demande envoyée pour entretien ' . $requestType]);
+    $insertStmt->execute([$currentUser['id'], $requestType, $description]);
 
     $message = "Votre demande a été soumise avec succès pour un entretien $requestType.";
 }
@@ -44,25 +46,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'])) {
         <?php if ($message): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
         <?php endif; ?>
+
         <div class="quotes">
-            <p class="quote">"On dit qu'il est impossible pour un homme de devenir comme la Machine. Mais seul le plus petit des esprits s'efforce de comprendre ses limites."</p>
-            <p class="quote">"Seule la chair vacille, la Machine, elle, n'est jamais corrompue."</p>
-            <p class="quote">"La connaissance est le pouvoir, et le pouvoir est dangereux."</p>
-            <p class="quote">"Et comme les armes bénies par l'Omnimessie vous servent, vous les servirez. Préservez-les de la honte de la défaite."</p>
+            <p class="quote quote-1">"On dit qu'il est impossible pour un homme de devenir comme la Machine. Mais seul le plus petit des esprits s'efforce de comprendre ses limites."</p>
+            <p class="quote quote-2">"Seule la chair vacille, la Machine, elle, n'est jamais corrompue."</p>
+            <p class="quote quote-3">"La connaissance est le pouvoir, et le pouvoir est dangereux."</p>
+            <p class="quote quote-4">"Et comme les armes bénies par l'Omnimessie vous servent, vous les servirez. Préservez-les de la honte de la défaite."</p>
         </div>
     </div>
 <?php else: ?>
-     <div class="actions">
-            <h2>Demander un entretien spécial</h2>
-            <form action="demande_mechanicus.php" method="post">
-                <label for="request_type">Type d'entretien :</label>
-                <select id="request_type" name="request_type" required>
-                    <option value="arsenal">Arsenal</option>
-                    <option value="medical">Médical</option>
-                </select>
-                <button type="submit" class="btn-request">Envoyer la demande</button>
-            </form>
-        </div>
+    <div class="actions">
+        <h2>Demander un entretien spécial</h2>
+        <form action="demande_mechanicus.php" method="post">
+            <label for="request_type">Type d'entretien :</label>
+            <select id="request_type" name="request_type" required>
+                <option value="arsenal">Arsenal</option>
+                <option value="medical">Médical</option>
+            </select>
+
+            <label for="request_description">Description de la demande :</label>
+            <textarea id="request_description" name="request_description" rows="5" placeholder="Veuillez décrire en détail votre demande." required></textarea>
+
+            <button type="submit" class="btn-request">Envoyer la demande</button>
+        </form>
+    </div>
 <?php endif; ?>
 
 </body>
