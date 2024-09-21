@@ -79,7 +79,7 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
 
 
 <h2>Personnages en Attente</h2>
-<?php if (count($pendingCharacters) > 0): ?>
+
     <table>
         <tr>
             <th>Nom</th>
@@ -114,28 +114,25 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
 
 
 <h2>Personnages Acceptés</h2>
-<?php if (count($acceptedCharacters) > 0): ?>
     <table>
         <tr>
             <th>Nom</th>
             <th>Faction</th>
             <th>Histoire</th>
         </tr>
-        <?php foreach ($acceptedCharacters as $character): ?>
             <tr>
                 <td><?= htmlspecialchars($character['nom']); ?></td>
                 <td><?= htmlspecialchars($character['faction']); ?></td>
                 <td><?= htmlspecialchars(substr($character['histoire'], 0, 50)); ?>...</td>
             </tr>
-        <?php endforeach; ?>
+
     </table>
-<?php else: ?>
+
     <p>Aucun personnage accepté.</p>
-<?php endif; ?>
+
 
 
 <h2>Personnages Rejetés</h2>
-<?php if (count($rejectedCharacters) > 0): ?>
     <table>
         <tr>
             <th>Nom</th>
@@ -143,18 +140,14 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
             <th>Histoire</th>
             <th>Raison du Rejet</th>
         </tr>
-        <?php foreach ($rejectedCharacters as $character): ?>
             <tr>
                 <td><?= htmlspecialchars($character['nom']); ?></td>
                 <td><?= htmlspecialchars($character['faction']); ?></td>
                 <td><?= htmlspecialchars(substr($character['histoire'], 0, 50)); ?>...</td>
                 <td><?= htmlspecialchars($character['raison']); ?></td>
             </tr>
-        <?php endforeach; ?>
     </table>
-<?php else: ?>
     <p>Aucun personnage rejeté.</p>
-<?php endif; ?>
 
 </body>
 </html>
