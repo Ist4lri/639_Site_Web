@@ -53,12 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
         <?php if ($faction): ?>
             <!-- Si l'utilisateur fait partie de l'Adeptus Mechanicus -->
             <a href="demande_mechanicus.php">Demandes</a>
-            <a href="arsenal_mechanicus.php">Arsenal</a>
-            <a href="medical_mechanicus.php">Médical</a>
         <?php else: ?>
             <!-- Si l'utilisateur n'est pas dans l'Adeptus Mechanicus -->
             <a href="profil_utilisateur.php">Profil</a>
-            <a href="demande_utilisateur.php">Demandes</a>
             <a href="Dec.php">Déconnexion</a>
         <?php endif; ?>
     </nav>
