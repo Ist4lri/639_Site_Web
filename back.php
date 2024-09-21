@@ -11,6 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
     $action = $_POST['action'];
 
+    // Conserver les paramètres de recherche
+    $queryString = http_build_query([
+        'search_nom' => $_POST['search_nom'] ?? '',
+        'search_confirmation' => $_POST['search_confirmation'] ?? '',
+        'search_banni' => $_POST['search_banni'] ?? ''
+    ]);
+
     if (!empty($userId) && !empty($action)) {
         switch ($action) {
             case 'valider':
@@ -46,9 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $message = "Rôle de l'utilisateur modifié avec succès.";
                 break;
         }
-    } else {
-        $message = "Tous les champs sont obligatoires.";
     }
+
+    // Redirection après l'action pour éviter la répétition
+    header("Location: back.php?$queryString");
+    exit();
 }
 
 // Récupérer les paramètres de recherche
@@ -149,26 +158,39 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo htmlspecialchars($utilisateur['grade']); ?></td>
                     <td><?php echo htmlspecialchars($utilisateur['role']); ?></td>
                     <td>
+                        <!-- Ajouter les paramètres de recherche dans les champs cachés -->
                         <form action="back.php" method="post" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
                             <input type="hidden" name="action" value="valider">
+                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
                             <input type="submit" value="Valider">
                         </form>
                         <form action="back.php" method="post" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
                             <input type="hidden" name="action" value="bannir">
+                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
                             <input type="submit" value="Bannir" class="danger">
                         </form>
                         <?php if ($utilisateur['banni']): ?>
                         <form action="back.php" method="post" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
                             <input type="hidden" name="action" value="debannir">
+                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
                             <input type="submit" value="Débannir">
                         </form>
                         <?php endif; ?>
                         <form action="back.php" method="post" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
                             <input type="hidden" name="action" value="changer_grade">
+                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
                             <select name="grade">
                                 <option value="Civil" <?php if ($utilisateur['grade'] == 'Civil') echo 'selected'; ?>>Civil</option>
                                 <option value="Conscrit" <?php if ($utilisateur['grade'] == 'Conscrit') echo 'selected'; ?>>Conscrit</option>
@@ -188,6 +210,9 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <form action="back.php" method="post" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
                             <input type="hidden" name="action" value="changer_role">
+                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
                             <select name="role">
                                 <option value="utilisateur" <?php if ($utilisateur['role'] == 'utilisateur') echo 'selected'; ?>>Utilisateur</option>
                                 <option value="admin" <?php if ($utilisateur['role'] == 'admin') echo 'selected'; ?>>Admin</option>
@@ -201,3 +226,4 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 </body>
 </html>
+
