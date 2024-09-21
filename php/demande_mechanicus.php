@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
         <label for="search_status">Rechercher par statut :</label>
         <select id="search_status" name="search_status">
             <option value="">Tous</option>
-            <option value="En attente" <?php if ($searchStatus == 'En attente') echo 'selected'; ?>>En attente</option>
-            <option value="Acceptée" <?php if ($searchStatus == 'Acceptée') echo 'selected'; ?>>Acceptée</option>
-            <option value="Rejetée" <?php if ($searchStatus == 'Rejetée') echo 'selected'; ?>>Rejetée</option>
+            <option value="En attente" <?php if ($searchStatus == 'en attente') echo 'selected'; ?>>En attente</option>
+            <option value="Acceptée" <?php if ($searchStatus == 'acceptee') echo 'selected'; ?>>Acceptée</option>
+            <option value="Rejetée" <?php if ($searchStatus == 'rejete') echo 'selected'; ?>>Rejetée</option>
         </select>
 
         <button type="submit">Rechercher</button>
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
                                 <form method="post" action="demande_mechanicus.php" style="display:inline;">
                                     <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
                                     <button type="submit" name="action" value="acceptee">Accepter</button>
-                                    <button type="submit" name="action" value="rejetee" class="danger">Rejeter</button>
+                                    <button type="submit" name="action" value="rejete" class="danger">Rejeter</button>
                                 </form>
                             <?php else: ?>
                                 <?php echo htmlspecialchars($demande['status']); ?>
