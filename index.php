@@ -132,9 +132,9 @@ th {
 
         .mech {
     position: absolute;
-    left: 10px;
-    top: 190px;
-    width: 50px;
+    left: 20px;
+    top: 200px;
+    width: 80px;
     height: auto;
     cursor: pointer;
 }
@@ -256,7 +256,7 @@ th {
     <img src="/src/assets/officio.png" alt="Officio Prefectus" class="officio">
     </a>    
 
-     <a href="/php/officio.php">
+     <a href="/php/mechanicus.php">
     <img src="/src/assets/mech.png" alt="Mechanicus" class="mech">
     </a>    
     
