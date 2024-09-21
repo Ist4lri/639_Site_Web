@@ -47,10 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
     $demandeId = $_POST['demande_id'];
 
     if ($action == 'accepter') {
-        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'Acceptée' WHERE id = ?");
+        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'acceptee' WHERE id = ?");
         $updateStmt->execute([$demandeId]);
     } elseif ($action == 'rejeter') {
-        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'Rejetée' WHERE id = ?");
+        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'rejete' WHERE id = ?");
         $updateStmt->execute([$demandeId]);
     }
 
