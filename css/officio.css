@@ -151,7 +151,7 @@ button:hover {
 textarea, input[type="text"], input[type="number"], select {
     width: 60%;
     padding: 10px;
-    margin-top: 120px 0;
+    margin-top: 120px;
     background-color: #333;
     border: 1px solid #555;
     color: #ddd;
@@ -161,6 +161,7 @@ textarea, input[type="text"], input[type="number"], select {
 }
 
 textarea {
+    margin-top: 120px;
     min-height: 100px;
 }
 
