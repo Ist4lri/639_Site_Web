@@ -149,9 +149,10 @@ button:hover {
 
 /* Formulaires */
 textarea, input[type="text"], input[type="number"], select {
-    width: 60%;
+    width: 70%;
     padding: 10px;
     margin-top: 120px;
+    margin-left: 20%;
     background-color: #333;
     border: 1px solid #555;
     color: #ddd;
