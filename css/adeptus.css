@@ -184,6 +184,7 @@ header {
     background-color: #333;
     padding: 10px 20px;
     margin-bottom: 15px;
+    border: solid 3px #00ff66;
 }
 
 .head-logo2 img {
