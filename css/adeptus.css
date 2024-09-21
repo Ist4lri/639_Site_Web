@@ -176,3 +176,25 @@ tr:hover {
     color: green;
     font-weight: bold;
 }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+.head-logo2 img {
+    height: 60px;
+}
+
+.head-nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.head-nav a:hover {
+    text-decoration: underline;
+}
