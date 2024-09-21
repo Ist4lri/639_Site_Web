@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
     }
 
     // Rediriger pour éviter le re-post
-    header("Location: demandes_mechanicus.php");
+    header("Location: demande_mechanicus.php");
     exit();
 }
 ?>
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
     <h1>Gestion des Demandes Mechanicus</h1>
 
     <!-- Formulaire de recherche -->
-    <form method="get" action="demandes_mechanicus.php">
+    <form method="get" action="demande_mechanicus.php">
         <label for="search_nom">Rechercher par nom :</label>
         <input type="text" id="search_nom" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
 
