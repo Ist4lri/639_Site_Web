@@ -246,6 +246,10 @@ th {
     <a href="/php/officio.php">
     <img src="/src/assets/officio.png" alt="Officio Prefectus" class="officio">
     </a>    
+
+     <a href="/php/officio.php">
+    <img src="/src/assets/mech.png" alt="Mechanicus" class="mech">
+    </a>    
     
     <p class="tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
     <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank">
