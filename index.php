@@ -130,6 +130,15 @@ th {
     cursor: pointer;
 }
 
+        .mech {
+    position: absolute;
+    left: 10px;
+    top: 185px;
+    width: 150px;
+    height: auto;
+    cursor: pointer;
+}
+
 .Tooltip {
     position: absolute;
     right: 125px; 
