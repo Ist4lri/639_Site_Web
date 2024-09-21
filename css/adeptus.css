@@ -47,7 +47,7 @@ h1, h2 {
 }
 
 label, select {
-    color: #00ff66;
+    color: #343434;
     margin-bottom: 10px;
 }
 
@@ -169,7 +169,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background-color: #ddd;
+    background-color: #343434;
 }
 
 .message {
