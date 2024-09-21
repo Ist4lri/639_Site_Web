@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
                         <td><?php echo htmlspecialchars(date('d/m/Y', strtotime($demande['date_creation']))); ?></td>
                         <td>
                             <?php if ($demande['status'] == 'en attente'): ?>
-                                <form method="post" action="demandes_mechanicus.php" style="display:inline;">
+                                <form method="post" action="demande_mechanicus.php" style="display:inline;">
                                     <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
                                     <button type="submit" name="action" value="acceptee">Accepter</button>
                                     <button type="submit" name="action" value="rejetee" class="danger">Rejeter</button>
