@@ -86,18 +86,22 @@ select {
 
 .quote-1 {
     margin-top: 25px;
+    left: 10%
 }
 
 .quote-2 {
-    margin-top: 50px;
+    margin-top: 70px;
+    left: 30%.
 }
 
 .quote-3 {
-    margin-top: 70px;
+    margin-top: 110px;
+    left: 70%.
 }
 
 .quote-4 {
-    margin-top: 90px;
+    margin-top: 140px;
+    left: 45%.
 }
 
 
