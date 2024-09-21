@@ -1,4 +1,10 @@
-/* Style de base */
+@font-face {
+    font-family: 'Inquisitor';
+    src: url('fonts/Inquisitor.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: #121212;
     color: #00ff66;
@@ -66,6 +72,7 @@ select {
 }
 
 .quote {
+    font-family: 'Inquisitor';
     position: absolute;
     opacity: 0.8;
     color: #00ff66;
