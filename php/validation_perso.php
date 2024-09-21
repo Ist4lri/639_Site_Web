@@ -87,7 +87,6 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
             <th>Histoire</th>
             <th>Actions</th>
         </tr>
-        <?php foreach ($pendingCharacters as $character): ?>
             <tr>
                 <td><?= htmlspecialchars($character['nom']); ?></td>
                 <td><?= htmlspecialchars($character['faction']); ?></td>
@@ -110,11 +109,9 @@ $rejectedCharacters = $stmtRejected->fetchAll(PDO::FETCH_ASSOC);
                     </form>
                 </td>
             </tr>
-        <?php endforeach; ?>
     </table>
-<?php else: ?>
     <p>Aucun personnage en attente.</p>
-<?php endif; ?>
+
 
 <h2>Personnages Acceptés</h2>
 <?php if (count($acceptedCharacters) > 0): ?>
