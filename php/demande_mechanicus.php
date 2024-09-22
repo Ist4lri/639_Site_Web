@@ -7,6 +7,25 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
+// Gérer les actions Accepter et Rejeter
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_POST['demande_id'])) {
+    $action = $_POST['action'];
+    $demandeId = $_POST['demande_id'];
+
+    // Ajuster les actions en fonction du statut de la BDD
+    if ($action == 'Accepter') {
+        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'acceptee' WHERE id = ?");
+        $updateStmt->execute([$demandeId]);
+    } elseif ($action == 'Rejeter') {
+        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'rejete' WHERE id = ?");
+        $updateStmt->execute([$demandeId]);
+    }
+
+    // Rediriger pour éviter le re-post
+    header("Location: demande_mechanicus.php");
+    exit();
+}
+
 // Récupérer toutes les demandes Mechanicus avec possibilité de recherche par nom, date et statut
 $searchNom = isset($_GET['search_nom']) ? trim($_GET['search_nom']) : '';
 $searchDate = isset($_GET['search_date']) ? trim($_GET['search_date']) : '';
@@ -32,6 +51,14 @@ if (!empty($searchDate)) {
 }
 
 if (!empty($searchStatus)) {
+    // Transformer les labels d'interface utilisateur en statuts pour la BDD
+    if ($searchStatus == 'En attente') {
+        $searchStatus = 'en attente';
+    } elseif ($searchStatus == 'Accepter') {
+        $searchStatus = 'acceptee';
+    } elseif ($searchStatus == 'Rejeter') {
+        $searchStatus = 'rejete';
+    }
     $query .= " AND dm.status = ?";
     $params[] = $searchStatus;
 }
@@ -40,24 +67,6 @@ if (!empty($searchStatus)) {
 $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Gérer les actions Accepter et Rejeter
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_POST['demande_id'])) {
-    $action = $_POST['action'];
-    $demandeId = $_POST['demande_id'];
-
-    if ($action == 'acceptee') {
-        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'acceptee' WHERE id = ?");
-        $updateStmt->execute([$demandeId]);
-    } elseif ($action == 'rejetee') {
-        $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'rejete' WHERE id = ?");
-        $updateStmt->execute([$demandeId]);
-    }
-
-    // Rediriger pour éviter le re-post
-    header("Location: demande_mechanicus.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -83,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
         <select id="search_status" name="search_status">
             <option value="">Tous</option>
             <option value="En attente" <?php if ($searchStatus == 'en attente') echo 'selected'; ?>>En attente</option>
-            <option value="Acceptée" <?php if ($searchStatus == 'acceptee') echo 'selected'; ?>>Acceptée</option>
-            <option value="Rejetée" <?php if ($searchStatus == 'rejete') echo 'selected'; ?>>Rejetée</option>
+            <option value="Accepter" <?php if ($searchStatus == 'acceptee') echo 'selected'; ?>>Accepter</option>
+            <option value="Rejeter" <?php if ($searchStatus == 'rejete') echo 'selected'; ?>>Rejeter</option>
         </select>
 
         <button type="submit">Rechercher</button>
@@ -113,14 +122,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
                         <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
                         <td><?php echo htmlspecialchars($demande['type_entretien']); ?></td>
                         <td><?php echo htmlspecialchars($demande['description']); ?></td>
-                        <td><?php echo htmlspecialchars($demande['status']); ?></td>
+                        <td>
+                            <!-- Afficher les labels corrects en fonction du statut dans la BDD -->
+                            <?php 
+                                if ($demande['status'] == 'en attente') {
+                                    echo 'En attente';
+                                } elseif ($demande['status'] == 'acceptee') {
+                                    echo 'Accepter';
+                                } elseif ($demande['status'] == 'rejete') {
+                                    echo 'Rejeter';
+                                }
+                            ?>
+                        </td>
                         <td><?php echo htmlspecialchars(date('d/m/Y', strtotime($demande['date_creation']))); ?></td>
                         <td>
                             <?php if ($demande['status'] == 'en attente'): ?>
                                 <form method="post" action="demande_mechanicus.php" style="display:inline;">
                                     <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
-                                    <button type="submit" name="action" value="acceptee">Accepter</button>
-                                    <button type="submit" name="action" value="rejete" class="danger">Rejeter</button>
+                                    <button type="submit" name="action" value="Accepter">Accepter</button>
+                                    <button type="submit" name="action" value="Rejeter" class="danger">Rejeter</button>
                                 </form>
                             <?php else: ?>
                                 <?php echo htmlspecialchars($demande['status']); ?>
