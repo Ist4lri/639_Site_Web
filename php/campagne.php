@@ -7,13 +7,6 @@ $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus1.nom AS zeus1, u_zeus2.nom AS zeus2, u_zeus3.nom AS zeus3
-        FROM campagne c
-        LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
-        LEFT JOIN utilisateurs u_zeus1 ON c.id_zeus = u_zeus1.id
-        LEFT JOIN utilisateurs u_zeus2 ON c.id_zeus2 = u_zeus2.id
-        LEFT JOIN utilisateurs u_zeus3 ON c.id_zeus3 = u_zeus3.id";
-
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if ($row['zeus'] != 1 && $row['mappeur'] != 1) {
@@ -31,6 +24,8 @@ $mappeur_result = $conn->query($mappeur_query);
 $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1 OR mappeur = 1";
 $zeus_result = $conn->query($zeus_query);
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
