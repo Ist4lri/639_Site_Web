@@ -29,6 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 
     $message = "Votre demande a été soumise avec succès pour un entretien $requestType.";
 }
+
+// Récupérer les demandes de l'utilisateur
+if ($faction) {
+    $demandeStmt = $pdo->prepare("SELECT type_entretien, description, status, date_creation FROM demande_mechanicus WHERE id_utilisateur = ?");
+    $demandeStmt->execute([$currentUser['id']]);
+    $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +82,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
             <p class="quote quote-3">"La connaissance est le pouvoir, et le pouvoir est dangereux."</p>
             <p class="quote quote-4">"Et comme les armes bénies par l'Omnimessie vous servent, vous les servirez. Préservez-les de la honte de la défaite."</p>
         </div>
+
+        <!-- Affichage des demandes précédentes -->
+        <?php if (!empty($demandes)): ?>
+            <h2>Vos demandes précédentes</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Type d'entretien</th>
+                        <th>Description</th>
+                        <th>Statut</th>
+                        <th>Date de création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($demandes as $demande): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($demande['type_entretien']); ?></td>
+                            <td><?php echo htmlspecialchars($demande['description']); ?></td>
+                            <td><?php echo htmlspecialchars($demande['status']); ?></td>
+                            <td><?php echo htmlspecialchars(date('d/m/Y', strtotime($demande['date_creation']))); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>Aucune demande soumise pour l'instant.</p>
+        <?php endif; ?>
+
     <?php else: ?>
         <div class="actions">
             <h2>Demander un entretien spécial</h2>
