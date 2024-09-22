@@ -201,9 +201,15 @@ header {
     margin: 0 15px;
     text-decoration: none;
     height: 30px;
-    width: auto;
+    display: inline-block; 
+    line-height: 30px; 
+    padding: 0 10px; 
+    transition: color 0.3s ease, background-color 0.3s ease; 
 }
 
+
 .head-nav a:hover {
-    text-decoration: underline;
+    color: #ff6600;
+    background-color: rgba(0, 255, 102, 0.2); 
+    border-radius: 5px; 
 }
