@@ -3,12 +3,17 @@
     src: url('fonts/Inquisitor.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+    
 }
 
 body {
     background-color: #121212;
     color: #00ff66;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Inquisitor', Serif;
+    background-image: url('../src/assets/Bougie.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-attachment: fixed;
 }
 
 .container {
