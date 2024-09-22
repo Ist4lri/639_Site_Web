@@ -77,6 +77,19 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Gestion des Demandes Mechanicus</title>
     <link rel="stylesheet" href="../css/adeptus.css">
 </head>
+<header>
+    <div class="head-logo2">
+        <a href="../index.php">
+            <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
+        </a>
+    </div>
+
+    <nav class="head-nav">
+<a href="mechanicus.php">Page Principal</a>
+    </nav>
+</header>
+
+    
 <body>
     <h1>Gestion des Demandes Mechanicus</h1>
 
