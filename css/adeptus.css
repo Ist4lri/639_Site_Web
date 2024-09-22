@@ -159,12 +159,14 @@ table {
 }
 
 th, td {
+    font-family: "Courier New", Courier, monospace;
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
 th {
+    font-family: "Courier New", Courier, monospace;
     background-color: #004d40;
     color: white;
 }
