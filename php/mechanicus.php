@@ -83,6 +83,23 @@ if ($faction) {
             <p class="quote quote-4">"Et comme les armes bénies par l'Omnimessie vous servent, vous les servirez. Préservez-les de la honte de la défaite."</p>
         </div>
 
+
+    <?php else: ?>
+        <div class="actions">
+            <h2>Demander un entretien spécial</h2>
+            <form action="mechanicus.php" method="post">
+                <label for="request_type">Type d'entretien :</label>
+                <select id="request_type" name="request_type" required>
+                    <option value="arsenal">Arsenal</option>
+                    <option value="medical">Médical</option>
+                </select>
+
+                <label for="request_description">Description de la demande :</label>
+                <textarea id="request_description" name="request_description" rows="5" placeholder="Veuillez décrire en détail votre demande." required></textarea>
+
+                <button type="submit" class="btn-request">Envoyer la demande</button>
+            </form>
+        </div>
         <!-- Affichage des demandes précédentes -->
         <?php if (!empty($demandes)): ?>
             <h2>Vos demandes précédentes</h2>
@@ -109,23 +126,6 @@ if ($faction) {
         <?php else: ?>
             <p>Aucune demande soumise pour l'instant.</p>
         <?php endif; ?>
-
-    <?php else: ?>
-        <div class="actions">
-            <h2>Demander un entretien spécial</h2>
-            <form action="mechanicus.php" method="post">
-                <label for="request_type">Type d'entretien :</label>
-                <select id="request_type" name="request_type" required>
-                    <option value="arsenal">Arsenal</option>
-                    <option value="medical">Médical</option>
-                </select>
-
-                <label for="request_description">Description de la demande :</label>
-                <textarea id="request_description" name="request_description" rows="5" placeholder="Veuillez décrire en détail votre demande." required></textarea>
-
-                <button type="submit" class="btn-request">Envoyer la demande</button>
-            </form>
-        </div>
     <?php endif; ?>
 </div>
 
