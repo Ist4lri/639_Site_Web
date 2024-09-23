@@ -84,6 +84,17 @@ if ($searchUser) {
         td {
             height: 40px;
         }
+
+      a{
+        position: absolute;
+        right: 10px;
+        top: 40px;
+        }
+        a.zeus{
+        position: absolute;
+        right: 90px;
+        top: 40px;
+        }
     </style>
 </head>
 <body>
