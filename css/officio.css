@@ -196,11 +196,7 @@ input[type="submit"]:hover, .btn:hover {
     color: #ffcc00; /* Or impérial */
 }
 
-.logo{
-    position: absolute;
-    left: 20px;
-    top: 40px;
-}
+
 
 
 /* Pop-up style */
