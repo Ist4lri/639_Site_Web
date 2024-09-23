@@ -75,7 +75,7 @@ $faction = $factionStmt->fetch();
 
 
         textarea {
-            width: 100%;
+            width: 800px;
             max-width: 1200px;
             height: 70px;
             padding: 15px;
