@@ -112,4 +112,5 @@ if (!empty($users)) {
         ?>
     </div>
 </body>
+    <?php include 'footer.php'; ?>
 </html>
