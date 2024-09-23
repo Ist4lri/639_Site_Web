@@ -2,6 +2,10 @@
 session_start();
 include 'db.php'; // Make sure your db.php file contains the database connection
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
