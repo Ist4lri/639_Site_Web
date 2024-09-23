@@ -37,6 +37,21 @@ foreach ($records as &$record) {
         $record['zeus_count'] = 0;
     }
 }
+
+$params = [];
+if ($searchCampaign) {
+    $sql .= " AND c.nom LIKE ?";
+    $params[] = '%' . $searchCampaign . '%';
+}
+if ($searchUser) {
+    $sql .= " AND (u_mappeur.nom LIKE ? OR u_zeus.nom LIKE ?)";
+    $params[] = '%' . $searchUser . '%';
+    $params[] = '%' . $searchUser . '%';
+}
+
+    $stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
