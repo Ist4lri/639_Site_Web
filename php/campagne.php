@@ -1,32 +1,32 @@
 <?php
 session_start();
-include 'db.php'; // Make sure your db.php file contains the database connection
+include 'db.php'; 
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+$stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
+$stmt->execute(['email' => $_SESSION['utilisateur']]);
+$currentUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!isset($_SESSION['utilisateur'])) {
-    header("Location: connection.php");
-    exit();
+$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
+$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$faction = $factionStmt->fetch(PDO::FETCH_ASSOC);
+
+$message = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
+    $requestType = $_POST['request_type'];
+    $description = trim($_POST['request_description']);
+
+    $insertStmt = $pdo->prepare("INSERT INTO demande_mechanicus (id_utilisateur, type_entretien, description) VALUES (?, ?, ?)");
+    $insertStmt->execute([$currentUser['id'], $requestType, $description]);
+
+    $message = "Votre demande a été soumise avec succès pour un entretien $requestType.";
 }
 
-// Récupérer toutes les campagnes et utilisateurs
-$sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus1.nom AS zeus1, u_zeus2.nom AS zeus2, u_zeus3.nom AS zeus3
+$sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus.nom AS zeus1
         FROM campagne c
         LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
-        LEFT JOIN utilisateurs u_zeus1 ON c.id_zeus = u_zeus1.id
-        LEFT JOIN utilisateurs u_zeus2 ON c.id_zeus2 = u_zeus2.id
-        LEFT JOIN utilisateurs u_zeus3 ON c.id_zeus3 = u_zeus3.id";
-$result = $conn->query($sql);
-
-// Get the list of mappers (mappeur)
-$mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1";
-$mappeur_result = $conn->query($mappeur_query);
-
-// Get the list of Zeus
-$zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1 OR mappeur = 1";
-$zeus_result = $conn->query($zeus_query);
+        LEFT JOIN utilisateurs u_zeus ON c.id_zeus = u_zeus.id";
+$result = $pdo->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -87,8 +87,9 @@ $zeus_result = $conn->query($zeus_query);
     </thead>
     <tbody>
         <?php
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        if ($result->rowCount() > 0) {
+            // Display data row by row
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['date']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
@@ -106,7 +107,6 @@ $zeus_result = $conn->query($zeus_query);
     </tbody>
 </table>
 
-<!-- Form for creating a new campaign -->
 <h2>Créer une Nouvelle Campagne</h2>
 <form action="create_c.php" method="post">
     <label for="date">Date:</label>
@@ -122,8 +122,10 @@ $zeus_result = $conn->query($zeus_query);
     <select id="mappeur" name="mappeur" required>
         <option value="">Sélectionnez un mappeur</option>
         <?php
-        if ($mappeur_result && $mappeur_result->num_rows > 0) {
-            while ($row = $mappeur_result->fetch_assoc()) {
+        $mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1";
+        $mappeur_result = $pdo->query($mappeur_query);
+        if ($mappeur_result->rowCount() > 0) {
+            while ($row = $mappeur_result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
             }
         }
@@ -134,8 +136,10 @@ $zeus_result = $conn->query($zeus_query);
     <select id="zeus1" name="zeus1" required>
         <option value="">Sélectionnez un Zeus</option>
         <?php
-        if ($zeus_result && $zeus_result->num_rows > 0) {
-            while ($row = $zeus_result->fetch_assoc()) {
+        $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
+        $zeus_result = $pdo->query($zeus_query);
+        if ($zeus_result->rowCount() > 0) {
+            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
             }
         }
@@ -146,9 +150,9 @@ $zeus_result = $conn->query($zeus_query);
     <select id="zeus2" name="zeus2">
         <option value="">Sélectionnez un Zeus</option>
         <?php
-        if ($zeus_result && $zeus_result->num_rows > 0) {
-            $zeus_result->data_seek(0);
-            while ($row = $zeus_result->fetch_assoc()) {
+        if ($zeus_result->rowCount() > 0) {
+            $zeus_result->execute(); 
+            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
             }
         }
@@ -159,9 +163,9 @@ $zeus_result = $conn->query($zeus_query);
     <select id="zeus3" name="zeus3">
         <option value="">Sélectionnez un Zeus</option>
         <?php
-        if ($zeus_result && $zeus_result->num_rows > 0) {
-            $zeus_result->data_seek(0);
-            while ($row = $zeus_result->fetch_assoc()) {
+        if ($zeus_result->rowCount() > 0) {
+            $zeus_result->execute(); 
+            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
             }
         }
@@ -173,7 +177,3 @@ $zeus_result = $conn->query($zeus_query);
 
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
