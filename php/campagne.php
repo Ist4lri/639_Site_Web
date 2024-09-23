@@ -27,6 +27,21 @@ $sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus.nom A
         LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
         LEFT JOIN utilisateurs u_zeus ON c.id_zeus = u_zeus.id";
 $result = $pdo->query($sql);
+
+$params = [];
+if ($searchCampaign) {
+    $sql .= " AND c.nom LIKE ?";
+    $params[] = '%' . $searchCampaign . '%';
+}
+if ($searchUser) {
+    $sql .= " AND (u_mappeur.nom LIKE ? OR u_zeus.nom LIKE ?)";
+    $params[] = '%' . $searchUser . '%';
+    $params[] = '%' . $searchUser . '%';
+}
+
+    $stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -70,44 +85,7 @@ $result = $pdo->query($sql);
     </style>
 </head>
 <body>
-
-<h2>Tableau des Campagnes</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th>DATES</th>
-            <th>CAMPAGNES</th>
-            <th>MISSIONS</th>
-            <th>MAPPEURS</th>
-            <th>ZEUS 1</th>
-            <th>ZEUS 2</th>
-            <th>ZEUS 3</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        if ($result->rowCount() > 0) {
-            // Display data row by row
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
-                echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='7'>Aucune campagne trouvée</td></tr>";
-        }
-        ?>
-    </tbody>
-</table>
-
-<h2>Créer une Nouvelle Campagne</h2>
+    <h2>Créer une Nouvelle Campagne</h2>
 <form action="create_c.php" method="post">
     <label for="date">Date:</label>
     <input type="date" id="date" name="date" required><br><br>
@@ -173,6 +151,54 @@ $result = $pdo->query($sql);
     </select><br><br>
 
     <button type="submit">Créer la campagne</button>
+
+    <form method="get" action="campagne.php">
+    <label for="search_campaign">Rechercher par Nom de Campagne :</label>
+    <input type="text" id="search_campaign" name="search_campaign" value="<?php echo htmlspecialchars($searchCampaign); ?>">
+
+    <label for="search_user">Rechercher par Nom de Mappeur ou Zeus :</label>
+    <input type="text" id="search_user" name="search_user" value="<?php echo htmlspecialchars($searchUser); ?>">
+
+    <button type="submit">Rechercher</button>
+</form>
+
+<h2>Tableau des Campagnes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>DATES</th>
+            <th>CAMPAGNES</th>
+            <th>MISSIONS</th>
+            <th>MAPPEURS</th>
+            <th>ZEUS 1</th>
+            <th>ZEUS 2</th>
+            <th>ZEUS 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        if ($result->rowCount() > 0) {
+            // Display data row by row
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
+                echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='7'>Aucune campagne trouvée</td></tr>";
+        }
+        ?>
+    </tbody>
+</table>
+
+
 </form>
 
 </body>
