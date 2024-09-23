@@ -87,10 +87,8 @@ if ($searchUser) {
     </style>
 </head>
 <body>
- <form method="get" action="campagne.php">
-    <label for="search_campaign">Rechercher par Nom de Campagne :</label>
-    <input type="text" id="search_campaign" name="search_campaign" value="<?php echo htmlspecialchars($searchCampaign); ?>">
-
+ <form method="get" action="record.php">
+  
     <label for="search_user">Rechercher par Nom de Mappeur ou Zeus :</label>
     <input type="text" id="search_user" name="search_user" value="<?php echo htmlspecialchars($searchUser); ?>">
 
