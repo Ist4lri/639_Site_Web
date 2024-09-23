@@ -123,8 +123,8 @@ th {
 
         .officio {
     position: absolute;
-    left: 10px;
-    top: 170px;
+    right: 20px;
+    top: 240px;
     width: 150px;
     height: auto;
     cursor: pointer;
@@ -132,8 +132,17 @@ th {
 
         .mech {
     position: absolute;
-    left: 45px;
-    top: 225px;
+    right: 45px;
+    top: 270px;
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+}
+
+        .map {
+    position: absolute;
+    right: 25px;
+    top: 400px;
     width: 80px;
     height: auto;
     cursor: pointer;
