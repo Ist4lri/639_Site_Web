@@ -54,6 +54,36 @@ $faction = $factionStmt->fetch();
     <title>Officio Prefectus</title>
     <link rel="stylesheet" href="../css/officio.css">
 </head>
+     <style>
+        .complaint-form-container {
+            margin-top: 120px; /* Espace de 120px par rapport au haut de la page */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            max-width: 600px;
+            height: 150px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
 <body>
 <?php if ($faction): ?>
         <!-- Si l'utilisateur est dans la faction "Officio Prefectus" -->
@@ -74,11 +104,13 @@ $faction = $factionStmt->fetch();
     <?php else: ?>
         <!-- Si l'utilisateur n'est pas dans la faction "Officio Prefectus" -->
         <?php include 'header.php'; ?>
-        <h3>Souhaitez-vous envoyer une plainte ?</h3>
-        <form action="officio.php" method="post">
-            <textarea name="plainte" required placeholder="Votre plainte"></textarea>
-            <button type="submit" class="btn-primary">Envoyer la plainte</button>
-        </form>
+        <div class="complaint-form-container">
+    <h3>Souhaitez-vous envoyer une plainte ?</h3>
+    <form action="officio.php" method="post">
+        <textarea name="plainte" required placeholder="Votre plainte"></textarea>
+        <button type="submit" class="btn-primary">Envoyer la plainte</button>
+    </form>
+</div>
     <?php endif; ?>
 
 </body>
