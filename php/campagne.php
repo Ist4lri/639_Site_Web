@@ -64,7 +64,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         a.zeus{
         position: absolute;
-        right: 40px;
+        right: 90px;
         top: 40px;
         }
 
