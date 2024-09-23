@@ -99,7 +99,7 @@ if ($searchUser) {
 </head>
 <body>
 
-  <a href=record.php class=zeus> Compteur </a>
+  <a href=campagne.php class=zeus> Campagne </a>
 <a href=../index.php> Acceuil </a>
  <form method="get" action="record.php">
   
