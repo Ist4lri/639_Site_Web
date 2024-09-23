@@ -29,7 +29,6 @@ $sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus.nom A
         FROM campagne c
         LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
         LEFT JOIN utilisateurs u_zeus ON c.id_zeus = u_zeus.id";
-$result = $pdo->query($sql);
 
 $params = [];
 if ($searchCampaign) {
@@ -42,7 +41,7 @@ if ($searchUser) {
     $params[] = '%' . $searchUser . '%';
 }
 
-    $stmt = $pdo->prepare($sql);
+$stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -182,7 +181,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <tbody>
         <?php
         if (count($result) > 0) {
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            while ($row = $result) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['date']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
@@ -199,9 +198,5 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
     </tbody>
 </table>
-
-
-</form>
-
 </body>
 </html>
