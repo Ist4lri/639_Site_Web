@@ -5,6 +5,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+echo "<pre>";
+print_r($_POST);  // Vérifie si id_utilisateur est bien présent dans $_POST
+echo "</pre>";
+exit();
 
 $stmt = $pdo->prepare("
     SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
