@@ -53,8 +53,7 @@ $faction = $factionStmt->fetch();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Officio Prefectus</title>
     <link rel="stylesheet" href="../css/officio.css">
-</head>
-     <style>
+    <style>
         .complaint-form-container {
             margin-top: 120px; 
             display: flex;
@@ -106,34 +105,36 @@ $faction = $factionStmt->fetch();
             background-color: #641E16;
         }
     </style>
+</head>
 <body>
-<?php if ($faction): ?>
-        <!-- Si l'utilisateur est dans la faction "Officio Prefectus" -->
-        <?php include 'headero.php'; ?>    
-    <h1 class="title">Bienvenue, membre de l'Officio Prefectus,</h1>
-    <h2 class="title">
-        Vous avez franchi les portes de l'un des ordres les plus respectés et redoutés de l'Imperium.<br>
-        En rejoignant nos rangs, vous devenez une pièce essentielle de la machine de l'Empereur,<br>
-        une sentinelle vigilante contre le chaos et l'hérésie.<br>
-        Ici, sous l'étendard de l'ordre et de la discipline,<br>
-        nous veillons à ce que l'autorité impériale soit respectée, à chaque instant, dans chaque secteur.<br>
-        Votre dévouement à la loi impériale et votre loyauté inébranlable envers le Trône d'Or seront votre guide.<br>
-        Qu'aucune faiblesse ne ternisse votre âme et que la lumière de l'Empereur vous éclaire dans chaque décision.<br>
-        À partir de cet instant, vous êtes plus qu'un soldat, vous êtes un gardien du futur de l'humanité.
-    </h2>
 
+    <?php if ($faction): ?>
+        <!-- Si l'utilisateur est dans la faction "Officio Prefectus" -->
+        <?php include 'headero.php'; ?>
+        <h1 class="title">Bienvenue, membre de l'Officio Prefectus,</h1>
+        <h2 class="title">
+            Vous avez franchi les portes de l'un des ordres les plus respectés et redoutés de l'Imperium.<br>
+            En rejoignant nos rangs, vous devenez une pièce essentielle de la machine de l'Empereur,<br>
+            une sentinelle vigilante contre le chaos et l'hérésie.<br>
+            Ici, sous l'étendard de l'ordre et de la discipline,<br>
+            nous veillons à ce que l'autorité impériale soit respectée, à chaque instant, dans chaque secteur.<br>
+            Votre dévouement à la loi impériale et votre loyauté inébranlable envers le Trône d'Or seront votre guide.<br>
+            Qu'aucune faiblesse ne ternisse votre âme et que la lumière de l'Empereur vous éclaire dans chaque décision.<br>
+            À partir de cet instant, vous êtes plus qu'un soldat, vous êtes un gardien du futur de l'humanité.
+        </h2>
     
     <?php else: ?>
         <!-- Si l'utilisateur n'est pas dans la faction "Officio Prefectus" -->
         <?php include 'header.php'; ?>
         <div class="complaint-form-container">
-    <h3 class="complaint">Souhaitez-vous envoyer une plainte ?</h3>
-    <form action="officio.php" method="post">
-        <textarea name="plainte" required placeholder="Votre plainte"></textarea>
-        <button type="submit" class="btn-primary">Envoyer la plainte</button>
-    </form>
-</div>
+            <h3 class="complaint">Souhaitez-vous envoyer une plainte ?</h3>
+            <form action="officio.php" method="post">
+                <textarea name="plainte" required placeholder="Votre plainte"></textarea>
+                <button type="submit" class="btn-primary">Envoyer la plainte</button>
+            </form>
+        </div>
     <?php endif; ?>
 
 </body>
 </html>
+
