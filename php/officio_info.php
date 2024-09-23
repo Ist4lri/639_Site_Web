@@ -123,7 +123,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <?php endif; ?>
 
     <!-- Formulaire de recherche -->
-    <form method="get" action="officier.php">
+    <form method="get" action="officio_info.php">
         <label for="search_nom">Nom:</label>
         <input type="text" id="search_nom" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
 
