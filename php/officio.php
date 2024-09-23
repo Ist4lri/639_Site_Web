@@ -68,26 +68,25 @@ $faction = $factionStmt->fetch();
             margin-right: auto;
         }
 
-         h3.complaint {
-             color: #641E16;
-             font-size: 2rem;
-         }
-
+        h3.complaint {
+            color: #641E16;
+            font-size: 2rem;
+            text-align: center;
+        }
 
         textarea {
-            width: 800px;
-            max-width: 1200px;
-            height: 70px;
+            width: 100%; /* This ensures textarea takes full width */
+            max-width: 800px; /* Limits max width */
+            height: 100px; /* Adjusted height for better look */
             padding: 15px;
             margin-top: 20px;
             font-size: 16px;
             border: 2px solid #F1C40F;
             border-radius: 5px;
-            background-color: #2c2c2e; 
-            color: white; 
-            display: block;
+            background-color: #2c2c2e;
+            color: white;
+            box-sizing: border-box; /* Makes padding part of the width */
         }
-
 
         .btn-primary {
             margin-top: 20px;
@@ -99,14 +98,13 @@ $faction = $factionStmt->fetch();
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            display: block; 
+            width: auto;
+            align-self: flex-start; /* Aligns the button under the textarea */
         }
 
         .btn-primary:hover {
-            background-color: #641E16; 
+            background-color: #641E16;
         }
-
-       
     </style>
 <body>
 <?php if ($faction): ?>
