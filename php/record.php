@@ -15,6 +15,9 @@ $sqlZeus = "SELECT u.nom, COUNT(c.id_zeus) AS zeus_count
 $mappeurResults = $pdo->query($sqlMappeur);
 $zeusResults = $pdo->query($sqlZeus);
 
+$searchCampaign = isset($_GET['search_campaign']) ? trim($_GET['search_campaign']) : '';
+$searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
+
 $records = [];
 
 while ($row = $mappeurResults->fetch(PDO::FETCH_ASSOC)) {
