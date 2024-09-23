@@ -87,7 +87,16 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body>
+ <form method="get" action="campagne.php">
+    <label for="search_campaign">Rechercher par Nom de Campagne :</label>
+    <input type="text" id="search_campaign" name="search_campaign" value="<?php echo htmlspecialchars($searchCampaign); ?>">
 
+    <label for="search_user">Rechercher par Nom de Mappeur ou Zeus :</label>
+    <input type="text" id="search_user" name="search_user" value="<?php echo htmlspecialchars($searchUser); ?>">
+
+    <button type="submit">Rechercher</button>
+</form>
+  
 <h2>Participation </h2>
 
 <table>
