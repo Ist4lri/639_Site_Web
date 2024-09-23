@@ -181,7 +181,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </thead>
     <tbody>
         <?php
-        if ($result->rowCount() > 0) {
+        if (count($result) > 0) {
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['date']) . "</td>";
