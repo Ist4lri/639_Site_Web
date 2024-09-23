@@ -7,15 +7,15 @@ error_reporting(E_ALL);
 
 
 $stmt = $pdo->prepare("
-    SELECT u.nom, u.grade, u.histoire, s.nom AS specialite, 
-           im.age, im.taille, im.poids, im.problemes_medicaux 
+    SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
+           im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
     FROM utilisateurs u 
     LEFT JOIN spe s ON u.spe_id = s.id 
     LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
     WHERE u.id = :id
 ");
-$stmt->execute(['id' => $idUtilisateur]);
-$utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt->execute(['id' => $_POST['id_utilisateur']]);
+
 
 if (!$utilisateur) {
     echo "Utilisateur non trouvé.";
