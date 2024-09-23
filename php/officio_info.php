@@ -111,30 +111,10 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Officiers</title>
-    <link rel="stylesheet" href="../css/tab.css">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/officio.css">
 </head>
 
-<header class="head">
-    <div class="head-logo">
-        <a href="../index.php">
-            <img src="../src/assets/Logo.png" alt="Logo 639">
-        </a>
-        <?php if ($isLoggedIn): ?>
-            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
-        <?php endif; ?>
-    </div>
-    <div class="head-logo2">
-        <a href="../index.php">
-        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
-        </a>
-    </div>
-    <nav class="head-nav">
-            <a href="profil_utilisateur.php">Profil</a>
-            <a href="demande.php">Demandes</a>
-            <a href="Dec.php">Déconnexion</a>
-    </nav>
-</header>
+<?php include 'headero.php' ?>
 <body>
     <h1>Gestion des grades, spécialités et formations</h1>
 
