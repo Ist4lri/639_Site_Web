@@ -85,19 +85,21 @@ $faction = $factionStmt->fetch();
             border-radius: 5px;
             background-color: #2c2c2e; 
             color: white; 
+            display: block;
         }
 
 
         .btn-primary {
             margin-top: 20px;
             padding: 12px 25px;
-            background-color: #922B21; 
+            background-color: #922B21;
             color: white;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            display: block; 
         }
 
         .btn-primary:hover {
