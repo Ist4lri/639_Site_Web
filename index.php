@@ -141,8 +141,8 @@ th {
 
         .map {
     position: absolute;
-    right: 25px;
-    top: 400px;
+    right: 0px;
+    bottom: 0px;
     width: 80px;
     height: auto;
     cursor: pointer;
