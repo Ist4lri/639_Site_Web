@@ -99,7 +99,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <a href=record.php class=zeus> Compteur </a>
-<a href=index.php class=zeus> Acceuil </a>
+<a href=../index.php> Acceuil </a>
     
     <h2>Créer une Nouvelle Campagne</h2>
 <form action="create_c.php" method="post">
