@@ -71,8 +71,10 @@
     <!-- Liens à droite -->
     <div class="nav-links">
         <a href="officio.php">Vos Bureaux</a>
+        <a href="officio_info.php"> Informations Militarum</a>
         <a href="officio_main.php">Fiche Médicales</a>
         <a href="plaintes.php">Demandes</a>
+        
     </div>
 </header>
 
