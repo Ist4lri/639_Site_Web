@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Préparer la requête pour obtenir les données de l'utilisateur
+
 $stmt = $pdo->prepare("
     SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
            im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
@@ -14,10 +14,11 @@ $stmt = $pdo->prepare("
     LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
     WHERE u.id = :id
 ");
-$stmt->execute(['id' => $_GET['id']]);
+$stmt->execute(['id' => $_POST['id_utilisateur']]); 
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-header('Content-Type: text/html; charset=utf-8'); // Assurez-vous que l'encodage est en UTF-8
+
+header('Content-Type: text/html; charset=utf-8'); 
 
 require('../vendor/setasign/fpdf/fpdf.php');
 
