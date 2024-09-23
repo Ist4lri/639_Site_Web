@@ -30,8 +30,8 @@
         /* Image Aquila au centre */
         .header img {
             position: absolute;
-            top: 0;
-            left: 50%;
+            top: 10px;
+            left: 15%;
             transform: translateX(-50%);
             width: 120px;
             height: auto;
