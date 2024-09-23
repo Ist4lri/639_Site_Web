@@ -1,31 +1,34 @@
 <?php
-include 'db.php';
+session_start();
+include 'db.php'; // Make sure your db.php file contains the database connection
 
-$query = "SELECT zeus, mappeur FROM utilisateurs WHERE id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    if ($row['zeus'] != 1 && $row['mappeur'] != 1) {
-        header("Location: /access_denied.php");
-        exit();
-    }
-} else {
-    header("Location: insubordination.php");
+if (!isset($_SESSION['utilisateur'])) {
+    header("Location: connection.php");
     exit();
 }
 
+// Make sure $conn is properly initialized here
+if (!isset($conn)) {
+    die("Database connection failed");
+}
+
+// Récupérer toutes les campagnes et utilisateurs
+$sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus1.nom AS zeus1, u_zeus2.nom AS zeus2, u_zeus3.nom AS zeus3
+        FROM campagne c
+        LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
+        LEFT JOIN utilisateurs u_zeus1 ON c.id_zeus = u_zeus1.id
+        LEFT JOIN utilisateurs u_zeus2 ON c.id_zeus2 = u_zeus2.id
+        LEFT JOIN utilisateurs u_zeus3 ON c.id_zeus3 = u_zeus3.id";
+$result = $conn->query($sql);
+
+// Get the list of mappers (mappeur)
 $mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1";
 $mappeur_result = $conn->query($mappeur_query);
 
+// Get the list of Zeus
 $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1 OR mappeur = 1";
 $zeus_result = $conn->query($zeus_query);
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -85,27 +88,21 @@ $zeus_result = $conn->query($zeus_query);
     </thead>
     <tbody>
         <?php
-        $sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus.nom AS zeus1
-                FROM campagne c
-                LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
-                LEFT JOIN utilisateurs u_zeus ON c.id_zeus = u_zeus.id";
-        $result = $conn->query($sql);
-
         if ($result && $result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($row['date']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
-        echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
-        echo "<td class='zeus'>" . htmlspecialchars($row['zeus1']) . "</td>";
-        echo "<td class='zeus'>" . htmlspecialchars($row['zeus2']) . "</td>"; // Zeus 2
-        echo "<td class='zeus'>" . htmlspecialchars($row['zeus3']) . "</td>"; // Zeus 3
-        echo "</tr>";
-    }
-} else {
-    echo "<tr><td colspan='7'>Aucune campagne trouvée</td></tr>";
-}
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
+                echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus1']) . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus2']) . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus3']) . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='7'>Aucune campagne trouvée</td></tr>";
+        }
         ?>
     </tbody>
 </table>
