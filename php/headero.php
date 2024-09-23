@@ -66,7 +66,7 @@
 <header class="header">
     <!-- Image au centre -->
     <a href=../index.php>
-    <img src="../src/assets/Aquila.png" alt="Aquila" />
+    <img src="../src/assets/Aquila.png" alt="Aquila" class='logo' />
     </a>
     <!-- Liens à droite -->
     <div class="nav-links">
