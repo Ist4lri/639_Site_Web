@@ -68,7 +68,7 @@ $faction = $factionStmt->fetch();
             margin-right: auto;
         }
 
-         h3.complaint-form-container {
+         complaint-form-container.h3 {
              color: #641E16;
              font-size: 2rem;
          }
