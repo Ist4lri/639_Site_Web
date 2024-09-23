@@ -6,13 +6,6 @@
     <title>Officio Prefectus Header</title>
     <link rel="stylesheet" href="../css/officio.css"> <!-- Lien vers ton fichier CSS -->
     <style>
-        /* Styles de base */
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #424242;
-            color: #FFD700;
-        }
 
         /* Style pour le header */
         .header {
