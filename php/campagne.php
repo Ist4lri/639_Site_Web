@@ -57,6 +57,17 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-family: Arial, sans-serif;
         }
 
+        a{
+        position: absolute;
+        right: 10px;
+        top: 40px;
+        }
+        a.zeus{
+        position: absolute;
+        right: 40px;
+        top: 40px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -87,6 +98,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body>
+<a href=record.php class=zeus> Compteur </a>
+<a href=index.php class=zeus> Acceuil </a>
+    
     <h2>Créer une Nouvelle Campagne</h2>
 <form action="create_c.php" method="post">
     <label for="date">Date:</label>
