@@ -56,11 +56,11 @@ $faction = $factionStmt->fetch();
 </head>
      <style>
         .complaint-form-container {
-            margin-top: 120px; /* Espace de 120px par rapport au haut de la page */
+            margin-top: 120px; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #1c1c1e; /* Darker background color to match the style */
+            background-color: #1c1c1e;
             padding: 30px;
             border-radius: 10px;
             max-width: 80%;
@@ -68,7 +68,12 @@ $faction = $factionStmt->fetch();
             margin-right: auto;
         }
 
-        /* Style for the textarea */
+         h3.complaint-form-container {
+             color: #641E16;
+             font-size: 1.2 rem;
+         }
+
+
         textarea {
             width: 100%;
             max-width: 1200px;
@@ -76,17 +81,17 @@ $faction = $factionStmt->fetch();
             padding: 15px;
             margin-top: 20px;
             font-size: 16px;
-            border: 2px solid #0056b3; /* Border color to match the button hover state */
+            border: 2px solid #F1C40F;
             border-radius: 5px;
-            background-color: #2c2c2e; /* Darker background for textarea */
-            color: white; /* White text for better visibility */
+            background-color: #2c2c2e; 
+            color: white; 
         }
 
-        /* Button styling */
+
         .btn-primary {
             margin-top: 20px;
             padding: 12px 25px;
-            background-color: #007bff; /* Primary button color */
+            background-color: #922B21; 
             color: white;
             border: none;
             border-radius: 5px;
@@ -96,15 +101,10 @@ $faction = $factionStmt->fetch();
         }
 
         .btn-primary:hover {
-            background-color: #0056b3; /* Hover effect for button */
+            background-color: #641E16; 
         }
 
-        /* Body background */
-        body {
-            background-color: #0f0f10; /* Dark background for the whole page */
-            color: #fff; /* White text for contrast */
-            font-family: 'Arial', sans-serif;
-        }
+       
     </style>
 <body>
 <?php if ($faction): ?>
