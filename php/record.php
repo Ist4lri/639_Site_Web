@@ -52,9 +52,6 @@ if ($searchUser) {
     $params[] = '%' . $searchUser . '%';
 }
 
-    $stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
