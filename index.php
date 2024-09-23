@@ -270,7 +270,7 @@ th {
     </a>    
 
     <a href="/php/campagne.php">
-    <img src="/src/assets/BoutonMappeur.png" alt="Map" class="map">
+    <img src="/src/assets/BoutonMappeur2.png" alt="Map" class="map">
     </a> 
     
     <p class="tooltip2">N'oubliez pas de voter <br> cliquez MOI!!</p>
