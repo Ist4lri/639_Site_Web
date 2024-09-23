@@ -10,10 +10,6 @@ body {
     background-color: #121212;
     color: #00ff66;
     font-family: 'Inquisitor', Serif;
-    background-image: url('../src/assets/Bougie.png');
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-attachment: fixed;
 }
 
 .container {
