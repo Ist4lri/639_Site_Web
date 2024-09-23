@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
                 <tr>
                     <td><?php echo htmlspecialchars($user['nom']); ?></td>
                     <td>
-                        <form action="affiche_perso.php" method="post" style="display:inline;" target="_blank">
+                        <form action="affiche_u.php" method="post" style="display:inline;" target="_blank">
                             <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($user['id']); ?>">
                             <button type="submit" name="view_pdf" class="btn-view-pdf">PDF</button>
                         </form>
