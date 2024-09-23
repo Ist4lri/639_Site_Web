@@ -68,7 +68,7 @@ $faction = $factionStmt->fetch();
             margin-right: auto;
         }
 
-         complaint-form-container.h3 {
+         h3.complaint-form-container {
              color: #641E16;
              font-size: 2rem;
          }
@@ -127,7 +127,7 @@ $faction = $factionStmt->fetch();
         <!-- Si l'utilisateur n'est pas dans la faction "Officio Prefectus" -->
         <?php include 'header.php'; ?>
         <div class="complaint-form-container">
-    <h3>Souhaitez-vous envoyer une plainte ?</h3>
+    <h3 class="complaint-form-container">Souhaitez-vous envoyer une plainte ?</h3>
     <form action="officio.php" method="post">
         <textarea name="plainte" required placeholder="Votre plainte"></textarea>
         <button type="submit" class="btn-primary">Envoyer la plainte</button>
