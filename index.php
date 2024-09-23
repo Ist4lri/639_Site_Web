@@ -411,6 +411,7 @@ foreach ($specialties as $specialty):
 </script>
 
     <div class="eff"><a href="php/effectif.php"><img src="src/assets/BoutonNosEffectifs0.png" alt="Effectif"></a></div>
+        </div>
 </div>
 
 <?php if ($isLoggedIn): ?>
