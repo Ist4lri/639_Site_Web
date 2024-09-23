@@ -10,6 +10,9 @@ $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :
 $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
 $faction = $factionStmt->fetch(PDO::FETCH_ASSOC);
 
+$searchCampaign = isset($_GET['search_campaign']) ? trim($_GET['search_campaign']) : '';
+$searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
+
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
@@ -179,7 +182,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <tbody>
         <?php
         if ($result->rowCount() > 0) {
-            // Display data row by row
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['date']) . "</td>";
