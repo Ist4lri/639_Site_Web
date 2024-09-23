@@ -70,7 +70,7 @@ $faction = $factionStmt->fetch();
 
          h3.complaint-form-container {
              color: #641E16;
-             font-size: 1.2rem;
+             font-size: 2rem;
          }
 
 
