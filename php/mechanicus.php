@@ -47,8 +47,14 @@ if ($faction) {
     <link rel="stylesheet" href="../css/adeptus.css">
 </head>
 <body>
+    <style>
+        body{
+            background: url('../src/assets/Bouigies.png') no-repeat center center fixed; 
+            background-size: cover;
+        }
+    </style>
 
-<!-- Header avec condition Adeptus Mechanicus ou non -->
+
 <header>
     <div class="head-logo2">
         <a href="../index.php">
