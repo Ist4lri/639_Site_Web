@@ -141,7 +141,7 @@ th {
 
         .map {
     position: fixed;
-    right: 0px;
+    left: 0px;
     bottom: 0px;
     width: 80px;
     height: auto;
