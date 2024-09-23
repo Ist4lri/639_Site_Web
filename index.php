@@ -140,7 +140,7 @@ th {
 }
 
         .map {
-    position: absolute;
+    position: fixed;
     right: 0px;
     bottom: 0px;
     width: 80px;
