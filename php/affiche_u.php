@@ -1,11 +1,18 @@
 <?php
-
 include 'db.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Vérifier si l'ID utilisateur a été passé via POST
+if (!isset($_POST['id_utilisateur'])) {
+    echo "Erreur : aucun utilisateur sélectionné.";
+    exit();
+}
 
+$idUtilisateur = $_POST['id_utilisateur'];
+
+// Requête pour récupérer les informations de l'utilisateur
 $stmt = $pdo->prepare("
     SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
            im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
@@ -14,14 +21,16 @@ $stmt = $pdo->prepare("
     LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
     WHERE u.id = :id
 ");
-$stmt->execute(['id' => $_POST['id_utilisateur']]);
+$stmt->execute(['id' => $idUtilisateur]);
 
+// Stocker les résultats dans la variable $utilisateur
+$utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Vérifier si l'utilisateur a été trouvé
 if (!$utilisateur) {
     echo "Utilisateur non trouvé.";
     exit();
 }
-
 
 
 header('Content-Type: text/html; charset=utf-8'); 
