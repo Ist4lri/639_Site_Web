@@ -165,8 +165,10 @@ $excel_file_path = "../excel/planning_utilisateurs.xlsx";
         <p><strong>Grade :</strong> <?php echo htmlspecialchars($utilisateur['grade']); ?></p>
         <p><strong>Spécialité :</strong> <?php echo htmlspecialchars($utilisateur['specialite_nom']); ?></p>
         <button class="btn" onclick="toggleHistoireForm()">Modifier Histoire</button>
-<a href="affiche_u.php?id=<?php echo $utilisateur['id']; ?>" target="_blank">
-    <button class="btn">PDF</button>
+<form action="affiche_u.php" method="get" style="display:inline;" target="_blank">
+    <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($user['id']); ?>">
+    <button type="submit" name="view_pdf" class="btn">PDF</button>
+</form>
 </a>
 
 <div id="histoire-form" style="display:none; margin-top: 20px;">
