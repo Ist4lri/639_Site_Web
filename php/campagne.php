@@ -180,20 +180,17 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </thead>
     <tbody>
         <?php
-        if (count($result) > 0) {
-            for ($row = $result) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
-                echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='7'>Aucune campagne trouvée</td></tr>";
+        for ($i = 0; $i < count($result); $i++) {
+            $row = $result[$i];
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
+            echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
+            echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
+            echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
+            echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
+            echo "</tr>";
         }
         ?>
     </tbody>
