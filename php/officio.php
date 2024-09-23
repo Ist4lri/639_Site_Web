@@ -60,28 +60,50 @@ $faction = $factionStmt->fetch();
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: #1c1c1e; /* Darker background color to match the style */
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
+        /* Style for the textarea */
         textarea {
             width: 100%;
-            max-width: 600px;
+            max-width: 1200px;
             height: 150px;
-            padding: 10px;
+            padding: 15px;
             margin-top: 20px;
             font-size: 16px;
+            border: 2px solid #0056b3; /* Border color to match the button hover state */
+            border-radius: 5px;
+            background-color: #2c2c2e; /* Darker background for textarea */
+            color: white; /* White text for better visibility */
         }
 
+        /* Button styling */
         .btn-primary {
             margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
+            padding: 12px 25px;
+            background-color: #007bff; /* Primary button color */
             color: white;
             border: none;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Hover effect for button */
+        }
+
+        /* Body background */
+        body {
+            background-color: #0f0f10; /* Dark background for the whole page */
+            color: #fff; /* White text for contrast */
+            font-family: 'Arial', sans-serif;
         }
     </style>
 <body>
