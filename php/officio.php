@@ -73,10 +73,17 @@ $faction = $factionStmt->fetch();
             text-align: center;
         }
 
+        form {
+            display: flex;
+            flex-direction: column; /* Ensure items are stacked vertically */
+            width: 100%;
+            align-items: center;
+        }
+
         textarea {
             width: 100%; /* This ensures textarea takes full width */
             max-width: 800px; /* Limits max width */
-            height: 100px; /* Adjusted height for better look */
+            height: 100px;
             padding: 15px;
             margin-top: 20px;
             font-size: 16px;
@@ -98,7 +105,6 @@ $faction = $factionStmt->fetch();
             cursor: pointer;
             transition: background-color 0.3s ease;
             width: auto;
-            align-self: flex-start; /* Aligns the button under the textarea */
         }
 
         .btn-primary:hover {
