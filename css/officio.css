@@ -91,12 +91,14 @@ table {
 }
 
 table th, table td {
+    font-family: 'Cinzel', serif;
     border: 1px solid #555;
     padding: 12px;
     text-align: center;
 }
 
 table th {
+    font-family: 'Cinzel', serif;
     background-color: #333;
     color: #f1f1f1;
     text-transform: uppercase;
@@ -111,6 +113,7 @@ table tr:nth-child(odd) {
 }
 
 table td select {
+    font-family: 'Cinzel', serif;
     background-color: #444;
     border: none;
     color: #f1f1f1;
