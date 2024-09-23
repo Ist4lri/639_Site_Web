@@ -83,7 +83,7 @@ h2 {
 }
 
 .specialty img:hover {
-    transform: scale(1.05); /* Optionnel : effet de zoom léger */
+    transform: scale(1.05); /* Optionnel : et de zoom léger */
 }
 
 .specialty img[src*="BoutonMGunner0.png"]:hover {
@@ -123,6 +123,7 @@ h2 {
     transition: all 0.8s ease; /* Optionnel : pour une transition douce */
     width: 35%; 
     height: 35%;
+    padding-left: 32%;
 }
 
 .eff img:hover {
