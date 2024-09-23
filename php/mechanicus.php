@@ -49,8 +49,10 @@ if ($faction) {
 <body>
     <style>
         body{
-            background: url('../src/assets/Bouigies.png') no-repeat center center fixed; 
-            background-size: cover;
+            background-image: url('../src/assets/Bougie.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-attachment: fixed;
         }
     </style>
 
