@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php';
+include 'php/db.php';
 
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
@@ -12,8 +12,8 @@ if ($_SESSION['role'] !== 'admin') {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
-    $userId = (int)$_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
+    $userId = (int)$_POST['user_id'];
     $mappeur = isset($_POST['mappeur']) ? 1 : 0;
     $zeus = isset($_POST['zeus']) ? 1 : 0;
 
