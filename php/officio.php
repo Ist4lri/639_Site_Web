@@ -70,14 +70,14 @@ $faction = $factionStmt->fetch();
 
          h3.complaint-form-container {
              color: #641E16;
-             font-size: 1.2 rem;
+             font-size: 1.2rem;
          }
 
 
         textarea {
             width: 100%;
             max-width: 1200px;
-            height: 150px;
+            height: 70px;
             padding: 15px;
             margin-top: 20px;
             font-size: 16px;
