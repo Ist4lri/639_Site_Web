@@ -95,9 +95,9 @@ $result = $pdo->query($sql);
                 echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
                 echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus1']) . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus2']) . "</td>";
-                echo "<td class='zeus'>" . htmlspecialchars($row['zeus3']) . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
                 echo "</tr>";
             }
         } else {
