@@ -7,11 +7,6 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// Make sure $conn is properly initialized here
-if (!isset($conn)) {
-    die("Database connection failed");
-}
-
 // Récupérer toutes les campagnes et utilisateurs
 $sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus1.nom AS zeus1, u_zeus2.nom AS zeus2, u_zeus3.nom AS zeus3
         FROM campagne c
