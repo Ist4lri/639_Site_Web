@@ -98,6 +98,9 @@ if ($searchUser) {
     </style>
 </head>
 <body>
+
+  <a href=record.php class=zeus> Compteur </a>
+<a href=../index.php> Acceuil </a>
  <form method="get" action="record.php">
   
     <label for="search_user">Rechercher par Nom de Mappeur ou Zeus :</label>
