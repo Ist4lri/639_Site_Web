@@ -100,6 +100,7 @@ if (!empty($users)) {
 } else {
     echo "<p>Aucun utilisateur trouvé pour cette spécialité.</p>";
 }
+?>
 </div>
 </body>
     <?php include 'footer.php'; ?>
