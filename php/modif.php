@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
         $stmt->execute([$age, $taille, $poids, $problemes_medicaux, $id_utilisateur]);
 
         $success_message = "Les informations médicales ont été mises à jour avec succès.";
-        header("Location: med.php");
+        header("Location: medicae_info.php");
         exit();
     }
 }
