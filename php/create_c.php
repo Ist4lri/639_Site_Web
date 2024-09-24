@@ -14,14 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $missions = $_POST['missions'];
     $id_mappeur = $_POST['mappeur'];
     $id_zeus1 = $_POST['zeus1'];
+    $id_zeus2 = $_POST['zeus2'];
+    $id_zeus3 = $_POST['zeus3'];
 
-    // Si zeus2 et zeus3 ne sont pas sélectionnés, utilisez NULL
-    $id_zeus2 = !empty($_POST['zeus2']) ? $_POST['zeus2'] : null;
-    $id_zeus3 = !empty($_POST['zeus3']) ? $_POST['zeus3'] : null;
 
-    // Debugging pour vérifier les valeurs soumises (désactivez après débogage)
-    // var_dump($date, $nom, $missions, $id_mappeur, $id_zeus1, $id_zeus2, $id_zeus3);
-
+    
     try {
         // Requête d'insertion dans la table campagne
         $stmt = $pdo->prepare("INSERT INTO campagne (date, nom, missions, id_mappeur, id_zeus, id_zeus2, id_zeus3) 
