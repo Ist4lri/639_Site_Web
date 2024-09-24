@@ -2,31 +2,31 @@
 session_start();
 include 'db.php';
 
-
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Vérifier si l'utilisateur est connecté et a la bonne spécialité
+// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
 }
 
-if (!isset($_SESSION['id_utilisateur'])) {
-    die('Erreur: L\'ID utilisateur n\'est pas défini dans la session.');
-}
-
+// Vérifier si l'ID utilisateur est défini
 if (!isset($_POST['id_utilisateur'])) {
     die("Erreur: aucun utilisateur spécifié.");
 }
 
-// Récupérer l'ID utilisateur
+// Récupérer l'ID utilisateur depuis le formulaire
 $id_utilisateur = $_POST['id_utilisateur'];
 
-var_dump($id_utilisateur);
+// Vérification de l'ID utilisateur
+if (empty($id_utilisateur)) {
+    die('Erreur: L\'ID utilisateur est vide.');
+}
 
+var_dump($id_utilisateur); // Débogage de l'ID utilisateur
 
 // Récupérer les informations médicales de l'utilisateur
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
@@ -37,9 +37,13 @@ $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_m
                        WHERE u.id = ?");
 $stmt->execute([$id_utilisateur]);
 $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-}
-var_dump($userInfo);
 
+var_dump($userInfo); // Débogage des informations utilisateur
+
+// Vérifier si les informations ont été trouvées
+if (!$userInfo) {
+    die('Aucune information médicale trouvée pour cet utilisateur.');
+}
 
 // Calculer le temps de service
 $dateService = new DateTime($userInfo['date_service']);
@@ -137,4 +141,3 @@ $pdf->Ln(10);
 
 // Générer le PDF
 $pdf->Output('I', 'informations_medicales.pdf');
-?>
