@@ -31,13 +31,12 @@ var_dump($id_utilisateur);
 // Récupérer les informations médicales de l'utilisateur
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
                        im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, 
-                       u.date_service 
+                       im.date_modification, im.temps_service, u.date_service 
                        FROM utilisateurs u 
                        LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
                        WHERE u.id = ?");
-
-if (empty($userInfo)) {
-    die('Aucune information médicale trouvée pour cet utilisateur.');
+$stmt->execute([$id_utilisateur]);
+$userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 var_dump($userInfo);
 
