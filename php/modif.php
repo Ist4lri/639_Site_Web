@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
         $fumeurs = isset($_POST['fumeurs']) ? 1 : 0;
         $allergies = $_POST['allergies'];
         $intolerances = $_POST['intolerances'];
-        $commentaires = $_POST['commentaires'];
+        $commentaires = $_POST['problemes_medicaux'];
 
         // Mise à jour des informations médicales
         $stmt = $pdo->prepare("UPDATE informations_medicales SET age = ?, taille = ?, poids = ?, groupe_sanguin = ?, classe_spe = ?, monde_origine = ?, antecedents_biologiques = ?, antecedents_psychologiques = ?, fumeurs = ?, allergies = ?, intolerances = ?, commentaires = ? WHERE id_utilisateur = ?");
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier les Informations Médicales</title>
-    <style>/* modif.css */
+    <style>
 
 /* Général */
 body {
@@ -233,7 +233,7 @@ input[readonly] {
             <textarea id="intolerances" name="intolerances" rows="2"><?php echo htmlspecialchars($userInfo['intolerances'] ?? ''); ?></textarea>
 
             <label for="commentaires">Commentaires :</label>
-            <textarea id="commentaires" name="commentaires" rows="4"><?php echo htmlspecialchars($userInfo['commentaires'] ?? ''); ?></textarea>
+            <textarea id="commentaires" name="commentaires" rows="4"><?php echo htmlspecialchars($userInfo['problemes_medicaux'] ?? ''); ?></textarea>
 
             <button type="submit" name="update_info" class="btn btn-success">Confirmer</button>
         </form>
