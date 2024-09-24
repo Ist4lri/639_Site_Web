@@ -27,12 +27,10 @@ $id_utilisateur = $_POST['id_utilisateur'];
 // Récupérer les informations médicales de l'utilisateur
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
                        im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, 
-                       im.date_modification, u.date_service 
+                       u.date_service 
                        FROM utilisateurs u 
                        LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
                        WHERE u.id = ?");
-$stmt->execute([$id_utilisateur]);
-$userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (empty($userInfo)) {
     die('Aucune information médicale trouvée pour cet utilisateur.');
@@ -127,7 +125,7 @@ $pdf->SetX(25);
 $pdf->Cell(0, 10, mb_convert_encoding('Intolérances: ' . $userInfo['intolerances'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 $pdf->Ln(10);
 $pdf->SetX(25);
-$pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
+$pdf->Cell(0, 10, mb_convert_encoding('Commentaire : ', 'ISO-8859-1', 'UTF-8'), 0, 1);
 $pdf->SetX(25);
 $pdf->MultiCell(150, 10, mb_convert_encoding($userInfo['problemes_medicaux'], 'ISO-8859-1', 'UTF-8'));
 $pdf->Ln(10);
