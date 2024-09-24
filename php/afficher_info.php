@@ -17,6 +17,25 @@ $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_m
 $stmt->execute([$id_utilisateur]);
 $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['utilisateur'])) {
+    header("Location: connection.php");
+    exit();
+}
+
+// Vérifier si l'ID utilisateur est défini
+if (!isset($_POST['id_utilisateur'])) {
+    die("Erreur: aucun utilisateur spécifié.");
+}
+
+// Récupérer l'ID utilisateur depuis le formulaire
+$id_utilisateur = $_POST['id_utilisateur'];
+
+// Vérification de l'ID utilisateur
+if (empty($id_utilisateur)) {
+    die('Erreur: L\'ID utilisateur est vide.');
+}
+
 var_dump($userInfo); // Vérifier que les informations médicales sont récupérées
 
 // Gestion de la colonne temps_service
