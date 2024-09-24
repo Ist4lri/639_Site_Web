@@ -110,21 +110,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
         // Redirection après action pour éviter la répétition
         header("Location: " . $_SERVER['REQUEST_URI']);
         exit();
-    } elseif ($_POST['action'] === 'lu') {
-        // Cette partie gère les plaintes
-        $id_plainte = $_POST['id_plainte'];
+    } 
+   if ($_POST['action'] === 'lu') {
+    $id_plainte = $_POST['id_plainte'];
 
-        // Met à jour le statut de la plainte à "Lu"
-        $updateStmt = $pdo->prepare("UPDATE plaintes SET status = 'Lu' WHERE id = ?");
-        $updateStmt->execute([$id_plainte]);
+    // Met à jour le statut de la plainte à "Lu"
+    $updateStmt = $pdo->prepare("UPDATE plaintes SET status = 'Lu' WHERE id = ?");
+    if ($updateStmt->execute([$id_plainte])) {
+        echo "Plainte marquée comme lue avec succès.";
+    } else {
+        echo "Échec de la mise à jour.";
+    }
 
-        // Redirection après action pour éviter la répétition
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit();
+    // Redirection après action pour éviter la répétition
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
     }
 }
 
-}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo '<pre>';
     print_r($_POST);  // Affiche les données POST soumises
