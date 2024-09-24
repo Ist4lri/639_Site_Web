@@ -54,53 +54,6 @@ if (!empty($searchQuery)) {
 }
 
 $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Traitement de la modification ou création des informations médicales
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
-    $id_utilisateur = $_POST['id_utilisateur'];
-    $age = $_POST['age'];
-    $taille = $_POST['taille'];
-    $poids = $_POST['poids'];
-    $problemes_medicaux = $_POST['problemes_medicaux'];
-
-    if (!empty($id_utilisateur) && !empty($age) && !empty($taille) && !empty($poids) && !empty($problemes_medicaux)) {
-        // Vérifier si des informations médicales existent déjà pour cet utilisateur
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM informations_medicales WHERE id_utilisateur = ?");
-        $stmt->execute([$id_utilisateur]);
-        $infoExists = $stmt->fetchColumn();
-
-        if ($infoExists) {
-            // Si des informations existent, mise à jour
-            $stmt = $pdo->prepare("UPDATE informations_medicales 
-                                   SET age = ?, taille = ?, poids = ?, problemes_medicaux = ? 
-                                   WHERE id_utilisateur = ?");
-            $stmt->execute([$age, $taille, $poids, $problemes_medicaux, $id_utilisateur]);
-            $success_message = "Les informations médicales ont été mises à jour avec succès.";
-        } else {
-        
-            $stmt = $pdo->prepare("INSERT INTO informations_medicales (id_utilisateur, age, taille, poids, problemes_medicaux) 
-                                   VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([$id_utilisateur, $age, $taille, $poids, $problemes_medicaux]);
-            $success_message = "Les informations médicales ont été créées avec succès.";
-        }
-
-        // Redirection pour éviter la soumission multiple
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    } else {
-        $error_message = "Tous les champs sont obligatoires pour modifier ou créer des informations.";
-    }
-}
-
-// Traitement pour afficher le formulaire de modification
-$showEditForm = false;
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
-    $id_utilisateur = $_POST['id_utilisateur'];
-    $stmt = $pdo->prepare("SELECT * FROM informations_medicales WHERE id_utilisateur = ?");
-    $stmt->execute([$id_utilisateur]);
-    $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-    $showEditForm = true;
-}
 ?>
 
 <!DOCTYPE html>
@@ -110,21 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informations Médicales</title>
     <link rel="stylesheet" href="../css/med.css">
-
 </head>
 <?php include 'header.php'; ?>
 <body>
 
 <div class="container">
     <h2>Page d'Informations Médicales</h2>
-
-    <?php if (isset($error_message)): ?>
-        <div class="alert alert-danger"><?php echo htmlspecialchars($error_message); ?></div>
-    <?php endif; ?>
-
-    <?php if (isset($success_message)): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($success_message); ?></div>
-    <?php endif; ?>
 
     <!-- Filtrer par grade ou rechercher par nom -->
     <form method="post" action="">
@@ -169,8 +113,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
                 <td><?php echo htmlspecialchars($user['poids'] ?? 'N/A'); ?></td>
                 <td><?php echo htmlspecialchars(substr($user['problemes_medicaux'] ?? 'N/A', 0, 30)) . (strlen($user['problemes_medicaux'] ?? '') > 30 ? '...' : ''); ?></td>
                 <td>
-                    <!-- Bouton pour afficher le formulaire de modification -->
-                    <form action="" method="post" style="display:inline;">
+                    <!-- Bouton pour rediriger vers modif.php -->
+                    <form action="modif.php" method="post" style="display:inline;">
                         <input type="hidden" name="id_utilisateur" value="<?php echo $user['id']; ?>">
                         <button type="submit" name="edit" class="btn btn-modify">Modifier</button>
                     </form>
@@ -186,28 +130,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
             <?php endforeach; ?>
         </tbody>
     </table>
-
-    <!-- Formulaire de modification, affiché uniquement si le bouton "Modifier" a été cliqué -->
-    <?php if ($showEditForm): ?>
-        <h3>Modifier les informations médicales</h3>
-        <form action="" method="post">
-            <input type="hidden" name="id_utilisateur" value="<?php echo htmlspecialchars($id_utilisateur); ?>">
-            
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($userInfo['age'] ?? ''); ?>" required>
-            
-            <label for="taille">Taille (cm):</label>
-            <input type="number" id="taille" name="taille" value="<?php echo htmlspecialchars($userInfo['taille'] ?? ''); ?>" required>
-
-            <label for="poids">Poids (kg):</label>
-            <input type="number" id="poids" name="poids" value="<?php echo htmlspecialchars($userInfo['poids'] ?? ''); ?>" required>
-
-            <label for="problemes_medicaux">Problèmes médicaux:</label>
-            <textarea id="problemes_medicaux" name="problemes_medicaux" rows="4" required><?php echo htmlspecialchars($userInfo['problemes_medicaux'] ?? ''); ?></textarea>
-
-            <button type="submit" name="update_info" class="btn btn-success">Confirmer</button>
-        </form>
-    <?php endif; ?>
 </div>
 
 </body>
