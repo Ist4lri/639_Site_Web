@@ -2,6 +2,10 @@
 session_start();
 include 'db.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Récupérer les données du formulaire
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'];
