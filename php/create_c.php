@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_zeus2 = !empty($_POST['zeus2']) ? $_POST['zeus2'] : null; // Si vide, mettre NULL
     $id_zeus3 = !empty($_POST['zeus3']) ? $_POST['zeus3'] : null; // Si vide, mettre NULL
 
+        var_dump($id_zeus2, $id_zeus3);
+
     // Afficher les données récupérées pour débogage
     var_dump($date, $nom, $missions, $id_mappeur, $id_zeus1, $id_zeus2, $id_zeus3);
 
