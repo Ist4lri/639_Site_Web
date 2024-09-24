@@ -2,6 +2,7 @@
 session_start();
 include 'db.php';
 
+
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -24,6 +25,9 @@ if (!isset($_POST['id_utilisateur'])) {
 // Récupérer l'ID utilisateur
 $id_utilisateur = $_POST['id_utilisateur'];
 
+var_dump($id_utilisateur);
+var_dump($userInfo);
+
 // Récupérer les informations médicales de l'utilisateur
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
                        im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, 
@@ -35,6 +39,8 @@ $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_m
 if (empty($userInfo)) {
     die('Aucune information médicale trouvée pour cet utilisateur.');
 }
+
+
 
 // Calculer le temps de service
 $dateService = new DateTime($userInfo['date_service']);
