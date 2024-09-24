@@ -2,36 +2,35 @@
 session_start();
 include 'db.php';
 
-// Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Vérifier si l'utilisateur est connecté
+
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
 }
 
-// Vérifier si l'ID utilisateur est défini
+
 if (!isset($_POST['id_utilisateur'])) {
     die("Erreur: aucun utilisateur spécifié.");
 }
 
-// Récupérer l'ID utilisateur depuis le formulaire
+
 $id_utilisateur = $_POST['id_utilisateur'];
 
-// Vérification de l'ID utilisateur
+
 if (empty($id_utilisateur)) {
     die('Erreur: L\'ID utilisateur est vide.');
 }
 
-var_dump($id_utilisateur); // Débogage de l'ID utilisateur
+var_dump($id_utilisateur); 
 
-// Récupérer les informations médicales de l'utilisateur
+
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
                        im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, 
-                       im.date_modification, im.temps_service, u.date_service 
+                       im.date_modification, im.temps_service 
                        FROM utilisateurs u 
                        LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
                        WHERE u.id = ?");
