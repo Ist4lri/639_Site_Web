@@ -24,6 +24,39 @@ if (!$currentUser) {
 
 $message = '';
 
+// Action sur "Accepter", "Rejeter" ou "Lu"
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
+    if ($_POST['action'] === 'accepter' || $_POST['action'] === 'rejeter') {
+        // Gestion des demandes
+        $id_demande = $_POST['id_demande'];
+        $action = $_POST['action'] === 'accepter' ? 'Accepter' : 'Rejeter';
+
+        $updateStmt = $pdo->prepare("UPDATE demande SET status = ? WHERE id = ?");
+        $updateStmt->execute([$action, $id_demande]);
+
+        // Redirection après action pour éviter la répétition
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    } elseif ($_POST['action'] === 'lu') {
+        // Gestion des plaintes
+        $id_plainte = $_POST['id_plainte'];
+
+        // Met à jour le statut de la plainte à "Lu"
+        $updateStmt = $pdo->prepare("UPDATE plaintes SET status = 'Lu' WHERE id = ?");
+        if ($updateStmt->execute([$id_plainte])) {
+            echo "Plainte marquée comme lue avec succès.";
+        } else {
+            $errorInfo = $updateStmt->errorInfo();
+            echo "Échec de la mise à jour : " . $errorInfo[2];
+        }
+
+        // Redirection après action pour éviter la répétition
+        header("Location: " . $_SERVER['REQUEST_URI']);
+        exit();
+    }
+}
+
+// Traitement pour soumettre une plainte
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['plainte']) && !empty($_POST['plainte'])) {
     $plainteText = trim($_POST['plainte']);
 
@@ -90,55 +123,7 @@ $pendingStmt = $pdo->prepare($demandeQuery);
 $pendingStmt->execute($demandeParams);
 $pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Action sur "Accepter" ou "Rejeter" les demandes
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array($_POST['action'], ['accepter', 'rejeter'])) {
-    $id_demande = $_POST['id_demande'];
-    $action = $_POST['action'] == 'accepter' ? 'Accepter' : 'Rejeter';
-
-    $updateStmt = $pdo->prepare("UPDATE demande SET status = ? WHERE id = ?");
-    $updateStmt->execute([$action, $id_demande]);
-
-   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
-    if ($_POST['action'] === 'accepter' || $_POST['action'] === 'rejeter') {
-        // Cette partie gère les demandes
-        $id_demande = $_POST['id_demande'];
-        $action = $_POST['action'] == 'accepter' ? 'Accepter' : 'Rejeter';
-
-        $updateStmt = $pdo->prepare("UPDATE demande SET status = ? WHERE id = ?");
-        $updateStmt->execute([$action, $id_demande]);
-
-        // Redirection après action pour éviter la répétition
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit();
-    } 
-   if ($_POST['action'] === 'lu') {
-    $id_plainte = $_POST['id_plainte'];
-
-    // Met à jour le statut de la plainte à "Lu"
-    $updateStmt = $pdo->prepare("UPDATE plaintes SET status = 'Lu' WHERE id = ?");
-    if ($updateStmt->execute([$id_plainte])) {
-        echo "Plainte marquée comme lue avec succès.";
-    } else {
-        $errorInfo = $updateStmt->errorInfo();
-        echo "Échec de la mise à jour : " . $errorInfo[2];
-    }
-
-    // Redirection après action pour éviter la répétition
-    header("Location: " . $_SERVER['REQUEST_URI']);
-    exit();
-}
-
-    }
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo '<pre>';
-    print_r($_POST);  // Affiche les données POST soumises
-    echo '</pre>';
-}
-
 ?>
-<?php include 'headero.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -148,91 +133,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../css/officio.css">
 </head>
 <body>
+<?php if (!empty($message)): ?>
+    <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
+<?php endif; ?>
 
-
-
-<div class="container">
-    <?php if (!empty($message)): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
-    <?php endif; ?>
-
-
-    <h2 class="tab-title" onclick="showTabContent('plaintes')">Gestion des Plaintes</h2>
-  
-
-    <!-- Plaintes Section -->
-    <div class="tab-content" id="plaintes">
-        <form method="get">
-            <input type="text" name="search_plainte_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchPlainteUser); ?>">
-            <input type="text" name="search_plainte_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchPlainteStatus); ?>">
-            <button type="submit">Rechercher</button>
-        </form>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Utilisateur</th>
-                    <th>Plainte</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($plaintes as $plainte): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($plainte['utilisateur']); ?></td>
-                    <td><?php echo htmlspecialchars($plainte['plainte']); ?></td>
-                    <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
-                    <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_creation']))); ?></td>
-                    <td>
-                       <form action="plaintes.php" method="post" style="display:inline;">
-    <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
-    <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
-</form>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-
-
-      <h2 class="tab-title" onclick="showTabContent('demandes')">Gestion des Demandes</h2>
-    <!-- Demandes Section -->
-    <div class="tab-content" id="demandes" >
-        <form method="get">
-            <input type="text" name="search_demande_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchDemandeUser); ?>">
-            <input type="text" name="search_demande_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchDemandeStatus); ?>">
-            <button type="submit">Rechercher</button>
-        </form>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Utilisateur</th>
-                    <th>Demande</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($pendingDemandes as $demande): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
-                    <td><?php echo htmlspecialchars($demande['demande']); ?></td>
-                    <td><?php echo htmlspecialchars($demande['status'] ?? 'en attente'); ?></td>
-                    <td>
-                        <form action="plaintes.php" method="post" style="display:inline;">
-    <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
-    <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
-    <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
+<!-- Plaintes Section -->
+<h2>Gestion des Plaintes</h2>
+<form method="get">
+    <input type="text" name="search_plainte_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchPlainteUser); ?>">
+    <input type="text" name="search_plainte_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchPlainteStatus); ?>">
+    <button type="submit">Rechercher</button>
 </form>
 
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Utilisateur</th>
+            <th>Plainte</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($plaintes as $plainte): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($plainte['utilisateur']); ?></td>
+            <td><?php echo htmlspecialchars($plainte['plainte']); ?></td>
+            <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
+            <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_creation']))); ?></td>
+            <td>
+                <form action="officio.php" method="post" style="display:inline;">
+                    <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
+                    <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
+                </form>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
+<!-- Demandes Section -->
+<h2>Gestion des Demandes</h2>
+<form method="get">
+    <input type="text" name="search_demande_user" placeholder="Rechercher par nom" value="<?php echo htmlspecialchars($searchDemandeUser); ?>">
+    <input type="text" name="search_demande_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchDemandeStatus); ?>">
+    <button type="submit">Rechercher</button>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Utilisateur</th>
+            <th>Demande</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($pendingDemandes as $demande): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($demande['utilisateur']); ?></td>
+            <td><?php echo htmlspecialchars($demande['demande']); ?></td>
+            <td><?php echo htmlspecialchars($demande['status'] ?? 'en attente'); ?></td>
+            <td>
+                <form action="officio.php" method="post" style="display:inline;">
+                    <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
+                    <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
+                    <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
+                </form>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+</body>
 </html>
