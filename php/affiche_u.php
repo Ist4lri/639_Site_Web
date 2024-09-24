@@ -15,7 +15,8 @@ $idUtilisateur = $_POST['id_utilisateur'];
 // Requête pour récupérer les informations de l'utilisateur
 $stmt = $pdo->prepare("
     SELECT u.nom, u.grade, u.histoire, s.nom AS spe, 
-           im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux 
+           im.id AS info_id, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
+           im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, im.date_modification
     FROM utilisateurs u 
     LEFT JOIN spe s ON u.spe_id = s.id 
     LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
@@ -32,7 +33,6 @@ if (!$utilisateur) {
     exit();
 }
 
-
 header('Content-Type: text/html; charset=utf-8'); 
 
 require('../vendor/setasign/fpdf/fpdf.php');
@@ -41,18 +41,14 @@ class PDF extends FPDF
 {
     function Header()
     {
-        // Utiliser une image de fond pour le header
         $this->Image('../src/assets/fond.jpg', 0, 0, 210, 297);
         $this->SetY(32);
     }
 
     function Footer()
     {
-        // Positionnement à 1,5 cm du bas
         $this->SetY(-19);
-        // Police Arial italique 8
         $this->SetFont('Arial', 'I', 8);
-        // Texte centré de pied de page
         $this->Cell(0, 10, 'Page ' . $this->PageNo(), 0, 0, 'C');
     }
 }
@@ -60,24 +56,20 @@ class PDF extends FPDF
 if ($utilisateur) {
     $pdf = new PDF();
     
-    // Définir les marges
-    $pdf->SetMargins(15, 20, 15); // marges gauche, haut, droite
+    $pdf->SetMargins(15, 20, 15);
     $pdf->AddPage();
 
-    // Ajouter les polices UTF-8 compatibles
     $pdf->AddFont('DejaVu','','DejaVuSansCondensed.php');
     $pdf->AddFont('DejaVu','B','DejaVuSansCondensed-Bold.php');
-    
-  
 
+    $pdf->SetTextColor(200, 0, 0); 
+    $pdf->SetFont('DejaVu', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Informations Personnelles', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Ln(0);
 
-   $pdf->SetTextColor(200, 0, 0); 
-$pdf->SetFont('DejaVu', 'B', 12);
-$pdf->Cell(0, 10, mb_convert_encoding('Informations Personnelles', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-$pdf->Ln(0);
+    $pdf->SetTextColor(0, 0, 0); 
+    $pdf->SetFont('DejaVu','',12);
 
-$pdf->SetTextColor(0, 0, 0); 
-      $pdf->SetFont('DejaVu','',12);
     // Informations sur l'utilisateur
     $pdf->SetX(25);
     $pdf->Cell(0, 10, mb_convert_encoding('Utilisateur: ' . $utilisateur['nom'], 'ISO-8859-1', 'UTF-8'), 0, 1);
@@ -94,33 +86,40 @@ $pdf->SetTextColor(0, 0, 0);
     $pdf->Cell(0, 10, mb_convert_encoding('Taille: ' . ($utilisateur['taille'] ?: 'Non spécifié') . ' cm', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
     $pdf->Cell(0, 10, mb_convert_encoding('Poids: ' . ($utilisateur['poids'] ?: 'Non spécifié') . ' kg', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    // Informations supplémentaires
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Problèmes médicaux: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Groupe Sanguin: ' . ($utilisateur['groupe_sanguin'] ?: 'Non spécifié'), 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetX(25);
-    $pdf->MultiCell(150, 10, mb_convert_encoding($utilisateur['problemes_medicaux'] ?: 'Aucun problème médical spécifié', 'ISO-8859-1', 'UTF-8'));
-    $pdf->Ln(10);
+    $pdf->Cell(0, 10, mb_convert_encoding('Monde d\'origine: ' . ($utilisateur['monde_origine'] ?: 'Non spécifié'), 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // Gestion des pages et contenu plus long
-   if ($pdf->GetY() + 50 > 264) {
-        $pdf->AddPage();
-        $pdf->SetY(35);  // Ajuste la position du texte sur la nouvelle page
-    }
+    // Antécédents biologiques et psychologiques
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Antécédents biologiques: ' . ($utilisateur['antecedents_biologiques'] ?: 'Aucun'), 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Antécédents psychologiques: ' . ($utilisateur['antecedents_psychologiques'] ?: 'Aucun'), 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    // Fumeurs, Allergies et Intolérances
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Fumeurs: ' . ($utilisateur['fumeurs'] ? 'Oui' : 'Non'), 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Allergies: ' . ($utilisateur['allergies'] ?: 'Aucune'), 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Intolérances: ' . ($utilisateur['intolerances'] ?: 'Aucune'), 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    // Date de modification
+    $pdf->SetX(25);
+    $pdf->Cell(0, 10, mb_convert_encoding('Date de modification: ' . date('d/m/Y', strtotime($utilisateur['date_modification'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Ln(10);
 
     // Histoire
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', 'B', 12);
     $pdf->Cell(40, 10, mb_convert_encoding('Histoire: ', 'ISO-8859-1', 'UTF-8'), 0, 1);
-
     $pdf->SetX(25);
     $pdf->SetFont('DejaVu', '', 12);
-    
-    // Limiter la taille du bloc de texte pour qu'il s'adapte à la page actuelle et aux marges
-    $histoire = $utilisateur['histoire'] ?: 'Histoire non disponible';
-    $pdf->MultiCell(150, 10, mb_convert_encoding($histoire, 'ISO-8859-1', 'UTF-8'));
-    
-    // Ajouter un saut de page si nécessaire pour le contenu restant
-    
+    $pdf->MultiCell(150, 10, mb_convert_encoding($utilisateur['histoire'] ?: 'Histoire non disponible', 'ISO-8859-1', 'UTF-8'));
 
-    // Générer le PDF
     $pdf->Output('I', 'Info-perso.pdf');
 }
+?>
