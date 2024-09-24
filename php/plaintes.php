@@ -133,6 +133,9 @@ $pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/officio.css">
 </head>
 <body>
+
+    <?php include 'headero.php' ?>
+
 <?php if (!empty($message)): ?>
     <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
 <?php endif; ?>
@@ -144,6 +147,7 @@ $pendingDemandes = $pendingStmt->fetchAll(PDO::FETCH_ASSOC);
     <input type="text" name="search_plainte_status" placeholder="Rechercher par statut" value="<?php echo htmlspecialchars($searchPlainteStatus); ?>">
     <button type="submit">Rechercher</button>
 </form>
+
 
 <table class="table table-bordered">
     <thead>
