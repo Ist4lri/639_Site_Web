@@ -1,33 +1,7 @@
 <?php
-session_start();
-include 'db.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-if (!isset($_SESSION['utilisateur'])) {
-    header("Location: connection.php");
-    exit();
-}
-
-
-if (!isset($_POST['id_utilisateur'])) {
-    die("Erreur: aucun utilisateur spécifié.");
-}
-
-
-$id_utilisateur = $_POST['id_utilisateur'];
-
-
-if (empty($id_utilisateur)) {
-    die('Erreur: L\'ID utilisateur est vide.');
-}
-
-var_dump($id_utilisateur); 
-
-
+// Suppression de la référence à date_service
+// Récupérer les informations médicales de l'utilisateur
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
                        im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, 
                        im.date_modification, im.temps_service 
@@ -37,18 +11,10 @@ $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_m
 $stmt->execute([$id_utilisateur]);
 $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-var_dump($userInfo); // Débogage des informations utilisateur
+var_dump($userInfo); // Vérifier que les informations médicales sont récupérées
 
-// Vérifier si les informations ont été trouvées
-if (!$userInfo) {
-    die('Aucune information médicale trouvée pour cet utilisateur.');
-}
-
-// Calculer le temps de service
-$dateService = new DateTime($userInfo['date_service']);
-$dateActuelle = new DateTime();
-$intervalleService = $dateService->diff($dateActuelle);
-$tempsService = $intervalleService->y . ' années, ' . $intervalleService->m . ' mois';
+// Gestion de la colonne temps_service
+$tempsService = !empty($userInfo['temps_service']) ? $userInfo['temps_service'] . ' années' : 'Non spécifié';
 
 header('Content-Type: text/html; charset=utf-8'); // Assurez-vous que l'encodage est en UTF-8
 
@@ -140,3 +106,4 @@ $pdf->Ln(10);
 
 // Générer le PDF
 $pdf->Output('I', 'informations_medicales.pdf');
+?>
