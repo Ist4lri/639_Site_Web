@@ -14,12 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $missions = $_POST['missions'];
     $id_mappeur = $_POST['mappeur'];
     $id_zeus1 = $_POST['zeus1'];
-    
-    // Vérifiez si les champs id_zeus2 et id_zeus3 sont vides et remplacez-les par NULL
-    $id_zeus2 = !empty($_POST['zeus2']) ? $_POST['zeus2'] : null; // Si vide, mettre NULL
-    $id_zeus3 = !empty($_POST['zeus3']) ? $_POST['zeus3'] : null; // Si vide, mettre NULL
 
-        var_dump($id_zeus2, $id_zeus3);
+    // Vérifiez si les champs id_zeus2 et id_zeus3 sont vides et remplacez-les par NULL
+    $id_zeus2 = !empty($_POST['zeus2']) ? $_POST['zeus2'] : null;
+    $id_zeus3 = !empty($_POST['zeus3']) ? $_POST['zeus3'] : null;
+
+    // Debugging pour vérifier les valeurs soumises
+    var_dump($id_zeus2, $id_zeus3);
+    // Continuez avec la requête d'insertion après vérification
+}
 
     // Afficher les données récupérées pour débogage
     var_dump($date, $nom, $missions, $id_mappeur, $id_zeus1, $id_zeus2, $id_zeus3);
