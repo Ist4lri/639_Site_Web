@@ -98,9 +98,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
     $updateStmt = $pdo->prepare("UPDATE demande SET status = ? WHERE id = ?");
     $updateStmt->execute([$action, $id_demande]);
 
-    // Action sur "Accepter", "Rejeter" ou "Lu"
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
+   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
     if ($_POST['action'] === 'accepter' || $_POST['action'] === 'rejeter') {
+        // Cette partie gère les demandes
         $id_demande = $_POST['id_demande'];
         $action = $_POST['action'] == 'accepter' ? 'Accepter' : 'Rejeter';
 
@@ -111,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
         header("Location: " . $_SERVER['REQUEST_URI']);
         exit();
     } elseif ($_POST['action'] === 'lu') {
+        // Cette partie gère les plaintes
         $id_plainte = $_POST['id_plainte'];
 
         // Met à jour le statut de la plainte à "Lu"
@@ -173,10 +174,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
                     <td><?php echo htmlspecialchars($plainte['status'] ?? 'En attente'); ?></td>
                     <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($plainte['date_creation']))); ?></td>
                     <td>
-                        <form action="plaintes.php" method="post" style="display:inline;">
-                            <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
-                            <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
-                        </form>
+                       <form action="officio.php" method="post" style="display:inline;">
+    <input type="hidden" name="id_plainte" value="<?php echo $plainte['id']; ?>">
+    <button type="submit" name="action" value="lu" class="btn-success">Marquer comme lu</button>
+</form>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -209,11 +210,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
                     <td><?php echo htmlspecialchars($demande['demande']); ?></td>
                     <td><?php echo htmlspecialchars($demande['status'] ?? 'en attente'); ?></td>
                     <td>
-                        <form action="plaintes.php" method="post" style="display:inline;">
-                            <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
-                            <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
-                            <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
-                        </form>
+                        <form action="officio.php" method="post" style="display:inline;">
+    <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
+    <button type="submit" name="action" value="accepter" class="btn-success">Accepter</button>
+    <button type="submit" name="action" value="rejeter" class="btn-danger">Rejeter</button>
+</form>
+
                     </td>
                 </tr>
                 <?php endforeach; ?>
