@@ -86,14 +86,14 @@ form {
 label {
     font-weight: bold;
     font-size: 14px;
-    color: #555;
+    color: #FFFFFF;
 }
 
 /* Champs de texte et textareas */
 input[type="text"],
 input[type="number"],
 textarea {
-    width: 100%;
+    width: 94%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
