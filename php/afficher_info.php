@@ -26,7 +26,7 @@ if (!isset($_POST['id_utilisateur'])) {
 $id_utilisateur = $_POST['id_utilisateur'];
 
 var_dump($id_utilisateur);
-var_dump($userInfo);
+
 
 // Récupérer les informations médicales de l'utilisateur
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
@@ -39,7 +39,7 @@ $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_m
 if (empty($userInfo)) {
     die('Aucune information médicale trouvée pour cet utilisateur.');
 }
-
+var_dump($userInfo);
 
 
 // Calculer le temps de service
