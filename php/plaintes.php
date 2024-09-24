@@ -125,6 +125,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
 }
 
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    echo '<pre>';
+    print_r($_POST);  // Affiche les données POST soumises
+    echo '</pre>';
+}
 
 ?>
 <?php include 'headero.php'; ?>
