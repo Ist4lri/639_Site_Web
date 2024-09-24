@@ -143,32 +143,33 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <form action="create_c.php" method="post">
 
 
-    <label for="zeus2">Zeus 2:</label>
-    <select id="zeus2" name="zeus2">
-        <option value="">Sélectionnez un Zeus (facultatif)</option>
-        <?php
-        $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
-        $zeus_result = $pdo->query($zeus_query);
-        if ($zeus_result->rowCount() > 0) {
-            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-            }
+   <label for="zeus2">Zeus 2:</label>
+<select id="zeus2" name="zeus2">
+    <option value="">Sélectionnez un Zeus (facultatif)</option>
+    <?php
+    $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
+    $zeus_result = $pdo->query($zeus_query);
+    if ($zeus_result->rowCount() > 0) {
+        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
         }
-        ?>
-    </select><br><br>
+    }
+    ?>
+</select><br><br>
 
-    <label for="zeus3">Zeus 3:</label>
-    <select id="zeus3" name="zeus3">
-        <option value="">Sélectionnez un Zeus (facultatif)</option>
-        <?php
-        $zeus_result->execute(); // Exécuter à nouveau pour réutiliser le résultat
-        if ($zeus_result->rowCount() > 0) {
-            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-            }
+<label for="zeus3">Zeus 3:</label>
+<select id="zeus3" name="zeus3">
+    <option value="">Sélectionnez un Zeus (facultatif)</option>
+    <?php
+    $zeus_result->execute(); // Ré-exécuter la requête
+    if ($zeus_result->rowCount() > 0) {
+        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
         }
-        ?>
-    </select><br><br>
+    }
+    ?>
+</select><br><br>
+
 
     <button type="submit">Créer la campagne</button>
 </form>
