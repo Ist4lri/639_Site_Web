@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
         $taille = $_POST['taille'];
         $poids = $_POST['poids'];
         $groupe_sanguin = $_POST['groupe_sanguin'];
-        $classe_spe = $_POST['classe_spe'];
         $monde_origine = $_POST['monde_origine'];
         $antecedents_biologiques = $_POST['antecedents_biologiques'];
         $antecedents_psychologiques = $_POST['antecedents_psychologiques'];
@@ -26,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
         $commentaires = $_POST['problemes_medicaux'];
 
         // Mise à jour des informations médicales
-        $stmt = $pdo->prepare("UPDATE informations_medicales SET age = ?, taille = ?, poids = ?, groupe_sanguin = ?, classe_spe = ?, monde_origine = ?, antecedents_biologiques = ?, antecedents_psychologiques = ?, fumeurs = ?, allergies = ?, intolerances = ?, commentaires = ? WHERE id_utilisateur = ?");
-        $stmt->execute([$age, $taille, $poids, $groupe_sanguin, $classe_spe, $monde_origine, $antecedents_biologiques, $antecedents_psychologiques, $fumeurs, $allergies, $intolerances, $commentaires, $id_utilisateur]);
+        $stmt = $pdo->prepare("UPDATE informations_medicales SET age = ?, taille = ?, poids = ?, groupe_sanguin = ?, monde_origine = ?, antecedents_biologiques = ?, antecedents_psychologiques = ?, fumeurs = ?, allergies = ?, intolerances = ?, commentaires = ? WHERE id_utilisateur = ?");
+        $stmt->execute([$age, $taille, $poids, $groupe_sanguin, $monde_origine, $antecedents_biologiques, $antecedents_psychologiques, $fumeurs, $allergies, $intolerances, $commentaires, $id_utilisateur]);
 
         $success_message = "Les informations médicales ont été mises à jour avec succès.";
         header("Location: medicae_info.php");
@@ -210,9 +209,6 @@ input[readonly] {
 
             <label for="age">Âge :</label>
             <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($userInfo['age'] ?? ''); ?>" required>
-
-            <label for="classe_spe">Classe / Spé :</label>
-            <input type="text" id="classe_spe" name="classe_spe" value="<?php echo htmlspecialchars($userInfo['classe_spe'] ?? ''); ?>" required>
 
             <label for="monde_origine">Monde d'origine :</label>
             <input type="text" id="monde_origine" name="monde_origine" value="<?php echo htmlspecialchars($userInfo['monde_origine'] ?? ''); ?>" required>
