@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
 
         // Mise à jour des informations médicales
         $stmt = $pdo->prepare("UPDATE informations_medicales 
-                       SET age = ?, taille = ?, poids = ?, groupe_sanguin = ?, monde_origine = ?, antecedents_biologiques = ?, antecedents_psychologiques = ?, fumeurs = ?, allergies = ?, intolerances = ?, commentaires = ?, temps_service = ?
+                       SET age = ?, taille = ?, poids = ?, groupe_sanguin = ?, monde_origine = ?, antecedents_biologiques = ?, antecedents_psychologiques = ?, fumeurs = ?, allergies = ?, intolerances = ?, problemes_medicaux = ?, temps_service = ?
                        WHERE id_utilisateur = ?");
 $stmt->execute([$age, $taille, $poids, $groupe_sanguin, $monde_origine, $antecedents_biologiques, $antecedents_psychologiques, $fumeurs, $allergies, $intolerances, $commentaires, $temps_service, $id_utilisateur]);
 
