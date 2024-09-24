@@ -1,4 +1,5 @@
 <?php
+<?php
 session_start();
 include 'db.php';
 
@@ -6,16 +7,6 @@ include 'db.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-// Suppression de la référence à date_service
-// Récupérer les informations médicales de l'utilisateur
-$stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
-                       im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, 
-                       im.date_modification, im.temps_service 
-                       FROM utilisateurs u 
-                       LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
-                       WHERE u.id = ?");
-$stmt->execute([$id_utilisateur]);
-$userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['utilisateur'])) {
@@ -23,7 +14,7 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// Vérifier si l'ID utilisateur est défini
+// Vérifier si l'ID utilisateur est défini dans le formulaire
 if (!isset($_POST['id_utilisateur'])) {
     die("Erreur: aucun utilisateur spécifié.");
 }
@@ -36,7 +27,20 @@ if (empty($id_utilisateur)) {
     die('Erreur: L\'ID utilisateur est vide.');
 }
 
-var_dump($userInfo); // Vérifier que les informations médicales sont récupérées
+// Récupérer les informations médicales de l'utilisateur
+$stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
+                       im.antecedents_biologiques, im.antecedents_psychologiques, im.fumeurs, im.allergies, im.intolerances, 
+                       im.date_modification, im.temps_service 
+                       FROM utilisateurs u 
+                       LEFT JOIN informations_medicales im ON u.id = im.id_utilisateur 
+                       WHERE u.id = ?");
+$stmt->execute([$id_utilisateur]);
+$userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Vérifier que les informations ont été récupérées
+if (!$userInfo) {
+    die('Aucune information médicale trouvée pour cet utilisateur.');
+}
 
 // Gestion de la colonne temps_service
 $tempsService = !empty($userInfo['temps_service']) ? $userInfo['temps_service'] . ' années' : 'Non spécifié';
