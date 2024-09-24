@@ -46,7 +46,144 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier les Informations Médicales</title>
-    <link rel="stylesheet" href="../css/med.css">
+    <style>/* modif.css */
+
+/* Général */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Titres */
+h2 {
+    text-align: center;
+    color: #444;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+/* Formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Champs de texte et textareas */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: #1e90ff;
+    outline: none;
+}
+
+/* Textarea pour les commentaires et antécédents */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Case à cocher */
+input[type="checkbox"] {
+    width: auto;
+    transform: scale(1.2);
+    margin-right: 10px;
+}
+
+/* Section de validation */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+}
+
+/* Pour le champ date de modification */
+input[readonly] {
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    color: #777;
+}
+
+/* Responsiveness pour mobile */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}
+</style>
+    
 </head>
 <body>
     <div class="container">
