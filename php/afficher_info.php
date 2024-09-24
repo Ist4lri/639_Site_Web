@@ -1,5 +1,11 @@
 <?php
+session_start();
+include 'db.php';
 
+// Activer l'affichage des erreurs pour le débogage
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // Suppression de la référence à date_service
 // Récupérer les informations médicales de l'utilisateur
 $stmt = $pdo->prepare("SELECT u.nom, im.age, im.taille, im.poids, im.problemes_medicaux, im.groupe_sanguin, im.monde_origine, 
