@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom = $_POST['nom'];
     $missions = $_POST['missions'];
     $id_mappeur = $_POST['mappeur'];
-    $id_zeus1 = $_POST['zeus']; ?? null
+    $id_zeus1 = $_POST['zeus1']; ?? null
     $id_zeus2 = $_POST['zeus2'] ?? null;
     $id_zeus3 = $_POST['zeus3'] ?? null; 
 
