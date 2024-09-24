@@ -119,7 +119,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && in_array(
     if ($updateStmt->execute([$id_plainte])) {
         echo "Plainte marquée comme lue avec succès.";
     } else {
-        echo "Échec de la mise à jour.";
+        $errorInfo = $updateStmt->errorInfo();
+        echo "Échec de la mise à jour : " . $errorInfo[2];
     }
 
     // Redirection après action pour éviter la répétition
