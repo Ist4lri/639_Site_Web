@@ -107,6 +107,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         /* Admin form */
         .admin-form {
             width: 60%;
+            margin-left: 21%;
             background-color: #333; /* Dark grey background */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -150,8 +151,6 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
         }
     </style>
-</head>
-
     <header class="head">
     <div class="head-logo">
         <a href="index.php">
@@ -169,6 +168,9 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
     </div>
 </header>
+</head>
+
+    
 <body>
 
 <!-- Bootstrap Carousel -->
