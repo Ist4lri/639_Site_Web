@@ -50,9 +50,10 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         /* Carousel styling */
+/* Carousel styling */
 .carousel-container {
     top: 150px;
-    width: 500px; /* Set the width of the carousel to match the width of the images */
+    width: 500px; /* Set the width of the carousel to match the container */
     margin: 0 auto;
     background-color: #333; /* Dark grey background */
     padding: 10px;
@@ -63,15 +64,17 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 .carousel-images {
-            display: flex;
-            width: 800%;
-            transition: transform 0.5s ease-in-out;
-        }
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 150px; /* Add gap between images to ensure they are not visible */
+}
 
-        .carousel-images img {
-            width: 350px;
-            height: 150px;
-        }
+.carousel-images img {
+    width: 350px; /* Make sure the image fits within the container width */
+    height: 150px;
+    object-fit: cover; /* Ensure images are properly resized */
+}
+
 
 /* Dots navigation */
 .dots {
