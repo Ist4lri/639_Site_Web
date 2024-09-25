@@ -163,7 +163,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
 <div class="top-links">
-    <a href="index.php">Accueil</a>
+    <a href="../index.php">Accueil</a>
     <a href="record.php">Compteur</a>
 </div>
 
