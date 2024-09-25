@@ -245,6 +245,7 @@ th {
     </div>
     <nav class="head-nav">
         <?php if ($isLoggedIn): ?>
+            <a href="php/actu.php">Actualité</a>
             <a href="php/profil_utilisateur.php">Profil</a>
             <a href="php/officier.php">Officier</a>
             <a href="php/sous-officier.php">Sous-Officier</a>
