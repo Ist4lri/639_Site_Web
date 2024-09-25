@@ -128,87 +128,71 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h2>Créer une Nouvelle Campagne</h2>
 
-<!-- Main form for creating campaigns -->
 <form action="create_c.php" method="post">
-    <!-- Date and Mappeur on the same line -->
-    <div class="form-group">
-        <div>
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
-        </div>
-        <div>
-            <label for="mappeur">Mappeur:</label>
-            <select id="mappeur" name="mappeur" required>
-                <option value="">Sélectionnez un mappeur</option>
-                <?php
-                if ($mappeur_result->rowCount() > 0) {
-                    while ($row = $mappeur_result->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-                    }
-                }
-                ?>
-            </select>
-        </div>
-    </div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required><br><br>
 
-    <!-- Nom de la campagne and Numéro de missions on the same line -->
-    <div class="form-group">
-        <div>
-            <label for="nom">Nom de la campagne:</label>
-            <input type="text" id="nom" name="nom" required>
-        </div>
-        <div>
-            <label for="missions">Numéro de missions:</label>
-            <input type="number" id="missions" name="missions" required>
-        </div>
-    </div>
+    <label for="nom">Nom de la campagne:</label>
+    <input type="text" id="nom" name="nom" required><br><br>
 
-    <!-- Zeus selectors all on the same line -->
-    <div class="zeus-group">
-        <div>
-            <label for="zeus1">Zeus 1:</label>
-            <select id="zeus1" name="zeus1">
-                <option value="">Sélectionnez un Zeus</option>
-                <?php
-                if ($zeus_result->rowCount() > 0) {
-                    while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-                    }
-                }
-                ?>
-            </select>
-        </div>
-        <div>
-            <label for="zeus2">Zeus 2:</label>
-            <select id="zeus2" name="zeus2">
-                <option value="">Sélectionnez un Zeus</option>
-                <?php
-                // Re-execute Zeus query for zeus2 and zeus3
-                $zeus_result->execute();
-                if ($zeus_result->rowCount() > 0) {
-                    while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-                    }
-                }
-                ?>
-            </select>
-        </div>
-        <div>
-            <label for="zeus3">Zeus 3:</label>
-            <select id="zeus3" name="zeus3">
-                <option value="">Sélectionnez un Zeus</option>
-                <?php
-                // Re-execute Zeus query for zeus3
-                $zeus_result->execute();
-                if ($zeus_result->rowCount() > 0) {
-                    while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-                    }
-                }
-                ?>
-            </select>
-        </div>
-    </div>
+    <label for="missions">Numéro de missions:</label>
+    <input type="number" id="missions" name="missions" required><br><br>
+
+    <label for="mappeur">Mappeur:</label>
+    <select id="mappeur" name="mappeur" required>
+        <option value="">Sélectionnez un mappeur</option>
+        <?php
+        $mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1";
+        $mappeur_result = $pdo->query($mappeur_query);
+        if ($mappeur_result->rowCount() > 0) {
+            while ($row = $mappeur_result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+            }
+        }
+        ?>
+    </select><br><br>
+
+    <label for="zeus1">Zeus 1:</label>
+    <select id="zeus1" name="zeus1">
+        <option value="">Sélectionnez un Zeus</option>
+        <?php
+        $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
+        $zeus_result = $pdo->query($zeus_query);
+        if ($zeus_result->rowCount() > 0) {
+            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+            }
+        }
+        ?>
+    </select><br><br>
+
+    <form action="create_c.php" method="post">
+
+   <label for="zeus2">Zeus 2:</label>
+   <select id="zeus2" name="zeus2">
+    <option value="">Sélectionnez un Zeus</option>
+    <?php
+    $zeus_result->execute(); // Réexécuter la requête pour zeus2 et zeus3
+    if ($zeus_result->rowCount() > 0) {
+        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+        }
+    }
+    ?>
+</select><br><br>
+
+<label for="zeus3">Zeus 3:</label>
+<select id="zeus3" name="zeus3">
+    <option value="">Sélectionnez un Zeus</option>
+    <?php
+    $zeus_result->execute(); // Réexécuter la requête pour zeus3
+    if ($zeus_result->rowCount() > 0) {
+        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+        }
+    }
+    ?>
+</select><br><br>
 
     <button type="submit">Créer la campagne</button>
 </form>
