@@ -34,23 +34,11 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="fr">
-<header class="head">
-    <div class="head-logo">
-        <a href="index.php">
-            <img src="src/assets/Logo.png" alt="Logo 639">
-        </a>
-    </div>
-    <div class="head-logo2">
-        <img src="src/assets/TitreSite.png" alt="639 Régiment cadien"
-    </div>
-    <nav class="head-nav">
-            <a href="php/profil_utilisateur.php">Profil</a>
-            <a href="php/officier.php">Officier</a>
-            <a href="php/sous-officier.php">Sous-Officier</a>
-            <a href="php/Dec.php">Déconnexion</a>
-    </nav>
-    </div>
-</header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualité</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,14 +47,23 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 20px;
         }
 
+        /* Dark gray background for all containers */
+        .container {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
         /* Carousel styling */
         .carousel-container {
-            top: 150px;
+            background-color: #333; /* Dark gray background */
             width: 60%;
-            margin: 0 auto;
+            margin: 0 auto 70px auto; /* Centered and with 70px margin-bottom */
             overflow: hidden;
             height: 150px;
             position: relative;
+            border-radius: 8px;
         }
 
         .carousel-images {
@@ -80,13 +77,33 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 150px;
         }
 
+        /* Carousel indicators (points) */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .carousel-indicators div {
+            width: 15px;
+            height: 15px;
+            background-color: #3bd237; /* Fluorescent green */
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .carousel-indicators .active {
+            background-color: #00FF00; /* Bright green for active */
+        }
+
         /* News container */
         .news-container {
             margin-top: 40px;
             width: 60%;
             margin: 40px auto;
             padding: 20px;
-            background-color: #ffffff;
+            background-color: #333; /* Dark gray background */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
@@ -109,7 +126,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         .news-text {
             text-align: center;
             font-size: 1.1em;
-            color: #333;
+            color: #fff;
         }
 
         /* Form styling */
@@ -118,7 +135,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 60%;
             margin: 40px auto;
             padding: 20px;
-            background-color: #ffffff;
+            background-color: #333; /* Dark gray background */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
@@ -127,6 +144,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.2em;
             margin-bottom: 15px;
             text-align: center;
+            color: #fff;
         }
 
         .admin-form textarea {
@@ -164,7 +182,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <!-- Carousel -->
-<div class="carousel-container">
+<div class="carousel-container container">
     <div class="carousel-images">
         <img src="src/assets/Battle.png" alt="Image 1">
         <img src="src/assets/image2.jpg" alt="Image 2">
@@ -175,10 +193,22 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="src/assets/image7.jpg" alt="Image 7">
         <img src="src/assets/image8.jpg" alt="Image 8">
     </div>
+
+    <!-- Carousel indicators (points) -->
+    <div class="carousel-indicators">
+        <div class="active" onclick="setCurrentSlide(0)"></div>
+        <div onclick="setCurrentSlide(1)"></div>
+        <div onclick="setCurrentSlide(2)"></div>
+        <div onclick="setCurrentSlide(3)"></div>
+        <div onclick="setCurrentSlide(4)"></div>
+        <div onclick="setCurrentSlide(5)"></div>
+        <div onclick="setCurrentSlide(6)"></div>
+        <div onclick="setCurrentSlide(7)"></div>
+    </div>
 </div>
 
 <!-- Latest News -->
-<div class="news-container">
+<div class="news-container container">
     <?php foreach ($newsItems as $news): ?>
         <div class="news-item">
             <div class="news-date"><?= htmlspecialchars($news['date']) ?></div>
@@ -189,7 +219,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Admin form for adding new news item -->
 <?php if ($isAdmin): ?>
-    <div class="admin-form">
+    <div class="admin-form container">
         <h3>Ajouter une nouvelle actualité</h3>
         <?php if (isset($error)): ?>
             <p class="error"><?= htmlspecialchars($error) ?></p>
@@ -202,17 +232,36 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 
 <script>
-// Carousel functionality
 let carouselIndex = 0;
 const images = document.querySelectorAll('.carousel-images img');
+const indicators = document.querySelectorAll('.carousel-indicators div');
 const totalImages = images.length;
 
+// Move to a specific slide
+function setCurrentSlide(index) {
+    carouselIndex = index;
+    updateCarousel();
+}
+
+// Update the carousel position and the active indicator
+function updateCarousel() {
+    document.querySelector('.carousel-images').style.transform = `translateX(-${carouselIndex * 12.5}%)`;
+    indicators.forEach((indicator, idx) => {
+        if (idx === carouselIndex) {
+            indicator.classList.add('active');
+        } else {
+            indicator.classList.remove('active');
+        }
+    });
+}
+
+// Auto-slide functionality
 function moveCarousel() {
     carouselIndex++;
     if (carouselIndex >= totalImages) {
         carouselIndex = 0;
     }
-    document.querySelector('.carousel-images').style.transform = `translateX(-${carouselIndex * 12.5}%)`;
+    updateCarousel();
 }
 
 setInterval(moveCarousel, 3000); // Change image every 3 seconds
@@ -220,168 +269,3 @@ setInterval(moveCarousel, 3000); // Change image every 3 seconds
 
 </body>
 </html>
-
-
-<link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/header.css">
-    <style>
-        .table-section {
-    padding: 5px;
-    width: 40%; 
-    margin: 3px auto; 
-    color: #9ed79d; 
-    text-align: center;
-}
-
-.table-section h3 {
-    cursor: pointer;
-    color: #3bd237;
-    margin-bottom: 3px;
-    font-size: 1.5em;
-    background-color: rgba(0, 0, 0, 0.6); 
-    padding: 10px;
-    border-radius: 8px; 
-    backdrop-filter: blur(5px); 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-.table-section table {
-    width: 100%; 
-    border-collapse: collapse;
-    margin: 0 auto; 
-}
-
-table, th, td {
-    border: 2px solid #9ed79d; 
-    padding: 10px;
-    color: #9ed79d; 
-    background-color: #211;
-}
-
-th {
-    background-color: #222; 
-    font-weight: bold;
-}
-
-  .servo-mortis {
-    position: absolute;
-    right: 10px;
-    top: 150px;
-    width: 150px;
-    height: auto;
-    cursor: pointer;
-    animation: float 3s ease-in-out infinite;
-}
-
-        .officio {
-    position: absolute;
-    right: 20px;
-    top: 240px;
-    width: 150px;
-    height: auto;
-    cursor: pointer;
-}
-
-        .mech {
-    position: absolute;
-    right: 45px;
-    top: 320px;
-    width: 80px;
-    height: auto;
-    cursor: pointer;
-}
-
-        .map {
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    width: 80px;
-    height: auto;
-    cursor: pointer;
-}
-
-.Tooltip {
-    position: absolute;
-    right: 125px; 
-    top: 120px;
-    background-color: #222222;
-    color: #00F529;
-    padding: 0px;
-    border-radius: 8px;
-    font-size: 14px;
-    border: 0.5px solid #00F529; 
-    opacity: 0;
-    font-weight: bold;
-    transition: opacity 0.3s ease;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-.tooltip2 {
-    position: absolute;
-    right: 125px; 
-    top: 120px;
-    background-color: #222222;
-    color: #00F529;
-    padding: 0px;
-    border-radius: 8px;
-    font-size: 14px;
-    border: 0.5px solid #00F529; 
-    opacity: 0;
-    font-weight: bold;
-    transition: opacity 0.3s ease;
-}
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 40%;
-            top: 35%;
-            width: 20%;
-            height: 20%;
-            background-color: #424242;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            border: 2px solid #3bd237;
-        }
-
-        .modal-content {
-            position: relative; 
-            background-color: #424242;
-            color: #9ed79d;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .close {
-            position: absolute;
-            top: -35px;
-            right: 5px;
-            color: red;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover {
-            color: darkred;
-        }
-
-  
-    </style>
-</head>
-<body>
-
-
