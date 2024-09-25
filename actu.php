@@ -107,8 +107,6 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         /* Admin form */
         .admin-form {
             width: 60%;
-            margin: 40px auto;
-            padding: 5px;
             background-color: #333; /* Dark grey background */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -226,7 +224,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 <!-- Spacer for 70px space between carousel and news -->
 <div class="spacer"></div>
 
-<!-- Latest News -->
+<h2>Les Actualités</h2>
 <div class="news-container">
     <?php foreach ($newsItems as $news): ?>
         <div class="news-item">
