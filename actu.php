@@ -52,7 +52,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         /* Carousel styling */
         .carousel-container {
             top: 150px;
-            width: 60%;
+            width: 70%;
             margin: 0 auto;
             background-color: #333; /* Dark grey background */
             padding: 10px;
@@ -69,7 +69,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .carousel-images img {
-            width: 12.5%; /* 8 images => 100% / 8 */
+            width: 350px; /* 8 images => 100% / 8 */
             height: 150px;
         }
 
