@@ -48,22 +48,32 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau des Campagnes</title>
     <style>
-        body {
+      body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     margin: 0;
     padding: 20px;
 }
 
-form {
+form.main-form {
     background-color: #ffffff;
     border-radius: 10px;
     padding: 20px;
-    width: 300px; /* Make the form smaller */
+    width: 300px; /* Make the main form smaller */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     margin-left: 0; /* Align to the left */
     float: left;
+}
+
+form.search-form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 70%; /* Set the search form to 70% width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Add some space between the forms */
+    clear: both; /* Clear the float so it appears below the main form */
 }
 
 label {
@@ -169,7 +179,7 @@ tbody tr:hover {
 <a href=../index.php> Acceuil </a>
     
     <h2>Créer une Nouvelle Campagne</h2>
-<form action="create_c.php" method="post">
+<form action="create_c.php" method="post" class="main-form">
     <label for="date">Date:</label>
     <input type="date" id="date" name="date" required><br><br>
 
@@ -239,7 +249,7 @@ tbody tr:hover {
 </form>
 
 
-<form method="get" action="campagne.php">
+<form method="get" action="campagne.php" class="search-form">
     <label for="search_campaign">Rechercher par Nom de Campagne :</label>
     <input type="text" id="search_campaign" name="search_campaign" value="<?php echo htmlspecialchars($searchCampaign); ?>">
 
