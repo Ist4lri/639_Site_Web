@@ -49,47 +49,114 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Tableau des Campagnes</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-        }
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
 
-        a{
-        position: absolute;
-        right: 10px;
-        top: 40px;
-        }
-        a.zeus{
-        position: absolute;
-        right: 90px;
-        top: 40px;
-        }
+h2 {
+    color: #333;
+    font-size: 1.8em;
+    text-align: center;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+a {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    color: #ff8800;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-        th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
+a.zeus {
+    position: absolute;
+    right: 90px;
+    top: 40px;
+    color: #ff8800;
+}
 
-        th {
-            background-color: green;
-            color: white;
-        }
+form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
 
-        td {
-            height: 40px;
-        }
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
 
-        .zeus {
-            background-color: orange;
-        }
+input[type="text"], input[type="number"], input[type="date"], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
 
-        .mappeur {
-            color: blue;
-        }
+button[type="submit"] {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #28a745;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f4f4f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.mappeur {
+    color: blue;
+}
+
+.zeus {
+    background-color: #ffa500;
+    color: white;
+}
+
     </style>
 </head>
 <body>
@@ -104,7 +171,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <label for="nom">Nom de la campagne:</label>
     <input type="text" id="nom" name="nom" required><br><br>
 
-    <label for="missions">Nombre de missions:</label>
+    <label for="missions">Numéro de missions:</label>
     <input type="number" id="missions" name="missions" required><br><br>
 
     <label for="mappeur">Mappeur:</label>
