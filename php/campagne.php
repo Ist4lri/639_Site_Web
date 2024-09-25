@@ -55,42 +55,34 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     padding: 20px;
 }
 
-form.main-form {
+form {
     background-color: #ffffff;
     border-radius: 10px;
     padding: 20px;
-    width: 300px; /* Make the main form smaller */
+    width: 300px; /* Main form width */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    margin-left: 0; /* Align to the left */
+    margin-left: 0;
     float: left;
 }
 
-form.search-form {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 70%; /* Set the search form to 70% width */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Add some space between the forms */
-    clear: both; /* Clear the float so it appears below the main form */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
-label {
-    display: block;
+.form-group label {
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-right: 10px;
     color: #555;
 }
 
-input[type="text"], input[type="number"], input[type="date"], select {
-    width: 100%;
+.form-group input, .form-group select {
+    width: calc(50% - 10px);
     padding: 10px;
-    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box;
 }
 
 button[type="submit"] {
@@ -113,6 +105,19 @@ h2 {
     font-size: 1.5em;
     margin-bottom: 20px;
     text-align: left;
+}
+
+/* Special group for the Zeus selectors */
+.zeus-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.zeus-group select {
+    width: calc(33% - 10px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 
@@ -179,19 +184,14 @@ tbody tr:hover {
 <a href=../index.php> Acceuil </a>
     
     <h2>Créer une Nouvelle Campagne</h2>
-<form action="create_c.php" method="post" class="main-form">
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date" required><br><br>
-
-    <label for="nom">Nom de la campagne:</label>
-    <input type="text" id="nom" name="nom" required><br><br>
-
-    <label for="missions">Numéro de missions:</label>
-    <input type="number" id="missions" name="missions" required><br><br>
-
-    <label for="mappeur">Mappeur:</label>
-    <select id="mappeur" name="mappeur" required>
-        <option value="">Sélectionnez un mappeur</option>
+<form action="create_c.php" method="post">
+    <div class="form-group">
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div>
+            <option value="">Sélectionnez un mappeur</option>
         <?php
         $mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1";
         $mappeur_result = $pdo->query($mappeur_query);
@@ -202,8 +202,23 @@ tbody tr:hover {
         }
         ?>
     </select><br><br>
+        </div>
+    </div>
 
-    <label for="zeus1">Zeus 1:</label>
+    <div class="form-group">
+        <div>
+            <label for="nom">Nom de la campagne:</label>
+            <input type="text" id="nom" name="nom" required>
+        </div>
+        <div>
+            <label for="missions">Numéro de missions:</label>
+            <input type="number" id="missions" name="missions" required>
+        </div>
+    </div>
+
+    <div class="zeus-group">
+        <div>
+            <label for="zeus1">Zeus 1:</label>
     <select id="zeus1" name="zeus1">
         <option value="">Sélectionnez un Zeus</option>
         <?php
@@ -216,9 +231,9 @@ tbody tr:hover {
         }
         ?>
     </select><br><br>
-
-    <form action="create_c.php" method="post">
-
+        </div>
+        <div>
+            
    <label for="zeus2">Zeus 2:</label>
    <select id="zeus2" name="zeus2">
     <option value="">Sélectionnez un Zeus</option>
@@ -231,8 +246,9 @@ tbody tr:hover {
     }
     ?>
 </select><br><br>
-
-<label for="zeus3">Zeus 3:</label>
+        </div>
+        <div>
+            <label for="zeus3">Zeus 3:</label>
 <select id="zeus3" name="zeus3">
     <option value="">Sélectionnez un Zeus</option>
     <?php
@@ -244,6 +260,8 @@ tbody tr:hover {
     }
     ?>
 </select><br><br>
+        </div>
+    </div>
 
     <button type="submit">Créer la campagne</button>
 </form>
