@@ -50,6 +50,21 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <style>
+        header {
+    background-color: rgba(75, 75, 75, 0.3); /* Semi-transparent background */
+    color: #9ed79d;
+    padding: 5px 5px; /* Padding for robust look */
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 99.6%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures header stays above content */
+    backdrop-filter: blur(6px); /* Applies blur effect to background */
+    -webkit-backdrop-filter: blur(6px); /* For Safari support */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Optional: adds subtle border */
+}
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
