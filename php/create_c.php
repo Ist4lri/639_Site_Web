@@ -14,10 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $missions = $_POST['missions'];
     $id_mappeur = $_POST['mappeur'];
     $id_zeus1 = $_POST['zeus1'];
-    $id_zeus2 = $_POST['zeus2'];
-    $id_zeus3 = $_POST['zeus3'];
-
-
+    $id_zeus2 = $_POST['zeus2'] ?? null;  // Optionnel
+    $id_zeus3 = $_POST['zeus3'] ?? null;  // Optionnel
     
     try {
         // Requête d'insertion dans la table campagne
@@ -134,7 +132,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <select id="zeus2" name="zeus2">
         <option value="">Sélectionnez un Zeus (facultatif)</option>
         <?php
-        $zeus_result->execute(); // Réexécuter la requête pour zeus2 et zeus3
+        // Réexécuter la requête pour zeus2
+        $zeus_result->execute();
         if ($zeus_result->rowCount() > 0) {
             while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
@@ -147,7 +146,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <select id="zeus3" name="zeus3">
         <option value="">Sélectionnez un Zeus (facultatif)</option>
         <?php
-        $zeus_result->execute(); // Réexécuter la requête pour zeus3
+        // Réexécuter la requête pour zeus3
+        $zeus_result->execute();
         if ($zeus_result->rowCount() > 0) {
             while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
