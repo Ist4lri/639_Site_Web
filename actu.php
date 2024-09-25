@@ -40,23 +40,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Actualité</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
-    <header class="head">
-    <div class="head-logo">
-        <a href="index.php">
-            <img src="src/assets/Logo.png" alt="Logo 639">
-        </a>
-    </div>
-    <div class="head-logo2">
-        <img src="src/assets/TitreSite.png" alt="639 Régiment cadien"
-    </div>
-    <nav class="head-nav">
-            <a href="php/profil_utilisateur.php">Profil</a>
-            <a href="php/officier.php">Officier</a>
-            <a href="php/sous-officier.php">Sous-Officier</a>
-            <a href="php/Dec.php">Déconnexion</a>
-    </nav>
-    </div>
-</header>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -195,6 +179,23 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
+    <header class="head">
+    <div class="head-logo">
+        <a href="index.php">
+            <img src="src/assets/Logo.png" alt="Logo 639">
+        </a>
+    </div>
+    <div class="head-logo2">
+        <img src="src/assets/TitreSite.png" alt="639 Régiment cadien"
+    </div>
+    <nav class="head-nav">
+            <a href="php/profil_utilisateur.php">Profil</a>
+            <a href="php/officier.php">Officier</a>
+            <a href="php/sous-officier.php">Sous-Officier</a>
+            <a href="php/Dec.php">Déconnexion</a>
+    </nav>
+    </div>
+</header>
 <body>
 
 <!-- Carousel -->
