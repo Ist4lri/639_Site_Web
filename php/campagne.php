@@ -55,34 +55,15 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     padding: 20px;
 }
 
-h2 {
-    color: #333;
-    font-size: 1.8em;
-    text-align: center;
-}
-
-a {
-    position: absolute;
-    right: 10px;
-    top: 40px;
-    color: #ff8800;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a.zeus {
-    position: absolute;
-    right: 90px;
-    top: 40px;
-    color: #ff8800;
-}
-
 form {
     background-color: #ffffff;
     border-radius: 10px;
     padding: 20px;
+    width: 300px; /* Make the form smaller */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    margin-left: 0; /* Align to the left */
+    float: left;
 }
 
 label {
@@ -116,6 +97,31 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #218838;
 }
+
+h2 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+
+a {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    color: #ff8800;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.zeus {
+    position: absolute;
+    right: 90px;
+    top: 40px;
+    color: #ff8800;
+}
+
 
 /* Table Styling */
 table {
@@ -153,8 +159,7 @@ tbody tr:hover {
 }
 
 .zeus {
-    background-color: #ffa500;
-    color: white;
+    color: black;
 }
 
     </style>
