@@ -96,7 +96,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /* Space between carousel and news section */
         .spacer {
-            height: 70px;
+            height: 130px;
         }
 
         /* News container */
@@ -134,7 +134,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         .admin-form {
             width: 60%;
             margin: 40px auto;
-            padding: 20px;
+            padding: 5px;
             background-color: #333; /* Dark grey background */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -148,7 +148,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .admin-form textarea {
-            width: 85%;
+            width: 90%;
             height: 100px;
             padding: 10px;
             margin-bottom: 20px;
