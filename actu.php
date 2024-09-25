@@ -63,14 +63,15 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 .carousel-images {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
+            display: flex;
+            width: 800%;
+            transition: transform 0.5s ease-in-out;
+        }
 
-.carousel-images img {
-    width: 350px; /* Same width as the container */
-    height: 150px;
-}
+        .carousel-images img {
+            width: 350px;
+            height: 150px;
+        }
 
 /* Dots navigation */
 .dots {
