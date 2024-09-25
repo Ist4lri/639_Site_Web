@@ -52,12 +52,12 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         /* Carousel styling */
 .carousel-container {
     top: 150px;
-    width: 350px; /* Set the width of the carousel to match the width of the images */
+    width: 500px; /* Set the width of the carousel to match the width of the images */
     margin: 0 auto;
     background-color: #333; /* Dark grey background */
     padding: 10px;
     overflow: hidden; /* Ensure that only the current image is visible */
-    height: 150px;
+    height: 250px;
     position: relative;
     border-radius: 8px;
 }
