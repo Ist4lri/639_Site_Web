@@ -50,49 +50,49 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         /* Carousel styling */
-        .carousel-container {
-            top: 150px;
-            width: 70%;
-            margin: 0 auto;
-            background-color: #333; /* Dark grey background */
-            padding: 10px;
-            overflow: hidden;
-            height: 150px;
-            position: relative;
-            border-radius: 8px;
-        }
+.carousel-container {
+    top: 150px;
+    width: 350px; /* Set the width of the carousel to match the width of the images */
+    margin: 0 auto;
+    background-color: #333; /* Dark grey background */
+    padding: 10px;
+    overflow: hidden; /* Ensure that only the current image is visible */
+    height: 150px;
+    position: relative;
+    border-radius: 8px;
+}
 
-        .carousel-images {
-            display: flex;
-            width: 800%;
-            transition: transform 0.5s ease-in-out;
-        }
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
 
-        .carousel-images img {
-            width: 350px; /* 8 images => 100% / 8 */
-            height: 150px;
-        }
+.carousel-images img {
+    width: 350px; /* Same width as the container */
+    height: 150px;
+}
 
-        /* Carousel navigation dots */
-        .dots {
-            text-align: center;
-            margin-top: 10px;
-        }
+/* Dots navigation */
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
 
-        .dot {
-            height: 15px;
-            width: 15px;
-            margin: 0 5px;
-            background-color: #333;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-            border: 2px solid #0f0; /* Fluorescent green border */
-        }
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #333;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid #0f0; /* Fluorescent green border */
+}
 
-        .active-dot {
-            background-color: #0f0; /* Active dot is fluorescent green */
-        }
+.active-dot {
+    background-color: #0f0; /* Active dot is fluorescent green */
+}
+
 
         /* Space between carousel and news section */
         .spacer {
