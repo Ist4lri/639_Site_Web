@@ -38,7 +38,6 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualité</title>
-    <link rel="stylesheet" href="css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,19 +46,13 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 20px;
         }
 
-        /* Dark gray background for all containers */
-        .container {
-            background-color: #333;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
         /* Carousel styling */
         .carousel-container {
-            background-color: #333; /* Dark gray background */
+            top: 150px;
             width: 60%;
-            margin: 0 auto 70px auto; /* Centered and with 70px margin-bottom */
+            margin: 0 auto;
+            background-color: #333; /* Dark grey background */
+            padding: 10px;
             overflow: hidden;
             height: 150px;
             position: relative;
@@ -77,33 +70,38 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 150px;
         }
 
-        /* Carousel indicators (points) */
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
+        /* Carousel navigation dots */
+        .dots {
+            text-align: center;
             margin-top: 10px;
         }
 
-        .carousel-indicators div {
-            width: 15px;
+        .dot {
             height: 15px;
-            background-color: #3bd237; /* Fluorescent green */
-            border-radius: 50%;
+            width: 15px;
             margin: 0 5px;
+            background-color: #333;
+            border-radius: 50%;
+            display: inline-block;
             cursor: pointer;
+            border: 2px solid #0f0; /* Fluorescent green border */
         }
 
-        .carousel-indicators .active {
-            background-color: #00FF00; /* Bright green for active */
+        .active-dot {
+            background-color: #0f0; /* Active dot is fluorescent green */
+        }
+
+        /* Space between carousel and news section */
+        .spacer {
+            height: 70px;
         }
 
         /* News container */
         .news-container {
-            margin-top: 40px;
             width: 60%;
             margin: 40px auto;
             padding: 20px;
-            background-color: #333; /* Dark gray background */
+            background-color: #333; /* Dark grey background */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
@@ -126,16 +124,15 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         .news-text {
             text-align: center;
             font-size: 1.1em;
-            color: #fff;
+            color: #fff; /* Light text color on dark background */
         }
 
         /* Form styling */
         .admin-form {
-            margin-top: 40px;
             width: 60%;
             margin: 40px auto;
             padding: 20px;
-            background-color: #333; /* Dark gray background */
+            background-color: #333; /* Dark grey background */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
@@ -182,7 +179,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <!-- Carousel -->
-<div class="carousel-container container">
+<div class="carousel-container">
     <div class="carousel-images">
         <img src="src/assets/Battle.png" alt="Image 1">
         <img src="src/assets/image2.jpg" alt="Image 2">
@@ -194,21 +191,24 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="src/assets/image8.jpg" alt="Image 8">
     </div>
 
-    <!-- Carousel indicators (points) -->
-    <div class="carousel-indicators">
-        <div class="active" onclick="setCurrentSlide(0)"></div>
-        <div onclick="setCurrentSlide(1)"></div>
-        <div onclick="setCurrentSlide(2)"></div>
-        <div onclick="setCurrentSlide(3)"></div>
-        <div onclick="setCurrentSlide(4)"></div>
-        <div onclick="setCurrentSlide(5)"></div>
-        <div onclick="setCurrentSlide(6)"></div>
-        <div onclick="setCurrentSlide(7)"></div>
+    <!-- Dots navigation -->
+    <div class="dots">
+        <span class="dot active-dot" onclick="moveToSlide(0)"></span>
+        <span class="dot" onclick="moveToSlide(1)"></span>
+        <span class="dot" onclick="moveToSlide(2)"></span>
+        <span class="dot" onclick="moveToSlide(3)"></span>
+        <span class="dot" onclick="moveToSlide(4)"></span>
+        <span class="dot" onclick="moveToSlide(5)"></span>
+        <span class="dot" onclick="moveToSlide(6)"></span>
+        <span class="dot" onclick="moveToSlide(7)"></span>
     </div>
 </div>
 
+<!-- Spacer for 70px space between carousel and news -->
+<div class="spacer"></div>
+
 <!-- Latest News -->
-<div class="news-container container">
+<div class="news-container">
     <?php foreach ($newsItems as $news): ?>
         <div class="news-item">
             <div class="news-date"><?= htmlspecialchars($news['date']) ?></div>
@@ -219,7 +219,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Admin form for adding new news item -->
 <?php if ($isAdmin): ?>
-    <div class="admin-form container">
+    <div class="admin-form">
         <h3>Ajouter une nouvelle actualité</h3>
         <?php if (isset($error)): ?>
             <p class="error"><?= htmlspecialchars($error) ?></p>
@@ -232,36 +232,30 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 
 <script>
+// Carousel functionality
 let carouselIndex = 0;
 const images = document.querySelectorAll('.carousel-images img');
-const indicators = document.querySelectorAll('.carousel-indicators div');
 const totalImages = images.length;
 
-// Move to a specific slide
-function setCurrentSlide(index) {
-    carouselIndex = index;
-    updateCarousel();
-}
-
-// Update the carousel position and the active indicator
-function updateCarousel() {
-    document.querySelector('.carousel-images').style.transform = `translateX(-${carouselIndex * 12.5}%)`;
-    indicators.forEach((indicator, idx) => {
-        if (idx === carouselIndex) {
-            indicator.classList.add('active');
-        } else {
-            indicator.classList.remove('active');
-        }
-    });
-}
-
-// Auto-slide functionality
 function moveCarousel() {
     carouselIndex++;
     if (carouselIndex >= totalImages) {
         carouselIndex = 0;
     }
-    updateCarousel();
+    document.querySelector('.carousel-images').style.transform = `translateX(-${carouselIndex * 12.5}%)`;
+    updateActiveDot();
+}
+
+function moveToSlide(index) {
+    carouselIndex = index;
+    document.querySelector('.carousel-images').style.transform = `translateX(-${carouselIndex * 12.5}%)`;
+    updateActiveDot();
+}
+
+function updateActiveDot() {
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach(dot => dot.classList.remove('active-dot'));
+    dots[carouselIndex].classList.add('active-dot');
 }
 
 setInterval(moveCarousel, 3000); // Change image every 3 seconds
