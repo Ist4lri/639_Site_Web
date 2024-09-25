@@ -32,15 +32,23 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualité</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,58 +57,20 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 20px;
         }
 
-        /* Carousel styling */
-/* Carousel styling */
-.carousel-container {
-    top: 150px;
-    width: 500px; /* Set the width of the carousel to match the container */
-    margin: 0 auto;
-    background-color: #333; /* Dark grey background */
-    padding: 10px;
-    overflow: hidden; /* Ensure that only the current image is visible */
-    height: 250px;
-    position: relative;
-    border-radius: 8px;
-}
+        /* Carousel container */
+        .carousel {
+            margin-top: 20px;
+        }
 
-.carousel-images {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    gap: 150px; /* Add gap between images to ensure they are not visible */
-}
+        /* Adjust the carousel height */
+        .carousel-item img {
+            height: 250px;
+            object-fit: cover;
+        }
 
-.carousel-images img {
-    width: 350px; /* Make sure the image fits within the container width */
-    height: 150px;
-    object-fit: cover; /* Ensure images are properly resized */
-}
-
-
-/* Dots navigation */
-.dots {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 5px;
-    background-color: #333;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    border: 2px solid #0f0; /* Fluorescent green border */
-}
-
-.active-dot {
-    background-color: #0f0; /* Active dot is fluorescent green */
-}
-
-
-        /* Space between carousel and news section */
+        /* Spacer between carousel and news */
         .spacer {
-            height: 130px;
+            height: 70px;
         }
 
         /* News container */
@@ -134,7 +104,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #fff; /* Light text color on dark background */
         }
 
-        /* Form styling */
+        /* Admin form */
         .admin-form {
             width: 60%;
             margin: 40px auto;
@@ -183,6 +153,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
+
     <header class="head">
     <div class="head-logo">
         <a href="index.php">
@@ -202,30 +173,54 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 </header>
 <body>
 
-<!-- Carousel -->
-<div class="carousel-container">
-    <div class="carousel-images">
-        <img src="src/assets/Battle.png" alt="Image 1">
-        <img src="src/assets/Baionette.png" alt="Image 2">
-        <img src="src/assets/image3.jpg" alt="Image 3">
-        <img src="src/assets/image4.jpg" alt="Image 4">
-        <img src="src/assets/image5.jpg" alt="Image 5">
-        <img src="src/assets/image6.jpg" alt="Image 6">
-        <img src="src/assets/image7.jpg" alt="Image 7">
-        <img src="src/assets/image8.jpg" alt="Image 8">
+<!-- Bootstrap Carousel -->
+<div id="newsCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#newsCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#newsCarousel" data-slide-to="1"></li>
+        <li data-target="#newsCarousel" data-slide-to="2"></li>
+        <li data-target="#newsCarousel" data-slide-to="3"></li>
+        <li data-target="#newsCarousel" data-slide-to="4"></li>
+        <li data-target="#newsCarousel" data-slide-to="5"></li>
+        <li data-target="#newsCarousel" data-slide-to="6"></li>
+        <li data-target="#newsCarousel" data-slide-to="7"></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="src/assets/Battle.png" class="d-block w-100" alt="Image 1">
+        </div>
+        <div class="carousel-item">
+            <img src="src/assets/Baionette.png" class="d-block w-100" alt="Image 2">
+        </div>
+        <div class="carousel-item">
+            <img src="src/assets/image3.jpg" class="d-block w-100" alt="Image 3">
+        </div>
+        <div class="carousel-item">
+            <img src="src/assets/image4.jpg" class="d-block w-100" alt="Image 4">
+        </div>
+        <div class="carousel-item">
+            <img src="src/assets/image5.jpg" class="d-block w-100" alt="Image 5">
+        </div>
+        <div class="carousel-item">
+            <img src="src/assets/image6.jpg" class="d-block w-100" alt="Image 6">
+        </div>
+        <div class="carousel-item">
+            <img src="src/assets/image7.jpg" class="d-block w-100" alt="Image 7">
+        </div>
+        <div class="carousel-item">
+            <img src="src/assets/image8.jpg" class="d-block w-100" alt="Image 8">
+        </div>
     </div>
 
-    <!-- Dots navigation -->
-    <div class="dots">
-        <span class="dot active-dot" onclick="moveToSlide(0)"></span>
-        <span class="dot" onclick="moveToSlide(1)"></span>
-        <span class="dot" onclick="moveToSlide(2)"></span>
-        <span class="dot" onclick="moveToSlide(3)"></span>
-        <span class="dot" onclick="moveToSlide(4)"></span>
-        <span class="dot" onclick="moveToSlide(5)"></span>
-        <span class="dot" onclick="moveToSlide(6)"></span>
-        <span class="dot" onclick="moveToSlide(7)"></span>
-    </div>
+    <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
 
 <!-- Spacer for 70px space between carousel and news -->
@@ -255,35 +250,6 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 <?php endif; ?>
 
-<script>
-// Carousel functionality
-let carouselIndex = 0;
-const images = document.querySelectorAll('.carousel-images img');
-const totalImages = images.length;
-
-function moveCarousel() {
-    carouselIndex++;
-    if (carouselIndex >= totalImages) {
-        carouselIndex = 0;
-    }
-    document.querySelector('.carousel-images').style.transform = `translateX(-${carouselIndex * 12.5}%)`;
-    updateActiveDot();
-}
-
-function moveToSlide(index) {
-    carouselIndex = index;
-    document.querySelector('.carousel-images').style.transform = `translateX(-${carouselIndex * 12.5}%)`;
-    updateActiveDot();
-}
-
-function updateActiveDot() {
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach(dot => dot.classList.remove('active-dot'));
-    dots[carouselIndex].classList.add('active-dot');
-}
-
-setInterval(moveCarousel, 3000); // Change image every 3 seconds
-</script>
-
 </body>
+
 </html>
