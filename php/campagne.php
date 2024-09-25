@@ -11,12 +11,17 @@ $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
 
 $message = '';
 
-
-
-$sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus.nom AS zeus1
+$sql = "SELECT c.date, c.nom, c.missions, 
+               u_mappeur.nom AS mappeur, 
+               u_zeus1.nom AS zeus1, 
+               u_zeus2.nom AS zeus2, 
+               u_zeus3.nom AS zeus3
         FROM campagne c
         LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
-        LEFT JOIN utilisateurs u_zeus ON c.id_zeus = u_zeus.id";
+        LEFT JOIN utilisateurs u_zeus1 ON c.id_zeus = u_zeus1.id
+        LEFT JOIN utilisateurs u_zeus2 ON c.id_zeus2 = u_zeus2.id
+        LEFT JOIN utilisateurs u_zeus3 ON c.id_zeus3 = u_zeus3.id
+        WHERE 1 = 1";
 
 $params = [];
 if ($searchCampaign) {
@@ -24,7 +29,9 @@ if ($searchCampaign) {
     $params[] = '%' . $searchCampaign . '%';
 }
 if ($searchUser) {
-    $sql .= " AND (u_mappeur.nom LIKE ? OR u_zeus.nom LIKE ?)";
+    $sql .= " AND (u_mappeur.nom LIKE ? OR u_zeus1.nom LIKE ? OR u_zeus2.nom LIKE ? OR u_zeus3.nom LIKE ?)";
+    $params[] = '%' . $searchUser . '%';
+    $params[] = '%' . $searchUser . '%';
     $params[] = '%' . $searchUser . '%';
     $params[] = '%' . $searchUser . '%';
 }
@@ -130,13 +137,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <form action="create_c.php" method="post">
 
-
    <label for="zeus2">Zeus 2:</label>
-<select id="zeus2" name="zeus2">
+   <select id="zeus2" name="zeus2">
     <option value="">Sélectionnez un Zeus</option>
     <?php
-    $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
-    $zeus_result = $pdo->query($zeus_query);
+    $zeus_result->execute(); // Réexécuter la requête pour zeus2 et zeus3
     if ($zeus_result->rowCount() > 0) {
         while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
             echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
@@ -149,8 +154,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <select id="zeus3" name="zeus3">
     <option value="">Sélectionnez un Zeus</option>
     <?php
-    $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
-    $zeus_result = $pdo->query($zeus_query);
+    $zeus_result->execute(); // Réexécuter la requête pour zeus3
     if ($zeus_result->rowCount() > 0) {
         while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
             echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
@@ -159,12 +163,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
 </select><br><br>
 
-
     <button type="submit">Créer la campagne</button>
 </form>
 
 
-    <form method="get" action="campagne.php">
+<form method="get" action="campagne.php">
     <label for="search_campaign">Rechercher par Nom de Campagne :</label>
     <input type="text" id="search_campaign" name="search_campaign" value="<?php echo htmlspecialchars($searchCampaign); ?>">
 
