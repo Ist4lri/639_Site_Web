@@ -76,8 +76,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background-color: #ffffff;
             border-radius: 10px;
             padding: 20px;
-            width: 70%; /* Main form width */
-            height: 300px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
