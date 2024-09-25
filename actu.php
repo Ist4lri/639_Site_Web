@@ -97,7 +97,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
     backdrop-filter: blur(5px); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         width: 500px;
-    margin-left: 25%;
+    margin-left: 29%;
 }
 
 
