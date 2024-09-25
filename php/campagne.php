@@ -6,24 +6,12 @@ $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
-$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
-$faction = $factionStmt->fetch(PDO::FETCH_ASSOC);
-
 $searchCampaign = isset($_GET['search_campaign']) ? trim($_GET['search_campaign']) : '';
 $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
 
 $message = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
-    $requestType = $_POST['request_type'];
-    $description = trim($_POST['request_description']);
 
-    $insertStmt = $pdo->prepare("INSERT INTO demande_mechanicus (id_utilisateur, type_entretien, description) VALUES (?, ?, ?)");
-    $insertStmt->execute([$currentUser['id'], $requestType, $description]);
-
-    $message = "Votre demande a été soumise avec succès pour un entretien $requestType.";
-}
 
 $sql = "SELECT c.date, c.nom, c.missions, u_mappeur.nom AS mappeur, u_zeus.nom AS zeus1
         FROM campagne c
@@ -145,7 +133,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
    <label for="zeus2">Zeus 2:</label>
 <select id="zeus2" name="zeus2">
-    <option value="">Sélectionnez un Zeus (facultatif)</option>
+    <option value="">Sélectionnez un Zeus</option>
     <?php
     $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
     $zeus_result = $pdo->query($zeus_query);
@@ -159,9 +147,10 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <label for="zeus3">Zeus 3:</label>
 <select id="zeus3" name="zeus3">
-    <option value="">Sélectionnez un Zeus (facultatif)</option>
+    <option value="">Sélectionnez un Zeus</option>
     <?php
-    $zeus_result->execute(); // Ré-exécuter la requête
+    $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
+    $zeus_result = $pdo->query($zeus_query);
     if ($zeus_result->rowCount() > 0) {
         while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
             echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
