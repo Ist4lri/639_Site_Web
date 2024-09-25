@@ -46,165 +46,108 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau des Campagnes</title>
+    <title>Créer une Nouvelle Campagne</title>
     <style>
-      body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 20px;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
 
-form {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px; /* Main form width */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    margin-left: 0;
-    float: left;
-}
+        form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px; /* Main form width */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            margin-left: 0;
+            float: left;
+        }
 
-.form-group {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
 
-.form-group label {
-    font-weight: bold;
-    margin-right: 10px;
-    color: #555;
-}
+        .form-group label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #555;
+        }
 
-.form-group input, .form-group select {
-    width: calc(50% - 10px);
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
+        .form-group input, .form-group select {
+            width: calc(50% - 10px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-button[type="submit"] {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .zeus-group {
+            display: flex;
+            justify-content: space-between;
+        }
 
-button[type="submit"]:hover {
-    background-color: #218838;
-}
+        .zeus-group select {
+            width: calc(33% - 10px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-h2 {
-    color: #333;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    text-align: left;
-}
+        button[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-/* Special group for the Zeus selectors */
-.zeus-group {
-    display: flex;
-    justify-content: space-between;
-}
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
 
-.zeus-group select {
-    width: calc(33% - 10px);
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-
-a {
-    position: absolute;
-    right: 10px;
-    top: 40px;
-    color: #ff8800;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a.zeus {
-    position: absolute;
-    right: 90px;
-    top: 40px;
-    color: #ff8800;
-}
-
-
-/* Table Styling */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-th, td {
-    padding: 12px 15px;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #28a745;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f4f4f9;
-}
-
-tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-.mappeur {
-    color: blue;
-}
-
-.zeus {
-    color: black;
-}
-
+        h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
-<a href=record.php class=zeus> Compteur </a>
-<a href=../index.php> Acceuil </a>
-    
-    <h2>Créer une Nouvelle Campagne</h2>
+
+<h2>Créer une Nouvelle Campagne</h2>
+
+<!-- Main form for creating campaigns -->
 <form action="create_c.php" method="post">
+    <!-- Date and Mappeur on the same line -->
     <div class="form-group">
         <div>
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
         </div>
         <div>
-            <option value="">Sélectionnez un mappeur</option>
-        <?php
-        $mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1";
-        $mappeur_result = $pdo->query($mappeur_query);
-        if ($mappeur_result->rowCount() > 0) {
-            while ($row = $mappeur_result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-            }
-        }
-        ?>
-    </select><br><br>
+            <label for="mappeur">Mappeur:</label>
+            <select id="mappeur" name="mappeur" required>
+                <option value="">Sélectionnez un mappeur</option>
+                <?php
+                if ($mappeur_result->rowCount() > 0) {
+                    while ($row = $mappeur_result->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+                    }
+                }
+                ?>
+            </select>
         </div>
     </div>
 
+    <!-- Nom de la campagne and Numéro de missions on the same line -->
     <div class="form-group">
         <div>
             <label for="nom">Nom de la campagne:</label>
@@ -216,50 +159,50 @@ tbody tr:hover {
         </div>
     </div>
 
+    <!-- Zeus selectors all on the same line -->
     <div class="zeus-group">
         <div>
             <label for="zeus1">Zeus 1:</label>
-    <select id="zeus1" name="zeus1">
-        <option value="">Sélectionnez un Zeus</option>
-        <?php
-        $zeus_query = "SELECT id, nom FROM utilisateurs WHERE zeus = 1";
-        $zeus_result = $pdo->query($zeus_query);
-        if ($zeus_result->rowCount() > 0) {
-            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-            }
-        }
-        ?>
-    </select><br><br>
+            <select id="zeus1" name="zeus1">
+                <option value="">Sélectionnez un Zeus</option>
+                <?php
+                if ($zeus_result->rowCount() > 0) {
+                    while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+                    }
+                }
+                ?>
+            </select>
         </div>
         <div>
-            
-   <label for="zeus2">Zeus 2:</label>
-   <select id="zeus2" name="zeus2">
-    <option value="">Sélectionnez un Zeus</option>
-    <?php
-    $zeus_result->execute(); // Réexécuter la requête pour zeus2 et zeus3
-    if ($zeus_result->rowCount() > 0) {
-        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-        }
-    }
-    ?>
-</select><br><br>
+            <label for="zeus2">Zeus 2:</label>
+            <select id="zeus2" name="zeus2">
+                <option value="">Sélectionnez un Zeus</option>
+                <?php
+                // Re-execute Zeus query for zeus2 and zeus3
+                $zeus_result->execute();
+                if ($zeus_result->rowCount() > 0) {
+                    while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+                    }
+                }
+                ?>
+            </select>
         </div>
         <div>
             <label for="zeus3">Zeus 3:</label>
-<select id="zeus3" name="zeus3">
-    <option value="">Sélectionnez un Zeus</option>
-    <?php
-    $zeus_result->execute(); // Réexécuter la requête pour zeus3
-    if ($zeus_result->rowCount() > 0) {
-        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
-        }
-    }
-    ?>
-</select><br><br>
+            <select id="zeus3" name="zeus3">
+                <option value="">Sélectionnez un Zeus</option>
+                <?php
+                // Re-execute Zeus query for zeus3
+                $zeus_result->execute();
+                if ($zeus_result->rowCount() > 0) {
+                    while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+                    }
+                }
+                ?>
+            </select>
         </div>
     </div>
 
