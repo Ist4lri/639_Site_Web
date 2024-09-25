@@ -59,7 +59,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /* Carousel container */
         .carousel {
-            margin-top: 20px;
+            margin-top: 200px;
         }
 
         /* Adjust the carousel height */
@@ -75,7 +75,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /* News container */
         .news-container {
-            width: 60%;
+            width: 75%;
             margin: 40px auto;
             padding: 20px;
             background-color: #333; /* Dark grey background */
