@@ -61,6 +61,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /* Carousel styling */
         .carousel-container {
+            top: 150px;
             width: 60%;
             margin: 0 auto;
             overflow: hidden;
@@ -129,7 +130,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .admin-form textarea {
-            width: 100%;
+            width: 85%;
             height: 100px;
             padding: 10px;
             margin-bottom: 20px;
@@ -165,7 +166,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 <!-- Carousel -->
 <div class="carousel-container">
     <div class="carousel-images">
-        <img src="src/assets/image1.jpg" alt="Image 1">
+        <img src="src/assets/Battle.png" alt="Image 1">
         <img src="src/assets/image2.jpg" alt="Image 2">
         <img src="src/assets/image3.jpg" alt="Image 3">
         <img src="src/assets/image4.jpg" alt="Image 4">
