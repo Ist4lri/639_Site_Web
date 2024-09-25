@@ -39,7 +39,6 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="index.php">
             <img src="src/assets/Logo.png" alt="Logo 639">
         </a>
-            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
     </div>
     <div class="head-logo2">
         <img src="src/assets/TitreSite.png" alt="639 Régiment cadien"
