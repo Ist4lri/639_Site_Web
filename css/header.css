@@ -16,6 +16,7 @@ header.head {
     position: fixed;
     width: 99.6%;
     top: 0;
+    left: 0;
     z-index: 1000; /* Ensures header stays above content */
     backdrop-filter: blur(6px); /* Applies blur effect to background */
     -webkit-backdrop-filter: blur(6px); /* For Safari support */
