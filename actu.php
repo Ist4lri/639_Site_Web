@@ -71,6 +71,41 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 0;
             padding: 20px;
         }
+        .carousel-indicators li {
+            background-color: #00FF00; /* Fluorescent green for inactive indicators */
+            border: 1px solid #00FF00; /* Border also green */
+        }
+
+        .carousel-indicators .active {
+            background-color: #00FF00; /* Fluorescent green for active indicators */
+        }
+
+        /* Change the color of the prev and next controls to fluorescent green */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #00FF00; /* Fluorescent green background */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-size: 100%, 100%; /* Makes the arrow icon cover the button */
+        }
+
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-image: none; /* Remove default icon */
+        }
+
+        .carousel-control-prev-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300FF00' viewBox='0 0 8 8'%3E%3Cpath d='M4.5 0L0 4l4.5 4V0z'/%3E%3C/svg%3E"); /* Fluorescent green left arrow */
+        }
+
+        .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300FF00' viewBox='0 0 8 8'%3E%3Cpath d='M3.5 0l4.5 4-4.5 4V0z'/%3E%3C/svg%3E"); /* Fluorescent green right arrow */
+        }
 
         /* Carousel container */
         .carousel {
