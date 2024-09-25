@@ -202,7 +202,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="carousel-container">
     <div class="carousel-images">
         <img src="src/assets/Battle.png" alt="Image 1">
-        <img src="src/assets/image2.jpg" alt="Image 2">
+        <img src="src/assets/Baionette.png" alt="Image 2">
         <img src="src/assets/image3.jpg" alt="Image 3">
         <img src="src/assets/image4.jpg" alt="Image 4">
         <img src="src/assets/image5.jpg" alt="Image 5">
