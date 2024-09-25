@@ -122,6 +122,30 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin-bottom: 20px;
             text-align: left;
         }
+      table {
+            width: 95%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: green;
+            color: white;
+        }
+
+        .mappeur {
+            color: blue;
+        }
+
+        .zeus {
+            background-color: orange;
+            color: white;
+        }
     </style>
 </head>
 <body>
