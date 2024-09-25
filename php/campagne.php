@@ -59,15 +59,27 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             padding: 20px;
         }
 
+        .top-links {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-links a {
+            margin-left: 20px;
+            color: #ff8800;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         form {
             background-color: #ffffff;
             border-radius: 10px;
             padding: 20px;
-            width: 300px; /* Main form width */
+            width: 70%; /* Main form width */
+            height: 300px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            margin-left: 0;
-            float: left;
         }
 
         .form-group {
@@ -122,18 +134,20 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin-bottom: 20px;
             text-align: left;
         }
-      table {
+
+        .campaign-table {
             width: 95%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        th, td {
+        .campaign-table th, .campaign-table td {
             border: 1px solid black;
             padding: 10px;
             text-align: center;
         }
 
-        th {
+        .campaign-table th {
             background-color: green;
             color: white;
         }
@@ -149,6 +163,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body>
+
+<div class="top-links">
+    <a href="index.php">Accueil</a>
+    <a href="record.php">Compteur</a>
+</div>
 
 <h2>Créer une Nouvelle Campagne</h2>
 
@@ -190,38 +209,36 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
     </select><br><br>
 
-    <form action="create_c.php" method="post">
-
-   <label for="zeus2">Zeus 2:</label>
-   <select id="zeus2" name="zeus2">
-    <option value="">Sélectionnez un Zeus</option>
-    <?php
-    $zeus_result->execute(); // Réexécuter la requête pour zeus2 et zeus3
-    if ($zeus_result->rowCount() > 0) {
-        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+    <label for="zeus2">Zeus 2:</label>
+    <select id="zeus2" name="zeus2">
+        <option value="">Sélectionnez un Zeus</option>
+        <?php
+        $zeus_result->execute(); // Réexécuter la requête pour zeus2 et zeus3
+        if ($zeus_result->rowCount() > 0) {
+            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+            }
         }
-    }
-    ?>
-</select><br><br>
+        ?>
+    </select><br><br>
 
-<label for="zeus3">Zeus 3:</label>
-<select id="zeus3" name="zeus3">
-    <option value="">Sélectionnez un Zeus</option>
-    <?php
-    $zeus_result->execute(); // Réexécuter la requête pour zeus3
-    if ($zeus_result->rowCount() > 0) {
-        while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+    <label for="zeus3">Zeus 3:</label>
+    <select id="zeus3" name="zeus3">
+        <option value="">Sélectionnez un Zeus</option>
+        <?php
+        $zeus_result->execute(); // Réexécuter la requête pour zeus3
+        if ($zeus_result->rowCount() > 0) {
+            while ($row = $zeus_result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['nom']) . "</option>";
+            }
         }
-    }
-    ?>
-</select><br><br>
+        ?>
+    </select><br><br>
 
     <button type="submit">Créer la campagne</button>
 </form>
 
-
+<!-- Form for search -->
 <form method="get" action="campagne.php" class="search-form">
     <label for="search_campaign">Rechercher par Nom de Campagne :</label>
     <input type="text" id="search_campaign" name="search_campaign" value="<?php echo htmlspecialchars($searchCampaign); ?>">
@@ -234,7 +251,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h2>Tableau des Campagnes</h2>
 
-<table>
+<!-- Campaign table -->
+<table class="campaign-table">
     <thead>
         <tr>
             <th>DATES</th>
@@ -248,20 +266,25 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </thead>
     <tbody>
         <?php
-        for ($i = 0; $i < count($result); $i++) {
-            $row = $result[$i];
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['date']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
-            echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
-            echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
-            echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
-            echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
-            echo "</tr>";
+        if (count($result) > 0) {
+            for ($i = 0; $i < count($result); $i++) {
+                $row = $result[$i];
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
+                echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
+                echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='7'>Aucune campagne trouvée.</td></tr>";
         }
         ?>
     </tbody>
 </table>
+
 </body>
 </html>
