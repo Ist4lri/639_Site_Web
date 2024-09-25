@@ -87,6 +87,17 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         .spacer {
             height: 70px;
         }
+        h2 {
+    color: #3bd237;
+    margin-bottom: 3px;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 10px;
+    border-radius: 8px; 
+    backdrop-filter: blur(5px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
         /* News container */
         .news-container {
