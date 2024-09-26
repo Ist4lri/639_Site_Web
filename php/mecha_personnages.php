@@ -115,7 +115,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
                     <input type="hidden" name="personnage_id" value="<?php echo $personnage['id']; ?>">
                     <label for="grade_mecha">Changer Grade Mecha:</label>
                     <select name="grade_mecha" required>
-                        <option value="TechnoPrêtre">TechnoPrêtre</option>
+                        <option value="TechnoPretre">TechnoPretre</option>
                         <option value="Magos">Magos</option>
                         <option value="Servitor">Servitor</option>
                     </select>
