@@ -56,9 +56,11 @@ $lithanies = $lithaniesStmt->fetchAll();
             border-collapse: collapse;
         }
         td {
-            border: 1px solid lime;
-            padding: 10px;
-        }
+    border: 1px solid lime;
+    padding: 10px;
+    font-size: 18px; 
+    letter-spacing: 2px; 
+}
         .terminal-form {
             background-color: black;
             color: lime;
