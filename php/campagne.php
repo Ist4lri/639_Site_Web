@@ -248,6 +248,24 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </form>
 
 <h2>Tableau des Campagnes</h2>
+<?php
+$sql = "SELECT c.id, c.date, c.nom, c.missions, 
+               u_mappeur.nom AS mappeur, 
+               u_zeus1.nom AS zeus1, 
+               u_zeus2.nom AS zeus2, 
+               u_zeus3.nom AS zeus3
+        FROM campagne c
+        LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
+        LEFT JOIN utilisateurs u_zeus1 ON c.id_zeus = u_zeus1.id
+        LEFT JOIN utilisateurs u_zeus2 ON c.id_zeus2 = u_zeus2.id
+        LEFT JOIN utilisateurs u_zeus3 ON c.id_zeus3 = u_zeus3.id
+        WHERE 1 = 1";
+
+// Préparez et exécutez la requête
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 
 <table class="campaign-table">
     <thead>
@@ -259,23 +277,22 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th>ZEUS 1</th>
             <th>ZEUS 2</th>
             <th>ZEUS 3</th>
-            <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <?php
         if (count($result) > 0) {
-            for ($i = 0; $i < count($result); $i++) {
-                $row = $result[$i];
+            foreach ($result as $row) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['date']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
-                echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur']) . "</td>";
+                echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur'] ?? 'Personne') . "</td>";
                 echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
                 echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
                 echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
-                echo "<td><a href='edit_campagne.php?id=" . htmlspecialchars($row['id']) . "'>Modifier</a></td>"; // Ajouter un lien pour modifier les Zeus
+                echo "<td><a href='edit_campagne.php?id=" . htmlspecialchars($row['id']) . "'>Modifier</a></td>";
                 echo "</tr>";
             }
         } else {
@@ -284,6 +301,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
     </tbody>
 </table>
+
 
 </body>
 </html>
