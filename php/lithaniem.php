@@ -42,6 +42,10 @@ $lithanies = $lithaniesStmt->fetchAll();
             background-color: black;
             color: lime;
             font-family: 'Courier New', Courier, monospace;
+            background-image: url('../src/assets/Bougie.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-attachment: fixed;
         }
         table {
             width: 100%;
