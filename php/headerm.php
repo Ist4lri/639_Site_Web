@@ -28,7 +28,7 @@ $faction = $factionStmt->fetch();
 <style>
     @font-face {
     font-family: 'Inquisitor';
-    src: url('fonts/Inquisitor.otf') format('opentype');
+    src: url('../css/fonts/Inquisitor.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
     
