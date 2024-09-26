@@ -25,9 +25,9 @@ $zeus_list = $zeus_result->fetchAll(PDO::FETCH_ASSOC);
 
 // Traitement de la mise à jour
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $zeus1 = $_POST['zeus1'] ?? null;
-    $zeus2 = $_POST['zeus2'] ?? null;
-    $zeus3 = $_POST['zeus3'] ?? null;
+    $zeus1 = !empty($_POST['zeus1']) ? $_POST['zeus1'] : null;
+    $zeus2 = !empty($_POST['zeus2']) ? $_POST['zeus2'] : null;
+    $zeus3 = !empty($_POST['zeus3']) ? $_POST['zeus3'] : null;
 
     $stmt = $pdo->prepare("UPDATE campagne SET id_zeus = ?, id_zeus2 = ?, id_zeus3 = ? WHERE id = ?");
     $stmt->execute([$zeus1, $zeus2, $zeus3, $id_campagne]);
