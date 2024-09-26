@@ -122,7 +122,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
                     <br>
                     <button type="submit" class="submit-button">Mettre à jour</button>
                     <br><br>
-                    <button type="submit" name="reject" class="submit-button" style="background-color: red; color: white;">Rejeter Personnage</button>
+                    <button type="submit" name="reject" class="submit-button" style="background-color: red; color: white;">Renvoyer Personnage</button>
                 </form>
             </td>
             <?php endif; ?>
