@@ -122,17 +122,23 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         .spacer {
             height: 70px;
         }
-        h3 {
+        h2 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
     color: #3bd237;
     margin-bottom: 3px;
     font-size: 1.5em;
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 10px;
-    border-radius: 8px; 
-    backdrop-filter: blur(5px); 
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        width: 500px;
-    margin-left: 38%;
 }
 
 
