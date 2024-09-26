@@ -100,6 +100,8 @@ if ($faction) {
                 <select id="request_type" name="request_type" required>
                     <option value="arsenal">Arsenal</option>
                     <option value="medical">Médical</option>
+                    <option value="infrastructure">Infrastructure</option>
+                    <option value="division">Demande Division</option>
                 </select>
 
                 <label for="request_description">Description de la demande :</label>
