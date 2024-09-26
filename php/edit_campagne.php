@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <form action="" method="post">
         <label for="zeus1">Zeus 1:</label>
-        <select id="zeus1" name="zeus1" required>
+        <select id="zeus1" name="zeus1">
             <option value="">Sélectionnez un Zeus</option>
             <?php foreach ($zeus_list as $zeus): ?>
                 <option value="<?php echo $zeus['id']; ?>" <?php echo $zeus['id'] == $campagne['id_zeus'] ? 'selected' : ''; ?>>
