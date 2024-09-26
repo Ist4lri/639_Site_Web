@@ -44,6 +44,114 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier les Zeus de la Campagne</title>
 </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .top-links {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-links a {
+            margin-left: 20px;
+            color: #ff8800;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: calc(50% - 10px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .zeus-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .zeus-group select {
+            width: calc(33% - 10px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .campaign-table {
+            width: 95%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .campaign-table th, .campaign-table td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .campaign-table th {
+            background-color: green;
+            color: white;
+        }
+
+        .mappeur {
+            color: blue;
+        }
+
+        .zeus {
+            background-color: orange;
+            color: white;
+        }
+    </style>
 <body>
     <h2>Modifier les Zeus de la campagne : <?php echo htmlspecialchars($campagne['nom']); ?></h2>
 
