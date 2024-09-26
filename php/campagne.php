@@ -249,7 +249,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h2>Tableau des Campagnes</h2>
 
-<!-- Campaign table -->
 <table class="campaign-table">
     <thead>
         <tr>
@@ -260,6 +259,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th>ZEUS 1</th>
             <th>ZEUS 2</th>
             <th>ZEUS 3</th>
+            <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
         </tr>
     </thead>
     <tbody>
@@ -275,10 +275,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td class='zeus'>" . htmlspecialchars($row['zeus1'] ?? 'Personne') . "</td>";
                 echo "<td class='zeus'>" . htmlspecialchars($row['zeus2'] ?? 'Personne') . "</td>";
                 echo "<td class='zeus'>" . htmlspecialchars($row['zeus3'] ?? 'Personne') . "</td>";
+                echo "<td><a href='edit_campagne.php?id=" . htmlspecialchars($row['id']) . "'>Modifier</a></td>"; // Ajouter un lien pour modifier les Zeus
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='7'>Aucune campagne trouvée.</td></tr>";
+            echo "<tr><td colspan='8'>Aucune campagne trouvée.</td></tr>";
         }
         ?>
     </tbody>
