@@ -180,34 +180,3 @@ tr:hover {
     font-weight: bold;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
-    margin-bottom: 15px;
-    border: solid 3px #00ff66;
-}
-
-.head-logo2 img {
-    height: 60px;
-}
-
-.head-nav a {
-    color: #00ff66;
-    margin: 0 15px;
-    text-decoration: none;
-    display: inline-block; 
-    line-height: 30px; 
-    padding: 0 10px;
-    font-size:  2rem; 
-    transition: color 0.3s ease, background-color 0.3s ease; 
-}
-
-
-.head-nav a:hover {
-    color: #ff6600;
-    background-color: rgba(0, 255, 102, 0.2); 
-    border-radius: 5px; 
-}
