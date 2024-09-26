@@ -48,6 +48,7 @@ $lithanies = $lithaniesStmt->fetchAll();
         }
         h1{
             margin-top: 15px;
+            letter-spacing: 2px; 
         }
         table {
             
@@ -94,7 +95,7 @@ $lithanies = $lithaniesStmt->fetchAll();
 </head>
 <body>
 
-    <h1>Litanies</h1>
+    <h1>Lithanies</h1>
 
     <table>
         <?php foreach ($lithanies as $lithanie): ?>
