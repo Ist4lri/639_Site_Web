@@ -6,11 +6,7 @@ include 'db.php';
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
-$gradesAutorises = ['Lieutenant', 'Capitaine', 'Commandant', 'Colonel', 'Général', 'Major'];
-if (!in_array($currentUser['grade'], $gradesAutorises)) {
-    header("Location: insubordination.php");
-    exit();
-}
+
 
 // Handle updates to grade, specialty, management, formation, and formation_hierarchique
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
