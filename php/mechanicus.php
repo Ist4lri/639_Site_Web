@@ -56,7 +56,7 @@ if ($faction) {
         }
     </style>
 
-<?php include 'header.php'; ?>
+<?php include 'headerm.php'; ?>
 
 <div class="container">
     <?php if ($faction): ?>
