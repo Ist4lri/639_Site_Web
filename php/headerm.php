@@ -56,6 +56,7 @@ header {
 }
 
 .head-nav a {
+    font-family: 'Inquisitor', Serif;
     color: #00ff66;
     margin: 0 15px;
     text-decoration: none;
