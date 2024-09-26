@@ -122,7 +122,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         .spacer {
             height: 70px;
         }
-        h2 {
+        h3 {
     color: #3bd237;
     margin-bottom: 3px;
     font-size: 1.5em;
