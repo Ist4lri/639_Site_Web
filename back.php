@@ -105,6 +105,7 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Administration</title>
     <link rel="stylesheet" href="css/tab.css">
     <a href="zeusing.php">Zeus</a>
+    <a href="index.php">Acceuil</a>
 </head>
 <body>
     <h2>Gestion des utilisateurs</h2>
