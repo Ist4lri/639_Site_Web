@@ -48,6 +48,7 @@ header {
     padding: 10px 20px;
     margin-bottom: 15px;
     border: solid 3px #00ff66;
+    font-family: 'Inquisitor', Serif;
 }
 
 .head-logo2 img {
