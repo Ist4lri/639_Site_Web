@@ -67,6 +67,7 @@ if ($faction) {
     <nav class="head-nav">
         <?php if ($faction): ?>
             <!-- Si l'utilisateur fait partie de l'Adeptus Mechanicus -->
+            <a href="lithaniem.php">Lithanies </a>
             <a href="demande_mechanicus.php">Demandes</a>
         <?php else: ?>
             <!-- Si l'utilisateur n'est pas dans l'Adeptus Mechanicus -->
