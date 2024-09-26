@@ -1,3 +1,9 @@
+<?php
+$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
+$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$faction = $factionStmt->fetch();
+?>
+
 <header>
     <div class="head-logo2">
         <a href="../index.php">
@@ -20,6 +26,20 @@
 </header>
 
 <style>
+    @font-face {
+    font-family: 'Inquisitor';
+    src: url('fonts/Inquisitor.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
+body {
+    background-color: #121212;
+    color: #00ff66;
+    font-family: 'Inquisitor', Serif;
+}
+    
 header {
     display: flex;
     justify-content: space-between;
