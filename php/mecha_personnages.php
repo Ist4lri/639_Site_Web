@@ -36,7 +36,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
         }
       h1{
          letter-spacing: 4px;
-        margin-top: 130px;
+        margin-top: 10px;
       }
         table {
             width: 100%;
