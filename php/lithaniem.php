@@ -84,6 +84,7 @@ $lithanies = $lithaniesStmt->fetchAll();
             color: black;
         }
     </style>
+    <?php include 'header.php'; ?>
 </head>
 <body>
 
