@@ -47,8 +47,11 @@ $lithanies = $lithaniesStmt->fetchAll();
     background-position: center bottom;
     background-attachment: fixed;
         }
+        h1{
+            top:150px;
+        }
         table {
-            top:150px:
+            
             width: 100%;
             border-collapse: collapse;
         }
