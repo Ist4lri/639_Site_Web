@@ -109,7 +109,8 @@ if ($utilisateur) {
     
     // Date de modification
     $pdf->SetX(25);
-    $pdf->Cell(0, 10, mb_convert_encoding('Date de modification: ' . date('d/m/Y', strtotime($utilisateur['date_modification'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $date_modification = $utilisateur['date_modification'] ? date('d/m/Y', strtotime($utilisateur['date_modification'])) : 'Aucune';
+    $pdf->Cell(0, 10, mb_convert_encoding('Date de modification: ' . $date_modification, 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->Ln(10);
 
     // Histoire
