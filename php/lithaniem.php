@@ -69,6 +69,7 @@ $lithanies = $lithaniesStmt->fetchAll();
             width: 50%;
             margin: 20px auto;
             text-align: center;
+            letter-spacing: 2px;
         }
         .terminal-input {
             background-color: black;
