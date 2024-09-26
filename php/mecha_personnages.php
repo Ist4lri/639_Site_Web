@@ -35,7 +35,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
             
         }
       h1{
-         letter-spacing: 2px:
+         letter-spacing: 4px;
         margin-top: 130px;
       }
         table {
@@ -59,7 +59,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
 </head>
 <body>
 
-    <h1>Personnages Adeptus Mechanicus</h1>
+    <h1>Membres de Adeptus Mechanicus</h1>
 
     <table>
         <tr>
