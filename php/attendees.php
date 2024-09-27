@@ -1,25 +1,47 @@
 <?php
-$attendees = [
-    "CPI-47189 Snorri",
-    "LPI-14785",
-    "Fear/Ciceron/Magnus",
-    "GI-22178 Rémus",
-    "GIV-36931 Koda",
-    "Lordis",
-    "GIV-99999 Iota / Ludwig",
-    "MJI-33669 JägerMeister",
-    "CPI-02695 Jojin",
-    " Konrad/VEX/Dimatrikiv",
-    "GI-24117 Paolo",
-    "GI-78210-Tom",
-    "GI-26023 Vaylias Ments",
-    "Thaddeus /GI-48569",
-    "Viktor cain",
-    "PRI-Dalquiel",
-    "Targus",
-    "SC Gurke"
-];
+require '../vendor/autoload.php'; // Si vous utilisez Guzzle pour faire des requêtes HTTP
 
+// Configuration du bot Discord
+$botToken = 'MTI4OTE1ODE5MDkzMTM4MjI5NA.GDwuE7.5weSmFbGBMpqWsZd0aSzXvPn0K6uX759rK_fUg'; // Remplacez par le token de votre bot
+$guildID = '831854428515467276'; // Remplacez par l'ID du serveur Discord où est Sesh
+$eventChannelID = '905063808228274187'; // Remplacez par l'ID du channel où se déroule l'événement
+
+// URL de l'API Discord
+$baseURL = "https://discord.com/api/v10";
+
+// Fonction pour récupérer les membres d'un événement Sesh
+function getEventAttendees($botToken, $guildID, $eventChannelID) {
+    $url = "$baseURL/guilds/$guildID/members";
+    
+    try {
+        // Utilisation de Guzzle pour la requête HTTP
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', $url, [
+            'headers' => [
+                'Authorization' => "Bot $botToken",
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        
+        $members = json_decode($response->getBody(), true);
+        
+        // Filtrer les membres avec Sesh
+        $attendees = array_filter($members, function ($member) use ($eventChannelID) {
+            return in_array($eventChannelID, array_column($member['roles'], 'id'));
+        });
+        
+        return $attendees;
+        
+    } catch (Exception $e) {
+        echo 'Erreur: ' . $e->getMessage();
+        return [];
+    }
+}
+
+// Récupération des participants
+$attendees = getEventAttendees($botToken, $guildID, $eventChannelID);
+
+// Tri par catégories spécifiques (MJI, LTI, STI, etc.)
 $categories = [
     "MJI" => [],
     "LTI" => [],
@@ -32,22 +54,23 @@ $categories = [
 ];
 
 foreach ($attendees as $attendee) {
-    if (preg_match('/^MJI-/', $attendee)) {
-        $categories['MJI'][] = $attendee;
-    } elseif (preg_match('/^LTI-/', $attendee)) {
-        $categories['LTI'][] = $attendee;
-    } elseif (preg_match('/^STI-/', $attendee)) {
-        $categories['STI'][] = $attendee;
-    } elseif (preg_match('/^CPI-/', $attendee)) {
-        $categories['CPI'][] = $attendee;
-    } elseif (preg_match('/^GIV-/', $attendee)) {
-        $categories['GIV'][] = $attendee;
-    } elseif (preg_match('/^GI-/', $attendee)) {
-        $categories['GI'][] = $attendee;
-    } elseif (preg_match('/^CI-/', $attendee)) {
-        $categories['CI'][] = $attendee;
+    $username = $attendee['user']['username'];
+    if (preg_match('/^MJI-/', $username)) {
+        $categories['MJI'][] = $username;
+    } elseif (preg_match('/^LTI-/', $username)) {
+        $categories['LTI'][] = $username;
+    } elseif (preg_match('/^STI-/', $username)) {
+        $categories['STI'][] = $username;
+    } elseif (preg_match('/^CPI-/', $username)) {
+        $categories['CPI'][] = $username;
+    } elseif (preg_match('/^GIV-/', $username)) {
+        $categories['GIV'][] = $username;
+    } elseif (preg_match('/^GI-/', $username)) {
+        $categories['GI'][] = $username;
+    } elseif (preg_match('/^CI-/', $username)) {
+        $categories['CI'][] = $username;
     } else {
-        $categories['Others'][] = $attendee;
+        $categories['Others'][] = $username;
     }
 }
 ?>
@@ -57,7 +80,7 @@ foreach ($attendees as $attendee) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Participants</title>
+    <title>Liste des Participants Discord</title>
     <style>
         body {
             background-color: #2c2f33;
@@ -88,7 +111,7 @@ foreach ($attendees as $attendee) {
     </style>
 </head>
 <body>
-    <h1>Participants Classés</h1>
+    <h1>Participants Classés de Discord</h1>
 
     <?php foreach ($categories as $category => $list): ?>
         <?php if (!empty($list) && $category !== "Others"): ?>
