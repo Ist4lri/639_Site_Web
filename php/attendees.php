@@ -2,9 +2,9 @@
 require '../vendor/autoload.php'; // Si vous utilisez Guzzle pour faire des requêtes HTTP
 
 // Configuration du bot Discord
-$botToken = 'MTI4OTE1ODE5MDkzMTM4MjI5NA.GDwuE7.5weSmFbGBMpqWsZd0aSzXvPn0K6uX759rK_fUg'; // Remplacez par le token de votre bot
-$guildID = '831854428515467276'; // Remplacez par l'ID du serveur Discord où est Sesh
-$eventChannelID = '905063808228274187'; // Remplacez par l'ID du channel où se déroule l'événement
+$botToken = 'MTI4OTIzMzEwMTkxNDExNjI0OA.Ge7X00.gp33rgZwsiZgm_7zxS6cp_hBQjJxr__SvQhVtU'; // Remplacez par le token de votre bot
+$guildID = '1162367370619269180'; // Remplacez par l'ID du serveur Discord où est Sesh
+$eventChannelID = '1162367371210670102'; // Remplacez par l'ID du channel où se déroule l'événement
 
 // URL de l'API Discord
 $baseURL = "https://discord.com/api/v10/channels/{eventChannelID}/messages?limit=1";
