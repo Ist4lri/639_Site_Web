@@ -2,7 +2,7 @@
 require '../vendor/autoload.php'; // Si vous utilisez Guzzle pour faire des requêtes HTTP
 
 // Configuration du bot Discord
-$botToken = 'MTI4OTIzMzEwMTkxNDExNjI0OA.Ge7X00.gp33rgZwsiZgm_7zxS6cp_hBQjJxr__SvQhVtU'; // Remplacez par le token de votre bot
+$botToken = ''; // Remplacez par le token de votre bot
 $guildID = '1162367370619269180'; // Remplacez par l'ID du serveur Discord où est Sesh
 $eventChannelID = '1162367371210670102'; // Remplacez par l'ID du channel où se déroule l'événement
 
