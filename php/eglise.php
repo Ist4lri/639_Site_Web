@@ -44,7 +44,7 @@ if ($faction) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adeptus Mechanicus</title>
-    <link rel="stylesheet" href="../css/adeptus.css">
+    <link rel="stylesheet" href="../css/ecclesiarchie.css">
 </head>
 <body>
     <style>
