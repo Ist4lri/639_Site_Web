@@ -3,45 +3,42 @@ require '../vendor/autoload.php'; // Si vous utilisez Guzzle pour faire des requ
 
 // Configuration du bot Discord
 $botToken = ''; // Remplacez par le token de votre bot
-$guildID = '1162367370619269180'; // Remplacez par l'ID du serveur Discord où est Sesh
-$eventChannelID = '1162367371210670102'; // Remplacez par l'ID du channel où se déroule l'événement
+$guildID = '831854428515467276'; // ID du serveur Discord
+$eventChannelID = '905063808228274187'; // ID du channel où se déroule l'événement
 
-// URL de l'API Discord
-$baseURL = "https://discord.com/api/v10/channels/{eventChannelID}/messages?limit=1";
+// URL de l'API Discord pour récupérer les messages
+$baseURL = "https://discord.com/api/v10/channels/$eventChannelID/messages?limit=1";
 
-// Fonction pour récupérer les membres d'un événement Sesh
-function getEventAttendees($botToken, $guildID, $eventChannelID) {
-    $url = "$baseURL/guilds/$guildID/members";
-    
+// Fonction pour récupérer le dernier message du canal
+function getLastMessage($botToken, $baseURL) {
     try {
         // Utilisation de Guzzle pour la requête HTTP
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url, [
+        $response = $client->request('GET', $baseURL, [
             'headers' => [
                 'Authorization' => "Bot $botToken",
                 'Content-Type' => 'application/json'
             ]
         ]);
-        
-        $members = json_decode($response->getBody(), true);
-        
-        // Filtrer les membres avec Sesh
-        $attendees = array_filter($members, function ($member) use ($eventChannelID) {
-            return in_array($eventChannelID, array_column($member['roles'], 'id'));
-        });
-        
-        return $attendees;
-        
+
+        $messages = json_decode($response->getBody(), true);
+        return $messages[0]['content']; // Retourne le contenu du dernier message
     } catch (Exception $e) {
         echo 'Erreur: ' . $e->getMessage();
-        return [];
+        return '';
     }
 }
 
-// Récupération des participants
-$attendees = getEventAttendees($botToken, $guildID, $eventChannelID);
+// Récupération du dernier message dans le canal
+$lastMessage = getLastMessage($botToken, $baseURL);
 
-// Tri par catégories spécifiques (MJI, LTI, STI, etc.)
+// Extraction des participants à partir du message Sesh
+$attendees = [];
+if (preg_match('/Attendees \(\d+\): (.*)/', $lastMessage, $matches)) {
+    $attendees = explode(',', $matches[1]); // Sépare les noms d'utilisateurs
+}
+
+// Catégorisation des participants
 $categories = [
     "MJI" => [],
     "LTI" => [],
@@ -54,23 +51,23 @@ $categories = [
 ];
 
 foreach ($attendees as $attendee) {
-    $username = $attendee['user']['username'];
-    if (preg_match('/^MJI-/', $username)) {
-        $categories['MJI'][] = $username;
-    } elseif (preg_match('/^LTI-/', $username)) {
-        $categories['LTI'][] = $username;
-    } elseif (preg_match('/^STI-/', $username)) {
-        $categories['STI'][] = $username;
-    } elseif (preg_match('/^CPI-/', $username)) {
-        $categories['CPI'][] = $username;
-    } elseif (preg_match('/^GIV-/', $username)) {
-        $categories['GIV'][] = $username;
-    } elseif (preg_match('/^GI-/', $username)) {
-        $categories['GI'][] = $username;
-    } elseif (preg_match('/^CI-/', $username)) {
-        $categories['CI'][] = $username;
+    $attendee = trim($attendee); // Supprime les espaces inutiles
+    if (preg_match('/^MJI-/', $attendee)) {
+        $categories['MJI'][] = $attendee;
+    } elseif (preg_match('/^LTI-/', $attendee)) {
+        $categories['LTI'][] = $attendee;
+    } elseif (preg_match('/^STI-/', $attendee)) {
+        $categories['STI'][] = $attendee;
+    } elseif (preg_match('/^CPI-/', $attendee)) {
+        $categories['CPI'][] = $attendee;
+    } elseif (preg_match('/^GIV-/', $attendee)) {
+        $categories['GIV'][] = $attendee;
+    } elseif (preg_match('/^GI-/', $attendee)) {
+        $categories['GI'][] = $attendee;
+    } elseif (preg_match('/^CI-/', $attendee)) {
+        $categories['CI'][] = $attendee;
     } else {
-        $categories['Others'][] = $username;
+        $categories['Others'][] = $attendee;
     }
 }
 ?>
