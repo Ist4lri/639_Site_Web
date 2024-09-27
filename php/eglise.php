@@ -13,7 +13,7 @@ $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
 // Vérifier si l'utilisateur fait partie de la faction Adeptus Mechanicus
-$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Ecclésiarchie' AND validation = 'Accepter'");
+$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Ecclesiarchie' AND validation = 'Accepter'");
 $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
 $faction = $factionStmt->fetch();
 
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 
 // Récupérer les demandes de l'utilisateur
 if ($faction) {
-    $demandeStmt = $pdo->prepare("SELECT type_entretien, description, status, date_creation FROM demande_mechanicus WHERE id_utilisateur = ?");
+    $demandeStmt = $pdo->prepare("SELECT type_entretien, description, status, date_creation FROM demande_eccle WHERE id_utilisateur = ?");
     $demandeStmt->execute([$currentUser['id']]);
     $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -96,7 +96,7 @@ if ($faction) {
     <?php else: ?>
         <div class="actions">
             <h2>Faites votre demandes</h2>
-            <form action="mechanicus.php" method="post">
+            <form action="eglise.php" method="post">
                 <label for="request_type">Type d'entretien :</label>
                 <select id="request_type" name="request_type" required>
                     <option value="arsenal">Arsenal</option>
