@@ -138,6 +138,14 @@ th {
     height: auto;
     cursor: pointer;
 }
+        .cherubin {
+    position: absolute;
+    right: 45px;
+    top: 410px;
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+}
 
         .map {
     position: fixed;
@@ -268,7 +276,11 @@ th {
 
      <a href="/php/mechanicus.php">
     <img src="/src/assets/mech.png" alt="Mechanicus" class="mech">
-    </a>    
+    </a> 
+
+    <a href="/php/eglise.php">
+    <img src="/src/assets/Cherubin.png" alt="Eglise" class="cherubin">
+    </a> 
 
     <a href="/php/campagne.php">
     <img src="/src/assets/BoutonMappeur2.png" alt="Map" class="map">
