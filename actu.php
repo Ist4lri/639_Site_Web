@@ -74,6 +74,9 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         .carousel-indicators li {
             background-color: #000000; /* Fluorescent green for inactive indicators */
             border: 1px solid #00FF00;
+            width: 8px; 
+            height: 8px; 
+            margin: 2px;
             
         }
 
