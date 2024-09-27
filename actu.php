@@ -76,7 +76,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             border: 1px solid #00FF00;
             width: 8px; 
             height: 8px; 
-            margin: 2px;
+            margin-top: 20px;
             
         }
 
