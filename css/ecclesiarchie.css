@@ -8,6 +8,7 @@ body {
 }
 
 header {
+    position: absolute;
     background: rgb(185,185,185);
     background: linear-gradient(294deg, rgba(185,185,185,1) 0%, rgba(145,145,145,1) 31%, rgba(50,50,50,1) 81%);
     padding: 3px 0;
@@ -17,7 +18,8 @@ header {
 }
 
 .head-logo2 img {
-    width: 300px;
+    width: 500px;
+    height: 300px
 }
 
 .head-nav a {
@@ -30,7 +32,7 @@ header {
     background: rgb(185,185,185);
     background: linear-gradient(294deg, rgba(185,185,185,1) 0%, rgba(145,145,145,1) 31%, rgba(50,50,50,1) 81%);
     width: 80%;
-    margin: 0 auto;
+    margin-top: 20px;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
@@ -52,7 +54,7 @@ form label {
 }
 
 form textarea {
-    width: 95%;
+    width: 98%;
     padding: 10px;
     background-color: #333;
     border: none;
@@ -68,7 +70,7 @@ form select {
 }
 
 form button {
-    background-color: #CBCBCB;
+    background-color: #989898;
     color: #f0e68c;
     border: none;
     padding: 10px 20px;
