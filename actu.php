@@ -72,8 +72,9 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 20px;
         }
         .carousel-indicators li {
-            background-color: #00FF00; /* Fluorescent green for inactive indicators */
-            border: 1px solid #00FF00; /* Border also green */
+            background-color: #000000; /* Fluorescent green for inactive indicators */
+            border: 1px solid #00FF00;
+            
         }
 
         .carousel-indicators .active {
@@ -97,14 +98,6 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
             height: 100%;
             background-image: none; /* Remove default icon */
-        }
-
-        .carousel-control-prev-icon {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300FF00' viewBox='0 0 8 8'%3E%3Cpath d='M4.5 0L0 4l4.5 4V0z'/%3E%3C/svg%3E"); /* Fluorescent green left arrow */
-        }
-
-        .carousel-control-next-icon {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300FF00' viewBox='0 0 8 8'%3E%3Cpath d='M3.5 0l4.5 4-4.5 4V0z'/%3E%3C/svg%3E"); /* Fluorescent green right arrow */
         }
 
         /* Carousel container */
@@ -283,15 +276,6 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="src/assets/image8.jpg" class="d-block w-100" alt="Image 8">
         </div>
     </div>
-
-    <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 </div>
 
 <!-- Spacer for 70px space between carousel and news -->
