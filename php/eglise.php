@@ -12,7 +12,7 @@ $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
 
-// Vérifier si l'utilisateur fait partie de la faction Adeptus Mechanicus
+// Vérifier si l'utilisateur fait partie de la faction Eglise
 $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Ecclesiarchie' AND validation = 'Accepter'");
 $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
 $faction = $factionStmt->fetch();
@@ -31,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 }
 
 // Récupérer les demandes de l'utilisateur
-if ($faction) {
+
     $demandeStmt = $pdo->prepare("SELECT type_entretien, description, status, date_creation FROM demande_eccle WHERE id_utilisateur = ?");
     $demandeStmt->execute([$currentUser['id']]);
     $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
-}
+
 ?>
 
 <!DOCTYPE html>
