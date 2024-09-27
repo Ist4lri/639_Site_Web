@@ -259,7 +259,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="src/assets/Battle.png" class="d-block w-100" alt="Image 1">
+            <img src="src/assets/Baandevox.png" class="d-block w-100" alt="Image 1">
         </div>
         <div class="carousel-item">
             <img src="src/assets/Baionette.png" class="d-block w-100" alt="Image 2">
