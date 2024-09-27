@@ -60,7 +60,7 @@ if ($faction) {
 <header>
     <div class="head-logo2">
         <a href="../index.php">
-            <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
+            <img src="../src/assets/Banderole.png" alt="639 Régiment cadien">
         </a>
     </div>
 
