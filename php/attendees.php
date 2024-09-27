@@ -7,7 +7,7 @@ $guildID = '831854428515467276'; // Remplacez par l'ID du serveur Discord où es
 $eventChannelID = '905063808228274187'; // Remplacez par l'ID du channel où se déroule l'événement
 
 // URL de l'API Discord
-$baseURL = "https://discord.com/api/v10";
+$baseURL = "https://discord.com/api/v10/channels/{eventChannelID}/messages?limit=1";
 
 // Fonction pour récupérer les membres d'un événement Sesh
 function getEventAttendees($botToken, $guildID, $eventChannelID) {
