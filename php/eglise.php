@@ -94,7 +94,7 @@ if ($faction) {
 
     <?php else: ?>
         <div class="actions">
-            <h2>Demander un entretien spécial</h2>
+            <h2>Faites votre demandes</h2>
             <form action="mechanicus.php" method="post">
                 <label for="request_type">Type d'entretien :</label>
                 <select id="request_type" name="request_type" required>
