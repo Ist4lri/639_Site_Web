@@ -99,7 +99,8 @@ if ($faction) {
                 <label for="request_type">Type d'entretien :</label>
                 <select id="request_type" name="request_type" required>
                     <option value="arsenal">Arsenal</option>
-                    <option value="medical">Médical</option>
+                    <option value="confession">Confession</option>
+                    <option value="demande">Demande</option>
                 </select>
 
                 <label for="request_description">Description de la demande :</label>
