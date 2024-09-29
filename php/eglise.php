@@ -87,7 +87,11 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <div class="container">
-    <h3 class="pensee">COUCOU</h3>
+    <h3 class="pensee" style="font-family: 'Inquisitor', Serif;
+    color: #f0e68c;
+    font-size: 1.5em; 
+    text-align: center; 
+    margin: 5px">COUCOU</h3>
 
    <script>
     const pensees = <?php echo json_encode($pensees); ?>;
