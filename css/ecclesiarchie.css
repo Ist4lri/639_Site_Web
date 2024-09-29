@@ -52,12 +52,12 @@ h1, h2 {
     text-align: center;
 }
 
-h3{
-    position: absolute;
+.pensee {
     font-family: 'Inquisitor', Serif;
     color: #f0e68c;
-    text-align: center;
-    top: 170;
+    font-size: 1.5em; 
+    text-align: center; 
+    margin: 5px
 }
 
 form {
