@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <select id="faction" name="faction" required>
             <option value="Officio Prefectus">Officio Prefectus</option>
             <option value="Adeptus Mechanicus">Adeptus Mechanicus</option>
-            <option value="Ecclésiarchie">Ecclésiarchie</option>
+            <option value="Ecclesiarchie">Ecclésiarchie</option>
             <option value="Inquisition">Inquisition</option>
             <option value="Psyker">Psyker</option>
             <option value="Abhumains">Abhumains</option>
