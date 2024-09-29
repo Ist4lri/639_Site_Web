@@ -80,22 +80,18 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <div class="container">
-    <!-- Affichage d'une pensée aléatoire -->
-    <h3 class="pensee"></h3>
+    <h3 class="pensee">COUCOU</h3>
 
     <script>
         const pensees = <?php echo json_encode($pensees); ?>;
 
-        // Fonction pour afficher une pensée aléatoire
         function afficherPenseeAleatoire() {
             const indexAleatoire = Math.floor(Math.random() * pensees.length);
             document.querySelector('.pensee').textContent = pensees[indexAleatoire];
         }
 
-        // Afficher une pensée aléatoire au chargement de la page
         afficherPenseeAleatoire();
 
-        // Changer la pensée toutes les 10 secondes
         setInterval(afficherPenseeAleatoire, 10000);
     </script>
 
