@@ -19,6 +19,7 @@ $faction = $factionStmt->fetch();
 
 $message = '';
 
+// Requête pour récupérer les pensées en BDD
 $penseeStmt = $pdo->query("SELECT text FROM Pensee");
 $pensees = $penseeStmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -34,10 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 }
 
 // Récupérer les demandes de l'utilisateur
-
-    $demandeStmt = $pdo->prepare("SELECT type_entretien, description, status, date_creation FROM demande_eccle WHERE id_utilisateur = ?");
-    $demandeStmt->execute([$currentUser['id']]);
-    $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
+$demandeStmt = $pdo->prepare("SELECT type_entretien, description, status, date_creation FROM demande_eccle WHERE id_utilisateur = ?");
+$demandeStmt->execute([$currentUser['id']]);
+$demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -50,17 +50,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
     <link rel="stylesheet" href="../css/ecclesiarchie.css">
 </head>
 <body>
-        <h3 class="pensees"></h3>
     <style>
-        body{
+        body {
             background-image: url('../src/assets/Bougie.png');
             background-repeat: no-repeat;
-    background-position: center bottom;
-    background-attachment: fixed;
+            background-position: center bottom;
+            background-attachment: fixed;
             background-size: cover;   
         }
     </style>
-
 
 <header>
     <div class="head-logo2">
@@ -71,16 +69,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 
     <nav class="head-nav">
         <?php if ($faction): ?>
+            <!-- Si l'utilisateur fait partie de l'Adeptus Mechanicus -->
             <a href="parloir.php">Parloir</a>
         <?php else: ?>
+            <!-- Si l'utilisateur n'est pas dans l'Adeptus Mechanicus -->
             <a href="profil_utilisateur.php">Profil</a>
             <a href="Dec.php">Déconnexion</a>
         <?php endif; ?>
     </nav>
 </header>
 
-
 <div class="container">
+    <!-- Affichage d'une pensée aléatoire -->
+    <h3 class="pensee"></h3>
+
+    <script>
+        const pensees = <?php echo json_encode($pensees); ?>;
+
+        // Fonction pour afficher une pensée aléatoire
+        function afficherPenseeAleatoire() {
+            const indexAleatoire = Math.floor(Math.random() * pensees.length);
+            document.querySelector('.pensee').textContent = pensees[indexAleatoire];
+        }
+
+        // Afficher une pensée aléatoire au chargement de la page
+        afficherPenseeAleatoire();
+
+        // Changer la pensée toutes les 10 secondes
+        setInterval(afficherPenseeAleatoire, 10000);
+    </script>
+
     <?php if ($faction): ?>
         <h1>Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
 
@@ -88,18 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
         <?php endif; ?>
 
-        <div class="quotes">
-            <p class="quote quote-1">"On dit qu'il est impossible pour un homme de devenir comme la Machine. Mais seul le plus petit des esprits s'efforce de comprendre ses limites."</p>
-            <p class="quote quote-2">"Seule la chair vacille, la Machine, elle, n'est jamais corrompue."</p>
-            <p class="quote quote-3">"La connaissance est le pouvoir, et le pouvoir est dangereux."</p>
-            <p class="quote quote-4">"Et comme les armes bénies par l'Omnimessie vous servent, vous les servirez. Préservez-les de la honte de la défaite."</p>
-        </div>
-
-
     <?php else: ?>
-    
         <div class="actions">
-            <h2>Faites votre demandes</h2>
+            <h2>Faites votre demande</h2>
             <form action="eglise.php" method="post">
                 <label for="request_type">Type d'entretien :</label>
                 <select id="request_type" name="request_type" required>
@@ -143,20 +152,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
     <?php endif; ?>
 </div>
 
-<script>
-        const pensees = <?php echo json_encode($pensees); ?>;
-
-        // Fonction pour afficher une pensée aléatoire
-        function afficherPenseeAleatoire() {
-            const indexAleatoire = Math.floor(Math.random() * pensees.length);
-            document.querySelector('.pensee').textContent = pensees[indexAleatoire];
-        }
-
-        // Afficher une pensée aléatoire au chargement de la page
-        afficherPenseeAleatoire();
-
-        // Changer la pensée toutes les 10 secondes
-        setInterval(afficherPenseeAleatoire, 10000);
-    </script>
 </body>
 </html>
