@@ -6,6 +6,12 @@ if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
 }
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$pdo->exec("SET NAMES 'utf8'");
+
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
