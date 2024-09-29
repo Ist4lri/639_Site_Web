@@ -3,20 +3,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['utilisateur'])) {
-    echo "Données utilisateur non disponibles.";
-    exit();
-}
+$stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
+$stmt->execute(['email' => $_SESSION['utilisateur']]);
+$currentUser = $stmt->fetch();
 
-$currentUser = $_SESSION['utilisateur'];
-
-if (isset($currentUser['id'])) {
-    $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
-    $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
-    $faction = $factionStmt->fetch();
-} else {
-    echo "Utilisateur non identifié.";
-}
+$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
+$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$faction = $factionStmt->fetch();
 ?>
 
 <header>
