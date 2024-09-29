@@ -7,12 +7,10 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// Gérer les actions Accepter et Rejeter
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_POST['demande_id'])) {
     $action = $_POST['action'];
     $demandeId = $_POST['demande_id'];
 
-    // Ajuster les actions en fonction du statut de la BDD
     if ($action == 'Accepter') {
         $updateStmt = $pdo->prepare("UPDATE demande_mechanicus SET status = 'acceptee' WHERE id = ?");
         $updateStmt->execute([$demandeId]);
@@ -25,10 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
     header("Location: demande_mechanicus.php");
     exit();
 }
-
-$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
-$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
-$faction = $factionStmt->fetch();
 
 // Récupérer toutes les demandes Mechanicus avec possibilité de recherche par nom, date et statut
 $searchNom = isset($_GET['search_nom']) ? trim($_GET['search_nom']) : '';
