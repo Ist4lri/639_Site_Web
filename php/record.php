@@ -163,10 +163,6 @@ if ($searchUser) {
             color: blue;
         }
 
-        .zeus {
-            background-color: orange;
-            color: white;
-        }
     </style>
 </head>
 <body>
