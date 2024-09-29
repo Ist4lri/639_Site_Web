@@ -8,13 +8,10 @@ if (!isset($_SESSION['utilisateur'])) {
 }
 $currentUser = $_SESSION['utilisateur'];
 
-// Vérifier que l'utilisateur est bien défini et que l'id existe
 if (isset($currentUser['id'])) {
     $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
     $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
     $faction = $factionStmt->fetch();
-} else {
-    echo "Données utilisateur non disponibles.";
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_POST['demande_id'])) {
@@ -29,23 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
         $updateStmt->execute([$demandeId]);
     }
 
-    // Rediriger pour éviter le re-post
     header("Location: demande_mechanicus.php");
     exit();
 }
 
-// Récupérer toutes les demandes Mechanicus avec possibilité de recherche par nom, date et statut
 $searchNom = isset($_GET['search_nom']) ? trim($_GET['search_nom']) : '';
 $searchDate = isset($_GET['search_date']) ? trim($_GET['search_date']) : '';
 $searchStatus = isset($_GET['search_status']) ? trim($_GET['search_status']) : '';
 
-// Construire la requête de base
 $query = "SELECT dm.id, u.nom AS utilisateur, dm.type_entretien, dm.description, dm.status, dm.date_creation 
           FROM demande_mechanicus dm 
           JOIN utilisateurs u ON dm.id_utilisateur = u.id 
           WHERE 1=1";
 
-// Ajouter des conditions de recherche si elles existent
 $params = [];
 
 if (!empty($searchNom)) {
