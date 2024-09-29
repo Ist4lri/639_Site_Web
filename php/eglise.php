@@ -67,16 +67,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 
     <nav class="head-nav">
         <?php if ($faction): ?>
-            <!-- Si l'utilisateur fait partie de l'Adeptus Mechanicus -->
             <a href="parloir.php">Parloir</a>
         <?php else: ?>
-            <!-- Si l'utilisateur n'est pas dans l'Adeptus Mechanicus -->
             <a href="profil_utilisateur.php">Profil</a>
             <a href="Dec.php">Déconnexion</a>
         <?php endif; ?>
     </nav>
 </header>
 
+    <h3 class="pensee"></h3>
 <div class="container">
     <?php if ($faction): ?>
         <h1>Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
@@ -94,6 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
 
 
     <?php else: ?>
+    
         <div class="actions">
             <h2>Faites votre demandes</h2>
             <form action="eglise.php" method="post">
@@ -139,5 +139,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
     <?php endif; ?>
 </div>
 
+
+    <script>
+    const pensees = [
+        "Puisse la colère de l'Empereur purifier nos âmes",
+        "Un esprit faible est un esprit clair",
+        "Un esprit simple est aisément empli par la Foi",
+        "Il n'existe que l'Empereur et il est notre guide et notre bouclier",
+        "La prière purifie l'esprit mais la douleur purifie le corps",
+        "L'innocence ne prouve rien",
+        "Le savoir c'est le pouvoir. Cachez-le bien",
+        "La douleur est une illusion des sens, le désespoir une illusion de l'esprit.",
+        "Aucune armée n'est assez puissante pour conquérir la galaxie mais la foi peut renverser l'univers",
+        "Toute tolérance n'est que trahison",
+        "L'ignorance est une bénédiction que le sage aurait tort d'ignorer",
+        "Les véritables héros comptent sur la foi aveugle"
+    ];
+
+    function afficherPenseeAleatoire() {
+        const indexAleatoire = Math.floor(Math.random() * pensees.length);
+        document.querySelector('.pensee').textContent = pensees[indexAleatoire];
+    }
+
+    afficherPenseeAleatoire();
+
+
+    setInterval(afficherPenseeAleatoire, 10000);
+</script>
 </body>
 </html>
