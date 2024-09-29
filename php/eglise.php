@@ -23,6 +23,8 @@ $message = '';
 $penseeStmt = $pdo->query("SELECT text FROM Pensee");
 $pensees = $penseeStmt->fetchAll(PDO::FETCH_COLUMN);
 
+var_dump($pensees);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
     $requestType = $_POST['request_type'];
     $description = trim($_POST['request_description']);
