@@ -72,6 +72,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
             text-align: left;
             font-size: 18px;
             letter-spacing: 2px;
+            background-color: black;
         }
         th {
             background-color: lime;
