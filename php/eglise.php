@@ -95,7 +95,7 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="container">
     <h3 class="pensee transition" style="font-family: 'Inquisitor', Serif;
-    color: #f0e68c;
+    color: #928c10;
     font-size: 1.6em; 
     text-align: center; 
     margin: 5px;
