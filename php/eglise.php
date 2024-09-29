@@ -47,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
     <link rel="stylesheet" href="../css/ecclesiarchie.css">
 </head>
 <body>
+        <h3 class="pensee"></h3>
     <style>
         body{
             background-image: url('../src/assets/Bougie.png');
@@ -75,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
     </nav>
 </header>
 
-    <h3 class="pensee"></h3>
+
 <div class="container">
     <?php if ($faction): ?>
         <h1>Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
