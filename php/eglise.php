@@ -98,7 +98,8 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
     color: #f0e68c;
     font-size: 1.5em; 
     text-align: center; 
-    margin: 5px">COUCOU</h3>
+    margin: 5px;
+    letter-spacing: 2px">COUCOU</h3>
 
    <script>
     const pensees = <?php echo json_encode($pensees); ?>;
