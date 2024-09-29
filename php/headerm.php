@@ -1,7 +1,9 @@
 <?php
-$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
-$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
-$faction = $factionStmt->fetch();
+if (isset($currentUser) && isset($currentUser['id'])) {
+    $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
+    $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+    $faction = $factionStmt->fetch();
+} 
 ?>
 
 <header>
