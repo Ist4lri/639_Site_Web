@@ -1,9 +1,20 @@
 <?php
-if (isset($currentUser) && isset($currentUser['id'])) {
+session_start();
+if (!isset($_SESSION['utilisateur'])) {
+    echo "Utilisateur non connecté";
+    exit();
+}
+
+$currentUser = $_SESSION['utilisateur'];
+
+if (isset($currentUser['id'])) {
     $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
     $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
     $faction = $factionStmt->fetch();
-} 
+} else {
+    echo "Données utilisateur non disponibles.";
+}
+
 ?>
 
 <header>
