@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_P
     exit();
 }
 
-$userPersonnageStmt = $pdo->prepare("SELECT id FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter' AND gerance = 1");
-$userPersonnageStmt->execute(['id_utilisateur' => $currentUser['id']]);
-$userPersonnage = $userPersonnageStmt->fetch();
+$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
+$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$faction = $factionStmt->fetch();
 
 // Récupérer toutes les demandes Mechanicus avec possibilité de recherche par nom, date et statut
 $searchNom = isset($_GET['search_nom']) ? trim($_GET['search_nom']) : '';
