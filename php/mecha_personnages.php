@@ -100,7 +100,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
     <table>
         <tr>
             <th>Nom</th>
-            <th>Grade Mecha</th>
+            <th>Rang</th>
             <?php if ($userPersonnage): ?>
             <th>Actions</th>
             <?php endif; ?>
@@ -115,7 +115,7 @@ $mechaPersonnages = $mechaStmt->fetchAll();
                     <input type="hidden" name="personnage_id" value="<?php echo $personnage['id']; ?>">
                     <label for="grade_mecha">Changer Grade Mecha:</label>
                     <select name="grade_mecha" required>
-                        <option value="TechnoPretre">TechnoPretre</option>
+                        <option value="Technaugure">Technaugure</option>
                         <option value="Magos">Magos</option>
                         <option value="Servitor">Servitor</option>
                     </select>
