@@ -84,19 +84,29 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="container">
     <h3 class="pensee">COUCOU</h3>
 
-    <script>
-        const pensees = <?php echo json_encode($pensees); ?>;
+   <script>
+    const pensees = <?php echo json_encode($pensees); ?>;
 
-        function afficherPenseeAleatoire() {
+    console.log("Pensees récupérées:", pensees); // Ajout d'un log pour afficher les pensées
+
+    // Fonction pour afficher une pensée aléatoire
+    function afficherPenseeAleatoire() {
+        if (pensees.length > 0) {
             const indexAleatoire = Math.floor(Math.random() * pensees.length);
+            console.log("Index sélectionné:", indexAleatoire); // Log pour afficher l'index sélectionné
             document.querySelector('.pensee').textContent = pensees[indexAleatoire];
+        } else {
+            console.log("Aucune pensée disponible");
+            document.querySelector('.pensee').textContent = "Aucune pensée disponible";
         }
+    }
 
-        afficherPenseeAleatoire();
+    // Afficher une pensée aléatoire au chargement de la page
+    afficherPenseeAleatoire();
 
-        setInterval(afficherPenseeAleatoire, 10000);
-    </script>
-
+    // Changer la pensée toutes les 10 secondes
+    setInterval(afficherPenseeAleatoire, 10000);
+</script>
     <?php if ($faction): ?>
         <h1>Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
 
