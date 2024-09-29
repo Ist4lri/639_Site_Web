@@ -92,24 +92,21 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
    <script>
     const pensees = <?php echo json_encode($pensees); ?>;
 
-    console.log("Pensees récupérées:", pensees); // Ajout d'un log pour afficher les pensées
+    console.log("Pensees récupérées:", pensees); 
 
-    // Fonction pour afficher une pensée aléatoire
     function afficherPenseeAleatoire() {
         if (pensees.length > 0) {
             const indexAleatoire = Math.floor(Math.random() * pensees.length);
-            console.log("Index sélectionné:", indexAleatoire); // Log pour afficher l'index sélectionné
-            document.querySelector('.pensee').textContent = pensees[indexAleatoire];
+            console.log("Index sélectionné:", indexAleatoire); 
+            document.querySelector('.pensee').textContent = `"${pensees[indexAleatoire]}"`
         } else {
             console.log("Aucune pensée disponible");
             document.querySelector('.pensee').textContent = "Aucune pensée disponible";
         }
     }
 
-    // Afficher une pensée aléatoire au chargement de la page
     afficherPenseeAleatoire();
 
-    // Changer la pensée toutes les 10 secondes
     setInterval(afficherPenseeAleatoire, 10000);
 </script>
     <?php if ($faction): ?>
