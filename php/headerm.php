@@ -1,7 +1,10 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (!isset($_SESSION['utilisateur'])) {
-    echo "Utilisateur non connecté";
+    echo "Données utilisateur non disponibles.";
     exit();
 }
 
@@ -12,9 +15,8 @@ if (isset($currentUser['id'])) {
     $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
     $faction = $factionStmt->fetch();
 } else {
-    echo "Données utilisateur non disponibles.";
+    echo "Utilisateur non identifié.";
 }
-
 ?>
 
 <header>
