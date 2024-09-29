@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
     <link rel="stylesheet" href="../css/ecclesiarchie.css">
 </head>
 <body>
-        <h3 class="pensee"></h3>
+        <h3 class="pensees"></h3>
     <style>
         body{
             background-image: url('../src/assets/Bougie.png');
