@@ -94,32 +94,48 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <div class="container">
-    <h3 class="pensee" style="font-family: 'Inquisitor', Serif;
+    <h3 class="pensee transition" style="font-family: 'Inquisitor', Serif;
     color: #f0e68c;
     font-size: 1.5em; 
     text-align: center; 
     margin: 5px;
     letter-spacing: 2px">COUCOU</h3>
 
+<style>
+    .pensee.transition {
+        transition: opacity 1s ease-in-out;
+    }
+
+    .pensee.hide {
+        opacity: 0;
+    }
+</style>
+
+
    <script>
     const pensees = <?php echo json_encode($pensees); ?>;
 
-    console.log("Pensees récupérées:", pensees); 
+console.log("Pensees récupérées:", pensees);
 
-    function afficherPenseeAleatoire() {
-        if (pensees.length > 0) {
-            const indexAleatoire = Math.floor(Math.random() * pensees.length);
-            console.log("Index sélectionné:", indexAleatoire); 
-            document.querySelector('.pensee').textContent = `"${pensees[indexAleatoire]}"`
-        } else {
-            console.log("Aucune pensée disponible");
-            document.querySelector('.pensee').textContent = "Aucune pensée disponible";
-        }
+function afficherPenseeAleatoire() {
+    if (pensees.length > 0) {
+        const indexAleatoire = Math.floor(Math.random() * pensees.length);
+        const penseeElement = document.querySelector('.pensee');
+        
+        penseeElement.classList.add('hide');
+        
+        setTimeout(() => {
+            penseeElement.textContent = `"${pensees[indexAleatoire]}"`;
+            
+            penseeElement.classList.remove('hide');
+        }, 1000); 
+    } else {
+        console.log("Aucune pensée disponible");
+        document.querySelector('.pensee').textContent = "Aucune pensée disponible";
     }
-
-    afficherPenseeAleatoire();
-
-    setInterval(afficherPenseeAleatoire, 10000);
+}
+afficherPenseeAleatoire();
+setInterval(afficherPenseeAleatoire, 10000);
 </script>
     <?php if ($faction): ?>
         <h1>Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
