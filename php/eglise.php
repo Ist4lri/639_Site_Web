@@ -58,6 +58,13 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <style>
+@font-face {
+    font-family: 'Inquisitor';
+    src: url('../css/fonts/Inquisitor.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    
+}
         body {
             background-image: url('../src/assets/Bougie.png');
             background-repeat: no-repeat;
