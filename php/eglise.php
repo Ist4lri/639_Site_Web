@@ -19,6 +19,9 @@ $faction = $factionStmt->fetch();
 
 $message = '';
 
+$penseeStmt = $pdo->query("SELECT text FROM Pensee");
+$pensees = $penseeStmt->fetchAll(PDO::FETCH_COLUMN);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
     $requestType = $_POST['request_type'];
     $description = trim($_POST['request_description']);
@@ -140,32 +143,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST
     <?php endif; ?>
 </div>
 
+<script>
+        const pensees = <?php echo json_encode($pensees); ?>;
 
-    <script>
-    const pensees = [
-        "Puisse la colère de l'Empereur purifier nos âmes",
-        "Un esprit faible est un esprit clair",
-        "Un esprit simple est aisément empli par la Foi",
-        "Il n'existe que l'Empereur et il est notre guide et notre bouclier",
-        "La prière purifie l'esprit mais la douleur purifie le corps",
-        "L'innocence ne prouve rien",
-        "Le savoir c'est le pouvoir. Cachez-le bien",
-        "La douleur est une illusion des sens, le désespoir une illusion de l'esprit.",
-        "Aucune armée n'est assez puissante pour conquérir la galaxie mais la foi peut renverser l'univers",
-        "Toute tolérance n'est que trahison",
-        "L'ignorance est une bénédiction que le sage aurait tort d'ignorer",
-        "Les véritables héros comptent sur la foi aveugle"
-    ];
+        // Fonction pour afficher une pensée aléatoire
+        function afficherPenseeAleatoire() {
+            const indexAleatoire = Math.floor(Math.random() * pensees.length);
+            document.querySelector('.pensee').textContent = pensees[indexAleatoire];
+        }
 
-    function afficherPenseeAleatoire() {
-        const indexAleatoire = Math.floor(Math.random() * pensees.length);
-        document.querySelector('.pensee').textContent = pensees[indexAleatoire];
-    }
+        // Afficher une pensée aléatoire au chargement de la page
+        afficherPenseeAleatoire();
 
-    afficherPenseeAleatoire();
-
-
-    setInterval(afficherPenseeAleatoire, 10000);
-</script>
+        // Changer la pensée toutes les 10 secondes
+        setInterval(afficherPenseeAleatoire, 10000);
+    </script>
 </body>
 </html>
