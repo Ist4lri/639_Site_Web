@@ -142,19 +142,19 @@ if ($searchUser) {
             text-align: left;
         }
 
-        .campaign-table {
+        table {
             width: 95%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .campaign-table th, .campaign-table td {
+        th,td {
             border: 1px solid black;
             padding: 10px;
             text-align: center;
         }
 
-        .campaign-table th {
+        th {
             background-color: green;
             color: white;
         }
@@ -170,9 +170,10 @@ if ($searchUser) {
     </style>
 </head>
 <body>
-
+<div class="top-links">
   <a href=campagne.php class=zeus> Campagne </a>
 <a href=../index.php> Acceuil </a>
+</div>
  <form method="get" action="record.php">
   
     <label for="search_user">Rechercher par Nom de Mappeur ou Zeus :</label>
