@@ -6,6 +6,16 @@ if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
 }
+$currentUser = $_SESSION['utilisateur'];
+
+// Vérifier que l'utilisateur est bien défini et que l'id existe
+if (isset($currentUser['id'])) {
+    $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Adeptus Mechanicus' AND validation = 'Accepter'");
+    $factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+    $faction = $factionStmt->fetch();
+} else {
+    echo "Données utilisateur non disponibles.";
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && isset($_POST['demande_id'])) {
     $action = $_POST['action'];
