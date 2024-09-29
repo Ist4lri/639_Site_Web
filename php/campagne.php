@@ -285,7 +285,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (count($result) > 0) {
             foreach ($result as $row) {
                 echo "<tr>";
-                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+                echo "<td>" . htmlspecialchars(date('d/m/Y', strtotime($row['date']))) . "</td>";
                 echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['missions']) . "</td>";
                 echo "<td class='mappeur'>" . htmlspecialchars($row['mappeur'] ?? 'Personne') . "</td>";
