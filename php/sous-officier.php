@@ -25,6 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+if (isset($_POST['nouvelle_gerance'])) {
+        $nouvelleGerance = $_POST['nouvelle_gerance'];
+        $stmt = $pdo->prepare("UPDATE utilisateurs SET gerance = :nouvelle_gerance WHERE id = :id");
+        $stmt->execute(['nouvelle_gerance' => $nouvelleGerance, 'id' => $userId]);
+    }
+
 // Rechercher par nom ou spécialité
 $searchNom = isset($_GET['search_nom']) ? $_GET['search_nom'] : '';
 $searchSpe = isset($_GET['search_spe']) ? $_GET['search_spe'] : '';
