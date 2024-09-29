@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Inquisitor';
+    src: url('fonts/Inquisitor.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -42,6 +50,14 @@ header {
 h1, h2 {
     color: #f0e68c;
     text-align: center;
+}
+
+h3{
+    position: absolute;
+    font-family: 'Inquisitor', Serif;
+    color: #f0e68c;
+    text-align: center;
+    top: 170;
 }
 
 form {
