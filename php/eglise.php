@@ -123,8 +123,8 @@ $pensees = $penseesStmt->fetchAll(PDO::FETCH_COLUMN);
 
 
   <script>
-    // Assurez-vous que json_encode retourne toujours un tableau valide.
-    const pensees = <?php echo json_encode($pensees ?? []); ?>;
+    var_dump($pensees); // Ajoutez cette ligne pour voir les pensées récupérées
+const pensees = <?php echo json_encode($pensees ?? []); ?>;
 
     console.log("Pensees récupérées:", pensees);
 
