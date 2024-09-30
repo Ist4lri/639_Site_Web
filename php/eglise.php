@@ -1,50 +1,53 @@
 <?php
 session_start();
-include 'db.php';
 
-if (!isset($_SESSION['utilisateur'])) {
+// Vérifiez si l'utilisateur est connecté
+if (!isset($_SESSION['id_utilisateur'])) {
+    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
     header("Location: connection.php");
     exit();
 }
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-$pdo->exec("SET NAMES 'utf8'");
+// Inclure la connexion à la base de données
+include 'db.php';
 
+// Si l'utilisateur est connecté, vous pouvez afficher ses informations
+$userId = $_SESSION['id_utilisateur'];
+$nomUtilisateur = $_SESSION['nom_utilisateur'];
 
-// Récupérer l'utilisateur actuel
-$stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
-$stmt->execute(['email' => $_SESSION['utilisateur']]);
-$currentUser = $stmt->fetch();
-
-// Vérifier si l'utilisateur fait partie de la faction Eglise
 $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Ecclesiarchie' AND validation = 'Accepter'");
-$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$factionStmt->execute(['id_utilisateur' => $userId]);
 $faction = $factionStmt->fetch();
 
-$message = '';
+// Système de recherche par type d'entretien et nom (si applicable)
+$searchQuery = "";
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $searchType = isset($_GET['search_type']) ? $_GET['search_type'] : '';
+    $searchName = isset($_GET['search_name']) ? $_GET['search_name'] : '';
 
-// Requête pour récupérer les pensées en BDD
-$penseeStmt = $pdo->query("SELECT text FROM Pensee");
-$pensees = $penseeStmt->fetchAll(PDO::FETCH_COLUMN);
+    // Filtrer par type d'entretien ou par nom
+    $sql = "SELECT * FROM demande_eccle WHERE id_utilisateur = ?";
+    $params = [$userId];
 
+    if (!empty($searchType)) {
+        $sql .= " AND type_entretien LIKE ?";
+        $params[] = '%' . $searchType . '%';
+    }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
-    $requestType = $_POST['request_type'];
-    $description = trim($_POST['request_description']);
+    if (!empty($searchName)) {
+        $sql .= " AND description LIKE ?";
+        $params[] = '%' . $searchName . '%';
+    }
 
-    // Insérer la demande avec la description fournie par l'utilisateur
-    $insertStmt = $pdo->prepare("INSERT INTO demande_eccle (id_utilisateur, type_entretien, description) VALUES (?, ?, ?)");
-    $insertStmt->execute([$currentUser['id'], $requestType, $description]);
-
-    $message = "Votre demande a été soumise avec succès pour un entretien $requestType.";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Récupérer toutes les demandes de l'utilisateur connecté s'il n'y a pas de recherche
+    $stmt = $pdo->prepare("SELECT * FROM demande_eccle WHERE id_utilisateur = ?");
+    $stmt->execute([$userId]);
+    $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-// Récupérer les demandes de l'utilisateur
-$demandeStmt = $pdo->prepare("SELECT type_entretien, description, status, date_creation FROM demande_eccle WHERE id_utilisateur = ?");
-$demandeStmt->execute([$currentUser['id']]);
-$demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
