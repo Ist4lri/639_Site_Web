@@ -15,18 +15,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($user && password_verify($mot_de_passe, $user['mot_de_passe'])) {
             if ($user['confirmation'] == 1 && $user['banni'] == 0) {
-                // Stocker toutes les informations utilisateur dans la clé 'utilisateur'
-                $_SESSION['utilisateur'] = [
-                    'id' => $user['id'],
-                    'email' => $user['email'],
-                    'nom' => $user['nom'],
-                    'role' => $user['role']
-                ];
-
+                $_SESSION['id_utilisateur'] = $user['id'];  
+                $_SESSION['utilisateur'] = $user['email'];
+                $_SESSION['nom_utilisateur'] = $user['nom'];
+                $_SESSION['role'] = $user['role'];
+                
+                
                 header("Location: ../index.php");
                 exit;
             } else {
-                $error_message = "Votre compte n'a pas encore été validé, ou est banni.";
+                $error_message = "Votre compte n'a pas encore été validé, ou est banni";
             }
         } else {
             $error_message = "Email ou mot de passe incorrect.";
@@ -36,9 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Affichage d'un message si l'utilisateur est déjà connecté
 if (isset($_SESSION['utilisateur'])) {
-    echo "Vous êtes déjà connecté en tant que " . htmlspecialchars($_SESSION['utilisateur']['nom']) . ".";
+    echo "Vous êtes déjà connecté en tant que " . htmlspecialchars($_SESSION['utilisateur']) . ".";
     echo '<br><a href="Dec.php">Se déconnecter</a>';
 } else {
 ?>
