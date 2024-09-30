@@ -60,6 +60,30 @@ if ($personnage) {
     $nomPersonnage = "Aucun personnage trouvé"; // Valeur par défaut si aucun personnage n'est trouvé
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_demande'], $_POST['action'])) {
+    $idDemande = $_POST['id_demande'];
+    $action = $_POST['action'];
+
+    // Définir le nouveau statut en fonction de l'action
+    if ($action === 'accepter') {
+        $nouveauStatus = 'Accepté';
+    } elseif ($action === 'rejeter') {
+        $nouveauStatus = 'Rejeté';
+    }
+
+    // Mettre à jour le statut dans la base de données
+    $updateStmt = $pdo->prepare("UPDATE demande_eccle SET status = :status WHERE id = :id_demande");
+    $updateStmt->execute([
+        'status' => $nouveauStatus,
+        'id_demande' => $idDemande
+    ]);
+
+    // Rediriger pour éviter la soumission du formulaire lors d'un rafraîchissement de page
+    header("Location: parloir.php");
+    exit();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -124,32 +148,40 @@ if ($personnage) {
     </form>
 
     <!-- Affichage des demandes dans un tableau -->
-    <table>
-        <thead>
-            <tr>
-                <th>Type d'entretien</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Date de création</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($demandes)): ?>
-                <?php foreach ($demandes as $demande): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($demande['type_entretien']); ?></td>
-                        <td><?php echo htmlspecialchars($demande['description']); ?></td>
-                        <td><?php echo htmlspecialchars($demande['status']); ?></td>
-                        <td><?php echo htmlspecialchars(date('d/m/Y', strtotime($demande['date_creation']))); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+<table>
+    <thead>
+        <tr>
+            <th>Type d'entretien</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date de création</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($demandes)): ?>
+            <?php foreach ($demandes as $demande): ?>
                 <tr>
-                    <td colspan="4">Aucune demande trouvée.</td>
+                    <td><?php echo htmlspecialchars($demande['type_entretien']); ?></td>
+                    <td><?php echo htmlspecialchars($demande['description']); ?></td>
+                    <td><?php echo htmlspecialchars($demande['status']); ?></td>
+                    <td><?php echo htmlspecialchars(date('d/m/Y', strtotime($demande['date_creation']))); ?></td>
+                    <td>
+                        <form method="POST" action="parloir.php">
+                            <input type="hidden" name="id_demande" value="<?php echo $demande['id']; ?>">
+                            <button type="submit" name="action" value="accepter">Accepter</button>
+                            <button type="submit" name="action" value="rejeter">Rejeter</button>
+                        </form>
+                    </td>
                 </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="5">Aucune demande trouvée.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 </div>
 
 </body>
