@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-$personnageStmt = $pdo->prepare("SELECT nom FROM personnages WHERE id_utilisateur = :id_utilisateur LIMIT 1");
+$personnageStmt = $pdo->prepare("SELECT nom FROM personnages WHERE id_utilisateur = :id_utilisateur LIMIT 1 AND faction = 'Ecclesiarchie' AND validation = 'Accepter'");
 $personnageStmt->execute(['id_utilisateur' => $userId]); // $userId est l'ID de l'utilisateur stocké dans la session
 $personnage = $personnageStmt->fetch(PDO::FETCH_ASSOC);
 
