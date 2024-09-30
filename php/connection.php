@@ -1,9 +1,5 @@
 <?php
 session_start();
-$_SESSION['utilisateur'] = [
-    'id' => $user['id'], // L'ID utilisateur de la base de données
-    'nom' => $user['nom'],
-    'email' => $user['email']
 
 include 'db.php';
 
