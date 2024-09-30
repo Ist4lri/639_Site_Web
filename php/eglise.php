@@ -50,6 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+// Supposons que vous obteniez les pensées depuis la base de données
+$penseesStmt = $pdo->prepare("SELECT text FROM Pensee");
+$penseesStmt->execute();
+$pensees = $penseesStmt->fetchAll(PDO::FETCH_COLUMN);
+
+
 ?>
 
 <!DOCTYPE html>
