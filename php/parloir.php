@@ -15,8 +15,9 @@ include 'db.php';
 $userId = $_SESSION['id_utilisateur'];
 $nomUtilisateur = $_SESSION['nom_utilisateur'];
 
+// Requête pour vérifier si l'utilisateur fait partie de l'Ecclesiarchie
 $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Ecclesiarchie' AND validation = 'Accepter'");
-$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$factionStmt->execute(['id_utilisateur' => $userId]); // Remplacer $currentUser['id'] par $userId
 $faction = $factionStmt->fetch();
 
 // Système de recherche par type d'entretien et nom (si applicable)
