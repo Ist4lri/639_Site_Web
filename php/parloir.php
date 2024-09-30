@@ -2,12 +2,19 @@
 session_start();
 include 'db.php';
 
+// Vérifier si l'utilisateur est bien connecté
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: connection.php");
     exit();
 }
 
+// Assigner l'utilisateur à une variable
 $currentUser = $_SESSION['utilisateur'];
+
+// Assurez-vous que la clé 'id' existe dans $currentUser
+if (!isset($currentUser['id'])) {
+    die('Erreur : L\'ID utilisateur est introuvable.');
+}
 
 // Vérifier si un formulaire a été soumis pour créer une demande
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request_type'], $_POST['request_description'])) {
@@ -49,6 +56,7 @@ $demandeStmt = $pdo->prepare($query);
 $demandeStmt->execute($params);
 $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
