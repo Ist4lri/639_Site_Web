@@ -1,5 +1,9 @@
 <?php
 session_start();
+$_SESSION['utilisateur'] = [
+    'id' => $user['id'], // L'ID utilisateur de la base de données
+    'nom' => $user['nom'],
+    'email' => $user['email']
 
 include 'db.php';
 
@@ -19,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['utilisateur'] = $user['email'];
                 $_SESSION['nom_utilisateur'] = $user['nom'];
                 $_SESSION['role'] = $user['role'];
+                
                 
                 header("Location: ../index.php");
                 exit;
