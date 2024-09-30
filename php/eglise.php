@@ -122,31 +122,40 @@ $pensees = $penseesStmt->fetchAll(PDO::FETCH_COLUMN);
 </style>
 
 
-   <script>
+  <script>
+    // Assurez-vous que la variable pensees existe et contient un tableau
     const pensees = <?php echo json_encode($pensees); ?>;
 
-console.log("Pensees récupérées:", pensees);
+    console.log("Pensees récupérées:", pensees);
 
-function afficherPenseeAleatoire() {
-    if (pensees.length > 0) {
-        const indexAleatoire = Math.floor(Math.random() * pensees.length);
-        const penseeElement = document.querySelector('.pensee');
-        
-        penseeElement.classList.add('hide');
-        
-        setTimeout(() => {
-            penseeElement.textContent = `"${pensees[indexAleatoire]}"`;
+    function afficherPenseeAleatoire() {
+        if (pensees.length > 0) {
+            const indexAleatoire = Math.floor(Math.random() * pensees.length);
+            const penseeElement = document.querySelector('.pensee');
             
-            penseeElement.classList.remove('hide');
-        }, 1000); 
-    } else {
-        console.log("Aucune pensée disponible");
-        document.querySelector('.pensee').textContent = "Aucune pensée disponible";
+            // Masquer l'élément avant de changer le texte
+            penseeElement.classList.add('hide');
+            
+            setTimeout(() => {
+                // Afficher une pensée aléatoire
+                penseeElement.textContent = `"${pensees[indexAleatoire]}"`;
+                
+                // Réafficher l'élément après 1 seconde
+                penseeElement.classList.remove('hide');
+            }, 1000); 
+        } else {
+            console.log("Aucune pensée disponible");
+            document.querySelector('.pensee').textContent = "Aucune pensée disponible";
+        }
     }
-}
-afficherPenseeAleatoire();
-setInterval(afficherPenseeAleatoire, 10000);
+
+    // Afficher une pensée immédiatement au chargement
+    afficherPenseeAleatoire();
+
+    // Changer la pensée toutes les 10 secondes
+    setInterval(afficherPenseeAleatoire, 10000);
 </script>
+
     <?php if ($faction): ?>
         <h1 style="font-family: 'Inquisitor', Serif;
 font-size: 1.6em; 
