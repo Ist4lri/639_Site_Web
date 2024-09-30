@@ -50,6 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+$personnageStmt = $pdo->prepare("SELECT nom FROM personnages WHERE id_utilisateur = :id_utilisateur LIMIT 1");
+$personnageStmt->execute(['id_utilisateur' => $userId]); // $userId est l'ID de l'utilisateur stocké dans la session
+$personnage = $personnageStmt->fetch(PDO::FETCH_ASSOC);
+
+if ($personnage) {
+    $nomPersonnage = $personnage['nom'];
+} else {
+    $nomPersonnage = "Aucun personnage trouvé"; // Valeur par défaut si aucun personnage n'est trouvé
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -99,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 <body>
 
 <div class="container">
-    <h2>Bienvenue, <?php echo htmlspecialchars($nomUtilisateur); ?> !</h2>
+    <h2>Bienvenue, <?php echo htmlspecialchars($nompersonnage); ?> !</h2>
     <h3>Voici vos demandes d'entretien :</h3>
 
     <!-- Formulaire de recherche -->
