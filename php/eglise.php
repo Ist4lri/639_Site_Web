@@ -139,12 +139,6 @@ setInterval(afficherPenseeAleatoire, 10000);
 </script>
     <?php if ($faction): ?>
         <h1>Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
-            <h3 class="pensee transition" style="font-family: 'Inquisitor', Serif;
-    color: #928c10;
-    font-size: 1.6em; 
-    text-align: center; 
-    margin: 5px;
-    letter-spacing: 3px">COUCOU</h3>
         <?php if ($message): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
         <?php endif; ?>
