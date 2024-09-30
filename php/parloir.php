@@ -109,7 +109,7 @@ if ($personnage) {
 <body>
 
 <div class="container">
-    <h2>Bienvenue, <?php echo htmlspecialchars($nompersonnage); ?> !</h2>
+    <h2>Bienvenue, <?php echo htmlspecialchars($nomPersonnage); ?> !</h2>
     <h3>Voici vos demandes d'entretien :</h3>
 
     <!-- Formulaire de recherche -->
