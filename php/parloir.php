@@ -1,12 +1,18 @@
 <?php
-session_start();
+
 include 'db.php';
 
-// Vérifier si l'utilisateur est bien connecté
-if (!isset($_SESSION['utilisateur'])) {
+session_start();
+
+$isLoggedIn = isset($_SESSION['utilisateur']);
+$userName = $isLoggedIn ? $_SESSION['utilisateur']['nom'] : '';
+$userId = $isLoggedIn ? $_SESSION['utilisateur']['id'] : null;
+
+if (!$isLoggedIn) {
     header("Location: connection.php");
     exit();
 }
+
 
 // Assigner l'utilisateur à une variable
 $currentUser = $_SESSION['utilisateur'];
