@@ -6,7 +6,6 @@ session_start();
 
 $isLoggedIn = isset($_SESSION['utilisateur']);
 $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
-$userId = $isLoggedIn ? $_SESSION['utilisateur']['id'] : null;
 
 if (!$isLoggedIn) {
     header("Location: connection.php");
