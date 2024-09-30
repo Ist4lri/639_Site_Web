@@ -138,7 +138,11 @@ afficherPenseeAleatoire();
 setInterval(afficherPenseeAleatoire, 10000);
 </script>
     <?php if ($faction): ?>
-        <h1 style="font-family: 'Inquisitor', Serif">Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
+        <h1 style="font-family: 'Inquisitor', Serif;
+font-size: 1.6em; 
+    text-align: center; 
+    margin: 5px;
+    letter-spacing: 3px">Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
         <?php if ($message): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
         <?php endif; ?>
