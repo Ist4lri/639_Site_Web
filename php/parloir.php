@@ -15,6 +15,10 @@ include 'db.php';
 $userId = $_SESSION['id_utilisateur'];
 $nomUtilisateur = $_SESSION['nom_utilisateur'];
 
+$factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :id_utilisateur AND faction = 'Ecclesiarchie' AND validation = 'Accepter'");
+$factionStmt->execute(['id_utilisateur' => $currentUser['id']]);
+$faction = $factionStmt->fetch();
+
 // Système de recherche par type d'entretien et nom (si applicable)
 $searchQuery = "";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -55,6 +59,42 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     <title>Parloir - Demandes</title>
     <link rel="stylesheet" href="../css/ecclesiarchie.css"> <!-- Lien vers votre fichier CSS -->
 </head>
+    <style>
+@font-face {
+    font-family: 'Inquisitor';
+    src: url('../css/fonts/Inquisitor.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+        body {
+            background-image: url('../src/assets/Bougie.png');
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-attachment: fixed;
+            background-size: cover;   
+        }
+    </style>
+
+<header>
+    <div class="head-logo2">
+        <a href="../index.php">
+            <img src="../src/assets/Banderole.png" alt="639 Régiment cadien">
+        </a>
+    </div>
+
+    <nav class="head-nav">
+        <?php if ($faction): ?>
+            <!-- Si l'utilisateur fait partie de l'église -->
+            <a href="eglise.php">Porte de l'église</a>
+            <a href="../index.php">Acceuil</a>
+        <?php else: ?>
+            <!-- Si l'utilisateur n'est pas dans l'église -->
+            <a href="profil_utilisateur.php">Profil</a>
+            <a href="Dec.php">Déconnexion</a>
+        <?php endif; ?>
+    </nav>
+</header>
 <body>
 
 <div class="container">
