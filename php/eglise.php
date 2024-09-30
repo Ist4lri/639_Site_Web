@@ -83,10 +83,10 @@ $demandes = $demandeStmt->fetchAll(PDO::FETCH_ASSOC);
 
     <nav class="head-nav">
         <?php if ($faction): ?>
-            <!-- Si l'utilisateur fait partie de l'Adeptus Mechanicus -->
+            <!-- Si l'utilisateur fait partie de l'église -->
             <a href="parloir.php">Parloir</a>
         <?php else: ?>
-            <!-- Si l'utilisateur n'est pas dans l'Adeptus Mechanicus -->
+            <!-- Si l'utilisateur n'est pas dans l'église -->
             <a href="profil_utilisateur.php">Profil</a>
             <a href="Dec.php">Déconnexion</a>
         <?php endif; ?>
@@ -139,7 +139,12 @@ setInterval(afficherPenseeAleatoire, 10000);
 </script>
     <?php if ($faction): ?>
         <h1>Bienvenue, Prêcheur toi la voie de l'Empereur</h1>
-
+            <h3 class="pensee transition" style="font-family: 'Inquisitor', Serif;
+    color: #928c10;
+    font-size: 1.6em; 
+    text-align: center; 
+    margin: 5px;
+    letter-spacing: 3px">COUCOU</h3>
         <?php if ($message): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
         <?php endif; ?>
