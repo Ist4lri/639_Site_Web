@@ -19,6 +19,7 @@ $factionStmt = $pdo->prepare("SELECT * FROM personnages WHERE id_utilisateur = :
 $factionStmt->execute(['id_utilisateur' => $userId]);
 $faction = $factionStmt->fetch();
 
+$message = '';
 // Système de recherche par type d'entretien et nom (si applicable)
 $searchQuery = "";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
