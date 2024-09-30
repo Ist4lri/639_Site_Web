@@ -258,25 +258,25 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="src/assets/Bandevox.png" class="d-block w-100" alt="Image 1">
         </div>
         <div class="carousel-item">
-            <img src="src/assets/Baionette.png" class="d-block w-100" alt="Image 2">
+            <img src="src/assets/Bandeat.png" class="d-block w-100" alt="Image 2">
         </div>
         <div class="carousel-item">
-            <img src="src/assets/image3.jpg" class="d-block w-100" alt="Image 3">
+            <img src="src/assets/Bandebre.png" class="d-block w-100" alt="Image 3">
         </div>
         <div class="carousel-item">
-            <img src="src/assets/image4.jpg" class="d-block w-100" alt="Image 4">
+            <img src="src/assets/Bandeplas.png" class="d-block w-100" alt="Image 4">
         </div>
         <div class="carousel-item">
-            <img src="src/assets/image5.jpg" class="d-block w-100" alt="Image 5">
+            <img src="src/assets/Bandemark.png" class="d-block w-100" alt="Image 5">
         </div>
         <div class="carousel-item">
-            <img src="src/assets/image6.jpg" class="d-block w-100" alt="Image 6">
+            <img src="src/assets/Bandemg.png" class="d-block w-100" alt="Image 6">
         </div>
         <div class="carousel-item">
-            <img src="src/assets/image7.jpg" class="d-block w-100" alt="Image 7">
+            <img src="src/assets/Bandeetl.png" class="d-block w-100" alt="Image 7">
         </div>
         <div class="carousel-item">
-            <img src="src/assets/image8.jpg" class="d-block w-100" alt="Image 8">
+            <img src="src/assets/Bandemed.png" class="d-block w-100" alt="Image 8">
         </div>
     </div>
 </div>
