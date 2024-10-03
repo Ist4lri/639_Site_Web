@@ -4,7 +4,7 @@ body {
     padding: 20px;
     background-color: #2e2e2e;
     color: #f1f1f1;
-    line-height: 1.6; /* Pour une meilleure lisibilité */
+    line-height: 1.6;
 }
 
 h1 {
@@ -25,23 +25,55 @@ h2 {
 .message {
     text-align: center;
     margin-bottom: 20px;
-    color: #28a745; /* Vert pour succès */
+    color: #28a745;
     font-size: 1.2rem;
     font-weight: bold;
 }
 
+/* Style pour les liens */
+a {
+    color: #1e90ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #28a745;
+    text-decoration: underline;
+}
+
+/* Style des formulaires */
 form {
     display: inline-block;
     margin: 5px;
 }
 
+/* Organisation en grille pour les sélections et boutons */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    margin-right: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Style des tables */
 table {
     width: 100%;
     border-collapse: collapse;
     background-color: #3a3a3a;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre pour effet de profondeur */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 th, td {
@@ -76,7 +108,7 @@ select, input[type="submit"] {
 
 input[type="submit"]:hover, select:hover {
     background-color: #28a745;
-    transform: scale(1.05); /* Légère augmentation de taille au survol */
+    transform: scale(1.05);
 }
 
 select {
@@ -86,7 +118,7 @@ select {
 }
 
 input[type="submit"].danger {
-    background-color: #dc3545; /* Rouge pour bannir */
+    background-color: #dc3545;
 }
 
 input[type="submit"].danger:hover {
@@ -94,14 +126,47 @@ input[type="submit"].danger:hover {
 }
 
 input[type="submit"]:active {
-    transform: scale(0.98); /* Réduction légère à l'activation pour un effet interactif */
+    transform: scale(0.98);
 }
 
 table tr:nth-child(even) td {
-    background-color: #3a3a3a; /* Lignes alternées pour améliorer la lisibilité */
+    background-color: #3a3a3a;
 }
 
 table tr:hover td {
-    background-color: #555; /* Effet de survol sur les lignes du tableau */
+    background-color: #555;
     color: #fff;
+}
+
+/* Mise en page pour le changement de grade et de rôle */
+.change-section {
+    margin-bottom: 20px;
+}
+
+.change-section label {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.change-section select, .change-section input[type="submit"] {
+    margin-top: 5px;
+}
+
+/* Positionnement côte à côte des boutons Valider et Bannir */
+.form-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.form-actions input[type="submit"] {
+    flex: 1;
+}
+
+input[type="submit"].danger {
+    background-color: #dc3545;
+}
+
+input[type="submit"].danger:hover {
+    background-color: #b52b38;
 }
