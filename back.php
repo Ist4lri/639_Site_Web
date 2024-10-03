@@ -52,6 +52,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->execute([$nouveauRole, $userId]);
                 $message = "Rôle de l'utilisateur modifié avec succès.";
                 break;
+        case 'supprimer':
+    $sql = "DELETE FROM utilisateurs WHERE id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$userId]);
+    $message = "Utilisateur supprimé avec succès.";
+    break;
+
         }
     }
 
@@ -159,68 +166,81 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo htmlspecialchars($utilisateur['grade']); ?></td>
                     <td><?php echo htmlspecialchars($utilisateur['role']); ?></td>
                     <td>
-                        <!-- Ajouter les paramètres de recherche dans les champs cachés -->
-                        <form action="back.php" method="post" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
-                            <input type="hidden" name="action" value="valider">
-                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
-                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
-                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
-                            <input type="submit" value="Valider">
-                        </form>
-                        <form action="back.php" method="post" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
-                            <input type="hidden" name="action" value="bannir">
-                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
-                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
-                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
-                            <input type="submit" value="Bannir" class="danger">
-                        </form>
-                        <?php if ($utilisateur['banni']): ?>
-                        <form action="back.php" method="post" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
-                            <input type="hidden" name="action" value="debannir">
-                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
-                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
-                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
-                            <input type="submit" value="Débannir">
-                        </form>
-                        <?php endif; ?>
-                        <form action="back.php" method="post" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
-                            <input type="hidden" name="action" value="changer_grade">
-                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
-                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
-                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
-                            <select name="grade">
-                                <option value="Civil" <?php if ($utilisateur['grade'] == 'Civil') echo 'selected'; ?>>Civil</option>
-                                <option value="Conscrit" <?php if ($utilisateur['grade'] == 'Conscrit') echo 'selected'; ?>>Conscrit</option>
-                                <option value="Garde" <?php if ($utilisateur['grade'] == 'Garde') echo 'selected'; ?>>Garde</option>
-                                <option value="Garde-Vétéran" <?php if ($utilisateur['grade'] == 'Garde-Vétéran') echo 'selected'; ?>>Garde-Vétéran</option>
-                                <option value="Caporal" <?php if ($utilisateur['grade'] == 'Caporal') echo 'selected'; ?>>Caporal</option>
-                                <option value="Sergent" <?php if ($utilisateur['grade'] == 'Sergent') echo 'selected'; ?>>Sergent</option>
-                                <option value="Lieutenant" <?php if ($utilisateur['grade'] == 'Lieutenant') echo 'selected'; ?>>Lieutenant</option>
-                                <option value="Capitaine" <?php if ($utilisateur['grade'] == 'Capitaine') echo 'selected'; ?>>Capitaine</option>
-                                <option value="Commandant" <?php if ($utilisateur['grade'] == 'Commandant') echo 'selected'; ?>>Commandant</option>
-                                <option value="Colonel" <?php if ($utilisateur['grade'] == 'Colonel') echo 'selected'; ?>>Colonel</option>
-                                <option value="Général" <?php if ($utilisateur['grade'] == 'Général') echo 'selected'; ?>>Général</option>
-                                <option value="Major" <?php if ($utilisateur['grade'] == 'Major') echo 'selected'; ?>>Major</option>
-                            </select>
-                            <input type="submit" value="Changer Grade">
-                        </form>
-                        <form action="back.php" method="post" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
-                            <input type="hidden" name="action" value="changer_role">
-                            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
-                            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
-                            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
-                            <select name="role">
-                                <option value="utilisateur" <?php if ($utilisateur['role'] == 'utilisateur') echo 'selected'; ?>>Utilisateur</option>
-                                <option value="admin" <?php if ($utilisateur['role'] == 'admin') echo 'selected'; ?>>Admin</option>
-                            </select>
-                            <input type="submit" value="Changer Rôle">
-                        </form>
-                    </td>
+    <div class="actions">
+        <form action="back.php" method="post" style="display:inline;">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
+            <input type="hidden" name="action" value="valider">
+            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
+            <input type="submit" value="Valider">
+        </form>
+        <form action="back.php" method="post" style="display:inline;">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
+            <input type="hidden" name="action" value="bannir">
+            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
+            <input type="submit" value="Bannir" class="danger">
+        </form>
+        <?php if ($utilisateur['banni']): ?>
+        <form action="back.php" method="post" style="display:inline;">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
+            <input type="hidden" name="action" value="debannir">
+            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
+            <input type="submit" value="Débannir">
+        </form>
+        <form action="back.php" method="post" style="display:inline;">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
+            <input type="hidden" name="action" value="supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
+            <input type="submit" value="Supprimer" class="danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+        </form>
+        <?php endif; ?>
+    </div>
+    <div class="actions">
+        <form action="back.php" method="post" style="display:inline;">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
+            <input type="hidden" name="action" value="changer_grade">
+            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
+            <select name="grade">
+                <option value="Civil" <?php if ($utilisateur['grade'] == 'Civil') echo 'selected'; ?>>Civil</option>
+                <option value="Conscrit" <?php if ($utilisateur['grade'] == 'Conscrit') echo 'selected'; ?>>Conscrit</option>
+                <option value="Garde" <?php if ($utilisateur['grade'] == 'Garde') echo 'selected'; ?>>Garde</option>
+                <option value="Garde-Vétéran" <?php if ($utilisateur['grade'] == 'Garde-Vétéran') echo 'selected'; ?>>Garde-Vétéran</option>
+                <option value="Caporal" <?php if ($utilisateur['grade'] == 'Caporal') echo 'selected'; ?>>Caporal</option>
+                <option value="Sergent" <?php if ($utilisateur['grade'] == 'Sergent') echo 'selected'; ?>>Sergent</option>
+                <option value="Lieutenant" <?php if ($utilisateur['grade'] == 'Lieutenant') echo 'selected'; ?>>Lieutenant</option>
+                <option value="Capitaine" <?php if ($utilisateur['grade'] == 'Capitaine') echo 'selected'; ?>>Capitaine</option>
+                <option value="Commandant" <?php if ($utilisateur['grade'] == 'Commandant') echo 'selected'; ?>>Commandant</option>
+                <option value="Colonel" <?php if ($utilisateur['grade'] == 'Colonel') echo 'selected'; ?>>Colonel</option>
+                <option value="Général" <?php if ($utilisateur['grade'] == 'Général') echo 'selected'; ?>>Général</option>
+                <option value="Major" <?php if ($utilisateur['grade'] == 'Major') echo 'selected'; ?>>Major</option>
+            </select>
+            <input type="submit" value="Changer Grade">
+        </form>
+    </div>
+    <div class="actions">
+        <form action="back.php" method="post" style="display:inline;">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($utilisateur['id']); ?>">
+            <input type="hidden" name="action" value="changer_role">
+            <input type="hidden" name="search_nom" value="<?php echo htmlspecialchars($searchNom); ?>">
+            <input type="hidden" name="search_confirmation" value="<?php echo htmlspecialchars($searchConfirmation); ?>">
+            <input type="hidden" name="search_banni" value="<?php echo htmlspecialchars($searchBanni); ?>">
+            <select name="role">
+                <option value="utilisateur" <?php if ($utilisateur['role'] == 'utilisateur') echo 'selected'; ?>>Utilisateur</option>
+                <option value="admin" <?php if ($utilisateur['role'] == 'admin') echo 'selected'; ?>>Admin</option>
+            </select>
+            <input type="submit" value="Changer Rôle">
+        </form>
+    </div>
+</td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
