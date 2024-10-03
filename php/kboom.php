@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Vérifier si l'utilisateur est connecté (id_utilisateur est défini)
+if (!isset($_SESSION['id_utilisateur'])) {
+    echo "Erreur : vous devez être connecté pour accéder à cette page.";
+    exit; // Arrêter l'exécution du script si l'utilisateur n'est pas connecté
+}
+
+// Récupérer l'ID de l'utilisateur connecté
+$idUtilisateur = $_SESSION['id_utilisateur'];
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
