@@ -59,15 +59,15 @@ $stmt = $pdo->prepare("SELECT spe_id, gerance FROM utilisateurs WHERE id = :id")
 $stmt->execute(['id' => $idUtilisateur]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($utilisateur && $utilisateur['spe_id'] == 4 && in_array($utilisateur['gerance'], [1, 2])) {
-    
-    // Chemin vers le fichier vox.pdf
-    $filePath = __DIR__ . '/pdf/vox.pdf';
+ $filePath = __DIR__ . '/pdf/vox.pdf';
     if (file_exists($filePath)) {
         echo "<p>Un fichier PDF Vox est disponible : <a href='pdf/vox.pdf' target='_blank'>Afficher</a></p>";
     } else {
         echo "<p>Aucun fichier PDF disponible pour le moment.</p>";
     }
+
+if ($utilisateur && $utilisateur['spe_id'] == 4 && in_array($utilisateur['gerance'], [1, 2])) {
+       
     
     ?>
     <h2>Upload du fichier PDF</h2>
