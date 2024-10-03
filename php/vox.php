@@ -59,7 +59,7 @@ $stmt = $pdo->prepare("SELECT spe_id, gerance FROM utilisateurs WHERE id = :id")
 $stmt->execute(['id' => $idUtilisateur]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($utilisateur && $utilisateur['spe_id'] == 'vox' && in_array($utilisateur['gerance'], [1, 2])) {
+if ($utilisateur && $utilisateur['spe_id'] == 4 && in_array($utilisateur['gerance'], [1, 2])) {
     
     // Chemin vers le fichier vox.pdf
     $filePath = __DIR__ . '/pdf/vox.pdf';
