@@ -49,7 +49,19 @@
         </p>
     </div>
 
-   if ($utilisateur && $utilisateur['spe_id'] == 'vox' && in_array($utilisateur['gerance'], [1, 2])) {
+<?php
+session_start();
+include 'db.php'; // Si tu utilises une connexion à la base de données pour récupérer les informations utilisateur
+
+$idUtilisateur = $_SESSION['id_utilisateur'];
+
+// Récupérer les informations de l'utilisateur connecté, y compris son spe_id et gerance
+$stmt = $pdo->prepare("SELECT spe_id, gerance FROM utilisateurs WHERE id = :id");
+$stmt->execute(['id' => $idUtilisateur]);
+$utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Vérifier si l'utilisateur est dans la spécialité 'vox' (par exemple, spe_id correspondant) et a une gerance de 1 ou 2
+if ($utilisateur && $utilisateur['spe_id'] == 'vox' && in_array($utilisateur['gerance'], [1, 2])) {
     // Afficher le formulaire d'upload si les conditions sont remplies
     ?>
     <h2>Upload du fichier PDF Vox</h2>
@@ -93,6 +105,7 @@
     echo "<p>Vous n'avez pas les droits pour accéder à cette section.</p>";
 }
 ?>
+
 
     <!-- Affichage du gérant et sous-gérant -->
     <div class="management">
