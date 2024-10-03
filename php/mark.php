@@ -67,15 +67,17 @@ $stmt = $pdo->prepare("SELECT spe_id, gerance FROM utilisateurs WHERE id = :id")
 $stmt->execute(['id' => $idUtilisateur]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($utilisateur && $utilisateur['spe_id'] == 5 && in_array($utilisateur['gerance'], [1, 2])) {
-    
-    // Chemin vers le fichier mark.pdf
-    $filePath = __DIR__ . '/pdf/mark.pdf';
+ $filePath = __DIR__ . '/pdf/mark.pdf';
     if (file_exists($filePath)) {
         echo "<p>Un fichier PDF Marksman est disponible : <a href='pdf/mark.pdf' target='_blank'>Afficher</a></p>";
     } else {
         echo "<p>Aucun fichier PDF disponible pour le moment.</p>";
     }
+
+if ($utilisateur && $utilisateur['spe_id'] == 5 && in_array($utilisateur['gerance'], [1, 2])) {
+    
+    // Chemin vers le fichier mark.pdf
+   
     
     ?>
     <h2>Upload du fichier PDF</h2>
