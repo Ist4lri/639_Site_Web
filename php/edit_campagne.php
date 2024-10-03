@@ -25,12 +25,15 @@ $zeus_list = $zeus_result->fetchAll(PDO::FETCH_ASSOC);
 
 // Traitement de la mise à jour
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $date = $_POST['date'] ?? null;
+    $nom = $_POST['nom'] ?? null;
+    $missions = $_POST['missions'] ?? null;
     $zeus1 = !empty($_POST['zeus1']) ? $_POST['zeus1'] : null;
     $zeus2 = !empty($_POST['zeus2']) ? $_POST['zeus2'] : null;
     $zeus3 = !empty($_POST['zeus3']) ? $_POST['zeus3'] : null;
 
-    $stmt = $pdo->prepare("UPDATE campagne SET id_zeus = ?, id_zeus2 = ?, id_zeus3 = ? WHERE id = ?");
-    $stmt->execute([$zeus1, $zeus2, $zeus3, $id_campagne]);
+    $stmt = $pdo->prepare("UPDATE campagne SET date = ?, nom = ?, missions = ?, id_zeus = ?, id_zeus2 = ?, id_zeus3 = ? WHERE id = ?");
+    $stmt->execute([$date, $nom, $missions, $zeus1, $zeus2, $zeus3, $id_campagne]);
 
     header('Location: campagne.php');
     exit();
@@ -43,26 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier les Zeus de la Campagne</title>
-</head>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
             padding: 20px;
-        }
-
-        .top-links {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .top-links a {
-            margin-left: 20px;
-            color: #ff8800;
-            text-decoration: none;
-            font-weight: bold;
         }
 
         form {
@@ -73,35 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 20px;
         }
 
-        .form-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
+        label {
             font-weight: bold;
-            margin-right: 10px;
             color: #555;
+            display: block;
+            margin: 10px 0 5px;
         }
 
-        .form-group input, .form-group select {
-            width: calc(50% - 10px);
+        input[type="text"], input[type="date"], input[type="number"], select {
+            width: calc(100% - 10px);
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-        }
-
-        .zeus-group {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .zeus-group select {
-            width: calc(33% - 10px);
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
         button[type="submit"] {
@@ -123,39 +96,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: #333;
             font-size: 1.5em;
             margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .campaign-table {
-            width: 95%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .campaign-table th, .campaign-table td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .campaign-table th {
-            background-color: green;
-            color: white;
-        }
-
-        .mappeur {
-            color: blue;
-        }
-
-        .zeus {
-            background-color: orange;
-            color: white;
         }
     </style>
+</head>
 <body>
-    <h2>Modifier les Zeus de la campagne : <?php echo htmlspecialchars($campagne['nom']); ?></h2>
+    <h2>Modifier la campagne : <?php echo htmlspecialchars($campagne['nom']); ?></h2>
 
     <form action="" method="post">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($campagne['date']); ?>" required>
+
+        <label for="nom">Nom de la campagne:</label>
+        <input type="text" id="nom" name="nom" value="<?php echo htmlspecialchars($campagne['nom']); ?>" required>
+
+        <label for="missions">Numéro de missions:</label>
+        <input type="number" id="missions" name="missions" value="<?php echo htmlspecialchars($campagne['missions']); ?>" required>
+
         <label for="zeus1">Zeus 1:</label>
         <select id="zeus1" name="zeus1">
             <option value="">Sélectionnez un Zeus</option>
@@ -164,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php echo htmlspecialchars($zeus['nom']); ?>
                 </option>
             <?php endforeach; ?>
-        </select><br><br>
+        </select>
 
         <label for="zeus2">Zeus 2:</label>
         <select id="zeus2" name="zeus2">
@@ -174,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php echo htmlspecialchars($zeus['nom']); ?>
                 </option>
             <?php endforeach; ?>
-        </select><br><br>
+        </select>
 
         <label for="zeus3">Zeus 3:</label>
         <select id="zeus3" name="zeus3">
@@ -184,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php echo htmlspecialchars($zeus['nom']); ?>
                 </option>
             <?php endforeach; ?>
-        </select><br><br>
+        </select>
 
         <button type="submit">Mettre à jour</button>
     </form>
