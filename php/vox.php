@@ -61,7 +61,7 @@ $stmt->execute(['id' => $idUtilisateur]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Vérifier si l'utilisateur est dans la spécialité 'vox' (par exemple, spe_id correspondant) et a une gerance de 1 ou 2
-if ($utilisateur && $utilisateur['spe_id'] == 'vox' && in_array($utilisateur['gerance'], [1, 2])) {
+if ($utilisateur && $utilisateur['spe_id'] == 4 && in_array($utilisateur['gerance'], [1, 2])) {
     // Afficher le formulaire d'upload si les conditions sont remplies
     ?>
     <h2>Upload du fichier PDF Vox</h2>
