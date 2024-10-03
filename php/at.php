@@ -67,15 +67,17 @@ $stmt = $pdo->prepare("SELECT spe_id, gerance FROM utilisateurs WHERE id = :id")
 $stmt->execute(['id' => $idUtilisateur]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($utilisateur && $utilisateur['spe_id'] == 2 && in_array($utilisateur['gerance'], [1, 2])) {
-    
-    // Chemin vers le fichier at.pdf
-    $filePath = __DIR__ . '/pdf/at.pdf';
+$filePath = __DIR__ . '/pdf/at.pdf';
     if (file_exists($filePath)) {
         echo "<p>Un fichier PDF AT est disponible : <a href='pdf/at.pdf' target='_blank'>Afficher</a></p>";
     } else {
         echo "<p>Aucun fichier PDF disponible pour le moment.</p>";
     }
+    
+
+if ($utilisateur && $utilisateur['spe_id'] == 2 && in_array($utilisateur['gerance'], [1, 2])) {
+    
+    // Chemin vers le fichier at.pdf
     
     ?>
     <h2>Upload du fichier PDF</h2>
