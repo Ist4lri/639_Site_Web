@@ -35,6 +35,7 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             display: block;
         }
         .menu {
+            margin-top: 140px;
             display: flex;
             justify-content: center;
             gap: 15px;
