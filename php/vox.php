@@ -64,13 +64,13 @@ if ($utilisateur && $utilisateur['spe_id'] == 4 && in_array($utilisateur['geranc
     // Chemin vers le fichier vox.pdf
     $filePath = __DIR__ . '/pdf/vox.pdf';
     if (file_exists($filePath)) {
-        echo "<p>Un fichier PDF Vox est déjà disponible : <a href='pdf/vox.pdf' target='_blank'>Télécharger</a></p>";
+        echo "<p>Un fichier PDF Vox est disponible : <a href='pdf/vox.pdf' target='_blank'>Afficher</a></p>";
     } else {
         echo "<p>Aucun fichier PDF disponible pour le moment.</p>";
     }
     
     ?>
-    <h2>Upload du fichier PDF Vox</h2>
+    <h2>Upload du fichier PDF</h2>
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="file">Sélectionner un fichier PDF :</label>
         <input type="file" name="file" id="file" accept="application/pdf" required>
@@ -106,10 +106,7 @@ if ($utilisateur && $utilisateur['spe_id'] == 4 && in_array($utilisateur['geranc
             echo "<p>Erreur : Aucun fichier n'a été envoyé ou une erreur est survenue lors du téléchargement.</p>";
         }
     }
-} else {
-    // Message si l'utilisateur ne remplit pas les critères
-    echo "<p>Vous n'avez pas les droits pour accéder à cette section.</p>";
-}
+} 
 ?>
 
 
