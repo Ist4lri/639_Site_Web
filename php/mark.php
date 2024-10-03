@@ -57,6 +57,66 @@
         </p>
     </div>
 
+    <?php
+session_start();
+include 'db.php'; 
+
+
+$idUtilisateur = $_SESSION['id_utilisateur'];
+$stmt = $pdo->prepare("SELECT spe_id, gerance FROM utilisateurs WHERE id = :id");
+$stmt->execute(['id' => $idUtilisateur]);
+$utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($utilisateur && $utilisateur['spe_id'] == 5 && in_array($utilisateur['gerance'], [1, 2])) {
+    
+    // Chemin vers le fichier mark.pdf
+    $filePath = __DIR__ . '/pdf/mark.pdf';
+    if (file_exists($filePath)) {
+        echo "<p>Un fichier PDF Marksman est disponible : <a href='pdf/mark.pdf' target='_blank'>Afficher</a></p>";
+    } else {
+        echo "<p>Aucun fichier PDF disponible pour le moment.</p>";
+    }
+    
+    ?>
+    <h2>Upload du fichier PDF</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <label for="file">Sélectionner un fichier PDF :</label>
+        <input type="file" name="file" id="file" accept="application/pdf" required>
+        <button type="submit" name="upload">Uploader</button>
+    </form>
+
+    <?php
+    if (isset($_POST['upload'])) {
+        // Vérifier si un fichier a été envoyé
+        if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+            // Récupérer les informations du fichier
+            $fileTmpPath = $_FILES['file']['tmp_name'];
+            $fileName = $_FILES['file']['name'];
+            $fileSize = $_FILES['file']['size'];
+            $fileType = $_FILES['file']['type'];
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+            // Vérifier que le fichier est bien un PDF
+            if ($fileExtension === 'pdf') {
+                // Chemin d'enregistrement du fichier
+                $destinationPath = __DIR__ . '/pdf/mark.pdf';
+
+                // Déplacer le fichier temporaire vers sa destination finale
+                if (move_uploaded_file($fileTmpPath, $destinationPath)) {
+                    echo "<p>Le fichier a été téléchargé avec succès.</p>";
+                } else {
+                    echo "<p>Une erreur est survenue lors de l'enregistrement du fichier.</p>";
+                }
+            } else {
+                echo "<p>Erreur : Veuillez uploader uniquement des fichiers PDF.</p>";
+            }
+        } else {
+            echo "<p>Erreur : Aucun fichier n'a été envoyé ou une erreur est survenue lors du téléchargement.</p>";
+        }
+    }
+} 
+?>
+
     <!-- Affichage du gérant et sous-gérant pour Marksman (spe_id = 5) -->
     <div class="management">
         <?php
