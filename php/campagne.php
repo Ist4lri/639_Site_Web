@@ -15,7 +15,7 @@ $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
 
 $message = '';
 
-$sql = "SELECT c.date, c.nom, c.missions, 
+$sql = "SELECT c.id, c.date, c.nom, c.missions, 
                u_mappeur.nom AS mappeur, 
                u_zeus1.nom AS zeus1, 
                u_zeus2.nom AS zeus2, 
@@ -26,7 +26,7 @@ $sql = "SELECT c.date, c.nom, c.missions,
         LEFT JOIN utilisateurs u_zeus2 ON c.id_zeus2 = u_zeus2.id
         LEFT JOIN utilisateurs u_zeus3 ON c.id_zeus3 = u_zeus3.id
         WHERE 1 = 1";
-
+        
 $params = [];
 if ($searchCampaign) {
     $sql .= " AND c.nom LIKE ?";
@@ -40,6 +40,7 @@ if ($searchUser) {
     $params[] = '%' . $searchUser . '%';
 }
 
+// Préparez et exécutez la requête
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
