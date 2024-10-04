@@ -58,15 +58,16 @@ $gradedUsers = $stmtGradedUsers->fetchAll(PDO::FETCH_ASSOC);
 
 
 $isLoggedIn = isset($_SESSION['utilisateur']);
-$userId = $isLoggedIn ? $_SESSION['utilisateur'] : ''; // Store the user ID, not the username
+$userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
+    $utilisateur_id = $_SESSION['utilisateur'];
     $demande = trim($_POST['demande']);
 
     if (!empty($demande)) {
         $sql = "INSERT INTO dadmin (utilisateur_id, demande) VALUES (?, ?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$userId, $demande]); // Use userId instead of nom_utilisateur
+        $stmt->execute([$utilisateur_id, $demande]);
 
         echo "<p style='color:green;'>Votre demande a été envoyée avec succès !</p>";
     } else {
@@ -74,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
     }
 }
     
-?>
+?
 
 
 
