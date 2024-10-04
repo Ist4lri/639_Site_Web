@@ -1,11 +1,14 @@
 <?php
-if (session_statut() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) { // Corrected line
     session_start();
 }
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+// The rest of your code...
+
 
 try {
     include 'php/db.php';
