@@ -9,9 +9,13 @@ $sqlMappeur = "SELECT u.nom, COUNT(c.id_mappeur) AS mappeur_count
                GROUP BY u.nom";
 
 // Requête pour compter les occurrences en tant que zeus
-$sqlZeus = "SELECT u.nom, COUNT(c.id_zeus) AS zeus_count
+$sqlZeus = "SELECT u.nom, 
+                   COUNT(c.id_zeus) AS zeus_count, 
+                   COUNT(c.id_zeus2) AS zeus2_count, 
+                   COUNT(c.id_zeus3) AS zeus3_count
             FROM utilisateurs u
-            LEFT JOIN campagne c ON u.id = c.id_zeus
+            LEFT JOIN campagne c 
+            ON u.id = c.id_zeus OR u.id = c.id_zeus2 OR u.id = c.id_zeus3
             GROUP BY u.nom";
 
 $mappeurResults = $pdo->query($sqlMappeur);
