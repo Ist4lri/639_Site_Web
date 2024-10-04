@@ -1,5 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
+if (session_statut() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -25,15 +25,15 @@ try {
     die("Erreur SQL demandes : " . $e->getMessage());
 }
 
-// Update request status
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
+// Update request statut
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_statut'])) {
     $request_id = $_POST['request_id'];
-    $new_status = $_POST['status'];
+    $new_statut = $_POST['statut'];
 
-    if (!empty($request_id) && !empty($new_status)) {
-        $sqlUpdate = "UPDATE dadmin SET status = ? WHERE id = ?";
+    if (!empty($request_id) && !empty($new_statut)) {
+        $sqlUpdate = "UPDATE dadmin SET statut = ? WHERE id = ?";
         $stmtUpdate = $pdo->prepare($sqlUpdate);
-        $stmtUpdate->execute([$new_status, $request_id]);
+        $stmtUpdate->execute([$new_statut, $request_id]);
     }
 }
 ?>
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                 <th>ID</th>
                 <th>Utilisateur</th>
                 <th>Demande</th>
-                <th>Status</th>
+                <th>statut</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -70,11 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                     <td>
     <form method="POST" action="" style="display:inline;">
         <input type="hidden" name="request_id" value="<?php echo htmlspecialchars($request['id']); ?>">
-        <button type="submit" name="update_status" value="Fait">Fait</button>
+        <button type="submit" name="update_statut" value="Fait">Fait</button>
     </form>
     <form method="POST" action="" style="display:inline;">
         <input type="hidden" name="request_id" value="<?php echo htmlspecialchars($request['id']); ?>">
-        <button type="submit" name="update_status" value="Refusé">Refusé</button>
+        <button type="submit" name="update_statut" value="Refusé">Refusé</button>
     </form>
 </td>
                 </tr>
