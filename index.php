@@ -59,7 +59,7 @@ $isLoggedIn = isset($_SESSION['utilisateur']); // !!! TOUCHE PAS
 $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // !!! Touche pas
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
-    $utilisateur_id = $_SESSION['utilisateur_id'];
+    $utilisateur_id = $_SESSION['id_utilisateur'];
     $demande = trim($_POST['demande']);
 
     if (!empty($demande)) {
