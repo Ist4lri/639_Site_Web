@@ -518,7 +518,7 @@ function toggleTable(tableId) {
 </script>
 
     <?php if ($isLoggedIn): ?>
-    <?php include 'php/headero.php'; ?>
+    <?php include 'php/footerad.php'; ?>
     <?php endif; ?>
 </body>
     
