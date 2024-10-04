@@ -2,14 +2,16 @@
 session_start();
 include 'db.php'; 
 
+// Requête pour compter les occurrences en tant que mappeur
 $sqlMappeur = "SELECT u.nom, COUNT(c.id_mappeur) AS mappeur_count
                FROM utilisateurs u
-               JOIN campagne c ON u.id = c.id_mappeur
+               LEFT JOIN campagne c ON u.id = c.id_mappeur
                GROUP BY u.nom";
 
+// Requête pour compter les occurrences en tant que zeus
 $sqlZeus = "SELECT u.nom, COUNT(c.id_zeus) AS zeus_count
             FROM utilisateurs u
-            JOIN campagne c ON u.id = c.id_zeus
+            LEFT JOIN campagne c ON u.id = c.id_zeus
             GROUP BY u.nom";
 
 $mappeurResults = $pdo->query($sqlMappeur);
@@ -18,12 +20,15 @@ $zeusResults = $pdo->query($sqlZeus);
 $searchCampaign = isset($_GET['search_campaign']) ? trim($_GET['search_campaign']) : '';
 $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
 
+// Initialisation des enregistrements
 $records = [];
 
+// Remplir les enregistrements avec les résultats mappeur
 while ($row = $mappeurResults->fetch(PDO::FETCH_ASSOC)) {
     $records[$row['nom']]['mappeur_count'] = $row['mappeur_count'];
 }
 
+// Remplir les enregistrements avec les résultats zeus
 while ($row = $zeusResults->fetch(PDO::FETCH_ASSOC)) {
     if (isset($records[$row['nom']])) {
         $records[$row['nom']]['zeus_count'] = $row['zeus_count'];
@@ -32,6 +37,7 @@ while ($row = $zeusResults->fetch(PDO::FETCH_ASSOC)) {
     }
 }
 
+// Initialiser les valeurs manquantes à 0
 foreach ($records as &$record) {
     if (!isset($record['mappeur_count'])) {
         $record['mappeur_count'] = 0;
@@ -41,17 +47,17 @@ foreach ($records as &$record) {
     }
 }
 
-$params = [];
-if ($searchCampaign) {
-    $sql .= " AND c.nom LIKE ?";
-    $params[] = '%' . $searchCampaign . '%';
-}
+// Filtrage par utilisateur ou campagne si des critères de recherche sont fournis
 if ($searchUser) {
-    $sql .= " AND (u_mappeur.nom LIKE ? OR u_zeus.nom LIKE ?)";
-    $params[] = '%' . $searchUser . '%';
-    $params[] = '%' . $searchUser . '%';
+    $records = array_filter($records, function ($key) use ($searchUser) {
+        return stripos($key, $searchUser) !== false;
+    }, ARRAY_FILTER_USE_KEY);
 }
 
+// Garder uniquement les utilisateurs ayant mappeur_count > 0 ou zeus_count > 0
+$records = array_filter($records, function ($record) {
+    return $record['mappeur_count'] > 0 || $record['zeus_count'] > 0;
+});
 ?>
 
 <!DOCTYPE html>
@@ -167,18 +173,17 @@ if ($searchUser) {
 </head>
 <body>
 <div class="top-links">
-  <a href=campagne.php class=zeus> Campagne </a>
-<a href=../index.php> Acceuil </a>
+  <a href="campagne.php" class="zeus"> Campagne </a>
+  <a href="../index.php"> Acceuil </a>
 </div>
- <form method="get" action="record.php">
-  
+
+<form method="get" action="record.php">
     <label for="search_user">Rechercher par Nom de Mappeur ou Zeus :</label>
     <input type="text" id="search_user" name="search_user" value="<?php echo htmlspecialchars($searchUser); ?>">
-
     <button type="submit">Rechercher</button>
 </form>
-  
-<h2>Participation </h2>
+
+<h2>Participation</h2>
 
 <table>
     <thead>
