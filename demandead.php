@@ -68,16 +68,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                     <td><?php echo htmlspecialchars($request['demande']); ?></td>
                     <td><?php echo htmlspecialchars($request['statut']); ?></td>
                     <td>
-                        <form method="POST" action="">
-                            <input type="hidden" name="request_id" value="<?php echo htmlspecialchars($request['id']); ?>">
-                            <select name="status" required>
-                                <option value="" disabled selected>Select Status</option>
-                                <option value="Fait">Fait</option>
-                                <option value="Refusé">Refusé</option>
-                            </select>
-                            <button type="submit" name="update_status">Update</button>
-                        </form>
-                    </td>
+    <form method="POST" action="" style="display:inline;">
+        <input type="hidden" name="request_id" value="<?php echo htmlspecialchars($request['id']); ?>">
+        <button type="submit" name="update_status" value="Fait">Fait</button>
+    </form>
+    <form method="POST" action="" style="display:inline;">
+        <input type="hidden" name="request_id" value="<?php echo htmlspecialchars($request['id']); ?>">
+        <button type="submit" name="update_status" value="Refusé">Refusé</button>
+    </form>
+</td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
