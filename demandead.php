@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                     <td><?php echo htmlspecialchars($request['id']); ?></td>
                     <td><?php echo htmlspecialchars($request['utilisateur_nom']); ?></td>
                     <td><?php echo htmlspecialchars($request['demande']); ?></td>
-                    <td><?php echo htmlspecialchars($request['status']); ?></td>
+                    <td><?php echo htmlspecialchars($request['statut']); ?></td>
                     <td>
                         <form method="POST" action="">
                             <input type="hidden" name="request_id" value="<?php echo htmlspecialchars($request['id']); ?>">
