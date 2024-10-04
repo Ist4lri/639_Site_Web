@@ -61,7 +61,7 @@ $isLoggedIn = isset($_SESSION['utilisateur']);
 $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
-    $utilisateur_id = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur connecté
+    $utilisateur_id = $_SESSION['nom_utilisateur']; // Récupérer l'ID de l'utilisateur connecté
     $demande = trim($_POST['demande']);
 
     if (!empty($demande)) {
