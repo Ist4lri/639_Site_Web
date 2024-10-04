@@ -442,7 +442,16 @@ foreach ($specialties as $specialty):
 
     <div class="eff"><a href="php/effectif.php"><img src="src/assets/BoutonNosEffectifs0.png" alt="Effectif"></a></div>
         </div>
-</div>
+
+<?php if ($isLoggedIn): ?>
+    <footer>
+    <h2>Envoyer une demande à l'Administrateur</h2>
+    <form method="POST" action="">
+        <textarea name="demande" placeholder="Tapez votre demande ici..." required></textarea>
+        <button type="submit">Envoyer la demande</button>
+    </form>
+</footer>
+    <?php endif; ?>
 
 <?php if ($isLoggedIn): ?>
 <div id="myModal" class="modal">
@@ -535,15 +544,7 @@ function toggleTable(tableId) {
 </script>
 
     
-    <?php if ($isLoggedIn): ?>
-    <footer>
-    <h2>Envoyer une demande à l'Administrateur</h2>
-    <form method="POST" action="">
-        <textarea name="demande" placeholder="Tapez votre demande ici..." required></textarea>
-        <button type="submit">Envoyer la demande</button>
-    </form>
-</footer>
-    <?php endif; ?>
+    
    
 </body>
     
