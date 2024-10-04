@@ -4,7 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -25,8 +24,8 @@ try {
         FROM spe s 
         LEFT JOIN utilisateurs u ON s.id = u.spe_id 
         GROUP BY s.id, s.nom, s.ab, s.total
-    ORDER BY s.id;
-";
+        ORDER BY s.id;
+    ";
     $stmtSpecialties = $pdo->query($sqlSpecialties);
     $specialties = $stmtSpecialties->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -56,12 +55,11 @@ $sqlGradedUsers = "
 $stmtGradedUsers = $pdo->query($sqlGradedUsers);
 $gradedUsers = $stmtGradedUsers->fetchAll(PDO::FETCH_ASSOC);
 
-
-$isLoggedIn = isset($_SESSION['utilisateur']);
-$userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
+$isLoggedIn = isset($_SESSION['utilisateur']); // !!! TOUCHE PAS
+$userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : ''; // !!! Touche pas
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
-    $utilisateur_id = $_SESSION['utilisateur'];
+    $utilisateur_id = $_SESSION['utilisateur_id'];
     $demande = trim($_POST['demande']);
 
     if (!empty($demande)) {
@@ -74,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
         echo "<p style='color:red;'>La demande ne peut pas être vide !</p>";
     }
 }
-    
+
 ?>
 
 
