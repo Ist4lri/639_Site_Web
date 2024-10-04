@@ -58,7 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_id'], $_POST[
     <a href="back.php">Back</a>
     <a href="zeusing.php">Zeus</a>
     <a href="index.php">Accueil</a>
-
+<style>
+    h1 {
+    margin-top: 10px;
+    font-size: 3rem;
+    text-align: center;
+    letter-spacing: 2px;
+    color: #f1f1f1;
+}
+</style>
     <table>
         <thead>
             <tr>
