@@ -209,6 +209,7 @@ footer {
         }
 
         footer h2 {
+            padding-top: -100px;
             margin-bottom: 4px;
             font-size: 1.5em;
             color: ##00B619;
