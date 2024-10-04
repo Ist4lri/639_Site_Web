@@ -15,7 +15,7 @@ try {
 
 // Fetch all requests
 try {
-    $sqlRequests = "SELECT d.id, u.nom AS utilisateur_nom, d.demande, d.statu 
+    $sqlRequests = "SELECT d.id, u.nom AS utilisateur_nom, d.demande, d.statut 
                     FROM dadmin d 
                     JOIN utilisateurs u ON d.utilisateur_id = u.id 
                     ORDER BY d.id;";
