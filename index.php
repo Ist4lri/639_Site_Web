@@ -59,6 +59,23 @@ $gradedUsers = $stmtGradedUsers->fetchAll(PDO::FETCH_ASSOC);
 
 $isLoggedIn = isset($_SESSION['utilisateur']);
 $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
+    $utilisateur_id = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur connecté
+    $demande = trim($_POST['demande']);
+
+    if (!empty($demande)) {
+        // Insérer la demande dans la table 'dadmin'
+        $sql = "INSERT INTO dadmin (utilisateur_id, demande) VALUES (?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$utilisateur_id, $demande]);
+
+        echo "<p style='color:green;'>Votre demande a été envoyée avec succès !</p>";
+    } else {
+        echo "<p style='color:red;'>La demande ne peut pas être vide !</p>";
+    }
+}
+    
 ?>
 
 
@@ -517,11 +534,17 @@ function toggleTable(tableId) {
     setInterval(showtooltip2, 7000);
 </script>
 
-    <footer>
+    
     <?php if ($isLoggedIn): ?>
-    <?php include 'php/footerad.php'; ?>
+    <footer>
+    <h2>Envoyer une demande à l'Administrateur</h2>
+    <form method="POST" action="">
+        <textarea name="demande" placeholder="Tapez votre demande ici..." required></textarea>
+        <button type="submit">Envoyer la demande</button>
+    </form>
+</footer>
     <?php endif; ?>
-    </footer>
+   
 </body>
     
 </html>
