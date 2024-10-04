@@ -183,7 +183,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <select id="mappeur" name="mappeur" required>
         <option value="">Sélectionnez un mappeur</option>
         <?php
-        $mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1";
+        $mappeur_query = "SELECT id, nom FROM utilisateurs WHERE mappeur = 1 OR zeus=1";
         $mappeur_result = $pdo->query($mappeur_query);
         if ($mappeur_result->rowCount() > 0) {
             while ($row = $mappeur_result->fetch(PDO::FETCH_ASSOC)) {
