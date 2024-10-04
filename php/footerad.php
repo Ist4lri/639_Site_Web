@@ -98,10 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
 </head>
 <body>
 
-<div class="content">
-    <!-- Contenu principal de la page -->
-</div>
-
 <footer>
     <h2>Envoyer une demande à l'Administrateur</h2>
     <form method="POST" action="">
