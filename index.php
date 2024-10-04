@@ -517,11 +517,11 @@ function toggleTable(tableId) {
     setInterval(showtooltip2, 7000);
 </script>
 
-    <foot>
+    <footer>
     <?php if ($isLoggedIn): ?>
     <?php include 'php/footerad.php'; ?>
     <?php endif; ?>
-    </foot>
+    </footer>
 </body>
     
 </html>
