@@ -249,24 +249,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </form>
 
 <h2>Tableau des Campagnes</h2>
-<?php
-$sql = "SELECT c.id, c.date, c.nom, c.missions, 
-               u_mappeur.nom AS mappeur, 
-               u_zeus1.nom AS zeus1, 
-               u_zeus2.nom AS zeus2, 
-               u_zeus3.nom AS zeus3
-        FROM campagne c
-        LEFT JOIN utilisateurs u_mappeur ON c.id_mappeur = u_mappeur.id
-        LEFT JOIN utilisateurs u_zeus1 ON c.id_zeus = u_zeus1.id
-        LEFT JOIN utilisateurs u_zeus2 ON c.id_zeus2 = u_zeus2.id
-        LEFT JOIN utilisateurs u_zeus3 ON c.id_zeus3 = u_zeus3.id
-        WHERE 1 = 1";
-
-// Préparez et exécutez la requête
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
 
 <table class="campaign-table">
     <thead>
