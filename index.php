@@ -433,6 +433,7 @@ foreach ($specialties as $specialty):
         <span class="close">&times;</span>
         <p>N'oubliez pas d'aller voter pour le serveur ! <a href="https://top-serveurs.net/arma3/vote/fr-w40k-le-639th-regiment-cadian" target="_blank"><br>Cliquez Moi pour voter</a></p>
     </div>
+    <?php include 'php/footerad.php'; ?>
     <?php endif; ?>
 
 
@@ -516,7 +517,6 @@ function toggleTable(tableId) {
     
     setInterval(showtooltip2, 7000);
 </script>
-    <?php include 'php/footerad.php'; ?>
 </body>
     
 </html>
