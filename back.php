@@ -111,6 +111,7 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration</title>
     <link rel="stylesheet" href="css/back.css">
+    <a href="demandead.php">Demande</a>
     <a href="zeusing.php">Zeus</a>
     <a href="index.php">Acceuil</a>
 </head>
