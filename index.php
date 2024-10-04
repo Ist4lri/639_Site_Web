@@ -67,10 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$utilisateur_id, $demande]);
 
-        echo "<p style='color:green;'>Votre demande a été envoyée avec succès !</p>";
-    } else {
-        echo "<p style='color:red;'>La demande ne peut pas être vide !</p>";
-    }
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    } 
 }
 
 ?>
