@@ -2,6 +2,9 @@
 session_start();
 include 'db.php'; // Inclure la connexion à la base de données
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
     $utilisateur_id = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur connecté
