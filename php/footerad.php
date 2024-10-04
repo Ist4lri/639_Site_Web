@@ -29,21 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page avec Footer Demande</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Main content */
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-
         /* Footer form styling */
         footer {
             background-color: #333;
@@ -55,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
         footer h2 {
             margin-bottom: 15px;
             font-size: 1.5em;
-            color: #ff8800;
+            color: ##00B619;
         }
 
         footer form {
