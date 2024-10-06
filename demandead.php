@@ -1,3 +1,76 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Include the database connection
+try {
+    include 'php/db.php';
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
+}
+
+// Default search criteria
+$search_statut = $_GET['statut'] ?? '';
+$search_utilisateur = $_GET['utilisateur'] ?? '';
+
+// Fetch requests with search criteria
+try {
+    $sqlRequests = "SELECT d.id, u.nom AS utilisateur_nom, d.demande, d.statut 
+                    FROM dadmin d 
+                    JOIN utilisateurs u ON d.utilisateur_id = u.id 
+                    WHERE 1=1";
+
+    // Apply filters
+    if (!empty($search_statut)) {
+        $sqlRequests .= " AND d.statut = :statut";
+    }
+    if (!empty($search_utilisateur)) {
+        $sqlRequests .= " AND u.nom LIKE :utilisateur";
+    }
+    $sqlRequests .= " ORDER BY d.id;";
+
+    $stmtRequests = $pdo->prepare($sqlRequests);
+
+    // Bind search parameters
+    if (!empty($search_statut)) {
+        $stmtRequests->bindValue(':statut', $search_statut);
+    }
+    if (!empty($search_utilisateur)) {
+        $stmtRequests->bindValue(':utilisateur', "%{$search_utilisateur}%");
+    }
+
+    $stmtRequests->execute();
+    $requests = $stmtRequests->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur SQL demandes : " . $e->getMessage());
+}
+
+// Update request statut
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_id'], $_POST['update_statut'])) {
+    $request_id = $_POST['request_id'];
+    $new_statut = $_POST['update_statut']; // Use the button value directly
+
+    if (!empty($request_id) && !empty($new_statut)) {
+        try {
+            $sqlUpdate = "UPDATE dadmin SET statut = ? WHERE id = ?";
+            $stmtUpdate = $pdo->prepare($sqlUpdate);
+            $stmtUpdate->execute([$new_statut, $request_id]);
+
+            // Redirect with query params to retain search filters
+            header("Location: demandead.php?statut=" . urlencode($search_statut) . "&utilisateur=" . urlencode($search_utilisateur));
+            exit;
+        } catch (PDOException $e) {
+            die("Erreur lors de la mise à jour du statut : " . $e->getMessage());
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
