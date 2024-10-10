@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Officio Prefectus Header</title>
+    <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
     <link rel="stylesheet" href="../css/officio.css"> <!-- Lien vers ton fichier CSS -->
     <style>
 
