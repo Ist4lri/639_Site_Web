@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['demande'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>639ème Régiment Cadien</title>
+    <link rel="icon" type="image/x-icon" href="/src/assets/Logo_639th.ico>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <style>
