@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer - Information et Protocole</title>
-    <link rel="icon" type="image/x-icon" href="src/assets/Logo_639th_2.ico">
+    <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
 
 </head>
 <body>
