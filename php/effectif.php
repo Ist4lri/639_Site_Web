@@ -25,6 +25,7 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Effectif</title>
+    <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
     <link rel="stylesheet" href="../css/eff.css">
     <style>
         .grade-tab {
