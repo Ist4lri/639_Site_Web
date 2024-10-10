@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/perso.css"> 
     <title>Création de Personnage</title>
+    <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
 </head>
 <body>
 
