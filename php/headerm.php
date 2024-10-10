@@ -17,6 +17,8 @@ $faction = $factionStmt->fetch();
         <a href="../index.php">
             <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
         </a>
+        <title>Eglise</title>
+        <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
     </div>
 
     <nav class="head-nav">
