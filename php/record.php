@@ -70,6 +70,7 @@ $records = array_filter($records, function ($record) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record des Campagnes</title>
+  <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
     <style>
        body {
             font-family: Arial, sans-serif;
