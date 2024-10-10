@@ -47,6 +47,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Zeus et Mappeurs</title>
+    <link rel="icon" type="image/x-icon" href="src/assets/Logo_639th_2.ico">
     <link rel="stylesheet" href="css/tab.css">
     <a href="back.php">Back</a>
     <a href="index.php">Acceuil</a>
