@@ -111,6 +111,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Officiers</title>
+    <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
     <link rel="stylesheet" href="../css/tab.css">
     <link rel="stylesheet" href="../css/header.css">
 </head>
