@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_id'], $_POST[
 <head>
     <meta charset="UTF-8">
     <title>Demandes Administratives</title>
+    <link rel="icon" type="image/x-icon" href="src/assets/Logo_639th_2.ico">
     <link rel="stylesheet" href="css/back.css"> 
 </head>
 <body>
