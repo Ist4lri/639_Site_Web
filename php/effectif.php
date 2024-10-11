@@ -19,7 +19,7 @@ $stmt = $pdo->query($sql);
 $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Récupérer tous les personnages et leurs grades
-$sqlPersonnages = "SELECT nom, COALESCE(grade, 'grade_mecha') AS grade 
+$sqlPersonnages = "SELECT nom, COALESCE(grade, grade_mecha) AS grade 
                    FROM personnages";
 $stmtPersonnages = $pdo->query($sqlPersonnages);
 $personnages = $stmtPersonnages->fetchAll(PDO::FETCH_ASSOC);
