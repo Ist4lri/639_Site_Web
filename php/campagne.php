@@ -6,9 +6,16 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$stmt = $pdo->prepare("SELECT id, nom FROM utilisateurs WHERE email = :email");
+
+$stmt = $pdo->prepare("SELECT id, nom, zeus, mappeur FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$currentUser || ($currentUser['zeus'] != 1 && $currentUser['mappeur'] != 1)) {
+    header("Location: insubordination.php");
+    exit();
+}
+
 
 $searchCampaign = isset($_GET['search_campaign']) ? trim($_GET['search_campaign']) : '';
 $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
