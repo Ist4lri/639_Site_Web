@@ -17,6 +17,12 @@ $sql = "SELECT u.nom, u.grade, s.nom AS specialite, f.formation, f.formation_hie
         ORDER BY u.grade";
 $stmt = $pdo->query($sql);
 $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer tous les personnages et leurs grades
+$sqlPersonnages = "SELECT nom, COALESCE(grade, 'grade_mecha') AS grade 
+                   FROM personnages";
+$stmtPersonnages = $pdo->query($sqlPersonnages);
+$personnages = $stmtPersonnages->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php include 'header.php'; ?>
 <!DOCTYPE html>
@@ -41,15 +47,16 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             justify-content: center;
             gap: 15px;
         }
-        .menu a {
+        .menu a, .menu button {
             padding: 10px 20px;
             background-color: #555;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
+            border: none;
         }
-        .menu a.active {
+        .menu a.active, .menu button.active {
             background-color: #2e7d32;
         }
         table {
@@ -64,27 +71,26 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background-color: #2e7d32;
             color: white;
         }
+        .personnages-tab {
+            display: none;
+            margin: 20px 0;
+        }
+        .personnages-tab.active {
+            display: block;
+        }
     </style>
     <script>
         // Script JavaScript pour gérer l'affichage du tableau selon le grade cliqué
         function showGrade(grade) {
             const tabs = document.querySelectorAll('.grade-tab');
-            const menuLinks = document.querySelectorAll('.menu a');
+            const menuLinks = document.querySelectorAll('.menu a, .menu button');
             
             tabs.forEach(tab => {
-                if (tab.dataset.grade === grade) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
+                tab.classList.toggle('active', tab.dataset.grade === grade);
             });
 
             menuLinks.forEach(link => {
-                if (link.dataset.grade === grade) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
+                link.classList.toggle('active', link.dataset.grade === grade);
             });
         }
 
@@ -92,6 +98,22 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         window.onload = function() {
             showGrade('Conscrit');
         };
+
+        // Afficher les personnages
+        function showPersonnages() {
+            const personnagesTab = document.querySelector('.personnages-tab');
+            const menuLinks = document.querySelectorAll('.menu a, .menu button');
+
+            // Masquer tous les onglets sauf celui des personnages
+            document.querySelectorAll('.grade-tab').forEach(tab => tab.classList.remove('active'));
+            personnagesTab.classList.add('active');
+
+            // Désactiver tous les liens du menu
+            menuLinks.forEach(link => link.classList.remove('active'));
+
+            // Activer le bouton Personnages
+            document.querySelector('.menu button[data-grade="Personnages"]').classList.add('active');
+        }
     </script>
 </head>
 <body>
@@ -104,15 +126,13 @@ $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <a data-grade="Sergent" onclick="showGrade('Sergent')">Sergent</a>
     <a data-grade="Lieutenant" onclick="showGrade('Lieutenant')">Lieutenant</a>
     <a data-grade="Capitaine" onclick="showGrade('Capitaine')">Capitaine</a>
-    <!-- <a data-grade="Commandant" onclick="showGrade('Commandant')">Commandant</a> -->
-    <!-- <a data-grade="Colonel" onclick="showGrade('Colonel')">Colonel</a> -->
-    <!-- <a data-grade="Général" onclick="showGrade('Général')">Général</a> -->
     <a data-grade="Major" onclick="showGrade('Major')">Major</a>
+    <button data-grade="Personnages" onclick="showPersonnages()">Personnages</button>
 </div>
 
 <?php
 // Regrouper les utilisateurs par grade et afficher dans des tableaux séparés
-$grades = ['Conscrit', 'Garde', 'Garde-Vétéran', 'Caporal', 'Sergent', 'Lieutenant','capitaine', 'Major'];
+$grades = ['Conscrit', 'Garde', 'Garde-Vétéran', 'Caporal', 'Sergent', 'Lieutenant', 'Capitaine', 'Major'];
 
 foreach ($grades as $grade) {
     echo "<div class='grade-tab' data-grade='$grade'>";
@@ -127,23 +147,33 @@ foreach ($grades as $grade) {
             echo "<td>" . htmlspecialchars($utilisateur['nom']) . "</td>";
             echo "<td>" . htmlspecialchars($utilisateur['specialite'] ?? 'Pégu') . "</td>";
 
-            // Combiner la formation et la formation hiérarchique dans la même cellule
             $formation = $utilisateur['formation'] ?? 'Aucune';
             $formationHierarchique = $utilisateur['formation_hierarchique'] ?? 'Aucune';
             echo "<td>" . htmlspecialchars($formation . '/' . $formationHierarchique) . "</td>";
-            
             echo "</tr>";
         }
     }
-
     echo "</tbody></table></div>";
 }
-
-
 ?>
-<a href="krieg.php">
-    <img class="Krieg" src="../src/assets/DK.png" alt="Image">
-</a>
+
+<!-- Onglet des personnages -->
+<div class="personnages-tab">
+    <h2>Personnages</h2>
+    <table>
+        <thead>
+            <tr><th>Nom</th><th>Grade</th></tr>
+        </thead>
+        <tbody>
+            <?php foreach ($personnages as $personnage): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($personnage['nom']); ?></td>
+                    <td><?php echo htmlspecialchars($personnage['grade'] ?? 'Inconnue'); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
