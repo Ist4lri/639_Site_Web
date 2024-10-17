@@ -3,7 +3,7 @@ session_start();
 include 'php/db.php';
 
 if (!isset($_SESSION['utilisateur']) || $_SESSION['role'] !== 'admin') {
-    header("Location: php/connection.php");
+    header("Location: php/insubordination.php");
     exit();
 }
 
