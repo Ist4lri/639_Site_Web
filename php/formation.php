@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
         $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
         $stmt->execute(['email' => $_SESSION['utilisateur']]);
         $currentUser = $stmt->fetch();
-    }
+
         if (!$currentUser) {
             echo "Erreur : utilisateur non trouvé.";
             exit();
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
         $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
     }
         }
-
+    }
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
