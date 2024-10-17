@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
 
     if (isset($formation)) {
         if ($formation === 'VIRER') {
-            $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = 9 WHERE id = ?");
+            $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = 9, gerance = 0 WHERE id = ?");
             $updateStmt->execute([$id_utilisateur]);
             $message = "Utilisateur viré vers Fusilier.";
         } else {
@@ -183,6 +183,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <form action="formation.php" method="post">
                         <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
                         <button type="submit" name="accept" class="btn btn-success">Accepter</button>
+                        <button type="submit" name="reject" class="btn btn-success">Rejeter</button>
                     </form>
                 </td>
             </tr>
