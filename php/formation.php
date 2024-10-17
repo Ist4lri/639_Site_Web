@@ -12,33 +12,8 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// Si le bouton "Accepter" est pressé pour une demande de spécialité
+// Si le bouton "Accepter" ou "Rejeter" est pressé pour une demande de spécialité
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
-    $demande_id = $_POST['demande_id'];
-
-    // Récupérer l'utilisateur de la demande
-    $getUserStmt = $pdo->prepare("SELECT utilisateur_id FROM demande_spe WHERE id = ?");
-    $getUserStmt->execute([$demande_id]);
-    $userFromDemand = $getUserStmt->fetch();
-
-    // Vérifier si l'utilisateur de la demande a été trouvé
-    if ($userFromDemand) {
-        // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
-        $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
-        $stmt->execute(['email' => $_SESSION['utilisateur']]);
-        $currentUser = $stmt->fetch();
-
-        if (!$userFromDemand) {
-    $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
-}
-
-
-        if (!$currentUser) {
-            echo "Erreur : utilisateur non trouvé.";
-            exit();
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     $demande_id = $_POST['demande_id'];
 
     if (isset($_POST['accept'])) {
@@ -52,12 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
         $updateDemandStmt->execute([$demande_id]);
         $message = "Demande rejetée avec succès.";
     }
-
- else {
-        $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
-    }
-        }
-    }
+}
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
@@ -114,7 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
         }
     }
 }
-
 
 // Récupérer les demandes de spécialité de la même spécialité que l'utilisateur
 $stmt = $pdo->prepare("
