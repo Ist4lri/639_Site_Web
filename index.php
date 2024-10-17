@@ -136,7 +136,7 @@ th {
 }
         .back {
     position: absolute;
-    left: 0px;
+    left: -25px;
     top: 120px;
     width: 170px;
     height: auto;
