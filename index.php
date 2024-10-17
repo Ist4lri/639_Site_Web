@@ -137,8 +137,8 @@ th {
         .back {
     position: absolute;
     left: 10px;
-    top: 120px;
-    width: 120px;
+    top: 170px;
+    width: 170px;
     height: auto;
     cursor: pointer;
     animation: float 3s ease-in-out infinite;
