@@ -27,25 +27,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
         $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
         $stmt->execute(['email' => $_SESSION['utilisateur']]);
         $currentUser = $stmt->fetch();
-
+    }
         if (!$currentUser) {
             echo "Erreur : utilisateur non trouvé.";
             exit();
         }
 
-        // Mettre à jour la demande pour indiquer qu'elle est acceptée
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
+    $demande_id = $_POST['demande_id'];
+
+    if (isset($_POST['accept'])) {
+        // Action pour accepter la demande
         $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
         $updateDemandStmt->execute([$demande_id]);
+        $message = "Demande acceptée avec succès.";
+    } elseif (isset($_POST['reject'])) {
+        // Action pour rejeter la demande
+        $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Rejeter' WHERE id = ?");
+        $updateDemandStmt->execute([$demande_id]);
+        $message = "Demande rejetée avec succès.";
+    }
 
-        // Mettre à jour l'utilisateur pour changer la spécialité
-        $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = ? WHERE id = ?");
-        $updateUserSpeStmt->execute([$currentUser['spe_id'], $userFromDemand['utilisateur_id']]);
-
-        $message = "Demande acceptée avec succès et spécialité mise à jour.";
-    } else {
+ else {
         $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
     }
-}
+        }
+
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
@@ -183,7 +190,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <form action="formation.php" method="post">
                         <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
                         <button type="submit" name="accept" class="btn btn-success">Accepter</button>
-                        <button type="submit" name="reject" class="btn btn-success">Rejeter</button>
+                        <button type="submit" name="reject" class="btn btn-danger">Rejeter</button>
                     </form>
                 </td>
             </tr>
