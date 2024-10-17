@@ -137,11 +137,10 @@ th {
         .back {
     position: absolute;
     left: 10px;
-    top: 170px;
+    top: 40px;
     width: 170px;
     height: auto;
     cursor: pointer;
-    animation: float 3s ease-in-out infinite;
 }
 
         .officio {
