@@ -16,18 +16,40 @@ if (!isset($_SESSION['utilisateur'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     $demande_id = $_POST['demande_id'];
 
-    if (isset($_POST['accept'])) {
-        // Action pour accepter la demande
-        $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
-        $updateDemandStmt->execute([$demande_id]);
-        $message = "Demande acceptée avec succès.";
-    } elseif (isset($_POST['reject'])) {
-        // Action pour rejeter la demande
-        $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Rejeter' WHERE id = ?");
-        $updateDemandStmt->execute([$demande_id]);
-        $message = "Demande rejetée avec succès.";
+    // Récupérer l'utilisateur lié à la demande
+    $getUserStmt = $pdo->prepare("SELECT utilisateur_id FROM demande_spe WHERE id = ?");
+    $getUserStmt->execute([$demande_id]);
+    $userFromDemand = $getUserStmt->fetch();
+
+    if ($userFromDemand) {
+        $utilisateur_id = $userFromDemand['utilisateur_id'];
+
+        if (isset($_POST['accept'])) {
+            // Action pour accepter la demande
+            $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
+            $updateDemandStmt->execute([$demande_id]);
+
+            // Mettre à jour la formation de l'utilisateur à "FB" lorsqu'acceptée
+            $updateFormationStmt = $pdo->prepare("UPDATE formation SET formation = 'FB' WHERE id_utilisateur = ?");
+            $updateFormationStmt->execute([$utilisateur_id]);
+
+            $message = "Demande acceptée avec succès et formation mise à jour.";
+        } elseif (isset($_POST['reject'])) {
+            // Action pour rejeter la demande
+            $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Rejeter' WHERE id = ?");
+            $updateDemandStmt->execute([$demande_id]);
+
+            // Mettre à jour la formation de l'utilisateur à "FB" lorsqu'rejetée
+            $updateFormationStmt = $pdo->prepare("UPDATE formation SET formation = 'FB' WHERE id_utilisateur = ?");
+            $updateFormationStmt->execute([$utilisateur_id]);
+
+            $message = "Demande rejetée avec succès et formation mise à jour.";
+        }
+    } else {
+        $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
     }
 }
+
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
@@ -64,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_utilisateur'])) {
 
     if (isset($formation)) {
         if ($formation === 'VIRER') {
-            $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = 9, gerance = 0 WHERE id = ?");
+            $updateStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = 9, gerance = 0, formation = FB WHERE id = ?");
             $updateStmt->execute([$id_utilisateur]);
             $message = "Utilisateur viré vers Fusilier.";
         } else {
