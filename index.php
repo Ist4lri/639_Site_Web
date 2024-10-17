@@ -134,6 +134,15 @@ th {
     cursor: pointer;
     animation: float 3s ease-in-out infinite;
 }
+        .back {
+    position: absolute;
+    left: 10px;
+    top: 120px;
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+}
 
         .officio {
     position: absolute;
@@ -290,6 +299,10 @@ th {
 
      <a href="/php/mechanicus.php">
     <img src="/src/assets/mech.png" alt="Mechanicus" class="mech">
+    </a> 
+
+    <a href="back.php">
+    <img src="/src/assets/Zeuslogo.png" alt="Back" class="back">
     </a> 
 
     <a href="/php/eglise.php">
