@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
             $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET  spe_id = 9 WHERE id = ?");
             $updateUserSpeStmt->execute([$userFromDemand['utilisateur_id']]);
 
-            $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier' (spe_id = 9).";
+            $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité Fusilier.";
         }
 
     } else {
