@@ -51,9 +51,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
 
 
 // Récupérer l'utilisateur actuel
+// Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
 $stmt->execute(['email' => $_SESSION['utilisateur']]);
 $currentUser = $stmt->fetch();
+
+// Vérifier si l'utilisateur a été trouvé
+if (!$currentUser) {
+    echo "Erreur : utilisateur non trouvé.";
+    exit();  // Arrête l'exécution du script si l'utilisateur n'est pas trouvé
+}
 
 // Vérifier si l'utilisateur a la bonne spécialité et gérance (gérance 1 ou 2)
 if (!in_array($currentUser['gerance'], [1, 2])) {
