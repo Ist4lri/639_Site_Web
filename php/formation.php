@@ -38,8 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
             $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
             $updateDemandStmt->execute([$demande_id]);
 
+            $updateFormationStmt = $pdo->prepare("UPDATE formation SET formation = 'FB' WHERE id_utilisateur = ?");
+            $updateFormationStmt->execute([$userFromDemand['utilisateur_id']]);
+
             // Mettre à jour l'utilisateur pour changer la spécialité
-            $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = ? WHERE id = ?");
+            $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = ? WHERE id = ?");
             $updateUserSpeStmt->execute([$currentUser['spe_id'], $userFromDemand['utilisateur_id']]);
 
             $message = "Demande acceptée avec succès et spécialité mise à jour.";
@@ -49,9 +52,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
             // Mettre à jour la demande pour indiquer qu'elle est rejetée
             $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Rejeter' WHERE id = ?");
             $updateDemandStmt->execute([$demande_id]);
+           
+            $updateFormationStmt = $pdo->prepare("UPDATE formation SET formation = 'FB' WHERE id_utilisateur = ?");
+            $updateFormationStmt->execute([$userFromDemand['utilisateur_id']]);
 
             // Mettre à jour l'utilisateur avec formation = 'FB' et spe_id = 9
-            $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = 9 WHERE id = ?");
+            $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET  spe_id = 9 WHERE id = ?");
             $updateUserSpeStmt->execute([$userFromDemand['utilisateur_id']]);
 
             $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier' (spe_id = 9).";
