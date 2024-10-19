@@ -12,7 +12,7 @@ if (!isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// Si le bouton "Accepter" est pressé pour une demande de spécialité
+// Si le bouton "Accepter" ou "Rejeter" est pressé pour une demande de spécialité
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     $demande_id = $_POST['demande_id'];
 
@@ -22,43 +22,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     $userFromDemand = $getUserStmt->fetch();
 
     if ($userFromDemand) {
-    // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
-    $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
-    $stmt->execute(['email' => $_SESSION['utilisateur']]);
-    $currentUser = $stmt->fetch();
+        // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
+        $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
+        $stmt->execute(['email' => $_SESSION['utilisateur']]);
+        $currentUser = $stmt->fetch();
 
-    if (!$currentUser) {
-        echo "Erreur : utilisateur non trouvé.";
-        exit();
+        if (!$currentUser) {
+            echo "Erreur : utilisateur non trouvé.";
+            exit();
+        }
+
+        // Si le bouton "Accepter" est appuyé
+        if (isset($_POST['accept'])) {
+            // Mettre à jour la demande pour indiquer qu'elle est acceptée
+            $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
+            $updateDemandStmt->execute([$demande_id]);
+
+            // Mettre à jour l'utilisateur pour changer la spécialité
+            $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = ? WHERE id = ?");
+            $updateUserSpeStmt->execute([$currentUser['spe_id'], $userFromDemand['utilisateur_id']]);
+
+            $message = "Demande acceptée avec succès et spécialité mise à jour.";
+
+        // Si le bouton "Rejeter" est appuyé
+        } elseif (isset($_POST['reject'])) {
+            // Mettre à jour la demande pour indiquer qu'elle est rejetée
+            $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Rejeter' WHERE id = ?");
+            $updateDemandStmt->execute([$demande_id]);
+
+            // Mettre à jour l'utilisateur avec formation = 'FB' et spe_id = 9
+            $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = 9 WHERE id = ?");
+            $updateUserSpeStmt->execute([$userFromDemand['utilisateur_id']]);
+
+            $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier' (spe_id = 9).";
+        }
+
+    } else {
+        $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
     }
-
-    // Si le bouton "Accepter" est appuyé
-    if (isset($_POST['accept'])) {
-        // Mettre à jour la demande pour indiquer qu'elle est acceptée
-        $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
-        $updateDemandStmt->execute([$demande_id]);
-
-        // Mettre à jour l'utilisateur pour changer la spécialité
-        $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = ? WHERE id = ?");
-        $updateUserSpeStmt->execute([$currentUser['spe_id'], $userFromDemand['utilisateur_id']]);
-
-        $message = "Demande acceptée avec succès et spécialité mise à jour.";
-
-    // Si le bouton "Rejeter" est appuyé
-    } elseif (isset($_POST['reject'])) {
-        // Mettre à jour la demande pour indiquer qu'elle est rejetée
-        $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Rejeter' WHERE id = ?");
-        $updateDemandStmt->execute([$demande_id]);
-
-        // Mettre à jour l'utilisateur avec formation = 'FB' et spe_id = 9
-        $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = 9 WHERE id = ?");
-        $updateUserSpeStmt->execute([$userFromDemand['utilisateur_id']]);
-
-        $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier' (spe_id = 9).";
-    }
-
-} else {
-    $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
 }
 
 
