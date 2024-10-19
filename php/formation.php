@@ -23,10 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
 
     // Vérifier si l'utilisateur de la demande a été trouvé
     if ($userFromDemand) {
-    // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
-    $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
-    $stmt->execute(['email' => $_SESSION['utilisateur']]);
-    $currentUser = $stmt->fetch();
+        // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
+        $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
+        $stmt->execute(['email' => $_SESSION['utilisateur']]);
+        $currentUser = $stmt->fetch();
+
+        if (!$currentUser) {
+            echo "Erreur : utilisateur non trouvé.";
+            exit();
+        }
 
     if (!$currentUser) {
         echo "Erreur : utilisateur non trouvé.";
@@ -56,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
         $updateUserSpeStmt->execute([$userFromDemand['utilisateur_id']]);
 
         $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier' (spe_id = 9).";
+    }
     }
 
 // Récupérer l'utilisateur actuel
