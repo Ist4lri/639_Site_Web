@@ -21,17 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     $getUserStmt->execute([$demande_id]);
     $userFromDemand = $getUserStmt->fetch();
 
-    // Vérifier si l'utilisateur de la demande a été trouvé
     if ($userFromDemand) {
-        // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
-        $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
-        $stmt->execute(['email' => $_SESSION['utilisateur']]);
-        $currentUser = $stmt->fetch();
-
-        if (!$currentUser) {
-            echo "Erreur : utilisateur non trouvé.";
-            exit();
-        }
+    // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
+    $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
+    $stmt->execute(['email' => $_SESSION['utilisateur']]);
+    $currentUser = $stmt->fetch();
 
     if (!$currentUser) {
         echo "Erreur : utilisateur non trouvé.";
@@ -39,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     }
 
     // Si le bouton "Accepter" est appuyé
-   if (isset($_POST['accept'])) {
+    if (isset($_POST['accept'])) {
         // Mettre à jour la demande pour indiquer qu'elle est acceptée
         $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
         $updateDemandStmt->execute([$demande_id]);
@@ -62,7 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
 
         $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier' (spe_id = 9).";
     }
-    }
+
+} else {
+    $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
+}
+
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
