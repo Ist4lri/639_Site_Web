@@ -23,29 +23,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
 
     // Vérifier si l'utilisateur de la demande a été trouvé
     if ($userFromDemand) {
-        // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
-        $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
-        $stmt->execute(['email' => $_SESSION['utilisateur']]);
-        $currentUser = $stmt->fetch();
+    // Récupérer l'utilisateur actuel (doit être fait après la soumission du formulaire)
+    $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
+    $stmt->execute(['email' => $_SESSION['utilisateur']]);
+    $currentUser = $stmt->fetch();
 
-        if (!$currentUser) {
-            echo "Erreur : utilisateur non trouvé.";
-            exit();
-        }
+    if (!$currentUser) {
+        echo "Erreur : utilisateur non trouvé.";
+        exit();
+    }
 
+    // Si le bouton "Accepter" est appuyé
+    if (isset($_POST['accept'])) {
         // Mettre à jour la demande pour indiquer qu'elle est acceptée
         $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
         $updateDemandStmt->execute([$demande_id]);
 
         // Mettre à jour l'utilisateur pour changer la spécialité
-        $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET spe_id = ? WHERE id = ?");
+        $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = ? WHERE id = ?");
         $updateUserSpeStmt->execute([$currentUser['spe_id'], $userFromDemand['utilisateur_id']]);
 
         $message = "Demande acceptée avec succès et spécialité mise à jour.";
-    } else {
-        $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
+
+    // Si le bouton "Rejeter" est appuyé
+    } elseif (isset($_POST['reject'])) {
+        // Mettre à jour la demande pour indiquer qu'elle est rejetée
+        $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Rejeter' WHERE id = ?");
+        $updateDemandStmt->execute([$demande_id]);
+
+        // Mettre à jour l'utilisateur avec formation = 'FB' et spe_id = 9
+        $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = 9 WHERE id = ?");
+        $updateUserSpeStmt->execute([$userFromDemand['utilisateur_id']]);
+
+        $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier'.";
     }
+
+} else {
+    $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
 }
+
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
@@ -183,7 +199,7 @@ $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <form action="formation.php" method="post">
                         <input type="hidden" name="demande_id" value="<?php echo $demande['id']; ?>">
                         <button type="submit" name="accept" class="btn btn-success">Accepter</button>
-                        <button type="submit" name="reject" class="btn btn-success">Rejeter</button>
+                        <button type="submit" name="reject" class="btn btn-reject">Rejeter</button>
                     </form>
                 </td>
             </tr>
