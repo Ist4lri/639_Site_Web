@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
     }
 
     // Si le bouton "Accepter" est appuyé
-    if (isset($_POST['accept'])) {
+   if (isset($_POST['accept'])) {
         // Mettre à jour la demande pour indiquer qu'elle est acceptée
         $updateDemandStmt = $pdo->prepare("UPDATE demande_spe SET demande = 'Accepter' WHERE id = ?");
         $updateDemandStmt->execute([$demande_id]);
@@ -55,13 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['demande_id'])) {
         $updateUserSpeStmt = $pdo->prepare("UPDATE utilisateurs SET formation = 'FB', spe_id = 9 WHERE id = ?");
         $updateUserSpeStmt->execute([$userFromDemand['utilisateur_id']]);
 
-        $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier'.";
+        $message = "Demande rejetée avec succès et l'utilisateur a été transféré vers la spécialité 'Fusilier' (spe_id = 9).";
     }
-
-} else {
-    $message = "Erreur lors de la récupération de l'utilisateur de la demande.";
-}
-
 
 // Récupérer l'utilisateur actuel
 $stmt = $pdo->prepare("SELECT id, spe_id, gerance FROM utilisateurs WHERE email = :email");
