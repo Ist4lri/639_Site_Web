@@ -61,9 +61,6 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="../index.php">
             <img src="../src/assets/Logo.png" alt="Logo 639">
         </a>
-        <?php if ($isLoggedIn): ?>
-            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
-        <?php endif; ?>
     </div>
     <div class="head-logo2">
         <a href="../index.php">
