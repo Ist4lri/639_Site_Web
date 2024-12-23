@@ -77,3 +77,10 @@ input[type="submit"].danger {
 input[type="submit"].danger:hover {
     background-color: #b52b38;
 }
+.note-field {
+    width: 300px; /* Largeur du champ */
+    height: 50px; /* Hauteur du champ */
+    font-size: 16px; /* Taille de police */
+    padding: 10px; /* Espace intérieur */
+}
+
