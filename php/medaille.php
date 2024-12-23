@@ -101,7 +101,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <tbody>
             <?php foreach ($users as $user): ?>
                 <tr>
-                    <form action="medailles.php" method="post">
+                    <form action="medaille.php" method="post">
                         <td><?php echo htmlspecialchars($user['nom']); ?></td>
                         <td><?php echo htmlspecialchars($user['grade']); ?></td>
 
