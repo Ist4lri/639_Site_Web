@@ -109,7 +109,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endfor; ?>
 
                         <td>
-                            <input type="text" name="note" value="<?php echo htmlspecialchars($user['note']); ?>">
+                            <input type="text" name="note" value="<?php echo htmlspecialchars($user['note'] ?? ''); ?>">
                         </td>
 
                         <td>
