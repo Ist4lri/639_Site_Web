@@ -50,9 +50,33 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Médailles et Note</title>
+    <title>Gestion des Officiers</title>
+    <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
     <link rel="stylesheet" href="../css/tab.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
+
+<header class="head">
+    <div class="head-logo">
+        <a href="../index.php">
+            <img src="../src/assets/Logo.png" alt="Logo 639">
+        </a>
+        <?php if ($isLoggedIn): ?>
+            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
+        <?php endif; ?>
+    </div>
+    <div class="head-logo2">
+        <a href="../index.php">
+        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
+        </a>
+    </div>
+    <nav class="head-nav">
+            <a href="profil_utilisateur.php">Profil</a>
+            <a href="officier.php">Grades</a>
+            <a href="demande.php">Demandes</a>
+            <a href="Dec.php">Déconnexion</a>
+    </nav>
+</header>
 <body>
     <h1>Gestion des Médailles et Note</h1>
 
