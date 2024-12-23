@@ -132,7 +132,7 @@ $userName = $isLoggedIn ? $_SESSION['nom_utilisateur'] : '';
     </div>
     <nav class="head-nav">
             <a href="profil_utilisateur.php">Profil</a>
-            <a href="officier.php">Grades</a>
+            <a href="medaille.php">Médailles</a>
             <a href="demande.php">Demandes</a>
             <a href="Dec.php">Déconnexion</a>
     </nav>
