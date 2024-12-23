@@ -16,28 +16,30 @@ if (!in_array($currentUser['grade'], $gradesAutorises)) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
 
+    $nouvelleNote = $_POST['note'];
     for ($i = 1; $i <= 5; $i++) {
         $medalField = "medaille_$i";
-        $noteField = "note_$i";
-
         if (isset($_POST[$medalField])) {
-            $stmt = $pdo->prepare("UPDATE medailles SET note = :note WHERE id_utilisateur = :id_utilisateur AND medaille = :medaille");
-            $stmt->execute([
-                'note' => $_POST[$noteField],
-                'id_utilisateur' => $userId,
-                'medaille' => "Médaille $i"
-            ]);
+            $stmt = $pdo->prepare("UPDATE utilisateurs SET $medalField = 1 WHERE id = :id_utilisateur");
+            $stmt->execute(['id_utilisateur' => $userId]);
+        } else {
+            $stmt = $pdo->prepare("UPDATE utilisateurs SET $medalField = 0 WHERE id = :id_utilisateur");
+            $stmt->execute(['id_utilisateur' => $userId]);
         }
     }
 
-    $message = "Les médailles et notes ont été mises à jour avec succès.";
+    $stmt = $pdo->prepare("UPDATE utilisateurs SET note = :note WHERE id = :id_utilisateur");
+    $stmt->execute([
+        'note' => $nouvelleNote,
+        'id_utilisateur' => $userId
+    ]);
+
+    $message = "Les médailles et la note ont été mises à jour avec succès.";
 }
 
-// Fetch users and medals data
-$sql = "SELECT u.id, u.nom, u.grade, m.medaille, m.note 
-        FROM utilisateurs u 
-        LEFT JOIN medailles m ON u.id = m.id_utilisateur
-        WHERE m.medaille IS NOT NULL";
+// Fetch users data
+$sql = "SELECT id, nom, grade, medaille_1, medaille_2, medaille_3, medaille_4, medaille_5, note 
+        FROM utilisateurs";
 $stmt = $pdo->query($sql);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -48,33 +50,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Officiers</title>
-    <link rel="icon" type="image/x-icon" href="../src/assets/Logo_639th_2.ico">
+    <title>Gestion des Médailles et Note</title>
     <link rel="stylesheet" href="../css/tab.css">
-    <link rel="stylesheet" href="../css/header.css">
 </head>
-
-<header class="head">
-    <div class="head-logo">
-        <a href="../index.php">
-            <img src="../src/assets/Logo.png" alt="Logo 639">
-        </a>
-        <?php if ($isLoggedIn): ?>
-            <span class="head-username">Bonjour, <?php echo htmlspecialchars($userName); ?></span>
-        <?php endif; ?>
-    </div>
-    <div class="head-logo2">
-        <a href="../index.php">
-        <img src="../src/assets/TitreSite.png" alt="639 Régiment cadien">
-        </a>
-    </div>
-    <nav class="head-nav">
-            <a href="profil_utilisateur.php">Profil</a>
-            <a href="officier.php">Grades</a>
-            <a href="demande.php">Demandes</a>
-            <a href="Dec.php">Déconnexion</a>
-    </nav>
-</header>
 <body>
     <h1>Gestion des Médailles et Note</h1>
 
@@ -104,13 +82,17 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?php echo htmlspecialchars($user['grade']); ?></td>
 
                         <?php for ($i = 1; $i <= 5; $i++): ?>
-                            <td>Médaille <?php echo $i; ?></td>
                             <td>
-                                <input type="text" name="note_<?php echo $i; ?>" value="<?php echo htmlspecialchars($user["note_$i"] ?? ''); ?>">
+                                <input type="checkbox" name="medaille_<?php echo $i; ?>" value="1" <?php echo $user["medaille_$i"] ? 'checked' : ''; ?>>
                             </td>
                         <?php endfor; ?>
 
                         <td>
+                            <input type="text" name="note" value="<?php echo htmlspecialchars($user['note']); ?>">
+                        </td>
+
+                        <td>
+                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
                             <button type="submit">Mettre à jour</button>
                         </td>
                     </form>
