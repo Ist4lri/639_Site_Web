@@ -109,7 +109,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endfor; ?>
 
                         <td>
-                            <input type="textarea" name="note" class="note-field" value="<?php echo htmlspecialchars($user['note'] ?? ''); ?>">
+                            <textarea name="note" class="note-field"><?php echo htmlspecialchars($user['note'] ?? ''); ?></textarea>
                         <td>
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
                             <button type="submit">Mettre à jour</button>
